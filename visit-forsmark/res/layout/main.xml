@@ -9,4 +9,18 @@
         android:layout_height="wrap_content"
         android:text="@string/hello" />
 
+    <!-- NEED TO CHANGE -->
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kalender" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KontaktPerson" />
+
 </LinearLayout>
