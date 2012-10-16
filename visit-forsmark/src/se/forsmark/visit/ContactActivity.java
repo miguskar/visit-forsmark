@@ -35,17 +35,17 @@ public class ContactActivity extends Activity {
 		ImageView iv = (ImageView) findViewById(R.id.border_progress);
 		iv.setVisibility(View.VISIBLE); //Unhide progress
 		iv.setBackgroundResource(R.drawable.border_step_one); //Display step one
-		//Display hint
+		//Display hint button
 		Button b = (Button) findViewById(R.id.button_hint_top);
-		b.setVisibility(View.VISIBLE);
-		b.setOnClickListener(new OnClickListener() {
+		b.setVisibility(View.VISIBLE); //Unhide button
+		
+		b.setOnClickListener(new OnClickListener() { //Create Toast hint
 			
 			public void onClick(View v) {
-				String text = getResources().getString(R.string.ContactActivityToast);
-				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-				t.setGravity(Gravity.TOP|Gravity.RIGHT, 0, 0);
+				String text = getResources().getString(R.string.ContactActivityToast); //Get message from resources
+				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); //Creat toast
+				t.setGravity(Gravity.TOP, 0, 0); //Position
 				t.show();
-				
 			}
 		});
 		

@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:background="#EEF6FF"
     android:orientation="vertical" >
-
+
     <include
         android:id="@+id/border"
         layout="@layout/border" />
@@ -31,7 +31,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
-                android:ems="10" >
+                android:ems="10"
+                android:inputType="textPersonName" >
 
                 <requestFocus />
             </EditText>
@@ -47,7 +48,8 @@
                 android:id="@+id/editText2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="10" >
+                android:ems="10"
+                android:inputType="textPersonName" >
             </EditText>
 
             <TextView
@@ -63,10 +65,11 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number" />
-
-            <RelativeLayout
+
+            <RadioGroup
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
                 <RadioButton
                     android:id="@+id/radioButton1"
@@ -86,8 +89,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="20dp"
-                    android:text="Kvinna" />
-            </RelativeLayout>
+                    android:text="Kvinna" android:layout_marginLeft="20dp"/>
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/textView4"
