@@ -5,8 +5,10 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -17,9 +19,13 @@ public class CalenderActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.calenderview);
-
-		TableLayout cal = (TableLayout) findViewById(R.id.calendarTable);
+		setContentView(R.layout.template);
+		
+		View v = View.inflate(this, R.layout.calenderview, null);
+		RelativeLayout l = (RelativeLayout) findViewById(R.id.activity_container);
+		l.addView(v);
+		
+		TableLayout cal = (TableLayout) v.findViewById(R.id.calendarTable);
 		TableRow row;
 		TextView cell;
 
