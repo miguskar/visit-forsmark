@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="calStringsSwe">
+        <item>@string/calendarWeek</item>
+        <item>@string/calendarMonday</item>
+        <item>@string/calendarTuesday</item>
+        <item>@string/calendarWensday</item>
+        <item>@string/calendarThursday</item>
+        <item>@string/calendarFriday</item>
+        <item>@string/calendarSaturday</item>
+        <item>@string/calendarSunday</item>
+    </string-array>
+
+</resources>
