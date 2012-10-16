@@ -11,5 +11,7 @@
     <string name="calendarSaturday">Lör</string>
     <string name="calendarSunday">Sön</string>
     <string name="calendarWeek">V.</string>
+    <string name="ContactActivityTitle">Kontaktperson</string>
+    <string name="ContactActivityToast">Kontaktpersonen är den deltagare som ansvarar för bokningen.</string>
 
 </resources>

@@ -36,7 +36,7 @@
             android:windowSoftInputMode="stateUnchanged">
         </activity>
         <activity
-            android:name="AttendentsActivity"
+            android:name=".AttendantsActivity"
             android:enabled="true" >
         </activity>
         <activity

@@ -4,14 +4,16 @@
     android:layout_height="fill_parent"
     android:background="#EEF6FF"
     android:orientation="vertical" >
-    
-    <include layout="@layout/border" android:id="@+id/border"/>
-  
-  	
+
+    <include
+        android:id="@+id/border"
+        layout="@layout/border" />
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" >
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -19,44 +21,41 @@
 
             <TextView
                 android:id="@+id/textView1"
+                style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Förnamn" style="@style/CodeFont"/>
+                android:text="Förnamn" />
 
             <EditText
                 android:id="@+id/editText1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:background="#FFFFFF" 
-                >
-                
+                android:background="#FFFFFF"
+                android:ems="10" >
 
                 <requestFocus />
             </EditText>
 
             <TextView
                 android:id="@+id/textView2"
+                style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Efternamn"
-                style="@style/CodeFont" />
+                android:text="Efternamn" />
 
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10" >
-
-                
             </EditText>
 
             <TextView
                 android:id="@+id/textView3"
+                style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Personnummer"
-                style="@style/CodeFont" />
+                android:text="Personnummer" />
 
             <EditText
                 android:id="@+id/editText3"
@@ -71,32 +70,31 @@
 
                 <RadioButton
                     android:id="@+id/radioButton1"
+                    style="@style/RadioButtonFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
-                    android:text="Man"
-                  
-                    style="@style/RadioButtonFont" />
+                    android:text="Man" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
+                    style="@style/RadioButtonFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="20dp"
-                    android:text="Kvinna"
-                    style="@style/RadioButtonFont" />
+                    android:text="Kvinna" />
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/textView4"
+                style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adress" 
-                style="@style/CodeFont"/>
+                android:text="Adress" />
 
             <EditText
                 android:id="@+id/editText4"
@@ -107,10 +105,10 @@
 
             <TextView
                 android:id="@+id/textView5"
+                style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Postnummer" 
-                style="@style/CodeFont"/>
+                android:text="Postnummer" />
 
             <EditText
                 android:id="@+id/editText5"
@@ -118,14 +116,13 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number" />
-            	
 
             <TextView
                 android:id="@+id/textView6"
+                style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Postadress" 
-                style="@style/CodeFont"/>
+                android:text="Postadress" />
 
             <EditText
                 android:id="@+id/editText6"
@@ -136,19 +133,37 @@
 
             <TextView
                 android:id="@+id/textView7"
+                style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Land"
-                style="@style/CodeFont" />
+                android:text="Land" />
 
             <EditText
                 android:id="@+id/editText7"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10" />
-        </LinearLayout>
-        	
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/bottomBackButton"
+                    style="@style/bottomBackButton"
+                    android:text="back" />
+
+                <Button
+                    android:id="@+id/bottomCancelButton"
+                    style="@style/bottomCancelButton"
+                    android:text="cancel" />
+
+                <Button
+                    android:id="@+id/bottomNextButton"
+                    style="@style/bottomNextButton"
+                    android:text="next" />
+            </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>
