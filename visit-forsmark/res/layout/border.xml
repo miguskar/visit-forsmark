@@ -75,6 +75,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:background="@drawable/button_back_top"
+            android:onClick="topPreButton"
             android:visibility="gone" />
 
         <!-- Next button top -->
@@ -87,6 +88,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:background="@drawable/button_next_top"
+            android:onClick="topPostButton"
             android:visibility="gone" />
     </RelativeLayout>
 

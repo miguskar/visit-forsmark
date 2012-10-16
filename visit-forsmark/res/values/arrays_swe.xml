@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="calStringsSwe">
+    <string-array name="calDaysStringsSwe">
         <item>@string/calendarWeek</item>
         <item>@string/calendarMonday</item>
         <item>@string/calendarTuesday</item>
@@ -10,6 +10,22 @@
         <item>@string/calendarFriday</item>
         <item>@string/calendarSaturday</item>
         <item>@string/calendarSunday</item>
+    </string-array>
+    
+    
+  	<string-array name="calMonthStringsSwe">
+        <item>Janurai</item>
+        <item>Februari</item>
+        <item>Mars</item>
+        <item>April</item>
+        <item>Maj</item>
+        <item>Juni</item>
+        <item>Juli</item>
+        <item>Augusti</item>
+        <item>September</item>
+        <item>Oktober</item>
+        <item>November</item>
+        <item>NU ÄR DET JUL IGEN!</item>
     </string-array>
 
 </resources>
