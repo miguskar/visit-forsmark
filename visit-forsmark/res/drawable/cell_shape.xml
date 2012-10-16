@@ -6,6 +6,7 @@
         android:width="0.5dp"
         android:color="#000099" >
     </stroke>
+
     <padding
         android:bottom="3dp"
         android:left="3dp"
@@ -18,3 +19,4 @@
         android:startColor="#FFFFFF" />
 
 </shape>
+

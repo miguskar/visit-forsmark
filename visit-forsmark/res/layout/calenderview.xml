@@ -48,7 +48,7 @@
             android:id="@+id/cell18"
             style="@style/restCellStyle" />
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/calendarTable"
         android:layout_width="fill_parent"
@@ -258,7 +258,7 @@
                 android:id="@+id/cell68"
                 style="@style/dateCellStyle" />
         </LinearLayout>
-
+
         <LinearLayout
             android:id="@+id/LinearLayout7"
             android:layout_width="fill_parent"
@@ -290,15 +290,14 @@
             <Button
                 android:id="@+id/cell76"
                 style="@style/dateCellStyle" />
-
+
             <Button
                 android:id="@+id/cell77"
                 style="@style/dateCellStyle" />
-
+
             <Button
                 android:id="@+id/cell78"
                 style="@style/dateCellStyle" />
-
         </LinearLayout>
     </LinearLayout>
 

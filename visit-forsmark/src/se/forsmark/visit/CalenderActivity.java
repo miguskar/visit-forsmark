@@ -3,6 +3,7 @@ package se.forsmark.visit;
 import java.util.Calendar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,8 +21,12 @@ public class CalenderActivity extends Activity {
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-		
 		setCalender(c); // Initialize calendar
+		
+		Button bb = (Button) findViewById(R.id.button_back_top);
+		Button bn  = (Button) findViewById(R.id.button_next_top);
+		bn.setVisibility(View.VISIBLE);
+		bb.setVisibility(View.VISIBLE);
 	}
 
 	public void setCalender(Calendar c) {
@@ -56,5 +61,9 @@ public class CalenderActivity extends Activity {
 			}
 		}
 
+	}
+	
+	public void onDateClick(View v){
+		
 	}
 }
