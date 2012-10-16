@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#EEF6FF"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/border"
+        layout="@layout/border" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/CodeFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Förnamn" />
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:ems="10"
+                android:inputType="textPersonName" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/CodeFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Efternamn" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" >
+               
+            </EditText>
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/CodeFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personnummer" />
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    style="@style/RadioButtonFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="Man" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    style="@style/RadioButtonFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Kvinna" />
+            </RadioGroup>
+
+            
+            <!-- NO SFR ______________________________________________________ -->
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+            	>
+            
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/RadioButtonFont"
+                android:text="@string/NoSFR" />
+
+            <Button
+                android:id="@+id/button_hint_SFR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/checkBox1"
+                android:layout_marginLeft="5dp"
+                android:layout_alignBottom="@+id/checkBox1"
+                android:layout_toRightOf="@+id/checkBox1"
+                android:background="@drawable/hint"
+                android:visibility="visible" />
+            
+            </RelativeLayout>
+            <!-- ______________________________________________________________ -->
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="bottom" >
+
+                <Button
+                    android:id="@+id/bottomBackButton"
+                    style="@style/bottomBackButton"
+                    android:text="back" />
+
+                <Button
+                    android:id="@+id/bottomCancelButton"
+                    style="@style/bottomCancelButton"
+                    android:text="cancel" />
+
+                <Button
+                    android:id="@+id/bottomNextButton"
+                    style="@style/bottomNextButton"
+                    android:text="next" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -11,6 +11,6 @@ public class AttendantsActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.main); //CHANGE
+		setContentView(R.layout.attendantsview);
 	}
 }

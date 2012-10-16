@@ -61,6 +61,7 @@ public class ContactActivity extends Activity {
 
 	public void bottomNextClick(View v) {
 		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
+		i.putExtra("personCount", 5); //TODO ALLTID 5 ATM hårdkodat som fan
 		startActivity(i);
 	}
 }
