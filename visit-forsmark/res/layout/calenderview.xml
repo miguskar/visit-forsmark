@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="#EEF6FF">
+    android:background="#EEF6FF"
+    android:orientation="vertical" >
 
     <include
         android:id="@+id/border"
         layout="@layout/border" />
-
+
     <LinearLayout
         android:id="@+id/weekDays"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-
+
         <TextView
             android:id="@+id/cell11"
             style="@style/restCellStyle"
@@ -48,11 +48,14 @@
             android:id="@+id/cell18"
             style="@style/restCellStyle" />
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/calendarTable"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -61,7 +64,7 @@
             android:layout_height="fill_parent"
             android:layout_weight=".14"
             android:orientation="horizontal" >
-
+
             <TextView
                 android:id="@+id/cell21"
                 style="@style/restCellStyle"
@@ -101,7 +104,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight=".14" >
-
+
             <TextView
                 android:id="@+id/cell31"
                 style="@style/restCellStyle"
@@ -141,7 +144,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight=".14" >
-
+
             <TextView
                 android:id="@+id/cell41"
                 style="@style/restCellStyle"
@@ -181,7 +184,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight=".14" >
-
+
             <TextView
                 android:id="@+id/cell51"
                 style="@style/restCellStyle"
@@ -221,7 +224,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight=".14" >
-
+
             <TextView
                 android:id="@+id/cell61"
                 style="@style/restCellStyle"
@@ -255,13 +258,14 @@
                 android:id="@+id/cell68"
                 style="@style/dateCellStyle" />
         </LinearLayout>
-
+
         <LinearLayout
             android:id="@+id/LinearLayout7"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginBottom="0.5dp"
             android:layout_weight=".14" >
-
+
             <TextView
                 android:id="@+id/cell71"
                 style="@style/restCellStyle"
@@ -286,15 +290,20 @@
             <Button
                 android:id="@+id/cell76"
                 style="@style/dateCellStyle" />
-
+
             <Button
                 android:id="@+id/cell77"
                 style="@style/dateCellStyle" />
-
+
             <Button
                 android:id="@+id/cell78"
                 style="@style/dateCellStyle" />
+
         </LinearLayout>
     </LinearLayout>
+
+    <include
+        android:id="@+id/bottom"
+        layout="@layout/bottom" />
 
 </LinearLayout>
