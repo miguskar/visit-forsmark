@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Alla barnen heter jonas!</string>
+    <string name="app_name">Visit-forsmark</string>
+    <string name="calendarMonday">Mån</string>
+    <string name="calendarTuesday">Tis</string>
+    <string name="calendarWensday">Ons</string>
+    <string name="calendarThursday">Tor</string>
+    <string name="calendarFriday">Fri</string>
+    <string name="calendarSaturday">Lör</string>
+    <string name="calendarSunday">Sön</string>
+    <string name="calendarWeek">V.</string>
+
+</resources>
