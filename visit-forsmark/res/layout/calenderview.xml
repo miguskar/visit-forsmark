@@ -301,8 +301,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <include
-        android:id="@+id/bottom"
-        layout="@layout/bottom" />
-
 </LinearLayout>
