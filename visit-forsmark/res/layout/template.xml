@@ -29,7 +29,7 @@
                 android:text="3 januari"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <!-- Year // Progress -->
+            <!-- Year -->
 
             <TextView
                 android:id="@+id/border_small"
@@ -38,7 +38,18 @@
                 android:layout_below="@+id/border_title"
                 android:layout_centerHorizontal="true"
                 android:text="Year/Status"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:visibility="gone" />
+            
+            <!-- Progress -->
+
+            <ImageView
+                android:id="@+id/border_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/border_title"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/border_step_one" />
 
             <!-- Hint button top -->
 
