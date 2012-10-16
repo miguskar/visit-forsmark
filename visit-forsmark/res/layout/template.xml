@@ -11,66 +11,71 @@
         android:layout_height="55dp"
         android:background="@drawable/border_background" >
 
-        <!-- Title -->
-
-        <TextView
-            android:id="@+id/border_title"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/border_text_container"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="Title"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_centerVertical="true" >
 
-        <!-- Year // Progress -->
+            <!-- Title -->
 
-        <TextView
-            android:id="@+id/border_small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/border_title"
-            android:layout_centerHorizontal="true"
-            android:text="Year/Status"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/border_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="3 januari"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
+            <!-- Year // Progress -->
+
+            <TextView
+                android:id="@+id/border_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/border_title"
+                android:layout_centerHorizontal="true"
+                android:text="Year/Status"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <!-- Hint button top -->
+
+            <Button
+                android:id="@+id/button_hint_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@+id/border_title"
+                android:background="@drawable/hint" />
+        </RelativeLayout>
         <!-- Back button top -->
 
         <Button
             android:id="@+id/button_back_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:text="Button" />
-
-        <!-- Forward button top -->
-
-        <Button
-            android:id="@+id/button_forward_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:text="Button" />
+            android:background="@drawable/button_back_top" />
 
-        <!-- Hint button top -->
+        <!-- Next button top -->
 
         <Button
-            android:id="@+id/button_hint_top"
-            style="?android:attr/buttonStyleSmall"
+            android:id="@+id/button_next_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/border_title"
-            android:layout_marginLeft="5dp"
-            android:text="\?" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/button_next_top" />
     </RelativeLayout>
-
     <!--
          Scrollview to contain activity content and bottom buttons
-    	(Scrollview can host only one direct child)
+    	(Scrollview can host only one direct child)
     -->
 
     <ScrollView
@@ -81,8 +86,7 @@
 
         <!--
              Container for all content
-        	(Scrollview can host only one direct child)
-        	
+        	(Scrollview can host only one direct child)
         -->
 
         <LinearLayout
@@ -134,10 +138,10 @@
                     android:text="Button"
                     android:visibility="gone" />
 
-                <!-- Forward button bottom -->
+                <!-- Next button bottom -->
 
                 <Button
-                    android:id="@+id/button_forward_bottom"
+                    android:id="@+id/button_next_bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -148,4 +152,5 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
