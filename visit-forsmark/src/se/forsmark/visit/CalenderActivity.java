@@ -3,11 +3,10 @@ package se.forsmark.visit;
 import java.util.Calendar;
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CalenderActivity extends Activity {
@@ -18,39 +17,44 @@ public class CalenderActivity extends Activity {
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.calenderview);
 		
-		//View v = View.inflate(this, R.layout.calenderview, null);
-		//RelativeLayout l = (RelativeLayout) findViewById(R.id.activity_container);
-		//l.addView(v);
-
-		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
-		LinearLayout row;
-		TextView cell;
-
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
 		
+		setCalender(c); // Initialize calendar
+	}
+
+	public void setCalender(Calendar c) {
+
+		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
+		LinearLayout row;
+		Button dateCell;
+		TextView restCell;
+
 		String[] s = this.getResources().getStringArray(R.array.calStringsSwe);
-		row = (LinearLayout) cal.getChildAt(0);
 		
+		row = (LinearLayout) findViewById(R.id.weekDays);
+
 		for (int k = 0; k < 8; k++) {
-			cell = (TextView) row.getChildAt(k);
-			cell.setText(s[k]);
+			restCell = (TextView) row.getChildAt(k);
+			restCell.setText(s[k]);
 		}
-		
-		for (int i = 1; i < 7; i++) {
+
+		for (int i = 0; i < 6; i++) {
 			row = (LinearLayout) cal.getChildAt(i);
 
 			for (int k = 0; k < 8; k++) {
-				cell = (TextView) row.getChildAt(k);
-
 				if (k > 0) {
-					cell.setText(String.valueOf(c.get(Calendar.DATE)));
+					dateCell = (Button) row.getChildAt(k);
+					dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
 					c.add(Calendar.DATE, +1);
 				} else {
-					cell.setText(String.valueOf(c.get(Calendar.WEEK_OF_YEAR)));
+					restCell = (TextView) row.getChildAt(k);
+					restCell.setText(String.valueOf(c
+							.get(Calendar.WEEK_OF_YEAR)));
 				}
 			}
 		}
+
 	}
 }

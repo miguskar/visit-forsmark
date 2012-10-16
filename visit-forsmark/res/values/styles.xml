@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="dateCellStyle" >
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:layout_weight">0.125</item>
+        <item name="android:background">@drawable/cell_shape</item>
+        <item name="android:gravity">center</item>
+    </style>
     
+     <style name="restCellStyle" >
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:layout_weight">0.125</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>
