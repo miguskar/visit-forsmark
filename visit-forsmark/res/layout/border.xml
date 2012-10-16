@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/border_title"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/border_step_one" />
+                android:src="@drawable/border_step_two"/>
 
             <!-- Hint button top -->
 
@@ -62,6 +62,7 @@
                 android:layout_toRightOf="@+id/border_title"
                 android:background="@drawable/hint" />
         </RelativeLayout>
+        
         <!-- Back button top -->
 
         <Button
@@ -84,84 +85,4 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/button_next_top" />
     </RelativeLayout>
-    <!--
-         Scrollview to contain activity content and bottom buttons
-    	(Scrollview can host only one direct child)
-    -->
-
-    <ScrollView
-        android:id="@+id/scroller"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fillViewport="true" >
-
-        <!--
-             Container for all content
-        	(Scrollview can host only one direct child)
-        -->
-
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <!-- Container for activity content -->
-
-            <RelativeLayout
-                android:id="@+id/activity_container"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
-            </RelativeLayout>
-
-            <!-- Container for bottom buttons -->
-
-            <RelativeLayout
-                android:id="@+id/border_bottom"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="#000000"
-                android:gravity="bottom" >
-
-                <!-- Back button bottom -->
-
-                <Button
-                    android:id="@+id/button_back_bottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="Button"
-                    android:visibility="visible" />
-
-                <!-- Cancel button bottom -->
-
-                <Button
-                    android:id="@+id/button_cancel_bottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="Button"
-                    android:visibility="gone" />
-
-                <!-- Next button bottom -->
-
-                <Button
-                    android:id="@+id/button_next_bottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:text="Button"
-                    android:visibility="gone" />
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
-
 </LinearLayout>
