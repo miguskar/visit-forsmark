@@ -32,7 +32,8 @@
         </activity>
         <activity
             android:name="ContactActivity"
-            android:enabled="true" >
+            android:enabled="true" 
+            android:windowSoftInputMode="stateUnchanged">
         </activity>
         <activity
             android:name="AttendentsActivity"
