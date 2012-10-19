@@ -68,27 +68,13 @@
 
         <Button
             android:id="@+id/button_back_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/button_back_top"
-            android:onClick="topPreButton"
-            android:visibility="gone" />
+            style="@style/backTopButtonStyle"/>
 
         <!-- Next button top -->
 
         <Button
             android:id="@+id/button_next_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/button_next_top"
-            android:onClick="topPostButton"
-            android:visibility="gone" />
+            style="@style/nextTopButtonStyle"/>
     </RelativeLayout>
 
 </LinearLayout>

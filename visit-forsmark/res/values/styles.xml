@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    
+   <!-- BORDER BACK/NEXT BUTTONS -->
+   	<style name ="backTopButtonStyle">
+   			<item name="android:layout_width">wrap_content</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:layout_alignParentLeft">true</item>
+            <item name="android:layout_centerVertical">true</item>
+            <item name="android:layout_marginLeft">20dp</item>
+            <item name="android:background">@drawable/border_top_back_button</item>
+            <item name="android:onClick">topPreButton</item>
+            <item name="android:visibility">gone</item>
+    </style>
+    
+   	<style name ="nextTopButtonStyle">
+   			<item name="android:layout_width">wrap_content</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:layout_alignParentRight">true</item>
+            <item name="android:layout_centerVertical">true</item>
+            <item name="android:layout_marginRight">20dp</item>
+            <item name="android:background">@drawable/border_top_next_button</item>
+            <item name="android:onClick">topPostButton</item>
+            <item name="android:visibility">gone</item>
+    </style>
+    
    
   <!--  MONTH VIEW -->
     
