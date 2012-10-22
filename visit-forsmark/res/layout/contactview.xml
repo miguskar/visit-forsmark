@@ -15,6 +15,7 @@
         android:layout_height="wrap_content" >
 
         <LinearLayout
+            android:id="@+id/formLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
@@ -27,10 +28,9 @@
                 android:text="Förnamn" />
 
             <EditText
-                android:id="@+id/editText1"
+                android:id="@+id/editTextPname"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
                 android:ems="10"
                 android:inputType="textPersonName" >
 
@@ -45,7 +45,7 @@
                 android:text="Efternamn" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/editTextLName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -60,7 +60,7 @@
                 android:text="Personnummer" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/editTextPnmbr"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -72,7 +72,7 @@
                 android:orientation="horizontal" >
 
                 <RadioButton
-                    android:id="@+id/radioButton1"
+                    android:id="@+id/radioButtonMan"
                     style="@style/RadioButtonFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     android:text="Man" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/radioButtonWoman"
                     style="@style/RadioButtonFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 android:text="Adress" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/editTextAdress"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -114,7 +114,7 @@
                 android:text="Postnummer" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/editTextPostNmbr"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -128,7 +128,7 @@
                 android:text="Postadress" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/editTextPostAdress"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -142,7 +142,34 @@
                 android:text="Land" />
 
             <EditText
-                android:id="@+id/editText7"
+                android:id="@+id/editTextCountry"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" />
+            
+             <TextView
+                android:id="@+id/textViewCell"
+                style="@style/CodeFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobil" />
+
+            <EditText
+                android:id="@+id/editTextCell"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" 
+                android:inputType="number"/>
+            
+             <TextView
+                android:id="@+id/textViewEmail"
+                style="@style/CodeFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E-post" />
+
+            <EditText
+                android:id="@+id/editTextEmail"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10" />

@@ -1,5 +1,6 @@
 package se.forsmark.visit;
 
+import se.forsmark.visit.database.DatabaseHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,11 @@ public class MainActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
+		
+		 DatabaseHelper db = new DatabaseHelper(this);
+		
+		
+		
 		calender = (Button) findViewById(R.id.button1);	// Initialize button
 		contact = (Button) findViewById(R.id.button2);	// Initialize button
 		calender.setOnClickListener(buttonHandler);		// Set clickListener

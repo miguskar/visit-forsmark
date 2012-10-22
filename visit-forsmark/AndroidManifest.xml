@@ -17,6 +17,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <provider
+                android:name=".contentProvider.MyContactProvider"
+                android:authorities="se.forsmark.visit.database.contentprovider">
+            </provider>
         </activity>
         <activity
             android:name="CalenderActivity"
@@ -37,7 +41,7 @@
         </activity>
         <activity
             android:name=".AttendantsActivity"
-            android:enabled="true" >
+            android:enabled="true" android:windowSoftInputMode="stateUnchanged">
         </activity>
         <activity
             android:name="EditConfirmActivity"
