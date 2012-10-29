@@ -19,7 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ContactActivity extends Activity {
-	private int contactId;
+	private String bookingId;
+	private SharedPreferences prefs;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,17 +28,23 @@ public class ContactActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.contactview);
-		contactId = 0;
-
+		prefs = getSharedPreferences("forsmark", MODE_PRIVATE);
 		initialize(); // Initialize views
 	}
 	
 	@Override
 	public void onPause() {
 		super.onPause();
-		//SharedPreferences.Editor ed;
 	}
-
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		prefs = getSharedPreferences("forsmark", MODE_PRIVATE);
+		bookingId = prefs.getString("bookingId", null);
+		//TODO undersök om vi måste läsa in info till formuläret från databasen
+	}
+	
 	/**
 	 * Unhides elements etc..
 	 */
@@ -50,12 +57,12 @@ public class ContactActivity extends Activity {
 		iv.setVisibility(View.VISIBLE); // Unhide progress
 		iv.setBackgroundResource(R.drawable.border_step_one); // Display step
 																// one
-		// Display hint button
+		// Display hint button an
 		Button b = (Button) findViewById(R.id.button_hint_top);
 		Button bnext = (Button) findViewById(R.id.bottomNextButton);
 
 		b.setVisibility(View.VISIBLE); // Unhide button
-		bnext.setVisibility(View.VISIBLE);
+//		bnext.setVisibility(View.VISIBLE);
 
 		b.setOnClickListener(new OnClickListener() { // Create Toast hint
 
@@ -96,7 +103,7 @@ public class ContactActivity extends Activity {
 					String text2 = getResources().getString(
 							R.string.ContactActivityToast); // Get message from
 															// resources
-					Toast t2 = Toast.makeText(getApplicationContext(), text2,
+					Toast t2 = Toast.makeText(getApplicationContext(), "HEJ",
 							Toast.LENGTH_SHORT); // Creat toast
 					t2.setGravity(Gravity.BOTTOM, 0, 0); // Position
 					t2.show();
@@ -113,7 +120,7 @@ public class ContactActivity extends Activity {
 			String text3 = getResources().getString(
 					R.string.ContactActivityToast); // Get message from
 													// resources
-			Toast t3 = Toast.makeText(getApplicationContext(), text3,
+			Toast t3 = Toast.makeText(getApplicationContext(), "RADIO",
 					Toast.LENGTH_SHORT); // Creat toast
 			t3.setGravity(Gravity.BOTTOM, 0, 0); // Position
 			t3.show();
@@ -141,8 +148,7 @@ public class ContactActivity extends Activity {
 						.getText().toString(), country.getText().toString(),
 				cellphone.getText().toString(), email.getText().toString());
 		int id = db.getLatestContact();
-		this.contactId = id;
-		// db.addContactToBooking(id); LÄGG TILL KONTAKTPERSON TILL BOKNINGEN..
+		//TODO db.addContactToBooking(id); LÄGG TILL KONTAKTPERSON TILL BOKNINGEN..
 		db.close();
 
 	}
