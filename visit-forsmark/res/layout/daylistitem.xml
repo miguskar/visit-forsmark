@@ -13,26 +13,26 @@
         android:textColor="#000000"
         android:text="Medasd"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/itemSeats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:textColor="#000000"
-        android:layout_marginRight="5dp"
-        android:layout_alignParentRight="true"
-        android:text="Medt"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
     <TextView
         android:id="@+id/itemEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:text="Medt"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/itemSeats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="MText"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
 
 </RelativeLayout>
