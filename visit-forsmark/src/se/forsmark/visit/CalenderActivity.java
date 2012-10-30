@@ -39,12 +39,12 @@ public class CalenderActivity extends Activity {
 	private TextView tvMonth;
 	private TextView tvYear;
 
-	//STATES
-	//N = next month
-	//P = previous month
-	//F = full
-	//E = empty
-	//S = seats!??!
+	// STATES
+	// N = next month
+	// P = previous month
+	// F = full
+	// E = empty
+	// S = seats!??!
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class CalenderActivity extends Activity {
 
 	public void setCalendar(Calendar c) {
 		String[] dateInfo = getDateInfo();
-		
+
 		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
 		LinearLayout row;
 		Button dateCell;
@@ -93,14 +93,14 @@ public class CalenderActivity extends Activity {
 
 		tvMonth.setText(month[curMonth]);
 		tvYear.setText(String.valueOf(curYear));
-		
+
 		row = (LinearLayout) findViewById(R.id.weekDays);
 
 		for (int k = 0; k < 8; k++) {
 			restCell = (TextView) row.getChildAt(k);
 			restCell.setText(days[k]);
 		}
-		
+
 		String info;
 		for (int i = 0; i < 6; i++) {
 			row = (LinearLayout) cal.getChildAt(i);
@@ -110,37 +110,36 @@ public class CalenderActivity extends Activity {
 					dateCell = (Button) row.getChildAt(k);
 					if (c.get(Calendar.MONTH) != curMonth) {
 						dateCell.setBackgroundResource(R.drawable.cell_next_month);
-						
-						if(c.get(Calendar.MONTH) < curMonth)
+
+						if (c.get(Calendar.MONTH) < curMonth)
 							dateCell.setTag("P");
 						else
 							dateCell.setTag("N");
 					} else {
-						info = dateInfo[c.get(Calendar.DATE)-1];
-						if(info.equals("E")){
+						// dateCell.setBackgroundResource(R.drawable.cell_normal);
+						info = dateInfo[c.get(Calendar.DATE) - 1];
+						if (info.equals("E")) {
 							dateCell.setBackgroundResource(R.drawable.cell_empty);
-						}
-						else if(info.equals("F")){
+						} else if (info.equals("F")) {
 							dateCell.setBackgroundResource(R.drawable.cell_full);
-						}
-						else if(info.equals("S")){
+						} else if (info.equals("S")) {
 							dateCell.setBackgroundResource(R.drawable.cell_normal);
 						}
 						dateCell.setTag(info);
-						
+
 					}
-					
+
 					dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
-					if(c.get(Calendar.MONTH) == Calendar.FEBRUARY && curYear%4 != 0 && c.get(Calendar.DATE) == 28){
+					if (c.get(Calendar.MONTH) == Calendar.FEBRUARY && curYear % 4 != 0 && c.get(Calendar.DATE) == 28) {
 						c.add(Calendar.DATE, +2);
-				}
-					else{
+						if(c.get(Calendar.DATE) == 2)
+							c.add(Calendar.DATE, -1);
+					} else {
 						c.add(Calendar.DATE, +1);
 					}
 				} else {
 					restCell = (TextView) row.getChildAt(k);
-					restCell.setText(String.valueOf(c
-							.get(Calendar.WEEK_OF_YEAR)));
+					restCell.setText(String.valueOf(c.get(Calendar.WEEK_OF_YEAR)));
 				}
 			}
 		}
@@ -148,13 +147,11 @@ public class CalenderActivity extends Activity {
 
 	public void onDateClick(View v) {
 		String tag = (String) v.getTag();
-		if(tag.equals("N")){
-			topPostButton(null);
-		}
-		else if (tag.equals("P")) {
-			topPreButton(null);
-		}
-		else if (tag.equals("F") || tag.equals("S")) {
+		if (tag.equals("N")) {
+			topNextButton(null);
+		} else if (tag.equals("P")) {
+			topBackButton(null);
+		} else if (tag.equals("F") || tag.equals("S")) {
 			Intent dayView = new Intent(v.getContext(), DayActivity.class);
 			TextView tv = (TextView) v;
 			dayView.putExtra("DATE", tv.getText());
@@ -164,7 +161,7 @@ public class CalenderActivity extends Activity {
 		}
 	}
 
-	public void topPreButton(View v) {
+	public void topBackButton(View v) {
 		Calendar c = Calendar.getInstance();
 		--curMonth;
 		if (curMonth < 0) {
@@ -178,12 +175,12 @@ public class CalenderActivity extends Activity {
 		setCalendar(c);
 	}
 
-	public void topPostButton(View v) {
+	public void topNextButton(View v) {
 		Calendar c = Calendar.getInstance();
 		++curMonth;
 		if (curMonth > 11) {
 			curMonth = 0;
-			curYear++;
+			++curYear;
 			c.set(Calendar.YEAR, curYear);
 		}
 		c.set(Calendar.MONTH, curMonth);
@@ -204,13 +201,13 @@ public class CalenderActivity extends Activity {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(
 					"http://83.249.138.5/backlog/application_switch.php");
-			
+
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair("case","getMonthInfo"));
-			pairs.add(new BasicNameValuePair("month", "" + (curMonth+1)));
+			pairs.add(new BasicNameValuePair("case", "getMonthInfo"));
+			pairs.add(new BasicNameValuePair("month", "" + (curMonth + 1)));
 			pairs.add(new BasicNameValuePair("year", "" + curYear));
 			httppost.setEntity(new UrlEncodedFormEntity(pairs));
-			
+
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 			is = entity.getContent();
@@ -229,16 +226,16 @@ public class CalenderActivity extends Activity {
 			is.close();
 
 			result = sb.toString();
-			Log.v("r","r: "+result);
+
 		} catch (Exception e) {
 			Log.e("log_tag", "Error converting result " + e.toString());
 		}
-		
-		result = result.substring(1, result.length()-2);
+		Log.v("r", "r: " + result);
+		result = result.substring(1, result.length() - 2);
 		result = result.replace("\"", "");
-		
+
 		String[] tmp = result.split(",");
-		
+
 		return tmp;
 	}
 }
