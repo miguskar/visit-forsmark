@@ -1,10 +1,30 @@
 package se.forsmark.visit;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,7 +39,12 @@ public class CalenderActivity extends Activity {
 	private TextView tvMonth;
 	private TextView tvYear;
 
-	// private Calendar c;
+	//STATES
+	//N = next month
+	//P = previous month
+	//F = full
+	//E = empty
+	//S = seats!??!
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +79,8 @@ public class CalenderActivity extends Activity {
 	}
 
 	public void setCalendar(Calendar c) {
-
+		String[] dateInfo = getDateInfo();
+		
 		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
 		LinearLayout row;
 		Button dateCell;
@@ -67,14 +93,15 @@ public class CalenderActivity extends Activity {
 
 		tvMonth.setText(month[curMonth]);
 		tvYear.setText(String.valueOf(curYear));
-
+		
 		row = (LinearLayout) findViewById(R.id.weekDays);
 
 		for (int k = 0; k < 8; k++) {
 			restCell = (TextView) row.getChildAt(k);
 			restCell.setText(days[k]);
 		}
-
+		
+		String info;
 		for (int i = 0; i < 6; i++) {
 			row = (LinearLayout) cal.getChildAt(i);
 
@@ -82,12 +109,34 @@ public class CalenderActivity extends Activity {
 				if (k > 0) {
 					dateCell = (Button) row.getChildAt(k);
 					if (c.get(Calendar.MONTH) != curMonth) {
-						dateCell.setBackgroundResource(R.drawable.cell_button_not_now);
+						dateCell.setBackgroundResource(R.drawable.cell_next_month);
+						
+						if(c.get(Calendar.MONTH) < curMonth)
+							dateCell.setTag("P");
+						else
+							dateCell.setTag("N");
 					} else {
-						dateCell.setBackgroundResource(R.drawable.cell_button);
+						info = dateInfo[c.get(Calendar.DATE)-1];
+						if(info.equals("E")){
+							dateCell.setBackgroundResource(R.drawable.cell_empty);
+						}
+						else if(info.equals("F")){
+							dateCell.setBackgroundResource(R.drawable.cell_full);
+						}
+						else if(info.equals("S")){
+							dateCell.setBackgroundResource(R.drawable.cell_normal);
+						}
+						dateCell.setTag(info);
+						
 					}
+					
 					dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
-					c.add(Calendar.DATE, +1);
+					if(c.get(Calendar.MONTH) == Calendar.FEBRUARY && curYear%4 != 0 && c.get(Calendar.DATE) == 28){
+						c.add(Calendar.DATE, +2);
+				}
+					else{
+						c.add(Calendar.DATE, +1);
+					}
 				} else {
 					restCell = (TextView) row.getChildAt(k);
 					restCell.setText(String.valueOf(c
@@ -98,7 +147,21 @@ public class CalenderActivity extends Activity {
 	}
 
 	public void onDateClick(View v) {
-
+		String tag = (String) v.getTag();
+		if(tag.equals("N")){
+			topPostButton(null);
+		}
+		else if (tag.equals("P")) {
+			topPreButton(null);
+		}
+		else if (tag.equals("F") || tag.equals("S")) {
+			Intent dayView = new Intent(v.getContext(), DayActivity.class);
+			TextView tv = (TextView) v;
+			dayView.putExtra("DATE", tv.getText());
+			dayView.putExtra("MONTH", curMonth);
+			dayView.putExtra("YEAR", curYear);
+			startActivity(dayView);
+		}
 	}
 
 	public void topPreButton(View v) {
@@ -127,5 +190,55 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
 		setCalendar(c);
+	}
+
+	public void bottomBackClick(View v) {
+		finish();
+	}
+
+	public String[] getDateInfo() {
+		String result = "";
+		InputStream is = null;
+		// http post
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(
+					"http://83.249.138.5/backlog/application_switch.php");
+			
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			pairs.add(new BasicNameValuePair("case","getMonthInfo"));
+			pairs.add(new BasicNameValuePair("month", "" + (curMonth+1)));
+			pairs.add(new BasicNameValuePair("year", "" + curYear));
+			httppost.setEntity(new UrlEncodedFormEntity(pairs));
+			
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+		} catch (Exception e) {
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		// convert response to string
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					is, "iso-8859-1"), 8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+
+			result = sb.toString();
+			Log.v("r","r: "+result);
+		} catch (Exception e) {
+			Log.e("log_tag", "Error converting result " + e.toString());
+		}
+		
+		result = result.substring(1, result.length()-2);
+		result = result.replace("\"", "");
+		
+		String[] tmp = result.split(",");
+		
+		return tmp;
 	}
 }

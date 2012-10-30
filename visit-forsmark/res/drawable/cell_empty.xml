@@ -4,19 +4,17 @@
 	 <!-- pressed -->
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <stroke android:width="0.5dp" android:color="#FFFFFF"></stroke>
+            <stroke android:width="0.5dp" android:color="#EEF6FF"></stroke>
             <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp"></padding>
-            <solid android:color="#135aa5"/>
+            <solid android:color="#EEF6FF"/>
         </shape>
    </item>
    
-   
     <item>
      	<shape android:shape="rectangle">
-	         <stroke android:width="0.5dp" android:color="#135aa5"></stroke>
+	         <stroke android:width="0.5dp" android:color="#EEF6FF"></stroke>
 	         <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp"></padding>
-	         <solid android:color="#ffffff"/>
+	         <solid android:color="#EEF6FF"/>
      	</shape>
     </item>
-
 </selector>

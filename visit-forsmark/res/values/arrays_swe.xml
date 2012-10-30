@@ -12,20 +12,19 @@
         <item>@string/calendarSunday</item>
     </string-array>
     
-    
   	<string-array name="calMonthStringsSwe">
-        <item>Janurai</item>
-        <item>Februari</item>
-        <item>Mars</item>
-        <item>April</item>
-        <item>Maj</item>
-        <item>Juni</item>
-        <item>Juli</item>
-        <item>Augusti</item>
-        <item>September</item>
-        <item>Oktober</item>
-        <item>November</item>
-        <item>NU ÄR DET JUL IGEN!</item>
+        <item>@string/Jan</item>
+        <item>@string/Feb</item>
+        <item>@string/Mar</item>
+        <item>@string/Apr</item>
+        <item>@string/May</item>
+        <item>@string/Jun</item>
+        <item>@string/Jul</item>
+        <item>@string/Aug</item>
+        <item>@string/Sep</item>
+        <item>@string/Oct</item>
+        <item>@string/Nov</item>
+        <item>@string/Dec</item>
     </string-array>
 
 </resources>

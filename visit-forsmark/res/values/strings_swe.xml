@@ -2,6 +2,7 @@
 <resources>
 
     <string name="hello">hej klas</string>
+    
     <string name="app_name">Visit-forsmark</string>
     <string name="calendarMonday">Mån</string>
     <string name="calendarTuesday">Tis</string>
@@ -16,4 +17,20 @@
     <string name="NoSFR">ej SFR</string>
     <string name="NoSFRToast">Deltagare under 7 år eller deltagere som ej kan gå obehindrat utan hjälpmedel kan tyvärr ej följa med ner i slutförvaret.</string>
 
+    <string name="Jan">Januari</string>
+    <string name="Feb">Februari</string>
+    <string name="Mar">Mars</string>
+    <string name="Apr">April</string>
+    <string name="May">Maj</string>
+    <string name="Jun">Juni</string>
+    <string name="Jul">Juli</string>
+    <string name="Aug">Augusti</string>
+    <string name="Sep">September</string>
+    <string name="Oct">Oktober</string>
+    <string name="Nov">November</string>
+    <string name="Dec">December</string>
+    
+    <string name="Back">Tillbaka</string>
+    <string name="Next">Nästa</string>
+    <string name="Cancel">Avbryt</string>
 </resources>

@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 			switch (v.getId()) {
 			case R.id.button1:
 				myIntent = new Intent(v.getContext(), CalenderActivity.class);
-				startActivityForResult(myIntent, 0);
+				startActivity(myIntent);
 				break;
 			case R.id.button2:
 				myIntent = new Intent(v.getContext(), ContactActivity.class);

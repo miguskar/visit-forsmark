@@ -301,4 +301,17 @@
         </LinearLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/backToFrontPage"
+            android:text="@string/Back"
+            style="@style/bottomBackButton" />
+
+    </RelativeLayout>
+
 </LinearLayout>
