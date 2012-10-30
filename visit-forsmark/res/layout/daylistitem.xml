@@ -5,7 +5,7 @@
     android:background="@drawable/event_background">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/itemStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -15,7 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/itemSeats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -26,7 +26,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/itemEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
