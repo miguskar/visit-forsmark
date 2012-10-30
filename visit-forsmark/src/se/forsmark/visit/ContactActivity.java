@@ -1,9 +1,11 @@
 package se.forsmark.visit;
 
+import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 public class ContactActivity extends Activity {
 	private String bookingId;
 	private SharedPreferences prefs;
+	private int attendantsCount;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class ContactActivity extends Activity {
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.contactview);
 		prefs = getSharedPreferences("forsmark", MODE_PRIVATE);
+		bookingId = prefs.getString("bookingId", null);
 		initialize(); // Initialize views
 	}
 	
@@ -49,6 +53,9 @@ public class ContactActivity extends Activity {
 	 * Unhides elements etc..
 	 */
 	private void initialize() {
+		//TODO TEMP attendantsCount
+		attendantsCount = 5;
+		
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
 		tv.setText(R.string.ContactActivityTitle);
@@ -76,20 +83,61 @@ public class ContactActivity extends Activity {
 				t.show();
 			}
 		});
+		
+		//Fill form with latest contact info
+		//TODO move this to dbsqllite class and return array with key=>value pairs
+		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+		db.open();
+		Cursor c = db.getLatestContactInfo();
+		if (c.moveToFirst()) {
+			EditText et = (EditText) findViewById(R.id.editTextPname);
+			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)));
+			et = (EditText) findViewById(R.id.editTextLName);
+			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME)));
+			et = (EditText) findViewById(R.id.editTextPnmbr);
+			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
+	
+			if(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX)).equals("male")){
+				RadioButton rb=(RadioButton) findViewById(R.id.radioButtonMan);
+				rb.setChecked(true);
+			}
+			else{
+				RadioButton rb=(RadioButton) findViewById(R.id.radioButtonWoman);
+				rb.setChecked(true);
+			}
+			
+			et = (EditText) findViewById(R.id.editTextAdress);
+			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS)));
+			et = (EditText) findViewById(R.id.editTextPostNmbr);
+			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTNMBR)));
+			et = (EditText) findViewById(R.id.editTextPostAdress);
+			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTADRESS)));
+			et = (EditText) findViewById(R.id.editTextCountry);
+			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_COUNTRY)));
+			et = (EditText) findViewById(R.id.editTextCell);
+			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE)));
+			et = (EditText) findViewById(R.id.editTextEmail);
+			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_EMAIL)));
+		}
+		db.close();
+		
+		
 	}
-
-	public void bottomBackClick(View v) {
-
+	
+	@Override
+	public void onBackPressed() {
+		//TODO ta bort bokningen!
+		//TODO CONFIRM popup
+		this.finish();
 	}
 
 	public void bottomCancelClick(View v) {
-
+		onBackPressed();
 	}
 
 	public void bottomNextClick(View v) {
 		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
-		i.putExtra("personCount", 5); // TODO ALLTID 5 ATM hårdkodat som fan
-		startActivity(i);
+		i.putExtra("attendantsCount", attendantsCount); // TODO ALLTID 5 ATM hårdkodat som fan
 
 		// Iterates through user input for simple VALIDATION
 		LinearLayout l = (LinearLayout) findViewById(R.id.formLayout);
@@ -99,11 +147,11 @@ public class ContactActivity extends Activity {
 			if (vv instanceof EditText) {
 				EditText ed = (EditText) vv;
 				if (ed.getText().toString().equals("")) {
-					// TODO obs fixa ny toast!
-					String text2 = getResources().getString(
-							R.string.ContactActivityToast); // Get message from
+					// TODO I MÅN AV TID - fixa ordentlig validering!
+					String text = getResources().getString(
+							R.string.errorMessageFieldEmpty); // Get message from
 															// resources
-					Toast t2 = Toast.makeText(getApplicationContext(), "HEJ",
+					Toast t2 = Toast.makeText(getApplicationContext(), text,
 							Toast.LENGTH_SHORT); // Creat toast
 					t2.setGravity(Gravity.BOTTOM, 0, 0); // Position
 					t2.show();
@@ -116,12 +164,11 @@ public class ContactActivity extends Activity {
 		RadioButton rbMan = (RadioButton) findViewById(R.id.radioButtonMan);
 		RadioButton rbWoman = (RadioButton) findViewById(R.id.radioButtonWoman);
 		if (!rbMan.isChecked() && !rbWoman.isChecked()) {
-			// TODO fixa ny toast!!
-			String text3 = getResources().getString(
-					R.string.ContactActivityToast); // Get message from
+			String text = getResources().getString(
+					R.string.errorMessageGender); // Get message from
 													// resources
-			Toast t3 = Toast.makeText(getApplicationContext(), "RADIO",
-					Toast.LENGTH_SHORT); // Creat toast
+			Toast t3 = Toast.makeText(getApplicationContext(), text,
+					Toast.LENGTH_SHORT); // Create toast
 			t3.setGravity(Gravity.BOTTOM, 0, 0); // Position
 			t3.show();
 			return;
@@ -143,14 +190,19 @@ public class ContactActivity extends Activity {
 		db.open();
 		db.addContact(firstname.getText().toString(), lastname.getText()
 				.toString(), pnmbr.getText().toString(),
-				rbMan.isChecked() ? "Man" : "Kvinna", adress.getText()
+				rbMan.isChecked() ? "male" : "female", adress.getText()
 						.toString(), postNmbr.getText().toString(), postadress
 						.getText().toString(), country.getText().toString(),
 				cellphone.getText().toString(), email.getText().toString());
-		int id = db.getLatestContact();
-		//TODO db.addContactToBooking(id); LÄGG TILL KONTAKTPERSON TILL BOKNINGEN..
+//		int id = db.getLatestContactId();
+		/*TODO Kolla om bokningen i bokningstabellen har ett kontaktId satt. Om bokningen inte har någon kontakt, skapa en ny i kontakttabellen, annars uppdatera bara senaste personen i tabellen.
+		 * ,db.addContactToBooking(id); LÄGG TILL KONTAKTPERSON TILL BOKNINGEN..
+		 *
+		*/
+		//TODO Om bara 1 plats har bokats så skall vi komma till bekräfta direkt
 		db.close();
-
+		
+		startActivity(i);
 	}
 
 }

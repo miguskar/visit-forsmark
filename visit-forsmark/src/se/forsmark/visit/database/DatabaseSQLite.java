@@ -36,10 +36,10 @@ public class DatabaseSQLite {
 	 */
 	// ---------------------------------------------------------------------------------
 
-	public int getLatestContact() {
+	public int getLatestContactId() {
 		try {
 			Cursor c = database.rawQuery("SELECT MAX("
-					+ DatabaseHelper.COLUMN_ID + ") FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_ID + ") FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 			if (c.moveToFirst()) {
 				return c.getInt(c.getColumnIndex("_id"));
@@ -49,27 +49,117 @@ public class DatabaseSQLite {
 		}
 		return 0;
 	}
+	
+	public Cursor getLatestContactInfo() {
+		Cursor c = null;
+		try {
+			c = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_CONTACT + " ORDER BY _id DESC LIMIT 1;", null);
+			return c;
+		}catch (SQLException ex) {
+			//TODO Handle exception
+			throw ex;
+		}
+	}
 
-	public void addContact(String fname, String lname, String pnmbr,
+	public void addContact(String fname, String lname, String pnbr,
 			String sex, String adress, String postnmbr, String padress,
 			String country, String cphone, String email) {
 		try {
 			ContentValues values = new ContentValues();
-			values.put(DatabaseHelper.COLUMN_FIRSTNAME, fname);
-			values.put(DatabaseHelper.COLUMN_LASTNAME, lname);
-			values.put(DatabaseHelper.COLUMN_PNMBR, pnmbr);
-			values.put(DatabaseHelper.COLUMN_SEX, sex);
-			values.put(DatabaseHelper.COLUMN_ADRESS, adress);
-			values.put(DatabaseHelper.COLUMN_POSTNMBR, postnmbr);
-			values.put(DatabaseHelper.COLUMN_POSTADRESS, padress);
-			values.put(DatabaseHelper.COLUMN_COUNTRY, country);
-			values.put(DatabaseHelper.COLUMN_CELLPHONE, cphone);
-			values.put(DatabaseHelper.COLUMN_EMAIL, email);
+			values.put(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME, fname);
+			values.put(DatabaseHelper.COLUMN_CONTACT_LASTNAME, lname);
+			values.put(DatabaseHelper.COLUMN_CONTACT_PNMBR, pnbr);
+			values.put(DatabaseHelper.COLUMN_CONTACT_SEX, sex);
+			values.put(DatabaseHelper.COLUMN_CONTACT_ADRESS, adress);
+			values.put(DatabaseHelper.COLUMN_CONTACT_POSTNMBR, postnmbr);
+			values.put(DatabaseHelper.COLUMN_CONTACT_POSTADRESS, padress);
+			values.put(DatabaseHelper.COLUMN_CONTACT_COUNTRY, country);
+			values.put(DatabaseHelper.COLUMN_CONTACT_CELLPHONE, cphone);
+			values.put(DatabaseHelper.COLUMN_CONTACT_EMAIL, email);
 
 			database.insert(DatabaseHelper.TABLE_CONTACT, null, values);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void updateContact(int id, String fname, String lname, String pnbr,
+			String sex, String adress, String postnmbr, String padress,
+			String country, String cphone, String email) {
+		try {
+			ContentValues values = new ContentValues();
+			values.put(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME, fname);
+			values.put(DatabaseHelper.COLUMN_CONTACT_LASTNAME, lname);
+			values.put(DatabaseHelper.COLUMN_CONTACT_PNMBR, pnbr);
+			values.put(DatabaseHelper.COLUMN_CONTACT_SEX, sex);
+			values.put(DatabaseHelper.COLUMN_CONTACT_ADRESS, adress);
+			values.put(DatabaseHelper.COLUMN_CONTACT_POSTNMBR, postnmbr);
+			values.put(DatabaseHelper.COLUMN_CONTACT_POSTADRESS, padress);
+			values.put(DatabaseHelper.COLUMN_CONTACT_COUNTRY, country);
+			values.put(DatabaseHelper.COLUMN_CONTACT_CELLPHONE, cphone);
+			values.put(DatabaseHelper.COLUMN_CONTACT_EMAIL, email);
+			String[] ids = {String.valueOf(id)};
+			
+			database.update(DatabaseHelper.TABLE_CONTACT, values, "WHERE _id = ?", ids);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param fname first name
+	 * @param lname last name
+	 * @param pnbr SSN
+	 * @param sex
+	 * @param sfr 
+	 * @param bookingId
+	 * @return ROWID or -1 if unsuccessful 
+	 */
+	public int addAttendant(String fname, String lname, String pnbr, String sex, int sfr, String bookingId) {
+		int id = -1;
+		try {
+			ContentValues v = new ContentValues();
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME, fname);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME, lname);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR, pnbr);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_SEX, sex);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_SFR, sfr);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID, bookingId);
+			
+			id = (int) database.insert(DatabaseHelper.TABLE_ATTENDANTS, null, v);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return id;
+	}
+	
+	/**
+	 * @param id row id
+	 * @param fname first name
+	 * @param lname last name
+	 * @param pnbr SSN
+	 * @param sex
+	 * @param sfr 
+	 * @param bookingId
+	 * 
+	 */
+	public void updateAttendant(int id, String fname, String lname, String pnbr, String sex, int sfr, String bookingId) {
+		try {
+			ContentValues v = new ContentValues();
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME, fname);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME, lname);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR, pnbr);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_SEX, sex);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_SFR, sfr);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID, bookingId);
+			String[] ids = {String.valueOf(id)};
+			
+			database.update(DatabaseHelper.TABLE_ATTENDANTS, v, "_id = ?", ids);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
 		}
 	}
 
@@ -78,14 +168,14 @@ public class DatabaseSQLite {
 	public String getFirstname() {
 		try {
 			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_FIRSTNAME + " FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_FIRSTNAME + " FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 
 			String fn = null;
 
 			if (cursor.moveToFirst()) {
 				fn = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_FIRSTNAME));
+						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME));
 			}
 			return fn;
 		} catch (SQLException e) {
@@ -99,14 +189,14 @@ public class DatabaseSQLite {
 	public String getLastname() {
 		try {
 			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_LASTNAME + " FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_LASTNAME + " FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 
 			String ln = null;
 
 			if (cursor.moveToFirst()) {
 				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_LASTNAME));
+						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME));
 			}
 			return ln;
 		} catch (SQLException e) {
@@ -120,14 +210,14 @@ public class DatabaseSQLite {
 	public String getPnmbr() {
 		try {
 			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_PNMBR + " FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_PNMBR + " FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 
 			String ln = null;
 
 			if (cursor.moveToFirst()) {
 				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_PNMBR));
+						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR));
 			}
 			return ln;
 		} catch (SQLException e) {
@@ -141,14 +231,14 @@ public class DatabaseSQLite {
 	public String getSex() {
 		try {
 			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_SEX + " FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_SEX + " FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 
 			String ln = null;
 
 			if (cursor.moveToFirst()) {
 				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_SEX));
+						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX));
 			}
 			return ln;
 		} catch (SQLException e) {
@@ -162,14 +252,14 @@ public class DatabaseSQLite {
 	public String getAdress() {
 		try {
 			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_ADRESS + " FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_ADRESS + " FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 
 			String ln = null;
 
 			if (cursor.moveToFirst()) {
 				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_ADRESS));
+						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS));
 			}
 			return ln;
 		} catch (SQLException e) {
@@ -183,14 +273,14 @@ public class DatabaseSQLite {
 	public String getPostnr() {
 		try {
 			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_POSTNMBR + " FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_POSTNMBR + " FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 
 			String ln = null;
 
 			if (cursor.moveToFirst()) {
 				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_POSTNMBR));
+						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTNMBR));
 			}
 			return ln;
 		} catch (SQLException e) {
@@ -204,14 +294,14 @@ public class DatabaseSQLite {
 	public String getPostAdress() {
 		try {
 			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_POSTADRESS + " FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_POSTADRESS + " FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 
 			String ln = null;
 
 			if (cursor.moveToFirst()) {
 				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_POSTADRESS));
+						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTADRESS));
 			}
 			return ln;
 		} catch (SQLException e) {
@@ -225,14 +315,14 @@ public class DatabaseSQLite {
 	public String getCountry() {
 		try {
 			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_COUNTRY + " FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_COUNTRY + " FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 
 			String ln = null;
 
 			if (cursor.moveToFirst()) {
 				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_COUNTRY));
+						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_COUNTRY));
 			}
 			return ln;
 		} catch (SQLException e) {
@@ -246,14 +336,14 @@ public class DatabaseSQLite {
 	public String getCellphone() {
 		try {
 			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CELLPHONE + " FROM "
+					+ DatabaseHelper.COLUMN_CONTACT_CELLPHONE + " FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 
 			String ln = null;
 
 			if (cursor.moveToFirst()) {
 				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CELLPHONE));
+						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE));
 			}
 			return ln;
 		} catch (SQLException e) {

@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:background="#EEF6FF"
     android:orientation="vertical" >
-
+
     <include
         android:id="@+id/border"
         layout="@layout/border" />
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number" />
-
+
             <RadioGroup
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -88,8 +88,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:text="Kvinna" android:layout_marginLeft="20dp"/>
+                    android:text="Kvinna" />
             </RadioGroup>
 
             <TextView
@@ -145,9 +146,10 @@
                 android:id="@+id/editTextCountry"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="10" />
-            
-             <TextView
+                android:ems="10"
+                android:inputType="text" />
+
+            <TextView
                 android:id="@+id/textViewCell"
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
@@ -158,10 +160,10 @@
                 android:id="@+id/editTextCell"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="10" 
-                android:inputType="number"/>
-            
-             <TextView
+                android:ems="10"
+                android:inputType="number" />
+
+            <TextView
                 android:id="@+id/textViewEmail"
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
@@ -172,26 +174,22 @@
                 android:id="@+id/editTextEmail"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:ems="10"
+                android:inputType="textEmailAddress" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/bottomBackButton"
-                    style="@style/bottomBackButton"
-                    android:text="@string/Back" />
-
-                <Button
                     android:id="@+id/bottomCancelButton"
                     style="@style/bottomCancelButton"
-                    android:text="@string/Cancel" />
+                    android:text="cancel" />
 
                 <Button
                     android:id="@+id/bottomNextButton"
                     style="@style/bottomNextButton"
-                    android:text="@string/Next" />
+                    android:text="next" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

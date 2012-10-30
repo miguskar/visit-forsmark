@@ -8,54 +8,78 @@ import android.util.Log;
 
 
 	public class DatabaseHelper extends SQLiteOpenHelper {
-		// Database table
+		// Database contact table
 		  public static final String TABLE_CONTACT = "contact";
-		  public static final String COLUMN_ID = "_id";
-		  public static final String COLUMN_FIRSTNAME = "firstname";
-		  public static final String COLUMN_LASTNAME = "lastname";
-		  public static final String COLUMN_PNMBR = "pnmbr";
-		  public static final String COLUMN_SEX = "sex";
-		  public static final String COLUMN_ADRESS = "adress";
-		  public static final String COLUMN_POSTNMBR = "postnmbr";
-		  public static final String COLUMN_POSTADRESS = "postadress";
-		  public static final String COLUMN_COUNTRY = "country";
-		  public static final String COLUMN_CELLPHONE = "cellphone";
-		  public static final String COLUMN_EMAIL = "email";
+		  public static final String COLUMN_CONTACT_ID = "_id";
+		  public static final String COLUMN_CONTACT_FIRSTNAME = "firstname";
+		  public static final String COLUMN_CONTACT_LASTNAME = "lastname";
+		  public static final String COLUMN_CONTACT_PNMBR = "pnmbr";
+		  public static final String COLUMN_CONTACT_SEX = "sex";
+		  public static final String COLUMN_CONTACT_ADRESS = "adress";
+		  public static final String COLUMN_CONTACT_POSTNMBR = "postnmbr";
+		  public static final String COLUMN_CONTACT_POSTADRESS = "postadress";
+		  public static final String COLUMN_CONTACT_COUNTRY = "country";
+		  public static final String COLUMN_CONTACT_CELLPHONE = "cellphone";
+		  public static final String COLUMN_CONTACT_EMAIL = "email";
+		  
+		  
+		// Database attendants table
+		  public static final String TABLE_ATTENDANTS = "attendants";
+		  public static final String COLUMN_ATTENDANTS_ID = "_id";
+		  public static final String COLUMN_ATTENDANTS_FIRSTNAME = "firstname";
+		  public static final String COLUMN_ATTENDANTS_LASTNAME = "lastname";
+		  public static final String COLUMN_ATTENDANTS_PNMBR = "pnmbr";
+		  public static final String COLUMN_ATTENDANTS_SEX = "sex";
+		  public static final String COLUMN_ATTENDANTS_SFR = "sfr";
+		  public static final String COLUMN_ATTENDANTS_BOOKINGID = "bookingId";
+		
 		  
 		  
 		  //db2
 		 // public static final String TABLE_CONTACTS = "contacts";
 		 
 		  
-		  private static final String DATABASE_NAME = "contacttable.db";
-		  public static final int DATABASE_VERSION = 2;
+		  private static final String DATABASE_NAME = "forsmarktable.db";
+		  public static final int DATABASE_VERSION = 3;
 		  
 		  
 		  public DatabaseHelper(Context context) {
 				super(context, DATABASE_NAME, null, DATABASE_VERSION);
 			}
 	  
-		  private static final String TABLE_CONTACT_CREATE = "create contact table " 
+		  private static final String TABLE_CONTACT_CREATE = "create table " 
 			      + TABLE_CONTACT
 			      + "(" 
-			      + COLUMN_ID + " integer primary key autoincrement, " 
-			      + COLUMN_FIRSTNAME + " text not null, " 
-			      + COLUMN_LASTNAME + " text not null," 
-			      + COLUMN_PNMBR + " text not null,"
-			      + COLUMN_SEX + " text not null,"
-			      + COLUMN_ADRESS + " text not null,"
-			      + COLUMN_POSTNMBR + " text not null,"
-			      + COLUMN_POSTADRESS + " text not null, "
-			      + COLUMN_COUNTRY + " text not null,"
-			      + COLUMN_CELLPHONE + " text not null,"
-			      + COLUMN_EMAIL + " text not null"
+			      + COLUMN_CONTACT_ID + " integer primary key autoincrement, " 
+			      + COLUMN_CONTACT_FIRSTNAME + " text not null, " 
+			      + COLUMN_CONTACT_LASTNAME + " text not null," 
+			      + COLUMN_CONTACT_PNMBR + " text not null,"
+			      + COLUMN_CONTACT_SEX + " text not null,"
+			      + COLUMN_CONTACT_ADRESS + " text not null,"
+			      + COLUMN_CONTACT_POSTNMBR + " text not null,"
+			      + COLUMN_CONTACT_POSTADRESS + " text not null, "
+			      + COLUMN_CONTACT_COUNTRY + " text not null,"
+			      + COLUMN_CONTACT_CELLPHONE + " text not null,"
+			      + COLUMN_CONTACT_EMAIL + " text not null"
 			      +   "); ";
 
-		 
+		  private static final String TABLE_ATTENDANTS_CREATE = "create table " 
+			      + TABLE_ATTENDANTS
+			      + "(" 
+			      + COLUMN_ATTENDANTS_ID + " integer primary key autoincrement, " 
+			      + COLUMN_ATTENDANTS_FIRSTNAME + " text not null, " 
+			      + COLUMN_CONTACT_LASTNAME + " text not null, " 
+			      + COLUMN_CONTACT_PNMBR + " text not null, "
+			      + COLUMN_CONTACT_SEX + " text not null, "
+			      + COLUMN_ATTENDANTS_SFR + " integer not null, "
+			      + COLUMN_ATTENDANTS_BOOKINGID + " text not null"
+			      +   "); ";
+
 		  
 		  @Override
 		  public void onCreate(SQLiteDatabase database) {
 			    database.execSQL(TABLE_CONTACT_CREATE);
+			    database.execSQL(TABLE_ATTENDANTS_CREATE);
 			  }
 		  @Override
 		  public void onUpgrade(SQLiteDatabase database, int oldVersion,
@@ -64,6 +88,7 @@ import android.util.Log;
 			        + oldVersion + " to " + newVersion
 			        + ", which will destroy all old data");
 			    database.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACT);
+			    database.execSQL("DROP TABLE IF EXISTS " + TABLE_ATTENDANTS);
 			    onCreate(database);
 			  }
 		
