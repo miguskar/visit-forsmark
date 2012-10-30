@@ -14,7 +14,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class DayActivity extends Activity{
@@ -31,6 +31,9 @@ public class DayActivity extends Activity{
 	private int curMonth;
 	private int curYear;
 	private int curDate;
+	private ArrayList<DayListItem> array;
+	private DayListAdapter adapter;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,11 +63,31 @@ public class DayActivity extends Activity{
 		bn.setVisibility(View.VISIBLE);
 		bb.setVisibility(View.VISIBLE);
 		
-		Log.v("jennie suger", ""+curMonth);
+		Log.v("jennie suger det gör johan med, men joel han är bäst", ""+curMonth);
 		Log.v("jsäm", curYear+"");
 		Log.v("asd", "asdas");
+		
+		array = new ArrayList<DayListItem>();
+		
+		adapter = new DayListAdapter(this, R.id.dayItemList,
+				array);	
+		ListView list = (ListView) findViewById(R.id.dayItemList);
+		
+		list.setAdapter(adapter);
+		
+		DayListItem derp = new DayListItem("Bengt", "Har", "FLESK");
+		
+		array.add(derp); 
+		
+		adapter.notifyDataSetChanged();
 	}
 	
+	public void setDay(){
+	
+		
+	}
+//	
+//	
 	public void topBackButton(View v) {
 		
 	}
