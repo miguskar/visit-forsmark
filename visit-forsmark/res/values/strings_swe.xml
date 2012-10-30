@@ -3,6 +3,8 @@
 
     <string name="hello">hej klas</string>
     
+    <string name="httpRequestUrl">http://83.249.138.5/backlog/application_switch.php</string>
+    
     <string name="app_name">Visit-forsmark</string>
     <string name="calendarMonday">Mån</string>
     <string name="calendarTuesday">Tis</string>
@@ -35,4 +37,8 @@
     <string name="Back">Tillbaka</string>
     <string name="Next">Nästa</string>
     <string name="Cancel">Avbryt</string>
+    
+    <string name="StartTime">Starttid</string>
+    <string name="SeatsLeft">Platser Kvar</string>
+    <string name="EndTime">Sluttid</string>
 </resources>
