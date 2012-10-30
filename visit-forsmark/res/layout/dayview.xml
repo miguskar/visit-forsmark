@@ -51,11 +51,12 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
-
+
         <ListView
-            android:id="@+id/ListView1"
+            android:id="@+id/dayItemList"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
+
         </ListView>
     </LinearLayout>
 
