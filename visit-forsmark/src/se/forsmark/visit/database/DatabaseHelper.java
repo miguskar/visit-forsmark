@@ -40,7 +40,7 @@ import android.util.Log;
 		 
 		  
 		  private static final String DATABASE_NAME = "forsmarktable.db";
-		  public static final int DATABASE_VERSION = 3;
+		  public static final int DATABASE_VERSION = 5;
 		  
 		  
 		  public DatabaseHelper(Context context) {
@@ -67,11 +67,11 @@ import android.util.Log;
 			      + TABLE_ATTENDANTS
 			      + "(" 
 			      + COLUMN_ATTENDANTS_ID + " integer primary key autoincrement, " 
-			      + COLUMN_ATTENDANTS_FIRSTNAME + " text not null, " 
-			      + COLUMN_CONTACT_LASTNAME + " text not null, " 
-			      + COLUMN_CONTACT_PNMBR + " text not null, "
-			      + COLUMN_CONTACT_SEX + " text not null, "
-			      + COLUMN_ATTENDANTS_SFR + " integer not null, "
+			      + COLUMN_ATTENDANTS_FIRSTNAME + " text, " 
+			      + COLUMN_CONTACT_LASTNAME + " text, " 
+			      + COLUMN_CONTACT_PNMBR + " text, "
+			      + COLUMN_CONTACT_SEX + " text, "
+			      + COLUMN_ATTENDANTS_SFR + " integer, "
 			      + COLUMN_ATTENDANTS_BOOKINGID + " text not null"
 			      +   "); ";
 

@@ -1,10 +1,13 @@
 package se.forsmark.visit.database;
 
+import java.util.ArrayList;
+
 import android.database.Cursor;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.SQLException;
+import android.util.Log;
 
 public class DatabaseSQLite {
 
@@ -60,7 +63,8 @@ public class DatabaseSQLite {
 			throw ex;
 		}
 	}
-
+	
+	//TODO fixa så att vi inte får duplicates i databasen http://stackoverflow.com/questions/3634984/insert-if-not-exists-else-update
 	public void addContact(String fname, String lname, String pnbr,
 			String sex, String adress, String postnmbr, String padress,
 			String country, String cphone, String email) {
@@ -163,196 +167,38 @@ public class DatabaseSQLite {
 		}
 	}
 
-	// ---------------------------------------------------------------------------------
-
-	public String getFirstname() {
+	public Cursor getAttendantContactInfo(String id) {
+		Cursor c = null;
+		String[] ids = {String.valueOf(id)};
 		try {
-			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CONTACT_FIRSTNAME + " FROM "
-					+ DatabaseHelper.TABLE_CONTACT, null);
-
-			String fn = null;
-
-			if (cursor.moveToFirst()) {
-				fn = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME));
-			}
-			return fn;
-		} catch (SQLException e) {
-			e.printStackTrace();
+			c = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_ATTENDANTS + " WHERE _ID = ?", ids);
+			return c;
+		}catch (SQLException ex) {
+			//TODO Handle exception
+			throw ex;
 		}
-		return null;
 	}
-
-	// ---------------------------------------------------------------------------------
-
-	public String getLastname() {
+	
+	public ArrayList<Integer> getAttendantIdsFromBookingId(String bookingId) {
+		String[] ids = {bookingId};
+		Cursor c;
 		try {
-			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CONTACT_LASTNAME + " FROM "
-					+ DatabaseHelper.TABLE_CONTACT, null);
-
-			String ln = null;
-
-			if (cursor.moveToFirst()) {
-				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME));
-			}
-			return ln;
-		} catch (SQLException e) {
-			e.printStackTrace();
+			c = database.rawQuery("SELECT _id FROM " + DatabaseHelper.TABLE_ATTENDANTS + " WHERE bookingId = ?", ids);
+		}catch (SQLException ex){
+			//TODO Handle exception
+			throw ex;
 		}
-		return null;
-	}
-
-	// ---------------------------------------------------------------------------------
-
-	public String getPnmbr() {
-		try {
-			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CONTACT_PNMBR + " FROM "
-					+ DatabaseHelper.TABLE_CONTACT, null);
-
-			String ln = null;
-
-			if (cursor.moveToFirst()) {
-				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR));
-			}
-			return ln;
-		} catch (SQLException e) {
-			e.printStackTrace();
+		ArrayList<Integer> r = new ArrayList<Integer>();
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			r.add(c.getInt(c.getColumnIndex("_id")));
+			c.moveToNext();
 		}
-		return null;
+		return r;
 	}
-
-	// ---------------------------------------------------------------------------------
-
-	public String getSex() {
-		try {
-			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CONTACT_SEX + " FROM "
-					+ DatabaseHelper.TABLE_CONTACT, null);
-
-			String ln = null;
-
-			if (cursor.moveToFirst()) {
-				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX));
-			}
-			return ln;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	// ---------------------------------------------------------------------------------
-
-	public String getAdress() {
-		try {
-			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CONTACT_ADRESS + " FROM "
-					+ DatabaseHelper.TABLE_CONTACT, null);
-
-			String ln = null;
-
-			if (cursor.moveToFirst()) {
-				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS));
-			}
-			return ln;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	// ---------------------------------------------------------------------------------
-
-	public String getPostnr() {
-		try {
-			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CONTACT_POSTNMBR + " FROM "
-					+ DatabaseHelper.TABLE_CONTACT, null);
-
-			String ln = null;
-
-			if (cursor.moveToFirst()) {
-				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTNMBR));
-			}
-			return ln;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	// ---------------------------------------------------------------------------------
-
-	public String getPostAdress() {
-		try {
-			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CONTACT_POSTADRESS + " FROM "
-					+ DatabaseHelper.TABLE_CONTACT, null);
-
-			String ln = null;
-
-			if (cursor.moveToFirst()) {
-				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTADRESS));
-			}
-			return ln;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	// ---------------------------------------------------------------------------------
-
-	public String getCountry() {
-		try {
-			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CONTACT_COUNTRY + " FROM "
-					+ DatabaseHelper.TABLE_CONTACT, null);
-
-			String ln = null;
-
-			if (cursor.moveToFirst()) {
-				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_COUNTRY));
-			}
-			return ln;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	// ---------------------------------------------------------------------------------
-
-	public String getCellphone() {
-		try {
-			Cursor cursor = database.rawQuery("SELECT "
-					+ DatabaseHelper.COLUMN_CONTACT_CELLPHONE + " FROM "
-					+ DatabaseHelper.TABLE_CONTACT, null);
-
-			String ln = null;
-
-			if (cursor.moveToFirst()) {
-				ln = cursor.getString(cursor
-						.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE));
-			}
-			return ln;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	// ---------------------------------------------------------------------------------
+	
+	
+	
 	/*
 	 * 
 	 * // Database table public static final String TABLE_CONTACT = "contact";
