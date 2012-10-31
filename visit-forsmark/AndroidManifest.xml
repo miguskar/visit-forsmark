@@ -52,6 +52,11 @@
             android:name="ConfirmActivity"
             android:enabled="true" >
         </activity>
+        <activity
+            android:theme="@android:style/Theme.Dialog"
+            android:name="AttendantsDialogActivity"
+            android:enabled="true" >
+        </activity>
     </application>
 
 </manifest>

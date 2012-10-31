@@ -20,7 +20,8 @@
     <string name="NoSFRToast">Deltagare under 7 år eller deltagere som ej kan gå obehindrat utan hjälpmedel kan tyvärr ej följa med ner i slutförvaret.</string>
     <string name="errorMessageFieldEmpty">Alla fält måste vara ifyllda för att gå vidare.</string>
     <string name="errorMessageGender">Du måste välja kön.</string>
-
+	<string name="noticeNoDayEvents">Det finns inga fler bussturer.</string>
+	
     <string name="Jan">Januari</string>
     <string name="Feb">Februari</string>
     <string name="Mar">Mars</string>
@@ -38,8 +39,13 @@
     <string name="Next">Nästa</string>
     <string name="Cancel">Avbryt</string>
     
+    
+    <string name="dialogThe">Den</string>
+    <string name="noSeats">Fullbokad</string>
     <string name="StartTime">Starttid</string>
     <string name="SeatsLeft">Platser Kvar</string>
     <string name="EndTime">Sluttid</string>
     <string name="ConfirmationTitle">Bekräfta bokning</string>
+    
+    <string name="HowManySeats">Hur många säten vill du boka?</string>
 </resources>
