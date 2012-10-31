@@ -41,6 +41,11 @@ public class DayListAdapter extends ArrayAdapter<DayListItem> {
 		}
 
 		if (day != null) {
+			if(day.getSeats().equals(activity.getString(R.string.noSeats))){
+				v.setBackgroundResource(R.drawable.event_background_full);
+			}else{
+				v.setBackgroundResource(R.drawable.event_background);
+			}
 			holder.item1.setText(day.getStart());
 			holder.item2.setText(day.getSeats());
 			holder.item3.setText(day.getEnd());

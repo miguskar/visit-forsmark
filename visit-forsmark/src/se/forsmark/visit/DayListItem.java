@@ -22,4 +22,5 @@ public class DayListItem {
 	public String getEnd(){
 		return end;
 	}
+
 }

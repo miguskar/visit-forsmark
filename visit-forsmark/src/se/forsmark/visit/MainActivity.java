@@ -20,15 +20,13 @@ public class MainActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
-		
-		 DatabaseHelper db = new DatabaseHelper(this);
-		
-		
-		
-		calender = (Button) findViewById(R.id.button1);	// Initialize button
-		contact = (Button) findViewById(R.id.button2);	// Initialize button
-		calender.setOnClickListener(buttonHandler);		// Set clickListener
-		contact.setOnClickListener(buttonHandler);		// Set clickListener
+
+		DatabaseHelper db = new DatabaseHelper(this);
+
+		calender = (Button) findViewById(R.id.button1); // Initialize button
+		contact = (Button) findViewById(R.id.button2); // Initialize button
+		calender.setOnClickListener(buttonHandler); // Set clickListener
+		contact.setOnClickListener(buttonHandler); // Set clickListener
 	}
 
 	View.OnClickListener buttonHandler = new View.OnClickListener() {

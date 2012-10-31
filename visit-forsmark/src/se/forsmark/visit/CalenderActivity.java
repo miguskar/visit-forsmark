@@ -147,7 +147,7 @@ public class CalenderActivity extends Activity {
 		} else if (tag.equals("F") || tag.equals("S")) {
 			Intent dayView = new Intent(v.getContext(), DayActivity.class);
 			TextView tv = (TextView) v;
-			dayView.putExtra("DATE", tv.getText());
+			dayView.putExtra("DATE", Integer.parseInt(tv.getText().toString()));
 			dayView.putExtra("MONTH", curMonth);
 			dayView.putExtra("YEAR", curYear);
 			startActivity(dayView);
@@ -187,6 +187,8 @@ public class CalenderActivity extends Activity {
 	}
 
 	public String[] getDateInfo() {
+		
+		//TODO summan av deltagare kan vara negativ trots att det finns lediga platser!!!!
 		String result = "";
 		InputStream is = null;
 		// http post
