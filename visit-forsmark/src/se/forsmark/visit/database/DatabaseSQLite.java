@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.SQLException;
-import android.util.Log;
 
 public class DatabaseSQLite {
 
@@ -167,12 +166,25 @@ public class DatabaseSQLite {
 		}
 	}
 
-	public Cursor getAttendantContactInfo(String id) {
+	public Cursor getAttendantContactInfo(int id) {
 		Cursor c = null;
 		String[] ids = {String.valueOf(id)};
 		try {
 			c = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_ATTENDANTS + " WHERE _ID = ?", ids);
 			return c;
+		}catch (SQLException ex) {
+			//TODO Handle exception
+			throw ex;
+		}
+	}
+	
+	public String getAttendantName(int id) {
+		Cursor c = null;
+		String[] ids = {String.valueOf(id)};
+		try {
+			c = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_ATTENDANTS + " WHERE _ID = ?", ids);
+			c.moveToFirst();
+			return String.format("%s %s", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)), c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
 		}catch (SQLException ex) {
 			//TODO Handle exception
 			throw ex;

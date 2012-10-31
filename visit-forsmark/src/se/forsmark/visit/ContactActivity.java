@@ -54,7 +54,7 @@ public class ContactActivity extends Activity {
 	 */
 	private void initialize() {
 		//TODO TEMP attendantsCount
-		attendantsCount = 5;
+		attendantsCount = 2;
 		
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);

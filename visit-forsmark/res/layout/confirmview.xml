@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:background="#EEF6FF"
     android:orientation="vertical" >
-
+
     <include
         android:id="@+id/border"
         android:layout_width="wrap_content"
@@ -17,10 +17,11 @@
         android:fillViewport="true" >
 
         <LinearLayout
-            android:id="@+id/attendantformLayout"
+            android:id="@+id/confirmformLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="5dp" >
 
             <TextView
                 android:id="@+id/TextViewconfirmDate"
@@ -37,20 +38,28 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="TID" />
-            
-              <TextView
+
+            <TextView
                 android:id="@+id/TextViewconfirmContactPerson"
                 style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="Kontaktperson" />
-              
-              <Button
-                  android:id="@+id/ButtonConfirmContactPerson"
-                  style="@style/editButtonStyle"
-                  android:text="hejsan"
-                  />
+
+            <Button
+                android:id="@+id/ButtonConfirmContactPerson"
+                style="@style/editButtonStyle"
+                android:text="hejsan" />
+
+            <TextView
+                android:id="@+id/TextViewconfirmAttendants"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="left"
+                android:text="Deltagare" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"

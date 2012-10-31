@@ -30,13 +30,12 @@
    			<item name="android:layout_width">fill_parent</item>
             <item name="android:layout_height">wrap_content</item>
             <item name="android:layout_centerVertical">true</item>
-			<item name="android:layout_margin">5dp</item>
             <item name="android:background">@drawable/editbutton</item>
             <item name="android:onClick">editButton</item>
             <item name="android:textColor">#FFFFFF</item>
             <item name="android:gravity">left</item>
             <item name="android:drawableRight">@drawable/editbutton_arr</item>
-            <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+            <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
     
    

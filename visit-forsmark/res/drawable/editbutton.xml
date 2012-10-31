@@ -3,7 +3,7 @@
     
     <!-- pressed -->
     <item 
-        android:drawable="@drawable/editbutton_unpressed" 
+        android:drawable="@drawable/editbutton_pressed" 
         android:state_pressed="true"/>
 
     <!-- default -->

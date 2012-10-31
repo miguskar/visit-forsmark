@@ -77,8 +77,8 @@ public class AttendantsActivity extends Activity {
 			public void onClick(View v) {
 				// Get message from resources
 				String text = getResources().getString(R.string.NoSFRToast);
-				Toast t = Toast.makeText(getApplicationContext(), text,
-						Toast.LENGTH_LONG); // Create toast
+				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Create
+																							// toast
 				t.setGravity(Gravity.TOP, 0, 0); // Position
 				t.show();
 			}
@@ -102,12 +102,12 @@ public class AttendantsActivity extends Activity {
 				EditText ed = (EditText) vv;
 				if (ed.getText().toString().equals("")) {
 					// TODO I MÅN AV TID - fixa ordentlig validering!
-					String text = getResources().getString(
-							R.string.errorMessageFieldEmpty); // Get message
-																// from
-																// resources
-					Toast t2 = Toast.makeText(getApplicationContext(), text,
-							Toast.LENGTH_SHORT); // Creat toast
+					String text = getResources().getString(R.string.errorMessageFieldEmpty); // Get
+																								// message
+																								// from
+																								// resources
+					Toast t2 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Creat
+																									// toast
 					t2.setGravity(Gravity.BOTTOM, 0, 0); // Position
 					t2.show();
 					return false;
@@ -124,8 +124,8 @@ public class AttendantsActivity extends Activity {
 																					// message
 																					// from
 																					// resources
-			Toast t3 = Toast.makeText(getApplicationContext(), text,
-					Toast.LENGTH_SHORT); // Create toast
+			Toast t3 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Create
+																							// toast
 			t3.setGravity(Gravity.BOTTOM, 0, 0); // Position
 			t3.show();
 			return false;
@@ -149,20 +149,16 @@ public class AttendantsActivity extends Activity {
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
 		if (aid == 0) { // If attendant hasn't been added to the db
-			int id = db.addAttendant(firstname.getText().toString(), lastname
-					.getText().toString(), pnmbr.getText().toString(), rbMan
-					.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0,
-					bookingId);
+			int id = db.addAttendant(firstname.getText().toString(), lastname.getText().toString(), pnmbr.getText()
+					.toString(), rbMan.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0, bookingId);
 			if (id != -1)
 				attendantIds.add(id);
 			// else
 			// TODO ERROR
 
 		} else { // Update attendant if already exists in db
-			db.updateAttendant(aid, firstname.getText().toString(), lastname
-					.getText().toString(), pnmbr.getText().toString(), rbMan
-					.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0,
-					bookingId);
+			db.updateAttendant(aid, firstname.getText().toString(), lastname.getText().toString(), pnmbr.getText()
+					.toString(), rbMan.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0, bookingId);
 		}
 		db.close();
 	}
@@ -187,9 +183,11 @@ public class AttendantsActivity extends Activity {
 			return;
 		}
 
-		
 		Intent ip = new Intent(v.getContext(), ConfirmActivity.class);
-		ip.putExtra("attendantsCount", attendantIds.size()); // TODO ALLTID 5 ATM hårdkodat som fan
+		ip.putExtra("attendantsCount", attendantIds.size()); // TODO ALLTID 5
+																// ATM hårdkodat
+																// som fan
+		ip.putExtra("bookingId", bookingId);
 		startActivity(ip);
 
 		/*
@@ -206,7 +204,6 @@ public class AttendantsActivity extends Activity {
 			Button b = (Button) findViewById(R.id.button_next_top);
 			b.setVisibility(View.GONE);
 		}
-		
 
 	}
 
@@ -279,13 +276,13 @@ public class AttendantsActivity extends Activity {
 		--counter;
 		fillForm();
 
-		//dölj / visa navigation
+		// dölj / visa navigation
 		if (counter == nbrAttendants - 2) {
 			Button b = (Button) findViewById(R.id.button_next_top);
 			b.setVisibility(View.VISIBLE);
 			b = (Button) findViewById(R.id.bottomNextButton);
 			b.setVisibility(View.GONE);
-		} 
+		}
 		if (counter <= 0) {
 			Button backb = (Button) findViewById(R.id.button_back_top);
 			backb.setVisibility(View.GONE);
@@ -296,27 +293,20 @@ public class AttendantsActivity extends Activity {
 		TextView tv2 = (TextView) findViewById(R.id.border_title);
 		tv2.setText(deltagare + (counter + 1) + " av " + nbrAttendants);
 	}
-	
+
 	private void fillForm() {
 		EditText firstname = (EditText) findViewById(R.id.attendantPersonFirstName);
 		EditText lastname = (EditText) findViewById(R.id.attendantPersonLastName);
 		EditText pnmbr = (EditText) findViewById(R.id.attendantPersonNbr);
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
-		Cursor c = db.getAttendantContactInfo(String.valueOf(attendantIds
-				.get(counter)));
+		Cursor c = db.getAttendantContactInfo(attendantIds.get(counter));
 		if (c.moveToFirst()) {
-			firstname
-					.setText(c.getString(c
-							.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
-			lastname.setText(c.getString(c
-					.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
-			pnmbr.setText(c.getString(c
-					.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR)));
+			firstname.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
+			lastname.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
+			pnmbr.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR)));
 
-			if (c.getString(
-					c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SEX))
-					.equals("male")) {
+			if (c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SEX)).equals("male")) {
 				RadioButton rb = (RadioButton) findViewById(R.id.attendantradioButtonMan);
 				rb.setChecked(true);
 			} else {
@@ -326,7 +316,7 @@ public class AttendantsActivity extends Activity {
 			CheckBox cb = (CheckBox) findViewById(R.id.attendantcheckboxSFR);
 			if (c.getInt(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SFR)) == 1) {
 				cb.setChecked(true);
-			}else {
+			} else {
 				cb.setChecked(false);
 			}
 
