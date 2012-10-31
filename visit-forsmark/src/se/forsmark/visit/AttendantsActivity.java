@@ -228,7 +228,8 @@ public class AttendantsActivity extends Activity {
 			b.setVisibility(View.VISIBLE);
 			b = (Button) findViewById(R.id.bottomBackButton);
 			b.setVisibility(View.GONE);
-		} else if (counter >= nbrAttendants - 1) {
+		}
+		if (counter >= nbrAttendants - 1) {
 			Button b = (Button) findViewById(R.id.button_next_top);
 			b.setVisibility(View.GONE);
 			b = (Button) findViewById(R.id.bottomNextButton);
@@ -284,7 +285,8 @@ public class AttendantsActivity extends Activity {
 			b.setVisibility(View.VISIBLE);
 			b = (Button) findViewById(R.id.bottomNextButton);
 			b.setVisibility(View.GONE);
-		} else if (counter <= 0) {
+		} 
+		if (counter <= 0) {
 			Button backb = (Button) findViewById(R.id.button_back_top);
 			backb.setVisibility(View.GONE);
 			backb = (Button) findViewById(R.id.bottomBackButton);
