@@ -41,4 +41,5 @@
     <string name="StartTime">Starttid</string>
     <string name="SeatsLeft">Platser Kvar</string>
     <string name="EndTime">Sluttid</string>
+    <string name="ConfirmationTitle">Bekräfta bokning</string>
 </resources>

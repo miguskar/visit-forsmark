@@ -4,9 +4,10 @@
     android:layout_height="fill_parent"
     android:background="#EEF6FF"
     android:orientation="vertical" >
-
+
     <include
         android:id="@+id/border"
+        android:layout_width="wrap_content"
         layout="@layout/border" />
 
     <ScrollView
@@ -22,102 +23,34 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/TextViewconfirmDate"
                 style="@style/CodeFont"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Förnamn" />
-
-            <EditText
-                android:id="@+id/attendantPersonFirstName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:gravity="center_horizontal"
+                android:text="DATUM" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/TextViewconfirmTime"
                 style="@style/CodeFont"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Efternamn" />
-
-            <EditText
-                android:id="@+id/attendantPersonLastName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
-            <TextView
-                android:id="@+id/textView3"
+                android:gravity="center_horizontal"
+                android:text="TID" />
+            
+              <TextView
+                android:id="@+id/TextViewconfirmContactPerson"
                 style="@style/CodeFont"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Personnummer" />
-
-            <EditText
-                android:id="@+id/attendantPersonNbr"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number" />
-
-            <RadioGroup
-                android:id="@+id/attendantRadioGroup"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <RadioButton
-                    android:id="@+id/attendantradioButtonMan"
-                    style="@style/RadioButtonFont"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="Man" />
-
-                <RadioButton
-                    android:id="@+id/attendantradioButtonWoman"
-                    style="@style/RadioButtonFont"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="Kvinna" />
-            </RadioGroup>
-
-            
-            <!-- NO SFR ______________________________________________________ -->
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-            	>
-            
-            <CheckBox
-                android:id="@+id/attendantcheckboxSFR"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/RadioButtonFont"
-                android:text="@string/NoSFR" />
-
-            <Button
-                android:id="@+id/button_hint_SFR"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/attendantcheckboxSFR"
-                android:layout_alignBottom="@+id/attendantcheckboxSFR"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/attendantcheckboxSFR"
-                android:background="@drawable/hint"
-                android:visibility="visible" />
-            
-            </RelativeLayout>
-            <!-- ______________________________________________________________ -->
+                android:gravity="left"
+                android:text="Kontaktperson" />
+              
+              <Button
+                  android:id="@+id/ButtonConfirmContactPerson"
+                  style="@style/editButtonStyle"
+                  android:text="hejsan"
+                  />
 
             <RelativeLayout
                 android:layout_width="fill_parent"

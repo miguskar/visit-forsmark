@@ -187,8 +187,10 @@ public class AttendantsActivity extends Activity {
 			return;
 		}
 
-		Intent i = new Intent();
-		// TODO starta nästa aktivitet
+		
+		Intent ip = new Intent(v.getContext(), ConfirmActivity.class);
+		ip.putExtra("attendantsCount", attendantIds.size()); // TODO ALLTID 5 ATM hårdkodat som fan
+		startActivity(ip);
 
 		/*
 		 * Om det är första deltagaren, visa back-knappen Om det är näst sista
@@ -204,6 +206,7 @@ public class AttendantsActivity extends Activity {
 			Button b = (Button) findViewById(R.id.button_next_top);
 			b.setVisibility(View.GONE);
 		}
+		
 
 	}
 
