@@ -24,8 +24,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class DayActivity extends Activity{
-	
+public class DayActivity extends Activity {
+
 	private TextView tvDate;
 	private TextView tvYear;
 	private int curMonth;
@@ -33,7 +33,7 @@ public class DayActivity extends Activity{
 	private int curDate;
 	private ArrayList<DayListItem> array;
 	private DayListAdapter adapter;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,68 +41,67 @@ public class DayActivity extends Activity{
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.dayview); // CHANGE
 		Bundle extras = getIntent().getExtras();
-		
+
 		Initialize(extras);
 	}
-	
+
 	public void Initialize(Bundle extras) {
 		curDate = extras.getInt("DATE");
 		curMonth = extras.getInt("MONTH");
 		curYear = extras.getInt("YEAR");
-		
-		String[] mon = this.getResources().getStringArray(R.array.calMonthStringsSwe);
-		
+
+		String[] mon = this.getResources().getStringArray(
+				R.array.calMonthStringsSwe);
+
 		tvDate = (TextView) findViewById(R.id.border_title);
 		tvYear = (TextView) findViewById(R.id.border_small);
 		tvDate.setText(curDate + " " + mon[curMonth]);
 		tvYear.setVisibility(View.VISIBLE);
 		tvYear.setText(String.valueOf(curYear));
-		
+
 		Button bb = (Button) findViewById(R.id.button_back_top);
 		Button bn = (Button) findViewById(R.id.button_next_top);
 		bn.setVisibility(View.VISIBLE);
 		bb.setVisibility(View.VISIBLE);
-		
-		Log.v("jennie suger det gör johan med, men joel han är bäst", ""+curMonth);
-		Log.v("jsäm", curYear+"");
-		Log.v("asd", "asdas");
-		
+
 		array = new ArrayList<DayListItem>();
-		
-		adapter = new DayListAdapter(this, R.id.dayItemList,
-				array);	
+
+		adapter = new DayListAdapter(this, R.id.dayItemList, array);
+
 		ListView list = (ListView) findViewById(R.id.dayItemList);
-		
+
 		list.setAdapter(adapter);
+
+		for (int i = 0; i < 10; i++) {
+			array.add( new DayListItem("Bengt " +i, "Har", "FLESK"));
+		}
 		
-		DayListItem derp = new DayListItem("Bengt", "Har", "FLESK");
-		
-		array.add(derp); 
-		
+
 		adapter.notifyDataSetChanged();
 	}
-	
-	public void setDay(){
-	
-		
+
+	public void setDay() {
+
 	}
-//	
-//	
+
+	//
+	//
 	public void topBackButton(View v) {
-		
+
 	}
 
 	public void topNextButton(View v) {
-		
+
 	}
-	
+
 	public String[] getDateInfo() {
 		String result = "";
 		InputStream is = null;
 		// http post
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
+			HttpPost httppost = new HttpPost(
+					this.getString(R.string.httpRequestUrl));
 
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair("case", "getDayInfo"));

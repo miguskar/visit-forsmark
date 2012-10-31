@@ -5,10 +5,10 @@ public class DayListItem {
 	private String seats;
 	private String end;
 	
-	public DayListItem(String st, String se, String e){
-		start = st;
-		seats = se;
-		end = e;
+	public DayListItem(String start, String seats, String end){
+		this.start = start;
+		this.seats = seats;
+		this.end = end;
 	}
 	
 	public String getStart(){
