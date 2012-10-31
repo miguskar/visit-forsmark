@@ -72,6 +72,12 @@ public class DayActivity extends Activity {
 
 		list.setAdapter(adapter);
 
+		for (int i = 0; i < 10; i++) {
+			array.add( new DayListItem("Bengt " +i, "Har", "FLESK"));
+		}
+		
+
+		adapter.notifyDataSetChanged();
 	}
 
 	public void setDay() {
