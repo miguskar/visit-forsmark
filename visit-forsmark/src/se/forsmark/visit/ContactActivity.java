@@ -55,8 +55,6 @@ public class ContactActivity extends Activity {
 	 * Unhides elements etc..
 	 */
 	private void initialize() {
-		//TODO TEMP attendantsCount
-		attendantsCount = 2;
 		
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
@@ -138,6 +136,7 @@ public class ContactActivity extends Activity {
 	public void bottomNextClick(View v) {
 		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
 		i.putExtra("attendantsCount", attendantsCount);
+		i.putExtra("bookingId", bookingId);
 
 		// Iterates through user input for simple VALIDATION
 		LinearLayout l = (LinearLayout) findViewById(R.id.formLayout);
