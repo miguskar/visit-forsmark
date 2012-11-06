@@ -49,6 +49,6 @@
     
     <string name="HowManySeats">Hur många säten vill du boka?</string>
     <string name="EditAttendantDialogQ">Vill du ta bort eller ändra deltagarens uppgifter?</string>
-    <string name="Edit">Ändra</string>
-    <string name="Delete">Ta bort</string>
+    <string name="Edit">Ändra uppgifter</string>
+    <string name="Delete">Ta bort från listan</string>
 </resources>

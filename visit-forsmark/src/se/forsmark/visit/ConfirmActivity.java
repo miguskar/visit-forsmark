@@ -84,6 +84,15 @@ public class ConfirmActivity extends Activity{
 	
 	}
 	
+	public void deleteAttendant(int id){
+		DatabaseSQLite db=new DatabaseSQLite(getApplicationContext());
+		db.open();
+		db.deleteAttendant(id);
+		db.close();
+		LinearLayout l = (LinearLayout)	findViewById(R.id.confirmformLayout);
+		l.removeView(findViewById(id));
+	}
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
@@ -94,20 +103,23 @@ public class ConfirmActivity extends Activity{
 				b.setText(text);
 			}else if(requestCode == EDIT_ATTENDANT) {
 				int id = extras.getInt("attendantId");
-				Button b = (Button) findViewById(id);
-				b.setText(text);
+				if (extras.getBoolean("edit")) {
+					Button b = (Button) findViewById(id);
+					b.setText(text);
+				}else {
+					deleteAttendant(id);
+				}
+				
 			}
 		}
 	}
 	
 	public void editButton(View v) {
 		Intent dialog = new Intent(v.getContext(), EditAttendantDialogActivity.class);
-		startActivity(dialog);
+		dialog.putExtra("attendantId", v.getId());
+		startActivityForResult(dialog, EDIT_ATTENDANT);
 		
-	/*	int id = (Integer) v.getId();
-		Intent i = new Intent(getApplicationContext(), EditAttendantActivity.class);
-		i.putExtra("attendantId", id);
-		startActivityForResult(i, EDIT_ATTENDANT);*/
+	
 	}
 	
 	public void editContact(View v) {

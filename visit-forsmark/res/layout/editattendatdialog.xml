@@ -8,58 +8,38 @@
         android:id="@+id/include1"
         layout="@layout/border" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/include1"
         android:gravity="center"
-        android:text="@string/EditAttendantDialogQ"
-        android:layout_marginTop="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000000" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:layout_below="@+id/textView1" >
-
-        
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginTop="20dp"
-        android:gravity="center" >
+        android:orientation="vertical" >
 
         <Button
             android:id="@+id/button3"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:onClick="editButton"
             android:text="@string/Edit"
-            android:onClick="cancelButton" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"/>
 
         <Button
             android:id="@+id/button4"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:onClick="deleteButton"
             android:text="@string/Delete"
-            android:onClick="nextButton" />
+            android:layout_marginBottom="15dp"/>
+        
+        <Button
+            android:id="@+id/button5"
+            style="@style/bottomBackButton"
+            android:text="@string/Cancel" />
+        
     </LinearLayout>
 
 </RelativeLayout>

@@ -137,7 +137,7 @@ public class EditAttendantActivity extends Activity {
 
 		EditText firstname = (EditText) findViewById(R.id.attendantPersonFirstName);
 		EditText lastname = (EditText) findViewById(R.id.attendantPersonLastName);
-		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
+		Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
 		i.putExtra("attendantId", attendantId);
 		i.putExtra("displayName", firstname.getText().toString() + " " + lastname.getText().toString());
 		setResult(RESULT_OK, i);
