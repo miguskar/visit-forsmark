@@ -26,7 +26,7 @@ public class AttendantsActivity extends Activity {
 	private String deltagare = "Deltagare ";
 	private int counter = 0;
 	private int nbrAttendants;
-	private String bookingId = "hejhej";
+	private String bookingId;
 	private ArrayList<Integer> attendantIds;
 
 	@Override
@@ -35,6 +35,9 @@ public class AttendantsActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.attendantsview);
+		Bundle extras = getIntent().getExtras();
+		nbrAttendants = extras.getInt("attendantsCount");
+		bookingId = extras.getString("bookingId");
 		initialize();
 	}
 
