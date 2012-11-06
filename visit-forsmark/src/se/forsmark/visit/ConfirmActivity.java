@@ -1,7 +1,6 @@
 package se.forsmark.visit;
 
 import java.util.ArrayList;
-
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,13 +10,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ConfirmActivity extends Activity{
-	private int nbrAttendants;
 	private String bookingId;
 	private int contactId;
 	private final int EDIT_CONTACT = 1, EDIT_ATTENDANT = 2;
@@ -45,7 +42,6 @@ public class ConfirmActivity extends Activity{
 		v.setBackgroundResource(R.drawable.border_step_three);
 		v.setVisibility(View.VISIBLE);
 		Bundle extras = getIntent().getExtras();
-		nbrAttendants = extras.getInt("attendantsCount");
 		bookingId = extras.getString("bookingId");
 		contactId = extras.getInt("contactId");
 		

@@ -8,11 +8,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -203,8 +201,6 @@ public class AttendantsActivity extends Activity {
 		if (counter == 1) {
 			Button b = (Button) findViewById(R.id.button_back_top);
 			b.setVisibility(View.VISIBLE);
-			b = (Button) findViewById(R.id.bottomBackButton);
-			b.setVisibility(View.GONE);
 		}
 		if (counter >= nbrAttendants - 1) {
 			Button b = (Button) findViewById(R.id.button_next_top);
@@ -266,8 +262,6 @@ public class AttendantsActivity extends Activity {
 		if (counter <= 0) {
 			Button backb = (Button) findViewById(R.id.button_back_top);
 			backb.setVisibility(View.GONE);
-			backb = (Button) findViewById(R.id.bottomBackButton);
-			backb.setVisibility(View.VISIBLE);
 		}
 		// Set Title
 		TextView tv2 = (TextView) findViewById(R.id.border_title);
