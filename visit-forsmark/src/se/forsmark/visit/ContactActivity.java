@@ -31,13 +31,15 @@ public class ContactActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.contactview);
-		prefs = getSharedPreferences("forsmark", MODE_PRIVATE);
-		bookingId = prefs.getString("bookingId", null);
+		Bundle extras = getIntent().getExtras();
+		bookingId = extras.getString("bookingId");
+		attendantsCount = extras.getInt("seats");
 		initialize(); // Initialize views
 	}
 	
 	@Override
 	public void onPause() {
+		//TODO SPARA I SHAREDPREFERENCES
 		super.onPause();
 	}
 	
@@ -135,7 +137,7 @@ public class ContactActivity extends Activity {
 
 	public void bottomNextClick(View v) {
 		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
-		i.putExtra("attendantsCount", attendantsCount); // TODO ALLTID 5 ATM hårdkodat som fan
+		i.putExtra("attendantsCount", attendantsCount);
 
 		// Iterates through user input for simple VALIDATION
 		LinearLayout l = (LinearLayout) findViewById(R.id.formLayout);
@@ -192,11 +194,8 @@ public class ContactActivity extends Activity {
 						.toString(), postNmbr.getText().toString(), postadress
 						.getText().toString(), country.getText().toString(),
 				cellphone.getText().toString(), email.getText().toString());
-//		int id = db.getLatestContactId();
-		/*TODO Kolla om bokningen i bokningstabellen har ett kontaktId satt. Om bokningen inte har någon kontakt, skapa en ny i kontakttabellen, annars uppdatera bara senaste personen i tabellen.
-		 * ,db.addContactToBooking(id); LÄGG TILL KONTAKTPERSON TILL BOKNINGEN..
-		 *
-		*/
+		int id = db.getLatestContactId();
+		db.updateBookingContanctId(id);
 		//TODO Om bara 1 plats har bokats så skall vi komma till bekräfta direkt
 		db.close();
 		

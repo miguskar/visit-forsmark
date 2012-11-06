@@ -180,9 +180,8 @@ public class AttendantsActivity extends Activity {
 		int id = db.getLatestContactId();
 		db.close();
 		Intent ip = new Intent(v.getContext(), ConfirmActivity.class);
-		ip.putExtra("attendantsCount", attendantIds.size()); // TODO ALLTID 5
-		ip.putExtra("contactId", id);														// ATM hårdkodat
-																// som fan
+		ip.putExtra("attendantsCount", attendantIds.size()); 
+		ip.putExtra("contactId", id);
 		ip.putExtra("bookingId", bookingId);
 		startActivity(ip);
 		}

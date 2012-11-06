@@ -160,12 +160,6 @@ public class EditContactActivity extends Activity {
 						.toString(), postNmbr.getText().toString(), postadress
 						.getText().toString(), country.getText().toString(),
 				cellphone.getText().toString(), email.getText().toString());
-//		int id = db.getLatestContactId();
-		/*TODO Kolla om bokningen i bokningstabellen har ett kontaktId satt. Om bokningen inte har någon kontakt, skapa en ny i kontakttabellen, annars uppdatera bara senaste personen i tabellen.
-		 * ,db.addContactToBooking(id); LÄGG TILL KONTAKTPERSON TILL BOKNINGEN..
-		 *
-		*/
-		//TODO Om bara 1 plats har bokats så skall vi komma till bekräfta direkt
 		db.close();
 		
 		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
