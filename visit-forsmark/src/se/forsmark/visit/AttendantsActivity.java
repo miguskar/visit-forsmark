@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -43,8 +44,6 @@ public class AttendantsActivity extends Activity {
 	private void initialize() {
 		// Get Info from shared preferences & intent
 		String text;
-		Bundle extras = getIntent().getExtras();
-		nbrAttendants = extras.getInt("attendantsCount");
 
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);

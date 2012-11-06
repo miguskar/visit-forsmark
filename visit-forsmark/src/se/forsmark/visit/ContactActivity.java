@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 public class ContactActivity extends Activity {
 	private String bookingId;
-	private SharedPreferences prefs;
 	private int attendantsCount;
 	
 	@Override
@@ -45,8 +44,6 @@ public class ContactActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		prefs = getSharedPreferences("forsmark", MODE_PRIVATE);
-		bookingId = prefs.getString("bookingId", null);
 		//TODO undersök om vi måste läsa in info till formuläret från databasen
 	}
 	
@@ -133,10 +130,6 @@ public class ContactActivity extends Activity {
 	}
 
 	public void bottomNextClick(View v) {
-		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
-		i.putExtra("attendantsCount", attendantsCount);
-		i.putExtra("bookingId", bookingId);
-
 		// Iterates through user input for simple VALIDATION
 		LinearLayout l = (LinearLayout) findViewById(R.id.formLayout);
 		for (int p = 0; p < l.getChildCount(); p++) {
@@ -193,10 +186,13 @@ public class ContactActivity extends Activity {
 						.getText().toString(), country.getText().toString(),
 				cellphone.getText().toString(), email.getText().toString());
 		int id = db.getLatestContactId();
-		db.updateBookingContanctId(id);
+		db.updateBookingContactId(id);
 		//TODO Om bara 1 plats har bokats så skall vi komma till bekräfta direkt
 		db.close();
 		
+		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
+		i.putExtra("attendantsCount", attendantsCount);
+		i.putExtra("bookingId", bookingId);
 		startActivity(i);
 	}
 

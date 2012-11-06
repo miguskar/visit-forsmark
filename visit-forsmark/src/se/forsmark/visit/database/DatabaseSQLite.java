@@ -93,7 +93,7 @@ public class DatabaseSQLite {
 		}
 	}
 	
-	public void updateBookingContanctId(int conId) { //FINT NAMN
+	public void updateBookingContactId(int conId) { //FINT NAMN
 		try {
 			ContentValues values = new ContentValues();
 			values.put(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID, conId);
