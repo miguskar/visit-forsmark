@@ -126,7 +126,9 @@ public class AttendantsDialogActivity extends Activity {
 		if (!s.equals("") && (seats = Integer.parseInt(s)) > 0) {
 			
 			if(seats <= maxSeats){
-				startContactActivity(preBook(seats), seats);
+				String id = preBook(seats);
+				Log.e("geh", id);
+				startContactActivity(id, seats);
 			}else{
 				Log.e("toManySeats",seats+"");
 				Toast.makeText(getApplicationContext(), getString(R.string.ToManySeats), Toast.LENGTH_SHORT).show();
@@ -140,7 +142,9 @@ public class AttendantsDialogActivity extends Activity {
 	public void startContactActivity(String message, int seats){
 		if(!message.contains("fail")){
 			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+			db.open();
 			db.addBooking(message, DATE);
+			db.close();
 			Intent contact = new Intent(getApplicationContext(), ContactActivity.class);
 			contact.putExtra("bookingId", message);
 			contact.putExtra("seats", seats);

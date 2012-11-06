@@ -43,7 +43,7 @@ import android.util.Log;
 		 
 		  
 		  private static final String DATABASE_NAME = "forsmarktable.db";
-		  public static final int DATABASE_VERSION = 6;
+		  public static final int DATABASE_VERSION = 7;
 		  
 		  
 		  public DatabaseHelper(Context context) {
