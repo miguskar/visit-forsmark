@@ -86,7 +86,7 @@ public class DatabaseSQLite {
 			values.put(DatabaseHelper.COLUMN_BOOKING_DATE, date);
 			values.put(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID, 0);
 			
-			database.insert(DatabaseHelper.TABLE_CONTACT, null, values);
+			database.insert(DatabaseHelper.TABLE_BOOKING, null, values);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
