@@ -16,12 +16,14 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -42,7 +44,6 @@ public class DayActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.dayview);
 		Bundle extras = getIntent().getExtras();
@@ -71,85 +72,98 @@ public class DayActivity extends Activity {
 		ListView list = (ListView) findViewById(R.id.dayItemList);
 
 		list.setAdapter(adapter);
-		
-		list.setOnItemClickListener(itemListener); 
-		
+
+		list.setOnItemClickListener(itemListener);
+
 		printEvents(0);
 
 	}
-	
+
 	OnItemClickListener itemListener = new OnItemClickListener() {
-        public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-        	DayListItem day = array.get(pos);
-        	if(!day.getSeats().equals(getString(R.string.noSeats))){
-        		Intent dialog = new Intent(v.getContext(), AttendantsDialogActivity.class);
+		public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
+			DayListItem day = array.get(pos);
+			if (!day.getSeats().equals(getString(R.string.noSeats))) {
+				Intent dialog = new Intent(getApplicationContext(),
+						AttendantsDialogActivity.class);
+				dialog.putExtra("ID", day.getId());
 				dialog.putExtra("DATE", curDate);
 				dialog.putExtra("MONTH", curMonth);
+				dialog.putExtra("YEAR", curYear);
 				dialog.putExtra("START", day.getStart());
 				dialog.putExtra("SEATS", Integer.parseInt(day.getSeats()));
 				dialog.putExtra("END", day.getEnd());
 				startActivity(dialog);
-        	}
-        	
-        	//TODO RESARVERA PLATSER!!!
+			}
 		}
-    };
+	};
 
 	public void printEvents(int extra) {
 		String[] events = getDateInfo(extra);
 		String temp;
 
 		array.clear();
-		if (events.length >= 4) {
-			for (int i = 0; i < events.length; i = i + 4) {
-				if (Integer.parseInt(events[i + 2]) < 1) {
-					temp = this.getString(R.string.noSeats);
-				} else {
-					temp = events[i + 2];
+		if (events != null) {
+			if (events.length >= 5) {
+				for (int i = 0; i < events.length; i = i + 5) {
+					if (Integer.parseInt(events[i + 3]) < 1) {
+						temp = getResources().getString(R.string.noSeats);
+					} else {
+						temp = events[i + 3];
+					}
+					array.add(new DayListItem(Integer.valueOf(events[i]),
+							events[i + 2].substring(0, 5), temp, events[i + 4]
+									.substring(0, 5)));
 				}
-				array.add(new DayListItem(events[i + 1].substring(0,5), temp, events[i + 3].substring(0,5)));
+
+				adapter.notifyDataSetChanged();
+
+				String[] mon = getResources().getStringArray(R.array.calMonthStringsSwe);
+				curYear = Integer.parseInt(events[1].substring(0, 4));
+				curMonth = Integer.parseInt(events[1].substring(5, 7)) - 1;
+				curDate = Integer.parseInt(events[1].substring(8, 10));
+				tvDate.setText(curDate + " " + mon[curMonth]);
+				tvYear.setText(String.valueOf(curYear));
+			} else {
+				Toast.makeText(getApplicationContext(),
+						getResources().getString(R.string.noticeNoDayEvents),
+						Toast.LENGTH_SHORT).show();
+				if (extra == 1) {
+					int date = new Date(curYear, curMonth + 1, 0).getDate();
+					++curDate;
+					if (curDate > date) {
+						++curMonth;
+						curDate = 1;
+						if (curMonth > 11) {
+							curMonth = 0;
+							++curYear;
+						}
+					}
+				} else {
+					--curDate;
+					if (curDate < 1) {
+						--curMonth;
+						if (curMonth < 0) {
+							curMonth = 11;
+							--curYear;
+						}
+						curDate = new Date(curYear, curMonth + 1, 0).getDate();
+					}
+				}
 			}
-
-			adapter.notifyDataSetChanged();
-
-			String[] mon = this.getResources().getStringArray(R.array.calMonthStringsSwe);
-			curYear = Integer.parseInt(events[0].substring(0, 4));
-			curMonth = Integer.parseInt(events[0].substring(5, 7)) - 1;
-			curDate = Integer.parseInt(events[0].substring(8, 10));
+			Log.v("curDate", "" + curDate);
+		} else {
+			String[] mon = getResources().getStringArray(R.array.calMonthStringsSwe);
+			
 			tvDate.setText(curDate + " " + mon[curMonth]);
 			tvYear.setText(String.valueOf(curYear));
-		} else {
-			Toast.makeText(this, this.getString(R.string.noticeNoDayEvents), Toast.LENGTH_SHORT).show();
-			if(extra == 1){
-				int date = new Date(curYear, curMonth + 1, 0).getDate();
-				++curDate;
-				if (curDate > date) {
-					++curMonth;
-					curDate = 1;
-					if (curMonth > 11) {
-						curMonth = 0;
-						++curYear;
-					}
-				}
-			}
-			else{
-				--curDate;
-				if (curDate < 1) {
-					--curMonth;
-					if (curMonth < 0) {
-						curMonth = 11;
-						--curYear;
-					}
-					curDate = new Date(curYear, curMonth + 1, 0).getDate();
-				}
-			}
+			Toast.makeText(getApplicationContext(), R.string.noInternet,
+					Toast.LENGTH_SHORT).show();
 		}
-		Log.v("curDate",""+curDate);
 	}
 
 	public void topBackButton(View v) {
 		--curDate;
-		
+
 		if (curDate < 1) {
 			--curMonth;
 			if (curMonth < 0) {
@@ -158,7 +172,7 @@ public class DayActivity extends Activity {
 			}
 			curDate = new Date(curYear, curMonth + 1, 0).getDate();
 		}
-		//Log.v("curDate", ""+curDate);
+		// Log.v("curDate", ""+curDate);
 		printEvents(1);
 	}
 
@@ -175,57 +189,71 @@ public class DayActivity extends Activity {
 		}
 		printEvents(2);
 	}
-	
+
 	public void bottomBackClick(View v) {
 		finish();
 	}
 
-
 	public String[] getDateInfo(int extra) {
-		String result = "";
-		InputStream is = null;
-		// http post
-		try {
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					this.getString(R.string.httpRequestUrl));
+		if (isNetworkConnected()) {
+			String result = "";
+			InputStream is = null;
+			// http post
+			try {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(getResources().getString(
+						R.string.httpRequestUrl));
 
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			pairs.add(new BasicNameValuePair("case", "getDayInfo"));
-			pairs.add(new BasicNameValuePair("extra", "" + extra));
-			pairs.add(new BasicNameValuePair("date", "" + (curDate)));
-			pairs.add(new BasicNameValuePair("month", "" + (curMonth + 1)));
-			pairs.add(new BasicNameValuePair("year", "" + curYear));
-			httppost.setEntity(new UrlEncodedFormEntity(pairs));
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+				pairs.add(new BasicNameValuePair("case", "getDayInfo"));
+				pairs.add(new BasicNameValuePair("extra", "" + extra));
+				pairs.add(new BasicNameValuePair("date", "" + (curDate)));
+				pairs.add(new BasicNameValuePair("month", "" + (curMonth + 1)));
+				pairs.add(new BasicNameValuePair("year", "" + curYear));
+				httppost.setEntity(new UrlEncodedFormEntity(pairs));
 
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			is = entity.getContent();
-		} catch (Exception e) {
-			Log.e("log_tag", "Error in http connection " + e.toString());
-		}
-		// convert response to string
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					is, "iso-8859-1"), 8);
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
+				HttpResponse response = httpclient.execute(httppost);
+				HttpEntity entity = response.getEntity();
+				is = entity.getContent();
+			} catch (Exception e) {
+				Log.e("log_tag", "Error in http connection " + e.toString());
 			}
-			is.close();
+			// convert response to string
+			try {
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(is, "iso-8859-1"), 8);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+				is.close();
 
-			result = sb.toString();
+				result = sb.toString();
 
-		} catch (Exception e) {
-			Log.e("log_tag", "Error converting result " + e.toString());
+			} catch (Exception e) {
+				Log.e("log_tag", "Error converting result " + e.toString());
+
+			}
+
+			result = result.replace("[", "");
+			result = result.replace("]", "");
+			result = result.replace("\"", "");
+			Log.v("r", "r: " + result);
+			String[] tmp = result.split(",");
+			return tmp;
 		}
+		return null;
+	}
 
-		result = result.replace("[", "");
-		result = result.replace("]", "");
-		result = result.replace("\"", "");
-		Log.v("r", "r: " + result);
-		String[] tmp = result.split(",");
-		return tmp;
+	private boolean isNetworkConnected() {
+		getApplicationContext();
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		if (ni == null) {
+			// There are no active networks.
+			return false;
+		} else
+			return true;
 	}
 }

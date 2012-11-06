@@ -33,14 +33,17 @@ import android.util.Log;
 		  public static final String COLUMN_ATTENDANTS_SFR = "sfr";
 		  public static final String COLUMN_ATTENDANTS_BOOKINGID = "bookingId";
 		
-		  
+		  public static final String TABLE_BOOKING = "booking";
+		  public static final String COLUMN_BOOKING_ID = "_id";
+		  public static final String COLUMN_BOOKING_DATE = "date";
+		  public static final String COLUMN_BOOKING_CONTACT_ID = "bookingContactId";
 		  
 		  //db2
 		 // public static final String TABLE_CONTACTS = "contacts";
 		 
 		  
 		  private static final String DATABASE_NAME = "forsmarktable.db";
-		  public static final int DATABASE_VERSION = 5;
+		  public static final int DATABASE_VERSION = 6;
 		  
 		  
 		  public DatabaseHelper(Context context) {
@@ -74,12 +77,20 @@ import android.util.Log;
 			      + COLUMN_ATTENDANTS_SFR + " integer, "
 			      + COLUMN_ATTENDANTS_BOOKINGID + " text not null"
 			      +   "); ";
-
+		  
+		  private static final String TABLE_BOOKING_CREATE = "create table " 
+			      + TABLE_BOOKING
+			      + "(" 
+			      + COLUMN_BOOKING_ID + " text not null, " 
+			      + COLUMN_BOOKING_DATE + " text not null, "
+			      + COLUMN_BOOKING_CONTACT_ID + " integer"
+			      +   "); ";
 		  
 		  @Override
 		  public void onCreate(SQLiteDatabase database) {
 			    database.execSQL(TABLE_CONTACT_CREATE);
 			    database.execSQL(TABLE_ATTENDANTS_CREATE);
+			    database.execSQL(TABLE_BOOKING_CREATE);
 			  }
 		  @Override
 		  public void onUpgrade(SQLiteDatabase database, int oldVersion,
@@ -89,6 +100,7 @@ import android.util.Log;
 			        + ", which will destroy all old data");
 			    database.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACT);
 			    database.execSQL("DROP TABLE IF EXISTS " + TABLE_ATTENDANTS);
+			    database.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKING);
 			    onCreate(database);
 			  }
 		

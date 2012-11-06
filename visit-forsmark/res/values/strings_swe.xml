@@ -21,6 +21,7 @@
     <string name="errorMessageFieldEmpty">Alla fält måste vara ifyllda för att gå vidare.</string>
     <string name="errorMessageGender">Du måste välja kön.</string>
 	<string name="noticeNoDayEvents">Det finns inga fler bussturer.</string>
+	<string name="noInternet">Din mamma saknar internetuppkoppling!</string>
 	
     <string name="Jan">Januari</string>
     <string name="Feb">Februari</string>
@@ -51,4 +52,7 @@
     <string name="EditAttendantDialogQ">Vill du ta bort eller ändra deltagarens uppgifter?</string>
     <string name="Edit">Ändra uppgifter</string>
     <string name="Delete">Ta bort från listan</string>
+    
+    <string name="ToManySeats">Så många platser finns det inte!</string>
+    <string name="WrongIntValue">Felaktigt värde</string>
 </resources>

@@ -78,11 +78,38 @@ public class DatabaseSQLite {
 			throw ex;
 		}
 	}
+	
+	public void addBooking(String id, String date) {
+		try {
+			ContentValues values = new ContentValues();
+			values.put(DatabaseHelper.COLUMN_BOOKING_ID, id);
+			values.put(DatabaseHelper.COLUMN_BOOKING_DATE, date);
+			values.put(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID, 0);
+			
+			database.insert(DatabaseHelper.TABLE_CONTACT, null, values);
 
-	// TODO fixa så att vi inte får duplicates i databasen
-	// http://stackoverflow.com/questions/3634984/insert-if-not-exists-else-update
-	public void addContact(String fname, String lname, String pnbr, String sex, String adress, String postnmbr,
-			String padress, String country, String cphone, String email) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateBookingContanctId(int conId) { //FINT NAMN
+		try {
+			ContentValues values = new ContentValues();
+			values.put(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID, conId);
+			String[] ids = {String.valueOf(conId)};
+			
+			database.update(DatabaseHelper.TABLE_BOOKING, values, DatabaseHelper.COLUMN_BOOKING_ID + " = ?", ids);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//TODO fixa så att vi inte får duplicates i databasen http://stackoverflow.com/questions/3634984/insert-if-not-exists-else-update
+	public void addContact(String fname, String lname, String pnbr,
+			String sex, String adress, String postnmbr, String padress,
+			String country, String cphone, String email) {
 		try {
 			ContentValues values = new ContentValues();
 			values.put(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME, fname);
