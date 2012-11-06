@@ -50,7 +50,7 @@
             <Button
                 android:id="@+id/ButtonConfirmContactPerson"
                 style="@style/editButtonStyle"
-                android:text="hejsan" />
+                android:onClick="editContact" />
 
             <TextView
                 android:id="@+id/TextViewconfirmAttendants"
@@ -60,6 +60,11 @@
                 android:layout_marginTop="15dp"
                 android:gravity="left"
                 android:text="Deltagare" />
+            
+            <Button
+                    android:id="@+id/AddAttendantButton"
+                    android:text="Lägg till deltagare +" 
+            		style="@style/bottomBackButton"/>
 
             <RelativeLayout
                 android:layout_width="fill_parent"

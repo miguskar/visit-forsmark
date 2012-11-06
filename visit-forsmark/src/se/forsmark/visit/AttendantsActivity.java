@@ -5,13 +5,9 @@ import java.util.ArrayList;
 import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -31,7 +27,6 @@ public class AttendantsActivity extends Activity {
 	private int counter = 0;
 	private int nbrAttendants;
 	private String bookingId = "hejhej";
-	private SharedPreferences prefs;
 	private ArrayList<Integer> attendantIds;
 
 	@Override
@@ -48,8 +43,6 @@ public class AttendantsActivity extends Activity {
 		String text;
 		Bundle extras = getIntent().getExtras();
 		nbrAttendants = extras.getInt("attendantsCount");
-		prefs = getSharedPreferences("forsmark", MODE_PRIVATE);
-		// bookingId = prefs.getString("bookingId", null);
 
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
@@ -117,7 +110,6 @@ public class AttendantsActivity extends Activity {
 		}
 		RadioButton rbMan = (RadioButton) findViewById(R.id.attendantradioButtonMan);
 		RadioButton rbWoman = (RadioButton) findViewById(R.id.attendantradioButtonWoman);
-		CheckBox cb = (CheckBox) findViewById(R.id.attendantcheckboxSFR);
 
 		if (!rbMan.isChecked() && !rbWoman.isChecked()) {
 			String text = getResources().getString(R.string.errorMessageGender); // Get
@@ -158,7 +150,7 @@ public class AttendantsActivity extends Activity {
 
 		} else { // Update attendant if already exists in db
 			db.updateAttendant(aid, firstname.getText().toString(), lastname.getText().toString(), pnmbr.getText()
-					.toString(), rbMan.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0, bookingId);
+					.toString(), rbMan.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0);
 		}
 		db.close();
 	}
@@ -183,29 +175,17 @@ public class AttendantsActivity extends Activity {
 			return;
 		}
 
+		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+		db.open();
+		int id = db.getLatestContactId();
+		db.close();
 		Intent ip = new Intent(v.getContext(), ConfirmActivity.class);
 		ip.putExtra("attendantsCount", attendantIds.size()); // TODO ALLTID 5
-																// ATM hårdkodat
+		ip.putExtra("contactId", id);														// ATM hårdkodat
 																// som fan
 		ip.putExtra("bookingId", bookingId);
 		startActivity(ip);
-
-		/*
-		 * Om det är första deltagaren, visa back-knappen Om det är näst sista
-		 * deltagaren, gå till bekräfta-sidan Annars
-		 */
-
-		// Kolla om det är sista deltagaren.
-		// Om ej, gå viadare till nästa och spara.
-		if (counter == 0) {
-			Button b = (Button) findViewById(R.id.button_back_top);
-			b.setVisibility(View.VISIBLE);
-		} else if (counter == nbrAttendants - 1) { // TODO -1 eller -2?
-			Button b = (Button) findViewById(R.id.button_next_top);
-			b.setVisibility(View.GONE);
 		}
-
-	}
 
 	public void topNextButton(View v) {
 		if (validate()) {

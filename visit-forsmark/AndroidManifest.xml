@@ -57,6 +57,21 @@
             android:name="AttendantsDialogActivity"
             android:enabled="true" >
         </activity>
+        <activity
+            android:name="EditContactActivity"
+            android:enabled="true"
+            android:windowSoftInputMode="stateUnchanged"> >
+        </activity>
+        <activity
+            android:name="EditAttendantActivity"
+            android:enabled="true"
+            android:windowSoftInputMode="stateUnchanged"> >
+        </activity>
+          <activity
+            android:theme="@android:style/Theme.Dialog"
+            android:name="EditAttendantDialogActivity"
+            android:enabled="true" >
+        </activity>
     </application>
 
 </manifest>

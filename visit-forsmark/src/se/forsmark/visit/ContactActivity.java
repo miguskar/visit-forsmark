@@ -66,10 +66,8 @@ public class ContactActivity extends Activity {
 																// one
 		// Display hint button an
 		Button b = (Button) findViewById(R.id.button_hint_top);
-		Button bnext = (Button) findViewById(R.id.bottomNextButton);
 
 		b.setVisibility(View.VISIBLE); // Unhide button
-//		bnext.setVisibility(View.VISIBLE);
 
 		b.setOnClickListener(new OnClickListener() { // Create Toast hint
 
