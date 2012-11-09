@@ -65,6 +65,12 @@ public class TermsActivity extends Activity{
 		finish();
 	}
 	
+	@Override
+	public void onBackPressed() {
+		deleteBooking();
+		finish();
+	}
+	
 	private void deleteBooking() {
 		String result = "";
 		InputStream is = null;
