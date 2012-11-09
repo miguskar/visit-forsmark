@@ -50,7 +50,12 @@ public class CalenderActivity extends Activity {
 
 		Initialize(savedInstanceState);
 	}
-
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt("YEAR", curYear);
