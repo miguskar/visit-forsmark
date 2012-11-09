@@ -144,7 +144,7 @@ public class AttendantsDialogActivity extends Activity {
 			Toast.makeText(getApplicationContext(), getString(R.string.WrongIntValue), Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+	//TODO TOASTA
 	public void startContactActivity(String message, int seats){
 		if(!message.contains("fail")){
 			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
