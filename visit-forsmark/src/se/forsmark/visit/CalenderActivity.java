@@ -86,6 +86,8 @@ public class CalenderActivity extends Activity {
 		setCalendar(c);
 	}
 
+	
+	
 	public void setCalendar(Calendar c) {
 		String[] dateInfo = getDateInfo();
 		if (dateInfo[0].equals("NOCONNECTION")) {

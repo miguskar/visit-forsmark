@@ -3,6 +3,8 @@ package se.forsmark.visit;
 import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -21,7 +23,8 @@ import android.widget.Toast;
 public class ContactActivity extends Activity {
 	private String bookingId;
 	private int attendantsCount;
-	
+	private static int BOOKING = 10;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,24 +35,24 @@ public class ContactActivity extends Activity {
 		attendantsCount = extras.getInt("seats");
 		initialize(); // Initialize views
 	}
-	
+
 	@Override
 	public void onPause() {
-		//TODO SPARA I SHAREDPREFERENCES
+		// TODO SPARA I SHAREDPREFERENCES
 		super.onPause();
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		//TODO undersök om vi måste läsa in info till formuläret från databasen
+		// TODO undersök om vi måste läsa in info till formuläret från databasen
 	}
-	
+
 	/**
 	 * Unhides elements etc..
 	 */
 	private void initialize() {
-		
+
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
 		tv.setText(R.string.ContactActivityTitle);
@@ -66,18 +69,20 @@ public class ContactActivity extends Activity {
 		b.setOnClickListener(new OnClickListener() { // Create Toast hint
 
 			public void onClick(View v) {
-				String text = getResources().getString(
-						R.string.ContactActivityToast); // Get message from
-														// resources
-				Toast t = Toast.makeText(getApplicationContext(), text,
-						Toast.LENGTH_SHORT); // Creat toast
+				String text = getResources().getString(R.string.ContactActivityToast); // Get
+																						// message
+																						// from
+																						// resources
+				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Creat
+																								// toast
 				t.setGravity(Gravity.TOP, 0, 0); // Position
 				t.show();
 			}
 		});
-		
-		//Fill form with latest contact info
-		//TODO move this to dbsqllite class and return array with key=>value pairs
+
+		// Fill form with latest contact info
+		// TODO move this to dbsqllite class and return array with key=>value
+		// pairs
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
 		Cursor c = db.getLatestContactInfo();
@@ -88,16 +93,15 @@ public class ContactActivity extends Activity {
 			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME)));
 			et = (EditText) findViewById(R.id.editTextPnmbr);
 			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
-	
-			if(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX)).equals("male")){
-				RadioButton rb=(RadioButton) findViewById(R.id.radioButtonMan);
+
+			if (c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX)).equals("male")) {
+				RadioButton rb = (RadioButton) findViewById(R.id.radioButtonMan);
+				rb.setChecked(true);
+			} else {
+				RadioButton rb = (RadioButton) findViewById(R.id.radioButtonWoman);
 				rb.setChecked(true);
 			}
-			else{
-				RadioButton rb=(RadioButton) findViewById(R.id.radioButtonWoman);
-				rb.setChecked(true);
-			}
-			
+
 			et = (EditText) findViewById(R.id.editTextAdress);
 			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS)));
 			et = (EditText) findViewById(R.id.editTextPostNmbr);
@@ -112,19 +116,45 @@ public class ContactActivity extends Activity {
 			et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_EMAIL)));
 		}
 		db.close();
-		
-		
+
 	}
-	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_CANCELED) {
+			setResult(RESULT_CANCELED);
+			finish();
+		}
+	}
+
 	@Override
 	public void onBackPressed() {
-		//TODO ta bort bokningen!
-		//TODO CONFIRM popup
+		// TODO ta bort bokningen!
+		// TODO CONFIRM popup
 		this.finish();
 	}
 
 	public void bottomCancelClick(View v) {
-		onBackPressed();
+		// Dialogruta AVBRYT BOKNING
+		// TODO hitta snyggare lösning och lägg in strängarna i strings xmlen
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.create();
+		builder.setTitle("Avbryt bokning");
+		builder.setMessage("Är du säker på att du vill avbryta din bokning?");
+		builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				setResult(RESULT_CANCELED);
+				finish();
+			}
+		});
+		builder.setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				// Do nothing
+			}
+		});
+		builder.show(); // b
 	}
 
 	public void bottomNextClick(View v) {
@@ -137,11 +167,12 @@ public class ContactActivity extends Activity {
 				EditText ed = (EditText) vv;
 				if (ed.getText().toString().equals("")) {
 					// TODO I MÅN AV TID - fixa ordentlig validering!
-					String text = getResources().getString(
-							R.string.errorMessageFieldEmpty); // Get message from
-															// resources
-					Toast t2 = Toast.makeText(getApplicationContext(), text,
-							Toast.LENGTH_SHORT); // Creat toast
+					String text = getResources().getString(R.string.errorMessageFieldEmpty); // Get
+																								// message
+																								// from
+																								// resources
+					Toast t2 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Creat
+																									// toast
 					t2.setGravity(Gravity.BOTTOM, 0, 0); // Position
 					t2.show();
 					return;
@@ -153,11 +184,12 @@ public class ContactActivity extends Activity {
 		RadioButton rbMan = (RadioButton) findViewById(R.id.radioButtonMan);
 		RadioButton rbWoman = (RadioButton) findViewById(R.id.radioButtonWoman);
 		if (!rbMan.isChecked() && !rbWoman.isChecked()) {
-			String text = getResources().getString(
-					R.string.errorMessageGender); // Get message from
-													// resources
-			Toast t3 = Toast.makeText(getApplicationContext(), text,
-					Toast.LENGTH_SHORT); // Create toast
+			String text = getResources().getString(R.string.errorMessageGender); // Get
+																					// message
+																					// from
+																					// resources
+			Toast t3 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Create
+																							// toast
 			t3.setGravity(Gravity.BOTTOM, 0, 0); // Position
 			t3.show();
 			return;
@@ -177,21 +209,27 @@ public class ContactActivity extends Activity {
 
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
-		db.addContact(firstname.getText().toString(), lastname.getText()
-				.toString(), pnmbr.getText().toString(),
-				rbMan.isChecked() ? "male" : "female", adress.getText()
-						.toString(), postNmbr.getText().toString(), postadress
-						.getText().toString(), country.getText().toString(),
-				cellphone.getText().toString(), email.getText().toString());
+		db.addContact(firstname.getText().toString(), lastname.getText().toString(), pnmbr.getText().toString(), rbMan
+				.isChecked() ? "male" : "female", adress.getText().toString(), postNmbr.getText().toString(),
+				postadress.getText().toString(), country.getText().toString(), cellphone.getText().toString(), email
+						.getText().toString());
 		int id = db.getLatestContactId();
 		db.updateBookingContactId(id);
-		//TODO Om bara 1 plats har bokats så skall vi komma till bekräfta direkt
+		// TODO Om bara 1 plats har bokats så skall vi komma till bekräfta
+		// direkt
 		db.close();
-		
-		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
-		i.putExtra("attendantsCount", attendantsCount);
-		i.putExtra("bookingId", bookingId);
-		startActivity(i);
+
+		if (attendantsCount == 1) {
+			Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
+			i.putExtra("contactId", id);
+			i.putExtra("bookingId", bookingId);
+			startActivityForResult(i, BOOKING);
+		} else {
+			Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
+			i.putExtra("attendantsCount", attendantsCount);
+			i.putExtra("bookingId", bookingId);
+			startActivityForResult(i, BOOKING);
+		}
 	}
 
 }

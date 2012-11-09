@@ -193,6 +193,19 @@ public class DatabaseSQLite {
 		}
 
 	}
+	public void deleteBooking(String bookingId, int contactId){
+		
+		String[] idb ={bookingId };
+		String[] idc ={String.valueOf(contactId) };
+		try{
+			database.delete(DatabaseHelper.TABLE_ATTENDANTS, DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID + " = ?",idb);
+			database.delete(DatabaseHelper.TABLE_BOOKING, DatabaseHelper.COLUMN_CONTACT_ID + " = ?",idc);
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+	
+		
+	}
 
 	/**
 	 * @param id

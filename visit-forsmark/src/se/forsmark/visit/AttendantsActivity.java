@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -23,10 +26,11 @@ import android.widget.Toast;
 
 public class AttendantsActivity extends Activity {
 	private String deltagare = "Deltagare ";
-	private int counter = 0;
+	private int counter = 1;
 	private int nbrAttendants;
 	private String bookingId;
 	private ArrayList<Integer> attendantIds;
+	private final int BOOKING = 10;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,6 @@ public class AttendantsActivity extends Activity {
 	private void initialize() {
 		// Get Info from shared preferences & intent
 		String text;
-
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
 		text = deltagare + (counter + 1) + " av " + nbrAttendants;
@@ -82,6 +85,14 @@ public class AttendantsActivity extends Activity {
 		db.close();
 		if (attendantIds.size() > 0) {
 			fillForm();
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_CANCELED) {
+			setResult(RESULT_CANCELED);
+			finish();
 		}
 	}
 
@@ -132,8 +143,8 @@ public class AttendantsActivity extends Activity {
 		CheckBox cb = (CheckBox) findViewById(R.id.attendantcheckboxSFR);
 
 		int aid;
-		if (counter < attendantIds.size()) {
-			aid = attendantIds.get(counter);
+		if (counter - 1 < attendantIds.size()) {
+			aid = attendantIds.get(counter - 1);
 		} else {
 			aid = 0;
 		}
@@ -161,9 +172,32 @@ public class AttendantsActivity extends Activity {
 	}
 
 	public void bottomCancelClick(View v) {
-		// TODO ta bort bokningen!
-		// TODO CONFIRM popup
+
+		// Dialogruta AVBRYT BOKNING
+		// TODO hitta snyggare lösning och lägg in strängarna i strings xmlen
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.create();
+		builder.setTitle("Avbryt bokning");
+		builder.setMessage("Är du säker på att du vill avbryta din bokning?");
+		builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				setResult(RESULT_CANCELED);
+				finish();
+			}
+		});
+		builder.setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				// Do nothing
+			}
+		});
+		builder.show(); // b
+	}
+
+	public void bottomBackClick(View v) {
 		onBackPressed();
+
 	}
 
 	public void bottomNextClick(View v) {
@@ -179,11 +213,11 @@ public class AttendantsActivity extends Activity {
 		int id = db.getLatestContactId();
 		db.close();
 		Intent ip = new Intent(v.getContext(), ConfirmActivity.class);
-		ip.putExtra("attendantsCount", attendantIds.size()); 
+
 		ip.putExtra("contactId", id);
 		ip.putExtra("bookingId", bookingId);
-		startActivity(ip);
-		}
+		startActivityForResult(ip, BOOKING);
+	}
 
 	public void topNextButton(View v) {
 		if (validate()) {
@@ -198,7 +232,7 @@ public class AttendantsActivity extends Activity {
 		 */
 		++counter;
 		// Modified stuff:
-		if (counter == 1) {
+		if (counter == 2) {
 			Button b = (Button) findViewById(R.id.button_back_top);
 			b.setVisibility(View.VISIBLE);
 		}
@@ -253,13 +287,13 @@ public class AttendantsActivity extends Activity {
 		fillForm();
 
 		// dölj / visa navigation
-		if (counter == nbrAttendants - 2) {
+		if (counter == nbrAttendants - 1) {
 			Button b = (Button) findViewById(R.id.button_next_top);
 			b.setVisibility(View.VISIBLE);
 			b = (Button) findViewById(R.id.bottomNextButton);
 			b.setVisibility(View.GONE);
 		}
-		if (counter <= 0) {
+		if (counter <= 1) {
 			Button backb = (Button) findViewById(R.id.button_back_top);
 			backb.setVisibility(View.GONE);
 		}
@@ -274,7 +308,7 @@ public class AttendantsActivity extends Activity {
 		EditText pnmbr = (EditText) findViewById(R.id.attendantPersonNbr);
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
-		Cursor c = db.getAttendantContactInfo(attendantIds.get(counter));
+		Cursor c = db.getAttendantContactInfo(attendantIds.get(counter - 1));
 		if (c.moveToFirst()) {
 			firstname.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
 			lastname.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));

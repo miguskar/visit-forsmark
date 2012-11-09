@@ -14,8 +14,8 @@
     <string name="calendarWeek">V.</string>
     <string name="ContactActivityTitle">Kontaktperson</string>
     <string name="ContactActivityToast">Kontaktpersonen är den deltagare som ansvarar för bokningen.</string>
-    <string name="NoSFR">ej SFR</string>
-    <string name="NoSFRToast">Deltagare under 7 år eller deltagere som ej kan gå obehindrat utan hjälpmedel kan tyvärr ej följa med ner i slutförvaret.</string>
+    <string name="NoSFR">ej slutförvar(SFR)</string>
+    <string name="NoSFRToast">Deltagare under 7 år eller deltagare som ej kan gå obehindrat utan hjälpmedel kan tyvärr ej följa med ner i slutförvaret.</string>
     <string name="errorMessageFieldEmpty">Alla fält måste vara ifyllda för att gå vidare.</string>
     <string name="errorMessageGender">Du måste välja kön.</string>
     <string name="noticeNoDayEvents">Det finns inga fler bussturer.</string>
@@ -61,4 +61,5 @@
     <string name="Delete">Ta bort från listan</string>
     <string name="ToManySeats">Så många platser finns det inte!</string>
     <string name="WrongIntValue">Felaktigt värde</string>
+    <string name="ConfirmActivityNoSeatsToast">Det finns inga lediga platser kvar.</string>
 </resources>
