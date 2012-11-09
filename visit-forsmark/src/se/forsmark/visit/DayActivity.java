@@ -32,7 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DayActivity extends Activity {
-
+	private int ATTENDANTS_DIALOG = 1337;
 	private TextView tvDate;
 	private TextView tvYear;
 	private int curMonth;
@@ -48,14 +48,33 @@ public class DayActivity extends Activity {
 		setContentView(R.layout.dayview);
 		Bundle extras = getIntent().getExtras();
 
-		Initialize(extras);
+		Initialize(extras, savedInstanceState);
 	}
-
-	public void Initialize(Bundle extras) {
-		curDate = extras.getInt("DATE");
-		curMonth = extras.getInt("MONTH");
-		curYear = extras.getInt("YEAR");
-
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt("YEAR", curYear);
+		outState.putInt("MONTH", curMonth);
+		outState.putInt("DATE", curDate);
+		super.onSaveInstanceState(outState);
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		printEvents(0);
+    }
+	
+	public void Initialize(Bundle extras, Bundle savedInstanceState) {
+		if (savedInstanceState == null) {
+			curDate = extras.getInt("DATE");
+			curMonth = extras.getInt("MONTH");
+			curYear = extras.getInt("YEAR");
+		} else {
+			curDate = savedInstanceState.getInt("DATE");
+			curMonth = savedInstanceState.getInt("MONTH");
+			curYear = savedInstanceState.getInt("YEAR");
+		}
 		Button bb = (Button) findViewById(R.id.button_back_top);
 		Button bn = (Button) findViewById(R.id.button_next_top);
 		tvDate = (TextView) findViewById(R.id.border_title);
@@ -92,7 +111,7 @@ public class DayActivity extends Activity {
 				dialog.putExtra("START", day.getStart());
 				dialog.putExtra("SEATS", Integer.parseInt(day.getSeats()));
 				dialog.putExtra("END", day.getEnd());
-				startActivity(dialog);
+				startActivityForResult(dialog,ATTENDANTS_DIALOG);
 			}
 		}
 	};
@@ -117,7 +136,8 @@ public class DayActivity extends Activity {
 
 				adapter.notifyDataSetChanged();
 
-				String[] mon = getResources().getStringArray(R.array.calMonthStringsSwe);
+				String[] mon = getResources().getStringArray(
+						R.array.calMonthStringsSwe);
 				curYear = Integer.parseInt(events[1].substring(0, 4));
 				curMonth = Integer.parseInt(events[1].substring(5, 7)) - 1;
 				curDate = Integer.parseInt(events[1].substring(8, 10));
@@ -152,8 +172,9 @@ public class DayActivity extends Activity {
 			}
 			Log.v("curDate", "" + curDate);
 		} else {
-			String[] mon = getResources().getStringArray(R.array.calMonthStringsSwe);
-			
+			String[] mon = getResources().getStringArray(
+					R.array.calMonthStringsSwe);
+
 			tvDate.setText(curDate + " " + mon[curMonth]);
 			tvYear.setText(String.valueOf(curYear));
 			Toast.makeText(getApplicationContext(), R.string.noInternet,

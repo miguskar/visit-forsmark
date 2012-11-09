@@ -48,18 +48,31 @@ public class CalenderActivity extends Activity {
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.calenderview);
 
-		Initialize();
+		Initialize(savedInstanceState);
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt("YEAR", curYear);
+		outState.putInt("MONTH", curMonth);
+		super.onSaveInstanceState(outState);
 	}
 
-	public void Initialize() {
+	public void Initialize(Bundle savedInstanceState) {
 
 		// Set init values of the Calendar
 		Calendar c = Calendar.getInstance();
-		curMonth = c.get(Calendar.MONTH);
-		curYear = c.get(Calendar.YEAR);
+		if (savedInstanceState == null) {
+			curMonth = c.get(Calendar.MONTH);
+			curYear = c.get(Calendar.YEAR);
+		} else {
+			curYear = savedInstanceState.getInt("YEAR");
+			curMonth = savedInstanceState.getInt("MONTH");
+			c.set(Calendar.YEAR, curYear);
+			c.set(Calendar.MONTH, curMonth);
+		}
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-
 		// Set visibility and initialize textviews and buttons
 		tvMonth = (TextView) findViewById(R.id.border_title);
 		tvYear = (TextView) findViewById(R.id.border_small);
@@ -75,8 +88,9 @@ public class CalenderActivity extends Activity {
 
 	public void setCalendar(Calendar c) {
 		String[] dateInfo = getDateInfo();
-		if(dateInfo == null){
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+		if (dateInfo == null) {
+			Toast.makeText(getApplicationContext(), R.string.noInternet,
+					Toast.LENGTH_SHORT).show();
 		}
 		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
 		LinearLayout row;
@@ -97,7 +111,6 @@ public class CalenderActivity extends Activity {
 			restCell = (TextView) row.getChildAt(k);
 			restCell.setText(days[k]);
 		}
-
 		String info;
 		for (int i = 0; i < 6; i++) {
 			row = (LinearLayout) cal.getChildAt(i);
@@ -108,10 +121,16 @@ public class CalenderActivity extends Activity {
 					if (c.get(Calendar.MONTH) != curMonth) {
 						dateCell.setBackgroundResource(R.drawable.cell_next_month);
 
-						if (c.get(Calendar.MONTH) < curMonth)
-							dateCell.setTag("P");
-						else
-							dateCell.setTag("N");
+						if (c.get(Calendar.MONTH) < curMonth) {
+							if (curYear == c.get(Calendar.YEAR))
+								dateCell.setTag("P");
+							else
+								dateCell.setTag("N");
+						} else if (c.get(Calendar.MONTH) > curMonth)
+							if (curYear == c.get(Calendar.YEAR))
+								dateCell.setTag("N");
+							else
+								dateCell.setTag("P");
 					} else {
 						if (dateInfo != null) {
 							info = dateInfo[c.get(Calendar.DATE) - 1];
@@ -123,9 +142,9 @@ public class CalenderActivity extends Activity {
 								dateCell.setBackgroundResource(R.drawable.cell_normal);
 							}
 							dateCell.setTag(info);
-						}else{
+						} else {
 							dateCell.setBackgroundResource(R.drawable.cell_empty);
-							dateCell.setTag("E");							
+							dateCell.setTag("E");
 						}
 					}
 
@@ -184,8 +203,9 @@ public class CalenderActivity extends Activity {
 		if (curMonth > 11) {
 			curMonth = 0;
 			++curYear;
-			c.set(Calendar.YEAR, curYear);
+
 		}
+		c.set(Calendar.YEAR, curYear);
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
