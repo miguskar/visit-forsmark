@@ -20,7 +20,19 @@
     <string name="errorMessageGender">Du måste välja kön.</string>
     <string name="noticeNoDayEvents">Det finns inga fler bussturer.</string>
     <string name="noInternet">Du saknar internetuppkoppling!</string>
-    <string name="noResultDatabase">Kan inte kommunicera med databasen!</string> <!-- ÄNDRA SÄGER JOHAN :P -->
+    <string name="noResultDatabase">Kan inte kommunicera med databasen!</string>
+    <!-- ÄNDRA SÄGER JOHAN :P -->
+    <string name="backInTime">Du kan inte boka bakåt i tiden!</string>
+    <!-- String for terms -->
+    <string name="declineTerm">Avböj</string>
+    <string name="acceptTerm">Godkänn</string>
+    <string name="idTerm">Vid incheckningen behövs giltig fotolegitimation uppvisas. Om barn under 18 år saknar egen legitimation kan målsman gå i god för barnet.</string>
+    <string name="sfrTerm">För att få följa med ner i slutförvaret (SFR) måste varje deltagare kunna gå obehindrat, utan hjälpmedel. Anläggningen är inte handikappanpassad.</string>
+    <string name="childrenTerm">Barn 7&#8211;15 år får åka turen med vuxet sällskap. Max 2 barn per vuxen. Barn yngre än 7 år får tyvärr inte följa med ner i SFR men kan i vuxens sällskap vänta ovan jord.</string>
+    <string name="bookTerm">Ev. Avbokning /ombokning anmäles så snart som möjligt. Någon annan kan få platsen, vi har ofta en väntelista på personer som vill följa med.</string>
+    <string name="checkTerm">Incheckning ska ske vid Turistinformationen i Forsmarks Bruk senast 15 minuter innan avfärd. Vid senare ankomst upphör reservationen.</string>
+    <string name="cancelTerm">Vattenfall har rätt att ställa in turen om driftläget så kräver, men Vattenfall ska då snarast möjligen informera redan reserverade gäster.</string>
+    <!--  -->
     <string name="Jan">Januari</string>
     <string name="Feb">Februari</string>
     <string name="Mar">Mars</string>
@@ -49,5 +61,4 @@
     <string name="Delete">Ta bort från listan</string>
     <string name="ToManySeats">Så många platser finns det inte!</string>
     <string name="WrongIntValue">Felaktigt värde</string>
-
 </resources>

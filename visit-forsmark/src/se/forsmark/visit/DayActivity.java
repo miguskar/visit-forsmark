@@ -32,7 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DayActivity extends Activity {
-	private int ATTENDANTS_DIALOG = 1337;
 	private TextView tvDate;
 	private TextView tvYear;
 	private int curMonth;
@@ -101,18 +100,29 @@ public class DayActivity extends Activity {
 	OnItemClickListener itemListener = new OnItemClickListener() {
 		public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
 			DayListItem day = array.get(pos);
-			if (!day.getSeats().equals(getString(R.string.noSeats))) {
-				Intent dialog = new Intent(getApplicationContext(),
-						AttendantsDialogActivity.class);
-				dialog.putExtra("ID", day.getId());
-				dialog.putExtra("DATE", curDate);
-				dialog.putExtra("MONTH", curMonth);
-				dialog.putExtra("YEAR", curYear);
-				dialog.putExtra("START", day.getStart());
-				dialog.putExtra("SEATS", Integer.parseInt(day.getSeats()));
-				dialog.putExtra("END", day.getEnd());
-				startActivityForResult(dialog, ATTENDANTS_DIALOG);
-			}
+			Date todayDate = new Date();
+			int startHour = Integer.valueOf(day.getStart().substring(0, 2));
+			int startMin = Integer.valueOf(day.getStart().substring(3, 5));
+			Date theDate = new Date(curYear - 1900, curMonth, curDate,
+					startHour, startMin);
+			Log.v("ThedateDate", theDate.toString());
+			Log.v("TodayDate", todayDate.toString());
+			
+			//if (theDate.compareTo(todayDate) > 0) {
+				if (!day.getSeats().equals(getString(R.string.noSeats))) {
+					Intent dialog = new Intent(getApplicationContext(),
+							AttendantsDialogActivity.class);
+					dialog.putExtra("ID", day.getId());
+					dialog.putExtra("DATE", curDate);
+					dialog.putExtra("MONTH", curMonth);
+					dialog.putExtra("YEAR", curYear);
+					dialog.putExtra("START", day.getStart());
+					dialog.putExtra("SEATS", Integer.parseInt(day.getSeats()));
+					dialog.putExtra("END", day.getEnd());
+				}
+			//}else{
+				//Toast.makeText(getApplicationContext(), R.string.backInTime, Toast.LENGTH_SHORT).show();
+			//}
 		}
 	};
 
@@ -176,13 +186,13 @@ public class DayActivity extends Activity {
 
 			tvDate.setText(curDate + " " + mon[curMonth]);
 			tvYear.setText(String.valueOf(curYear));
-			if(events[0].equals("NOCONNECTION")){
-			Toast.makeText(getApplicationContext(), R.string.noInternet,
-					Toast.LENGTH_SHORT).show();
-			}else if(events[0].equals("NORESULT")){
-				Toast.makeText(getApplicationContext(), R.string.noResultDatabase,
+			if (events[0].equals("NOCONNECTION")) {
+				Toast.makeText(getApplicationContext(), R.string.noInternet,
 						Toast.LENGTH_SHORT).show();
-			}	
+			} else if (events[0].equals("NORESULT")) {
+				Toast.makeText(getApplicationContext(),
+						R.string.noResultDatabase, Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
@@ -219,7 +229,7 @@ public class DayActivity extends Activity {
 	}
 
 	public String[] getDateInfo(int extra) {
-		String[] tmp = {"NOCONNECTION"};
+		String[] tmp = { "NOCONNECTION" };
 		if (isNetworkConnected()) {
 			String result = "";
 			InputStream is = null;

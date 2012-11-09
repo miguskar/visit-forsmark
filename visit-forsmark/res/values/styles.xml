@@ -1,46 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    
-   <!-- BORDER BACK/NEXT BUTTONS -->
-   	<style name ="backTopButtonStyle">
-   			<item name="android:layout_width">wrap_content</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_alignParentLeft">true</item>
-            <item name="android:layout_centerVertical">true</item>
-            <item name="android:layout_marginLeft">20dp</item>
-            <item name="android:background">@drawable/border_top_back_button</item>
-            <item name="android:onClick">topBackButton</item>
-            <item name="android:visibility">gone</item>
+    <!-- BORDER BACK/NEXT BUTTONS -->
+    <style name="backTopButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:background">@drawable/border_top_back_button</item>
+        <item name="android:onClick">topBackButton</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="nextTopButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:background">@drawable/border_top_next_button</item>
+        <item name="android:onClick">topNextButton</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <!-- EDIT BUTTON -->
+    <style name="editButtonStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/editbutton</item>
+        <item name="android:onClick">editButton</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">left</item>
+        <item name="android:drawableRight">@drawable/editbutton_arr</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
     
-   	<style name ="nextTopButtonStyle">
-   			<item name="android:layout_width">wrap_content</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_alignParentRight">true</item>
-            <item name="android:layout_centerVertical">true</item>
-            <item name="android:layout_marginRight">20dp</item>
-            <item name="android:background">@drawable/border_top_next_button</item>
-            <item name="android:onClick">topNextButton</item>
-            <item name="android:visibility">gone</item>
+    <!-- TERMS TEXTVIEW -->
+    <style name="termTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">5dp</item>
     </style>
     
-   	<!-- EDIT BUTTON -->
-   	<style name ="editButtonStyle">
-   			<item name="android:layout_width">fill_parent</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_centerVertical">true</item>
-            <item name="android:background">@drawable/editbutton</item>
-            <item name="android:onClick">editButton</item>
-            <item name="android:textColor">#FFFFFF</item>
-            <item name="android:gravity">left</item>
-            <item name="android:drawableRight">@drawable/editbutton_arr</item>
-            <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    <!-- TERMS IMAGEDOT -->
+    <style name="termImageDot">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:src">@drawable/term_dot</item>
     </style>
     
-   
-  <!--  MONTH VIEW -->
-    
+    <!-- MONTH VIEW -->
     <style name="dateCellStyle">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
@@ -56,10 +73,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:layout_weight">0.125</item>
-        <item name="android:gravity">center</item> 
+        <item name="android:gravity">center</item>
     </style>
-    
-     <!--  FOOTER BUTTONS-->
+
+    <!-- FOOTER BUTTONS -->
 
     <style name="bottomBackButton">
         <item name="android:layout_width">wrap_content</item>
@@ -69,10 +86,10 @@
         <!-- <item name="android:background">@drawable/""</item> -->
         <item name="android:layout_toLeftOf">@id/bottomCancelButton</item>
         <item name="android:layout_centerVertical">true</item>
-		<item name="android:layout_marginRight">5dp</item> 
+        <item name="android:layout_marginRight">5dp</item>
         <item name="android:onClick">bottomBackClick</item>
     </style>
-    
+
     <style name="bottomCancelButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -83,7 +100,7 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:onClick">bottomCancelClick</item>
     </style>
-  
+
     <style name="bottomNextButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -92,7 +109,7 @@
         <!-- <item name="android:background">@drawable/""</item> -->
         <item name="android:layout_toRightOf">@id/bottomCancelButton</item>
         <item name="android:layout_centerVertical">true</item>
-		<item name="android:layout_marginLeft">5dp</item> 
+        <item name="android:layout_marginLeft">5dp</item>
         <item name="android:onClick">bottomNextClick</item>
     </style>
 

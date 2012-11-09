@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AttendantsDialogActivity extends Activity {
-
+	private static int  TERMS_ACTIVITY = 1337;
 	private int maxSeats, id;
 	private EditText ed;
 	private String DATE;
@@ -65,7 +65,16 @@ public class AttendantsDialogActivity extends Activity {
 
 		DATE = String.format("%s-%s-%s %s %s", year, month, date, start, end);
 	}
-
+	
+	protected void onActivityResult(int requestCode, int resultCode,
+            Intent data) {
+        if (requestCode == TERMS_ACTIVITY) {
+            if (resultCode == RESULT_CANCELED) {
+                finish();
+            }
+        }
+    }
+	
 	public class InputFilterMinMax implements InputFilter {
 		 
 		private int min, max;
@@ -142,10 +151,10 @@ public class AttendantsDialogActivity extends Activity {
 			db.open();
 			db.addBooking(message, DATE);
 			db.close();
-			Intent terms = new Intent(getApplicationContext(), ContactActivity.class);
+			Intent terms = new Intent(getApplicationContext(), TermsActivity.class);
 			terms.putExtra("bookingId", message);
 			terms.putExtra("seats", seats);
-			startActivity(terms);
+			startActivityForResult(terms, TERMS_ACTIVITY);
 		}else{
 			Log.e("PHP-FAIL: ", message);
 		}
