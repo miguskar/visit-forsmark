@@ -62,6 +62,7 @@ public class TermsActivity extends Activity{
 	
 	public void bottomCancelClick(View v){
 		deleteBooking();
+		setResult(RESULT_CANCELED);
 		finish();
 	}
 	
