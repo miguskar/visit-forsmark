@@ -50,7 +50,7 @@ public class DayActivity extends Activity {
 
 		Initialize(extras, savedInstanceState);
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt("YEAR", curYear);
@@ -58,13 +58,13 @@ public class DayActivity extends Activity {
 		outState.putInt("DATE", curDate);
 		super.onSaveInstanceState(outState);
 	}
-	
+
 	@Override
-	protected void onResume(){
+	protected void onResume() {
 		super.onResume();
 		printEvents(0);
-    }
-	
+	}
+
 	public void Initialize(Bundle extras, Bundle savedInstanceState) {
 		if (savedInstanceState == null) {
 			curDate = extras.getInt("DATE");
@@ -111,7 +111,7 @@ public class DayActivity extends Activity {
 				dialog.putExtra("START", day.getStart());
 				dialog.putExtra("SEATS", Integer.parseInt(day.getSeats()));
 				dialog.putExtra("END", day.getEnd());
-				startActivityForResult(dialog,ATTENDANTS_DIALOG);
+				startActivityForResult(dialog, ATTENDANTS_DIALOG);
 			}
 		}
 	};
@@ -121,7 +121,7 @@ public class DayActivity extends Activity {
 		String temp;
 
 		array.clear();
-		if (events != null) {
+		if (events.length >= 5) {
 			if (events.length >= 5) {
 				for (int i = 0; i < events.length; i = i + 5) {
 					if (Integer.parseInt(events[i + 3]) < 1) {
@@ -176,8 +176,13 @@ public class DayActivity extends Activity {
 
 			tvDate.setText(curDate + " " + mon[curMonth]);
 			tvYear.setText(String.valueOf(curYear));
+			if(events[0].equals("NOCONNECTION")){
 			Toast.makeText(getApplicationContext(), R.string.noInternet,
 					Toast.LENGTH_SHORT).show();
+			}else if(events[0].equals("NORESULT")){
+				Toast.makeText(getApplicationContext(), R.string.noResultDatabase,
+						Toast.LENGTH_SHORT).show();
+			}	
 		}
 	}
 
@@ -214,6 +219,7 @@ public class DayActivity extends Activity {
 	}
 
 	public String[] getDateInfo(int extra) {
+		String[] tmp = {"NOCONNECTION"};
 		if (isNetworkConnected()) {
 			String result = "";
 			InputStream is = null;
@@ -249,20 +255,18 @@ public class DayActivity extends Activity {
 				is.close();
 
 				result = sb.toString();
-
+				result = result.replace("[", "");
+				result = result.replace("]", "");
+				result = result.replace("\"", "");
+				Log.v("r", "r: " + result);
+				tmp = result.split(",");
+			} catch (StringIndexOutOfBoundsException e) {
+				tmp[0] = "NORESULT";
 			} catch (Exception e) {
 				Log.e("log_tag", "Error converting result " + e.toString());
-
 			}
-
-			result = result.replace("[", "");
-			result = result.replace("]", "");
-			result = result.replace("\"", "");
-			Log.v("r", "r: " + result);
-			String[] tmp = result.split(",");
-			return tmp;
 		}
-		return null;
+		return tmp;
 	}
 
 	private boolean isNetworkConnected() {

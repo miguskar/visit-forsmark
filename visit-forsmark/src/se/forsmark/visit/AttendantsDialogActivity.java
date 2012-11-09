@@ -142,7 +142,7 @@ public class AttendantsDialogActivity extends Activity {
 			db.open();
 			db.addBooking(message, DATE);
 			db.close();
-			Intent terms = new Intent(getApplicationContext(), TermsActivity.class);
+			Intent terms = new Intent(getApplicationContext(), ContactActivity.class);
 			terms.putExtra("bookingId", message);
 			terms.putExtra("seats", seats);
 			startActivity(terms);

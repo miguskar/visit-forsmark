@@ -20,6 +20,7 @@
     <string name="errorMessageGender">Du måste välja kön.</string>
     <string name="noticeNoDayEvents">Det finns inga fler bussturer.</string>
     <string name="noInternet">Du saknar internetuppkoppling!</string>
+    <string name="noResultDatabase">Kan inte kommunicera med databasen!</string> <!-- ÄNDRA SÄGER JOHAN :P -->
     <string name="Jan">Januari</string>
     <string name="Feb">Februari</string>
     <string name="Mar">Mars</string>

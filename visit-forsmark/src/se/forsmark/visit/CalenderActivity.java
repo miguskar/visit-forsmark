@@ -50,7 +50,7 @@ public class CalenderActivity extends Activity {
 
 		Initialize(savedInstanceState);
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt("YEAR", curYear);
@@ -88,9 +88,14 @@ public class CalenderActivity extends Activity {
 
 	public void setCalendar(Calendar c) {
 		String[] dateInfo = getDateInfo();
-		if (dateInfo == null) {
+		if (dateInfo[0].equals("NOCONNECTION")) {
 			Toast.makeText(getApplicationContext(), R.string.noInternet,
 					Toast.LENGTH_SHORT).show();
+			dateInfo = null;
+		} else if (dateInfo[0].equals("NORESULT")) {
+			Toast.makeText(getApplicationContext(), R.string.noResultDatabase,
+					Toast.LENGTH_SHORT).show();
+			dateInfo = null;
 		}
 		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
 		LinearLayout row;
@@ -217,7 +222,7 @@ public class CalenderActivity extends Activity {
 	}
 
 	public String[] getDateInfo() {
-		String[] tmp = null;
+		String[] tmp = { "NOCONNECTION" };
 		if (isNetworkConnected()) {
 			String result = "";
 			InputStream is = null;
@@ -251,16 +256,15 @@ public class CalenderActivity extends Activity {
 				is.close();
 
 				result = sb.toString();
+				result = result.substring(1, result.length() - 2);
+				result = result.replace("\"", "");
 
+				tmp = result.split(",");
+			} catch (StringIndexOutOfBoundsException e) {
+				tmp[0] = "NORESULT";
 			} catch (Exception e) {
 				Log.e("log_tag", "Error converting result " + e.toString());
 			}
-			Log.v("r", "r: " + result);
-			result = result.substring(1, result.length() - 2);
-			result = result.replace("\"", "");
-
-			tmp = result.split(",");
-
 		}
 		return tmp;
 	}
