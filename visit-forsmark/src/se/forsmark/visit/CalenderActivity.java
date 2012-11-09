@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -47,15 +48,22 @@ public class CalenderActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.calenderview);
-
 		Initialize(savedInstanceState);
 	}
-	
+
 	@Override
 	protected void onResume() {
+
 		super.onResume();
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, curYear);
+		c.set(Calendar.MONTH, curMonth);
+		c.set(Calendar.WEEK_OF_MONTH, 1);
+		c.set(Calendar.DAY_OF_WEEK, 2);
+		setCalendar(c);
+
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt("YEAR", curYear);
@@ -91,17 +99,13 @@ public class CalenderActivity extends Activity {
 		setCalendar(c);
 	}
 
-	
-	
 	public void setCalendar(Calendar c) {
 		String[] dateInfo = getDateInfo();
 		if (dateInfo[0].equals("NOCONNECTION")) {
-			Toast.makeText(getApplicationContext(), R.string.noInternet,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 			dateInfo = null;
 		} else if (dateInfo[0].equals("NORESULT")) {
-			Toast.makeText(getApplicationContext(), R.string.noResultDatabase,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_SHORT).show();
 			dateInfo = null;
 		}
 		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
@@ -109,10 +113,8 @@ public class CalenderActivity extends Activity {
 		Button dateCell;
 		TextView restCell;
 
-		String[] days = getResources()
-				.getStringArray(R.array.calDaysStringsSwe);
-		String[] month = getResources().getStringArray(
-				R.array.calMonthStringsSwe);
+		String[] days = getResources().getStringArray(R.array.calDaysStringsSwe);
+		String[] month = getResources().getStringArray(R.array.calMonthStringsSwe);
 
 		tvMonth.setText(month[curMonth]);
 		tvYear.setText(String.valueOf(curYear));
@@ -132,6 +134,7 @@ public class CalenderActivity extends Activity {
 					dateCell = (Button) row.getChildAt(k);
 					if (c.get(Calendar.MONTH) != curMonth) {
 						dateCell.setBackgroundResource(R.drawable.cell_next_month);
+						dateCell.setTextColor(Color.GRAY);
 
 						if (c.get(Calendar.MONTH) < curMonth) {
 							if (curYear == c.get(Calendar.YEAR))
@@ -144,6 +147,7 @@ public class CalenderActivity extends Activity {
 							else
 								dateCell.setTag("P");
 					} else {
+						dateCell.setTextColor(Color.BLACK);
 						if (dateInfo != null) {
 							info = dateInfo[c.get(Calendar.DATE) - 1];
 							if (info.equals("E")) {
@@ -161,8 +165,7 @@ public class CalenderActivity extends Activity {
 					}
 
 					dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
-					if (c.get(Calendar.MONTH) == Calendar.FEBRUARY
-							&& curYear % 4 != 0 && c.get(Calendar.DATE) == 28) {
+					if (c.get(Calendar.MONTH) == Calendar.FEBRUARY && curYear % 4 != 0 && c.get(Calendar.DATE) == 28) {
 						c.add(Calendar.DATE, +2);
 						if (c.get(Calendar.DATE) == 2)
 							c.add(Calendar.DATE, -1);
@@ -171,8 +174,7 @@ public class CalenderActivity extends Activity {
 					}
 				} else {
 					restCell = (TextView) row.getChildAt(k);
-					restCell.setText(String.valueOf(c
-							.get(Calendar.WEEK_OF_YEAR)));
+					restCell.setText(String.valueOf(c.get(Calendar.WEEK_OF_YEAR)));
 				}
 			}
 		}
@@ -185,8 +187,7 @@ public class CalenderActivity extends Activity {
 		} else if (tag.equals("P")) {
 			topBackButton(null);
 		} else if (tag.equals("F") || tag.equals("S")) {
-			Intent dayView = new Intent(getApplicationContext(),
-					DayActivity.class);
+			Intent dayView = new Intent(getApplicationContext(), DayActivity.class);
 			TextView tv = (TextView) v;
 			dayView.putExtra("DATE", Integer.parseInt(tv.getText().toString()));
 			dayView.putExtra("MONTH", curMonth);
@@ -236,8 +237,7 @@ public class CalenderActivity extends Activity {
 			// http post
 			try {
 				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(getResources().getString(
-						R.string.httpRequestUrl));
+				HttpPost httppost = new HttpPost(getResources().getString(R.string.httpRequestUrl));
 
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair("case", "getMonthInfo"));
@@ -253,8 +253,7 @@ public class CalenderActivity extends Activity {
 			}
 			// convert response to string
 			try {
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(is, "iso-8859-1"), 8);
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
 				StringBuilder sb = new StringBuilder();
 				String line = null;
 				while ((line = reader.readLine()) != null) {
