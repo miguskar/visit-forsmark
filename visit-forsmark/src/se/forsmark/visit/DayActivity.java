@@ -119,6 +119,7 @@ public class DayActivity extends Activity {
 					dialog.putExtra("START", day.getStart());
 					dialog.putExtra("SEATS", Integer.parseInt(day.getSeats()));
 					dialog.putExtra("END", day.getEnd());
+					startActivity(dialog);
 				}
 			//}else{
 				//Toast.makeText(getApplicationContext(), R.string.backInTime, Toast.LENGTH_SHORT).show();
