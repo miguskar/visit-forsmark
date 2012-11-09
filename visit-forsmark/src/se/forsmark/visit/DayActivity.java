@@ -170,7 +170,6 @@ public class DayActivity extends Activity {
 					}
 				}
 			}
-			Log.v("curDate", "" + curDate);
 		} else {
 			String[] mon = getResources().getStringArray(
 					R.array.calMonthStringsSwe);
@@ -193,7 +192,6 @@ public class DayActivity extends Activity {
 			}
 			curDate = new Date(curYear, curMonth + 1, 0).getDate();
 		}
-		// Log.v("curDate", ""+curDate);
 		printEvents(1);
 	}
 

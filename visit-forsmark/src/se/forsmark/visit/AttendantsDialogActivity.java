@@ -81,10 +81,7 @@ public class AttendantsDialogActivity extends Activity {
 		}
 		public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {	
 			try {
-				Log.v("dest", dest.toString());
-				Log.v("sourse", source.toString());
 				int input = Integer.parseInt(dest.toString() + source.toString());
-				Log.v("inpyt", ""+input);
 				if (isInRange(min, max, input))
 					return null;
 				input = Integer.parseInt(source.toString() + dest.toString());
@@ -145,10 +142,10 @@ public class AttendantsDialogActivity extends Activity {
 			db.open();
 			db.addBooking(message, DATE);
 			db.close();
-			Intent contact = new Intent(getApplicationContext(), ContactActivity.class);
-			contact.putExtra("bookingId", message);
-			contact.putExtra("seats", seats);
-			startActivity(contact);
+			Intent terms = new Intent(getApplicationContext(), TermsActivity.class);
+			terms.putExtra("bookingId", message);
+			terms.putExtra("seats", seats);
+			startActivity(terms);
 		}else{
 			Log.e("PHP-FAIL: ", message);
 		}
@@ -193,7 +190,6 @@ public class AttendantsDialogActivity extends Activity {
 			Log.e("log_tag", "Error converting result " + e.toString());
 		}
 		result = result.substring(1, result.length()-2);
-//		Log.v("result", result);
 		return result;
 	}
 }

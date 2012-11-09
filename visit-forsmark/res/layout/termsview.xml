@@ -5,4 +5,6 @@
     android:background="#EEF6FF"
     android:orientation="vertical" >
 
+    <include layout="@layout/border" />
+
 </LinearLayout>

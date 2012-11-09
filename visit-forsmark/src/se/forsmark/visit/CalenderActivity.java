@@ -217,7 +217,6 @@ public class CalenderActivity extends Activity {
 	}
 
 	public String[] getDateInfo() {
-		Log.v("THEM INTERNET!!! ", "" + isNetworkConnected());
 		String[] tmp = null;
 		if (isNetworkConnected()) {
 			String result = "";
