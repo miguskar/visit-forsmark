@@ -68,5 +68,7 @@
     <string name="ToManySeats">Så många platser finns det inte!</string>
     <string name="WrongIntValue">Felaktigt värde</string>
     <string name="ConfirmActivityNoSeatsToast">Det finns inga lediga platser kvar.</string>
+    <string name="aboutVisitForsmark">Om VisitForsmark</string>
+    <string name="aboutVisitForsmarkText">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
 
 </resources>

@@ -28,6 +28,10 @@
             android:name="CalenderActivity"
             android:enabled="true" >
         </activity>
+           <activity
+            android:name="AboutActivity"
+            android:enabled="true" >
+        </activity>
         <activity
             android:name="DayActivity"
             android:enabled="true" >

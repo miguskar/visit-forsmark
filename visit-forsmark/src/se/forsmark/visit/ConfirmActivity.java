@@ -1,6 +1,20 @@
 package se.forsmark.visit;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +37,7 @@ public class ConfirmActivity extends Activity {
 	private int contactId;
 	private final int EDIT_CONTACT = 1, EDIT_ATTENDANT = 2;
 	private int seatsLeft;
+	private int preAttendants;  //Attendents that have been added but whose forms are still to be edited
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,11 +46,58 @@ public class ConfirmActivity extends Activity {
 		setContentView(R.layout.confirmview);
 
 		initialize();
-		seatsLeft = 10; // TODO ta bort mej
+	
+		
 	}
 
 	private void initialize() {
 		// Set Title
+		preAttendants=0;
+		
+		String result = "";
+		InputStream is = null;
+	/*	
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(
+					this.getString(R.string.httpRequestUrl));
+
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			
+			pairs.add(new BasicNameValuePair("case", "getSeats"));
+			pairs.add(new BasicNameValuePair("id", "" + contactId));
+			
+			httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+		} catch (Exception e) {
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		try {
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(is, "iso-8859-1"), 8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+
+			result = sb.toString();
+			result = result.substring(1, result.length() - 2);
+			result = result.replace("\"", "");
+
+			tmp = result.split(",");
+		} catch (StringIndexOutOfBoundsException e) {
+			tmp[0] = "NORESULT";
+		} catch (Exception e) {
+			Log.e("log_tag", "Error converting result " + e.toString());
+		}
+	}
+		
+		*/
 		TextView tv = (TextView) findViewById(R.id.border_title);
 		tv.setText(R.string.ConfirmationTitle);
 
@@ -56,6 +119,7 @@ public class ConfirmActivity extends Activity {
 
 		ArrayList<Integer> al = db.getAttendantIdsFromBookingId(bookingId);
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
+		
 		if (seatsLeft > 0) {
 			b = (Button) findViewById(R.id.AddAttendantButton);
 
@@ -75,9 +139,10 @@ public class ConfirmActivity extends Activity {
 				}
 			});
 			l.addView(b, l.getChildCount() - 2);
+		
 		}
 		db.close();
-
+   
 	}
 
 	public void deleteAttendant(int id) {
@@ -127,6 +192,32 @@ public class ConfirmActivity extends Activity {
 		// Kolla -finns det platser kvar
 		// update seatsleft
 		if (seatsLeft > 0) {
+			Log.v("Att", "ny");
+			
+			preAttendants++;
+			
+			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+			db.open();
+			int id=db.addAttendant("", "", "", "", 0, bookingId);
+			db.close();
+			
+			preBook(1, bookingId); //lägg till i prebook
+			Button b = new Button(this);
+			b.setId(id);
+			b.setGravity(Gravity.LEFT);
+			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
+			b.setTextColor(Color.WHITE);
+			b.setText("Fyll i information eller ta bort");
+			b.setBackgroundResource(R.drawable.editbutton);
+			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
+			b.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					editButton(v);
+				}
+			});
+			LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
+			l.addView(b, l.getChildCount() - 2);
+			
 			// Lägg till deltagare i databas och ta oss till den aktiviteten
 		} else {
 			Button b = (Button) findViewById(R.id.AddAttendantButton);
@@ -139,6 +230,49 @@ public class ConfirmActivity extends Activity {
 		}
 
 	}
+	
+	public String preBook(int seats, String id) { //id är bookingId
+		String result = "";
+		InputStream is = null;
+		// http post
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(
+					this.getString(R.string.httpRequestUrl));
+
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			
+			pairs.add(new BasicNameValuePair("case", "preBook"));
+			pairs.add(new BasicNameValuePair("id", "" + id));
+			pairs.add(new BasicNameValuePair("seats", "" + seats));
+			
+			httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+		} catch (Exception e) {
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					is, "iso-8859-1"), 8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+
+			result = sb.toString();
+
+		} catch (Exception e) {
+			Log.e("log_tag", "Error converting result " + e.toString());
+		}
+		result = result.substring(1, result.length()-2);
+		return result;
+	}
+	
 
 	public void bottomBackClick(View v) {
 

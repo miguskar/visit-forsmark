@@ -282,6 +282,7 @@ public class DatabaseSQLite {
 			throw ex;
 		}
 	}
+	
 
 	public String getAttendantName(int id) {
 		Cursor c = null;

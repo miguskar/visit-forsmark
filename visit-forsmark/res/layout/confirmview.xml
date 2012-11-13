@@ -64,7 +64,7 @@
             <Button
                     android:id="@+id/AddAttendantButton"
                     android:text="Lägg till deltagare +" 
-            		style="@style/bottomBackButton"/>
+            		style="@style/addAttendantButtonStyle"/>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
