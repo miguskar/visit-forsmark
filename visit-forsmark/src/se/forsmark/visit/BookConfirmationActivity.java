@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -37,7 +38,7 @@ public class BookConfirmationActivity extends Activity {
 		}
 		String bookingId = getIntent().getExtras().getString("bookingId");
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-
+		Log.v("derp", bookingId);
 		TextView dateTv = (TextView) findViewById(R.id.nameTextView);
 		TextView timeTv = (TextView) findViewById(R.id.addressTextView);
 		TextView orderNbrTv = (TextView) findViewById(R.id.postAddressTextView);

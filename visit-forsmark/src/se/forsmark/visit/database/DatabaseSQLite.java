@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.SQLException;
+import android.util.Log;
 
 public class DatabaseSQLite {
 
@@ -82,15 +83,15 @@ public class DatabaseSQLite {
 	// TODO change this method to something else derp
 	public Cursor getContactInfo(String bookingId) {
 		Cursor c = null;
-		Cursor cursor = null;
-		String[] id = { bookingId };
+		String[] id = {bookingId};
 		try {
-			cursor = database.rawQuery("SELECT " + DatabaseHelper.COLUMN_BOOKING_CONTACT_ID +" FROM " + DatabaseHelper.TABLE_BOOKING + " WHERE "
-					+ DatabaseHelper.COLUMN_BOOKING_ID + " = '?';", id);
-			id[0] = String.valueOf(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID)));
+			Log.v("derp", bookingId + " " + id[0]);
+			c = database.rawQuery("SELECT " + DatabaseHelper.COLUMN_BOOKING_CONTACT_ID + " FROM " + DatabaseHelper.TABLE_BOOKING + " WHERE "
+					+ DatabaseHelper.COLUMN_BOOKING_ID + " = '" + bookingId + "'", null);
+			id[0] = String.valueOf(c.getInt(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID)));
 			
 			c = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_CONTACT + " WHERE "
-					+ DatabaseHelper.COLUMN_BOOKING_ID + " = '?';", id);
+					+ DatabaseHelper.COLUMN_CONTACT_ID + " = '?';", id);
 			return c;
 		} catch (SQLException ex) {
 			// TODO Handle exception
