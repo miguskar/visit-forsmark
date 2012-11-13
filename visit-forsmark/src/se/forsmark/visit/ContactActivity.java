@@ -131,7 +131,8 @@ public class ContactActivity extends Activity {
 	public void onBackPressed() {
 		// TODO ta bort bokningen!
 		// TODO CONFIRM popup
-		this.finish();
+		bottomCancelClick(null); // FULING 
+		//finish();
 	}
 
 	public void bottomCancelClick(View v) {

@@ -52,7 +52,7 @@ public class AttendantsActivity extends Activity {
 
 		// Unhide next button
 		Button b;
-		if (nbrAttendants > 1) {
+		if (nbrAttendants > 2) {
 			b = (Button) findViewById(R.id.button_next_top);
 			b.setVisibility(View.VISIBLE);
 			b = (Button) findViewById(R.id.bottomNextButton);
@@ -167,6 +167,7 @@ public class AttendantsActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		addOrUpdateAttendant();
+		setResult(RESULT_OK);
 		finish();
 	}
 

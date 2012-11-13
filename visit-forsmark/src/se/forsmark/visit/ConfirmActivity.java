@@ -275,9 +275,16 @@ public class ConfirmActivity extends Activity {
 	
 
 	public void bottomBackClick(View v) {
-
+		setResult(RESULT_OK);
+		finish();
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		setResult(RESULT_OK);
+		finish();
+	}
+	
 	public void bottomCancelClick(View v) {
 		// Dialogruta AVBRYT BOKNING
 		// TODO hitta snyggare lösning och lägg in strängarna i strings xmlen
@@ -302,6 +309,6 @@ public class ConfirmActivity extends Activity {
 	}
 
 	public void bottomNextClick(View v) {
-
+		//TODO SKAPA BOKNINGEN 
 	}
 }
