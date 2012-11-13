@@ -86,8 +86,10 @@ public class DatabaseSQLite {
 		String[] id = {bookingId};
 		try {
 			Log.v("derp", bookingId + " " + id[0]);
-			c = database.rawQuery("SELECT " + DatabaseHelper.COLUMN_BOOKING_CONTACT_ID + " FROM " + DatabaseHelper.TABLE_BOOKING + " WHERE "
+			c = database.rawQuery("SELECT " + DatabaseHelper.COLUMN_BOOKING_CONTACT_ID 
+					+ " FROM " + DatabaseHelper.TABLE_BOOKING + " WHERE "
 					+ DatabaseHelper.COLUMN_BOOKING_ID + " = '" + bookingId + "'", null);
+			
 			id[0] = String.valueOf(c.getInt(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID)));
 			
 			c = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_CONTACT + " WHERE "

@@ -45,7 +45,7 @@ import android.util.Log;
 		 
 		  
 		  private static final String DATABASE_NAME = "forsmarktable.db";
-		  public static final int DATABASE_VERSION = 8;
+		  public static final int DATABASE_VERSION = 10;
 		  
 		  
 		  public DatabaseHelper(Context context) {
@@ -66,7 +66,7 @@ import android.util.Log;
 			      + COLUMN_CONTACT_COUNTRY + " text not null,"
 			      + COLUMN_CONTACT_CELLPHONE + " text not null,"
 			      + COLUMN_CONTACT_EMAIL + " text not null,"
-			      + COLUMN_CONTACT_NOSFR + "text not null"
+			      + COLUMN_CONTACT_NOSFR + " Integer not null"
 			      +   "); ";
 
 		  private static final String TABLE_ATTENDANTS_CREATE = "create table " 

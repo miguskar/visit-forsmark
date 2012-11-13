@@ -214,7 +214,7 @@ public class ContactActivity extends Activity {
 		EditText country = (EditText) findViewById(R.id.editTextCountry);
 		EditText cellphone = (EditText) findViewById(R.id.editTextCell);
 		EditText email = (EditText) findViewById(R.id.editTextEmail);
-		CheckBox cb = (CheckBox) findViewById(R.id.attendantcheckboxSFR);
+		CheckBox cb = (CheckBox) findViewById(R.id.contactcheckboxSFR);
 
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
