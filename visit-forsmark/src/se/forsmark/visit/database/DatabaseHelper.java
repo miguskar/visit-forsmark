@@ -30,9 +30,10 @@ import android.util.Log;
 		  public static final String COLUMN_ATTENDANTS_LASTNAME = "lastname";
 		  public static final String COLUMN_ATTENDANTS_PNMBR = "pnmbr";
 		  public static final String COLUMN_ATTENDANTS_SEX = "sex";
-		  public static final String COLUMN_ATTENDANTS_SFR = "sfr";
+		  public static final String COLUMN_ATTENDANTS_NOSFR = "nosfr";
 		  public static final String COLUMN_ATTENDANTS_BOOKINGID = "bookingId";
 		
+		// Database booking table
 		  public static final String TABLE_BOOKING = "booking";
 		  public static final String COLUMN_BOOKING_ID = "_id";
 		  public static final String COLUMN_BOOKING_DATE = "date";
@@ -74,7 +75,7 @@ import android.util.Log;
 			      + COLUMN_CONTACT_LASTNAME + " text, " 
 			      + COLUMN_CONTACT_PNMBR + " text, "
 			      + COLUMN_CONTACT_SEX + " text, "
-			      + COLUMN_ATTENDANTS_SFR + " integer, "
+			      + COLUMN_ATTENDANTS_NOSFR + " integer, "
 			      + COLUMN_ATTENDANTS_BOOKINGID + " text not null"
 			      +   "); ";
 		  

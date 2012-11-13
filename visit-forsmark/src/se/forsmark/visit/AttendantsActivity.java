@@ -322,7 +322,7 @@ public class AttendantsActivity extends Activity {
 				rb.setChecked(true);
 			}
 			CheckBox cb = (CheckBox) findViewById(R.id.attendantcheckboxSFR);
-			if (c.getInt(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SFR)) == 1) {
+			if (c.getInt(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_NOSFR)) == 1) {
 				cb.setChecked(true);
 			} else {
 				cb.setChecked(false);

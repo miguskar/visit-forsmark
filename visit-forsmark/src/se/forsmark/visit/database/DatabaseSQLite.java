@@ -185,7 +185,7 @@ public class DatabaseSQLite {
 	 * @param bookingId
 	 * @return ROWID or -1 if unsuccessful
 	 */
-	public int addAttendant(String fname, String lname, String pnbr, String sex, int sfr, String bookingId) {
+	public int addAttendant(String fname, String lname, String pnbr, String sex, int nosfr, String bookingId) {
 		int id = -1;
 		try {
 			ContentValues v = new ContentValues();
@@ -193,7 +193,7 @@ public class DatabaseSQLite {
 			v.put(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME, lname);
 			v.put(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR, pnbr);
 			v.put(DatabaseHelper.COLUMN_ATTENDANTS_SEX, sex);
-			v.put(DatabaseHelper.COLUMN_ATTENDANTS_SFR, sfr);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_NOSFR, nosfr);
 			v.put(DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID, bookingId);
 
 			id = (int) database.insert(DatabaseHelper.TABLE_ATTENDANTS, null, v);
@@ -240,7 +240,7 @@ public class DatabaseSQLite {
 	 * @param bookingId
 	 * 
 	 */
-	public void updateAttendant(int id, String fname, String lname, String pnbr, String sex, int sfr/*
+	public void updateAttendant(int id, String fname, String lname, String pnbr, String sex, int nosfr/*
 																									 * ,
 																									 * String
 																									 * bookingId
@@ -251,7 +251,7 @@ public class DatabaseSQLite {
 			v.put(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME, lname);
 			v.put(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR, pnbr);
 			v.put(DatabaseHelper.COLUMN_ATTENDANTS_SEX, sex);
-			v.put(DatabaseHelper.COLUMN_ATTENDANTS_SFR, sfr);
+			v.put(DatabaseHelper.COLUMN_ATTENDANTS_NOSFR, nosfr);
 			// v.put(DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID, bookingId);
 			String[] ids = { String.valueOf(id) };
 
