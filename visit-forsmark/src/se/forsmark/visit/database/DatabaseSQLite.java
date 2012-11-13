@@ -79,6 +79,20 @@ public class DatabaseSQLite {
 		}
 	}
 	
+	//TODO change this method to something else derp
+	public Cursor getContactInfo(String bookingId) {
+		Cursor c = null;
+		String[] id = {bookingId};
+		try {
+			c = database
+					.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_CONTACT + " WHERE " + DatabaseHelper.COLUMN_BOOKING_ID + " = '?';",id);
+			return c;
+		} catch (SQLException ex) {
+			// TODO Handle exception
+			throw ex;
+		}
+	}
+	
 	public void addBooking(String id, String date) {
 		try {
 			ContentValues values = new ContentValues();
@@ -241,7 +255,22 @@ public class DatabaseSQLite {
 			ex.printStackTrace();
 		}
 	}
-
+	
+	public String getBookingDate(String bookingId) {
+		
+		String[] ids = {bookingId};
+		try {
+			Cursor c = database.rawQuery("SELECT "+ DatabaseHelper.COLUMN_BOOKING_DATE + " FROM " + DatabaseHelper.TABLE_BOOKING + " WHERE "  + DatabaseHelper.COLUMN_BOOKING_ID + " = ?", ids);
+			if(c.moveToFirst()){
+				return c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE));
+			}
+			return "";
+		} catch (SQLException ex) {
+			// TODO Handle exception
+			throw ex;
+		}
+	}
+	
 	public Cursor getAttendantContactInfo(int id) {
 		Cursor c = null;
 		String[] ids = { String.valueOf(id) };

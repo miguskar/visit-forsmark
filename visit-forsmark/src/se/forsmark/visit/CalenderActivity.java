@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -101,6 +103,9 @@ public class CalenderActivity extends Activity {
 
 	public void setCalendar(Calendar c) {
 		String[] dateInfo = getDateInfo();
+		
+		Date today = new Date();
+		
 		if (dateInfo[0].equals("NOCONNECTION")) {
 			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 			dateInfo = null;
@@ -132,6 +137,7 @@ public class CalenderActivity extends Activity {
 			for (int k = 0; k < 8; k++) {
 				if (k > 0) {
 					dateCell = (Button) row.getChildAt(k);
+					dateCell.setBackgroundResource(0);
 					if (c.get(Calendar.MONTH) != curMonth) {
 						dateCell.setBackgroundResource(R.drawable.cell_next_month);
 						dateCell.setTextColor(Color.GRAY);
@@ -161,6 +167,10 @@ public class CalenderActivity extends Activity {
 						} else {
 							dateCell.setBackgroundResource(R.drawable.cell_empty);
 							dateCell.setTag("E");
+						}
+						if(c.get(Calendar.YEAR) == (today.getYear()+1900) && c.get(Calendar.MONTH) == today.getMonth() && c.get(Calendar.DATE) == today.getDate()){
+							GradientDrawable bgShape = (GradientDrawable )dateCell.getBackground().getCurrent().mutate();
+							bgShape.setStroke(5, Color.rgb(19, 90, 165));
 						}
 					}
 
@@ -193,6 +203,9 @@ public class CalenderActivity extends Activity {
 			dayView.putExtra("MONTH", curMonth);
 			dayView.putExtra("YEAR", curYear);
 			startActivity(dayView);
+		}
+		else if(tag.equals("E")){
+			Toast.makeText(getApplicationContext(), getString(R.string.noEvent), Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -227,6 +240,15 @@ public class CalenderActivity extends Activity {
 
 	public void bottomBackClick(View v) {
 		finish();
+	}
+
+	public void todayButtonClick(View v) {
+		Calendar c = Calendar.getInstance();
+		curMonth = c.get(Calendar.MONTH);
+		curYear = c.get(Calendar.YEAR);
+		c.set(Calendar.WEEK_OF_MONTH, 1);
+		c.set(Calendar.DAY_OF_WEEK, 2);
+		setCalendar(c);
 	}
 
 	public String[] getDateInfo() {

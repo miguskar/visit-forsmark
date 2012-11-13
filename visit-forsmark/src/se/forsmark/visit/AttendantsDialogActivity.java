@@ -130,7 +130,6 @@ public class AttendantsDialogActivity extends Activity {
 		String s = ed.getText().toString();
 		int seats;
 		if (!s.equals("") && (seats = Integer.parseInt(s)) > 0) {
-			
 			if(seats <= maxSeats){
 				String id = preBook(seats);
 				Log.e("geh", id);

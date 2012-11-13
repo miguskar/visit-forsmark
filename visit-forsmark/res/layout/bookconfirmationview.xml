@@ -9,42 +9,131 @@
     <include
         android:id="@+id/border"
         layout="@layout/border" />
-
-    <LinearLayout
+
+    <ScrollView
+        android:id="@+id/ScrollView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
-
-        <ScrollView
-            android:id="@+id/ScrollView1"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:id="@+id/confirmformLayout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/TextViewconfirmDate"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="DATUM" />
+
+            <TextView
+                android:id="@+id/TextViewconfirmTime"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="TID" />
+
+            <TextView
+                android:id="@+id/TextViewconfirmOrderNr"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="ORDERNUMMER" />
+
+            <TextView
+                android:id="@+id/TextViewconfirmContactPerson"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/ContactActivityTitle" />
+
+            <TextView
+                android:id="@+id/nameTextView"
+                style="@style/contactInfoTextView"
+                android:text="Förnamn Efternamn" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/contactInfoTitleTextView"
+                android:layout_marginTop="10dp"
+                android:text="@string/Address" />
+
+            <TextView
+                android:id="@+id/addressTextView"
+                style="@style/contactInfoTextView"
+                android:text="gata" />
+
+            <TextView
+                android:id="@+id/postAddressTextView"
+                style="@style/contactInfoTextView"
+                android:text="postnr ort" />
+
+            <TextView
+                android:id="@+id/countryTextView"
+                style="@style/contactInfoTextView"
+                android:text="land" />
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/contactInfoTitleTextView"
+                android:layout_marginTop="10dp"
+                android:text="@string/ContactInfo" />
+
+            <TextView
+                android:id="@+id/phoneTextView"
+                style="@style/contactInfoTextView"
+                android:text="Tel: 01234578" />
+
+            <TextView
+                android:id="@+id/emailTextView"
+                style="@style/contactInfoTextView"
+                android:text="epost: blarg@super.oung" />
+
+            <LinearLayout
+                android:id="@+id/attendantsLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/TextViewconfirmAttendants"
+                    style="@style/CodeFont"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="left"
+                    android:text="@string/Attendants" />
+
+                <TextView
+                    android:id="@+id/attendantTextView"
+                    style="@style/contactInfoTextView"
+                    android:text="Bengt Olof" />
+            </LinearLayout>
 
+
             <RelativeLayout
                 android:id="@+id/RelativeLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:text="TextView" />
+                android:gravity="center|bottom">
 
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/backButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/textView1"
-                    android:text="Button" />
+                    android:text="@string/FrotnPage"
+                    android:onClick="backButtonClick" />
             </RelativeLayout>
-        </ScrollView>
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
