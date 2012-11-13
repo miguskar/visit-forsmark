@@ -410,7 +410,7 @@ public class ConfirmActivity extends Activity {
 		} else {
 			throw new CursorIndexOutOfBoundsException("Could not move to first index");
 		}
-
+		c.close();
 		visitors.put(visitor);
 		// Create json object for all relevant attendants and add them to the
 		// array
@@ -432,6 +432,7 @@ public class ConfirmActivity extends Activity {
 				throw new CursorIndexOutOfBoundsException("Could not move to first index");
 			}
 			visitors.put(visitor);
+			c.close();
 		}
 		db.close();
 		JSONObject postParameter = new JSONObject();
