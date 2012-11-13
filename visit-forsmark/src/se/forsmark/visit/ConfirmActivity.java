@@ -71,51 +71,7 @@ public class ConfirmActivity extends Activity {
 	private void initialize() {
 		// Set Title
 		preAttendants=0;
-		
-		String result = "";
-		InputStream is = null;
-	/*	
-		try {
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					this.getString(R.string.httpRequestUrl));
-
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			
-			pairs.add(new BasicNameValuePair("case", "getSeats"));
-			pairs.add(new BasicNameValuePair("id", "" + contactId));
-			
-			httppost.setEntity(new UrlEncodedFormEntity(pairs));
-
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			is = entity.getContent();
-		} catch (Exception e) {
-			Log.e("log_tag", "Error in http connection " + e.toString());
-		}
-		try {
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(is, "iso-8859-1"), 8);
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-			is.close();
-
-			result = sb.toString();
-			result = result.substring(1, result.length() - 2);
-			result = result.replace("\"", "");
-
-			tmp = result.split(",");
-		} catch (StringIndexOutOfBoundsException e) {
-			tmp[0] = "NORESULT";
-		} catch (Exception e) {
-			Log.e("log_tag", "Error converting result " + e.toString());
-		}
-	}
-		
-		*/
+	
 		TextView tv = (TextView) findViewById(R.id.border_title);
 		tv.setText(R.string.ConfirmationTitle);
 
@@ -126,7 +82,12 @@ public class ConfirmActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		bookingId = extras.getString("bookingId");
 		contactId = extras.getInt("contactId");
-
+		
+		
+		seatsLeft=getSeatsLeft();
+		Log.v("SeatsLeft", Integer.toString(seatsLeft));
+		Log.v("bid", bookingId);
+		
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
 		// Get contact name
@@ -134,14 +95,20 @@ public class ConfirmActivity extends Activity {
 
 		Button b = (Button) findViewById(R.id.ButtonConfirmContactPerson);
 		b.setText(contactName);
+		
+		
 
 		ArrayList<Integer> al = db.getAttendantIdsFromBookingId(bookingId);
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 		
 		if (seatsLeft > 0) {
-			b = (Button) findViewById(R.id.AddAttendantButton);
-
+		
+		}else{
+			b = (Button) findViewById(R.id.AddAttendantButton);  //lägg till addAttendantknapp
+			b.setVisibility(View.GONE);
 		}
+		TextView tv2=(TextView)findViewById(R.id.SeatsLeft);
+		tv2.setText("Det finns " + seatsLeft + " platser kvar.");
 		for (int id : al) {
 			b = new Button(this);
 			b.setId(id);
@@ -160,6 +127,7 @@ public class ConfirmActivity extends Activity {
 		
 		}
 		db.close();
+	
    
 	}
 
@@ -209,6 +177,8 @@ public class ConfirmActivity extends Activity {
 	public void addAttendantButton(View v) {
 		// Kolla -finns det platser kvar
 		// update seatsleft
+		seatsLeft=getSeatsLeft();
+		
 		if (seatsLeft > 0) {
 			Log.v("Att", "ny");
 			
@@ -220,8 +190,10 @@ public class ConfirmActivity extends Activity {
 			db.close();
 			
 			preBook(1, bookingId); //lägg till i prebook
+			
 			Button b = new Button(this);
-			b.setId(id);
+		
+			Log.v("buttonID", Integer.toString(id));
 			b.setGravity(Gravity.LEFT);
 			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
 			b.setTextColor(Color.WHITE);
@@ -235,6 +207,12 @@ public class ConfirmActivity extends Activity {
 			});
 			LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 			l.addView(b, l.getChildCount() - 2);
+			seatsLeft=getSeatsLeft();
+			if(seatsLeft>0){
+				TextView tv2=(TextView)findViewById(R.id.SeatsLeft);
+				tv2.setText("Det finns " + seatsLeft + " platser kvar.");
+			}
+			
 			
 			// Lägg till deltagare i databas och ta oss till den aktiviteten
 		} else {
@@ -246,6 +224,7 @@ public class ConfirmActivity extends Activity {
 			t.setGravity(Gravity.TOP, 0, 0); // Position
 			t.show();
 		}
+		
 
 	}
 	
@@ -325,7 +304,9 @@ public class ConfirmActivity extends Activity {
 		});
 		builder.show(); // b
 	}
-
+	
+	
+	
 	public void bottomNextClick(View v) {
 		//TODO SKAPA BOKNINGEN OCH SKICKA MAIL
 		
@@ -336,6 +317,55 @@ public class ConfirmActivity extends Activity {
 		
 		//createBooking();
 	}
+	
+	public int getSeatsLeft(){
+		String result = "";
+		InputStream is = null;
+		String[] tmp = { "NOCONNECTION" };
+		int tp=0;
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(
+					this.getString(R.string.httpRequestUrl));  
+
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			
+			pairs.add(new BasicNameValuePair("case", "getSeats"));
+			pairs.add(new BasicNameValuePair("id", "" + bookingId));
+			
+			httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+		} catch (Exception e) {
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		try {
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(is, "iso-8859-1"), 8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+			
+			//sb.deleteCharAt(0);
+			//sb.deleteCharAt(sb.indexOf("'"));
+			result = sb.toString();
+			result = result.substring(0, result.length()-1);
+		} catch (StringIndexOutOfBoundsException e) {
+			tmp[0] = "NORESULT";
+			
+		} catch (Exception e) {
+			Log.e("log_tag", "Error converting result " + e.toString());
+		}
+		
+		return Integer.parseInt(result);
+		
+	}
+	
 
 	private void createBooking() {
 		// Create array to contain visitors
