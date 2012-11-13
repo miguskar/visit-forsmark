@@ -33,11 +33,7 @@
 
         <Button
             android:id="@+id/decAtt"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-" 
-            android:onClick="decreaseAtt"/>
+            style="@style/decreaceButtonStyle" />"
 
         <EditText
             android:id="@+id/numAtt"
@@ -53,11 +49,8 @@
 
         <Button
             android:id="@+id/incAtt"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+" 
-            android:onClick="increaseAtt"/>
+            style="@style/increaseButtonStyle"
+            />
     </LinearLayout>
 
     <LinearLayout

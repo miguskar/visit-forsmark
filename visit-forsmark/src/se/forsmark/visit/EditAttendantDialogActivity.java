@@ -53,6 +53,10 @@ public class EditAttendantDialogActivity extends Activity {
 			finish();
 		}
 	}
+	
+	public void bottomBackClick(View v){
+		finish();
+	}
 
 	public void editButton(View v) {
 		Intent i = new Intent(getApplicationContext(), EditAttendantActivity.class);
@@ -91,5 +95,6 @@ public class EditAttendantDialogActivity extends Activity {
 		builder.show();    //b
 		
 	}
+	
 	
 }
