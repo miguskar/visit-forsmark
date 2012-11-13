@@ -310,12 +310,12 @@ public class ConfirmActivity extends Activity {
 	public void bottomNextClick(View v) {
 		//TODO SKAPA BOKNINGEN OCH SKICKA MAIL
 		
-		Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
-		i.putExtra("bookingId", bookingId);
-		i.putExtra("state", 1);
-		startActivity(i);
+//		Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
+//		i.putExtra("bookingId", bookingId);
+//		i.putExtra("state", 1);
+//		startActivity(i);
 		
-		//createBooking();
+		createBooking();
 	}
 	
 	public int getSeatsLeft(){
@@ -402,8 +402,7 @@ public class ConfirmActivity extends Activity {
 				visitor.put(MAIL, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_EMAIL)));
 				visitor.put(SEX, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX)));
 				visitor.put(PNR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
-				// jObj.put(NO_SFR,
-				// c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME)));
+				visitor.put(NO_SFR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_NOSFR)));
 				// // FIXME Lägg till i kontakt-aktiviteten & db
 			} catch (JSONException ex) {
 				ex.printStackTrace();
