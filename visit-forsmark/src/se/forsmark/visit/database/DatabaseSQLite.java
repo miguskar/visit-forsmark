@@ -128,7 +128,7 @@ public class DatabaseSQLite {
 	// TODO fixa så att vi inte får duplicates i databasen
 	// http://stackoverflow.com/questions/3634984/insert-if-not-exists-else-update
 	public void addContact(String fname, String lname, String pnbr, String sex, String adress, String postnmbr,
-			String padress, String country, String cphone, String email) {
+			String padress, String country, String cphone, String email, int nosfr) {
 		try {
 			ContentValues values = new ContentValues();
 			values.put(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME, fname);
@@ -141,6 +141,7 @@ public class DatabaseSQLite {
 			values.put(DatabaseHelper.COLUMN_CONTACT_COUNTRY, country);
 			values.put(DatabaseHelper.COLUMN_CONTACT_CELLPHONE, cphone);
 			values.put(DatabaseHelper.COLUMN_CONTACT_EMAIL, email);
+			values.put(DatabaseHelper.COLUMN_CONTACT_NOSFR, nosfr);
 
 			database.insert(DatabaseHelper.TABLE_CONTACT, null, values);
 
@@ -150,7 +151,7 @@ public class DatabaseSQLite {
 	}
 
 	public void updateContact(int id, String fname, String lname, String pnbr, String sex, String adress,
-			String postnmbr, String padress, String country, String cphone, String email) {
+			String postnmbr, String padress, String country, String cphone, String email, int nosfr) {
 		try {
 			ContentValues values = new ContentValues();
 			values.put(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME, fname);
@@ -163,6 +164,7 @@ public class DatabaseSQLite {
 			values.put(DatabaseHelper.COLUMN_CONTACT_COUNTRY, country);
 			values.put(DatabaseHelper.COLUMN_CONTACT_CELLPHONE, cphone);
 			values.put(DatabaseHelper.COLUMN_CONTACT_EMAIL, email);
+			values.put(DatabaseHelper.COLUMN_CONTACT_NOSFR, nosfr);
 			String[] ids = { String.valueOf(id) };
 
 			database.update(DatabaseHelper.TABLE_CONTACT, values, DatabaseHelper.COLUMN_CONTACT_ID + " = ?", ids);

@@ -21,6 +21,7 @@ import android.util.Log;
 		  public static final String COLUMN_CONTACT_COUNTRY = "country";
 		  public static final String COLUMN_CONTACT_CELLPHONE = "cellphone";
 		  public static final String COLUMN_CONTACT_EMAIL = "email";
+		  public static final String COLUMN_CONTACT_NOSFR = "nosfr";
 		  
 		  
 		// Database attendants table
@@ -44,7 +45,7 @@ import android.util.Log;
 		 
 		  
 		  private static final String DATABASE_NAME = "forsmarktable.db";
-		  public static final int DATABASE_VERSION = 7;
+		  public static final int DATABASE_VERSION = 8;
 		  
 		  
 		  public DatabaseHelper(Context context) {
@@ -64,7 +65,8 @@ import android.util.Log;
 			      + COLUMN_CONTACT_POSTADRESS + " text not null, "
 			      + COLUMN_CONTACT_COUNTRY + " text not null,"
 			      + COLUMN_CONTACT_CELLPHONE + " text not null,"
-			      + COLUMN_CONTACT_EMAIL + " text not null"
+			      + COLUMN_CONTACT_EMAIL + " text not null,"
+			      + COLUMN_CONTACT_NOSFR + "text not null"
 			      +   "); ";
 
 		  private static final String TABLE_ATTENDANTS_CREATE = "create table " 

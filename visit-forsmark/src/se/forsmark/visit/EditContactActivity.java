@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,6 +95,12 @@ public class EditContactActivity extends Activity {
 					et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE)));
 					et = (EditText) findViewById(R.id.editTextEmail);
 					et.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_EMAIL)));
+					CheckBox cb = (CheckBox) findViewById(R.id.contactcheckboxSFR);
+					if (c.getInt(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_NOSFR)) == 1) {
+						cb.setChecked(true);
+					} else {
+						cb.setChecked(false);
+					}
 				}
 				db.close();
 	}
@@ -149,6 +156,7 @@ public class EditContactActivity extends Activity {
 		EditText country = (EditText) findViewById(R.id.editTextCountry);
 		EditText cellphone = (EditText) findViewById(R.id.editTextCell);
 		EditText email = (EditText) findViewById(R.id.editTextEmail);
+		CheckBox cb = (CheckBox) findViewById(R.id.attendantcheckboxSFR);
 
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
@@ -157,7 +165,7 @@ public class EditContactActivity extends Activity {
 				rbMan.isChecked() ? "male" : "female", adress.getText()
 						.toString(), postNmbr.getText().toString(), postadress
 						.getText().toString(), country.getText().toString(),
-				cellphone.getText().toString(), email.getText().toString());
+				cellphone.getText().toString(), email.getText().toString(), cb.isChecked() ? 1 : 0);
 		db.close();
 		
 		Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);

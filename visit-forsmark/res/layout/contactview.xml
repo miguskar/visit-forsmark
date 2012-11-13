@@ -176,6 +176,33 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textEmailAddress" />
+            
+            <!-- NO SFR ______________________________________________________ -->
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+            	>
+            
+            <CheckBox
+                android:id="@+id/contactcheckboxSFR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/RadioButtonFont"
+                android:text="@string/NoSFR" />
+
+            <Button
+                android:id="@+id/button_hint_SFR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/attendantcheckboxSFR"
+                android:layout_alignBottom="@+id/attendantcheckboxSFR"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/attendantcheckboxSFR"
+                android:background="@drawable/hint"
+                android:visibility="visible" />
+            
+            </RelativeLayout>
+            <!-- ______________________________________________________________ -->
 
             <RelativeLayout
                 android:layout_width="fill_parent"
