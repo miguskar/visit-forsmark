@@ -114,8 +114,7 @@
 
                 <TextView
                     android:id="@+id/attendantTextView"
-                    style="@style/contactInfoTextView"
-                    android:text="Bengt Olof" />
+                    style="@style/contactInfoTextView"/>
             </LinearLayout>
 
 
@@ -127,8 +126,7 @@
 
                 <Button
                     android:id="@+id/backButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+					style="@style/button"
                     android:layout_alignParentLeft="true"
                     android:text="@string/FrotnPage"
                     android:onClick="backButtonClick" />

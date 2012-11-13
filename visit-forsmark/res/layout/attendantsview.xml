@@ -127,17 +127,17 @@
                 <Button
                     android:id="@+id/bottomBackButton"
                     style="@style/bottomBackButton"
-                    android:text="back" />
+                    android:text="@string/Back" />
 
                 <Button
                     android:id="@+id/bottomCancelButton"
                     style="@style/bottomCancelButton"
-                    android:text="cancel" />
+                    android:text="@string/Cancel" />
 
                 <Button
                     android:id="@+id/bottomNextButton"
                     style="@style/bottomNextButton"
-                    android:text="next" />
+                    android:text="@string/Next" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

@@ -38,10 +38,10 @@ public class BookConfirmationActivity extends Activity {
 		}
 		String bookingId = getIntent().getExtras().getString("bookingId");
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-		Log.v("derp", bookingId);
-		TextView dateTv = (TextView) findViewById(R.id.nameTextView);
-		TextView timeTv = (TextView) findViewById(R.id.addressTextView);
-		TextView orderNbrTv = (TextView) findViewById(R.id.postAddressTextView);
+		TextView titleTv = (TextView)findViewById(R.id.border_title);
+		TextView dateTv = (TextView) findViewById(R.id.TextViewconfirmDate);
+		TextView timeTv = (TextView) findViewById(R.id.TextViewconfirmTime);
+		TextView orderNbrTv = (TextView) findViewById(R.id.TextViewconfirmOrderNr);
 		TextView nameTv = (TextView) findViewById(R.id.nameTextView);
 		TextView addTv = (TextView) findViewById(R.id.addressTextView);
 		TextView postAddTv = (TextView) findViewById(R.id.postAddressTextView);
@@ -49,14 +49,17 @@ public class BookConfirmationActivity extends Activity {
 		TextView phoneTv = (TextView) findViewById(R.id.phoneTextView);
 		TextView mailTv = (TextView) findViewById(R.id.emailTextView);
 		TextView attNameTv = (TextView) findViewById(R.id.attendantTextView);
-
+		
+		titleTv.setText(getString(R.string.ConfirmedTitle));
+		
 		db.open();
-		String Date = db.getBookingDate(bookingId);
-		dateTv.setText(Date);
-		timeTv.setText(Date);
+		String date = db.getBookingDate(bookingId);
+		dateTv.setText(date.subSequence(0, 10));
+		timeTv.setText(String.format("%s - %s", date.substring(10,16), date.substring(17, date.length())));
 		orderNbrTv.setText(bookingId.toUpperCase());
 
 		Cursor c = db.getContactInfo(bookingId);
+		c.moveToFirst();
 		nameTv.setText(String.format("%s %s", 
 				c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)),
 				c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME))));
@@ -80,6 +83,11 @@ public class BookConfirmationActivity extends Activity {
 			}
 		}
 		db.close();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		backButtonClick(null);
 	}
 	
 	public void backButtonClick(View v){

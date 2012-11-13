@@ -194,10 +194,9 @@
                 android:id="@+id/button_hint_SFR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/attendantcheckboxSFR"
-                android:layout_alignBottom="@+id/attendantcheckboxSFR"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/attendantcheckboxSFR"
+                android:layout_toRightOf="@+id/contactcheckboxSFR"
                 android:background="@drawable/hint"
                 android:visibility="visible" />
             
@@ -211,12 +210,12 @@
                 <Button
                     android:id="@+id/bottomCancelButton"
                     style="@style/bottomCancelButton"
-                    android:text="cancel" />
+                    android:text="@string/Cancel" />
 
                 <Button
                     android:id="@+id/bottomNextButton"
                     style="@style/bottomNextButton"
-                    android:text="next" />
+                    android:text="@string/Next" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

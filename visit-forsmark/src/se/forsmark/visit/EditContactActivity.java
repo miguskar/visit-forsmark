@@ -105,7 +105,7 @@ public class EditContactActivity extends Activity {
 				db.close();
 	}
 	
-	public void bottomCancelClic(View v) {
+	public void bottomCancelClick(View v) {
 		//TODO implement bottomCancelClick
 	}
 	

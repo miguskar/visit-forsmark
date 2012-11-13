@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Visit-forsmark</string>
     <string name="httpRequestUrl">http://83.249.138.5/backlog/application_switch.php</string>
     <string name="Today">Idag</string>
@@ -9,6 +8,7 @@
     <string name="Attendants">Deltagare</string>
     <string name="FrotnPage">Startsida</string>
     <string name="hello">hej klas</string>
+    <string name="Confrim">Bekräfta</string>
     <string name="calendarMonday">Mån</string>
     <string name="calendarTuesday">Tis</string>
     <string name="calendarWensday">Ons</string>
@@ -61,6 +61,7 @@
     <string name="SeatsLeft">Platser Kvar</string>
     <string name="EndTime">Sluttid</string>
     <string name="ConfirmationTitle">Bekräfta bokning</string>
+    <string name="ConfirmedTitle">Bokning bekräftad</string>
     <string name="HowManySeats">Hur många säten vill du boka?</string>
     <string name="EditAttendantDialogQ">Vill du ta bort eller ändra deltagarens uppgifter?</string>
     <string name="Edit">Ändra uppgifter</string>
