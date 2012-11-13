@@ -78,52 +78,57 @@ public class DatabaseSQLite {
 			throw ex;
 		}
 	}
-	
-	//TODO change this method to something else derp
+
+	// TODO change this method to something else derp
 	public Cursor getContactInfo(String bookingId) {
 		Cursor c = null;
-		String[] id = {bookingId};
+		Cursor cursor = null;
+		String[] id = { bookingId };
 		try {
-			c = database
-					.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_CONTACT + " WHERE " + DatabaseHelper.COLUMN_BOOKING_ID + " = '?';",id);
+			cursor = database.rawQuery("SELECT " + DatabaseHelper.COLUMN_BOOKING_CONTACT_ID +" FROM " + DatabaseHelper.TABLE_BOOKING + " WHERE "
+					+ DatabaseHelper.COLUMN_BOOKING_ID + " = '?';", id);
+			id[0] = String.valueOf(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID)));
+			
+			c = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_CONTACT + " WHERE "
+					+ DatabaseHelper.COLUMN_BOOKING_ID + " = '?';", id);
 			return c;
 		} catch (SQLException ex) {
 			// TODO Handle exception
 			throw ex;
 		}
 	}
-	
+
 	public void addBooking(String id, String date) {
 		try {
 			ContentValues values = new ContentValues();
 			values.put(DatabaseHelper.COLUMN_BOOKING_ID, id);
 			values.put(DatabaseHelper.COLUMN_BOOKING_DATE, date);
 			values.put(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID, 0);
-			
+
 			database.insert(DatabaseHelper.TABLE_BOOKING, null, values);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void updateBookingContactId(int conId) { //FINT NAMN
+
+	public void updateBookingContactId(String bookingId,int conId) { // FINT NAMN
 		try {
 			ContentValues values = new ContentValues();
 			values.put(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID, conId);
-			String[] ids = {String.valueOf(conId)};
-			
+			String[] ids = {bookingId};
+
 			database.update(DatabaseHelper.TABLE_BOOKING, values, DatabaseHelper.COLUMN_BOOKING_ID + " = ?", ids);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	//TODO fixa så att vi inte får duplicates i databasen http://stackoverflow.com/questions/3634984/insert-if-not-exists-else-update
-	public void addContact(String fname, String lname, String pnbr,
-			String sex, String adress, String postnmbr, String padress,
-			String country, String cphone, String email) {
+
+	// TODO fixa så att vi inte får duplicates i databasen
+	// http://stackoverflow.com/questions/3634984/insert-if-not-exists-else-update
+	public void addContact(String fname, String lname, String pnbr, String sex, String adress, String postnmbr,
+			String padress, String country, String cphone, String email) {
 		try {
 			ContentValues values = new ContentValues();
 			values.put(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME, fname);
@@ -172,7 +177,7 @@ public class DatabaseSQLite {
 	 * @param fname
 	 *            first name
 	 * @param lname
-	 *            last name 
+	 *            last name
 	 * @param pnbr
 	 *            SSN
 	 * @param sex
@@ -207,18 +212,18 @@ public class DatabaseSQLite {
 		}
 
 	}
-	public void deleteBooking(String bookingId, int contactId){
-		
-		String[] idb ={bookingId };
-		String[] idc ={String.valueOf(contactId) };
-		try{
-			database.delete(DatabaseHelper.TABLE_ATTENDANTS, DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID + " = ?",idb);
-			database.delete(DatabaseHelper.TABLE_BOOKING, DatabaseHelper.COLUMN_CONTACT_ID + " = ?",idc);
-		} catch(SQLException e){
+
+	public void deleteBooking(String bookingId, int contactId) {
+
+		String[] idb = { bookingId };
+		String[] idc = { String.valueOf(contactId) };
+		try {
+			database.delete(DatabaseHelper.TABLE_ATTENDANTS, DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID + " = ?", idb);
+			database.delete(DatabaseHelper.TABLE_BOOKING, DatabaseHelper.COLUMN_CONTACT_ID + " = ?", idc);
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
-		
+
 	}
 
 	/**
@@ -255,13 +260,14 @@ public class DatabaseSQLite {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public String getBookingDate(String bookingId) {
-		
-		String[] ids = {bookingId};
+
+		String[] ids = { bookingId };
 		try {
-			Cursor c = database.rawQuery("SELECT "+ DatabaseHelper.COLUMN_BOOKING_DATE + " FROM " + DatabaseHelper.TABLE_BOOKING + " WHERE "  + DatabaseHelper.COLUMN_BOOKING_ID + " = ?", ids);
-			if(c.moveToFirst()){
+			Cursor c = database.rawQuery("SELECT " + DatabaseHelper.COLUMN_BOOKING_DATE + " FROM "
+					+ DatabaseHelper.TABLE_BOOKING + " WHERE " + DatabaseHelper.COLUMN_BOOKING_ID + " = ?", ids);
+			if (c.moveToFirst()) {
 				return c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE));
 			}
 			return "";
@@ -270,19 +276,19 @@ public class DatabaseSQLite {
 			throw ex;
 		}
 	}
-	
+
 	public Cursor getAttendantContactInfo(int id) {
 		Cursor c = null;
 		String[] ids = { String.valueOf(id) };
 		try {
-			c = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_ATTENDANTS + " WHERE "  + DatabaseHelper.COLUMN_ATTENDANTS_ID + " = ?", ids);
+			c = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_ATTENDANTS + " WHERE "
+					+ DatabaseHelper.COLUMN_ATTENDANTS_ID + " = ?", ids);
 			return c;
 		} catch (SQLException ex) {
 			// TODO Handle exception
 			throw ex;
 		}
 	}
-	
 
 	public String getAttendantName(int id) {
 		Cursor c = null;
@@ -304,7 +310,8 @@ public class DatabaseSQLite {
 		String[] ids = { bookingId };
 		Cursor c;
 		try {
-			c = database.rawQuery("SELECT _id FROM " + DatabaseHelper.TABLE_ATTENDANTS + " WHERE " + DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID + " = ?", ids);
+			c = database.rawQuery("SELECT _id FROM " + DatabaseHelper.TABLE_ATTENDANTS + " WHERE "
+					+ DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID + " = ?", ids);
 		} catch (SQLException ex) {
 			// TODO Handle exception
 			throw ex;

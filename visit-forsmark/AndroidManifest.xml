@@ -77,6 +77,10 @@
             android:name="EditAttendantDialogActivity"
             android:enabled="true" >
         </activity>
+        <activity
+            android:name="BookConfirmationActivity"
+            android:enabled="true" >
+        </activity>
     </application>
 
 </manifest>

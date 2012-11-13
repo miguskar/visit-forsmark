@@ -215,7 +215,7 @@ public class ContactActivity extends Activity {
 				postadress.getText().toString(), country.getText().toString(), cellphone.getText().toString(), email
 						.getText().toString());
 		int id = db.getLatestContactId();
-		db.updateBookingContactId(id);
+		db.updateBookingContactId(bookingId,id);
 		// TODO Om bara 1 plats har bokats så skall vi komma till bekräfta
 		// direkt
 		db.close();

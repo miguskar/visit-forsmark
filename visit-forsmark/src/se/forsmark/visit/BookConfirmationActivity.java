@@ -21,7 +21,7 @@ public class BookConfirmationActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.calenderview);
+		setContentView(R.layout.bookconfirmationview);
 
 		Initialize(savedInstanceState);
 	}

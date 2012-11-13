@@ -309,6 +309,10 @@ public class ConfirmActivity extends Activity {
 	}
 
 	public void bottomNextClick(View v) {
-		//TODO SKAPA BOKNINGEN 
+		//TODO SKAPA BOKNINGEN OCH SKICKA MAIL
+		Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
+		i.putExtra("bookingId", bookingId);
+		i.putExtra("state", 1);
+		startActivity(i);
 	}
 }
