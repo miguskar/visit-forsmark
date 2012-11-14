@@ -191,7 +191,7 @@
                 android:text="@string/NoSFR" />
 
             <Button
-                android:id="@+id/button_hint_SFR"
+                android:id="@+id/contact_button_hint_SFR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

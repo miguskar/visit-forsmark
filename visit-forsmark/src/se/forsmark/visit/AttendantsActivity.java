@@ -1,5 +1,5 @@
 package se.forsmark.visit;
-
+ 
 import java.util.ArrayList;
 
 import se.forsmark.visit.database.DatabaseHelper;
@@ -287,7 +287,7 @@ public class AttendantsActivity extends Activity {
 		fillForm();
 
 		// dölj / visa navigation
-		if (counter == nbrAttendants - 1) {
+		if (counter == nbrAttendants - 2) {
 			Button b = (Button) findViewById(R.id.button_next_top);
 			b.setVisibility(View.VISIBLE);
 			b = (Button) findViewById(R.id.bottomNextButton);
@@ -329,6 +329,7 @@ public class AttendantsActivity extends Activity {
 			}
 
 		}
+		c.close();
 		db.close();
 	}
 

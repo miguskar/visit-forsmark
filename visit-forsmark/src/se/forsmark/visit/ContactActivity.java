@@ -80,6 +80,20 @@ public class ContactActivity extends Activity {
 				t.show();
 			}
 		});
+		
+		// EJ SFR TOAST
+				b = (Button) findViewById(R.id.contact_button_hint_SFR);
+				b.setOnClickListener(new OnClickListener() { // Create Toast hint
+
+					public void onClick(View v) {
+						// Get message from resources
+						String text = getResources().getString(R.string.NoSFRToast);
+						Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Create
+																									// toast
+						t.setGravity(Gravity.TOP, 0, 0); // Position
+						t.show();
+					}
+				});
 
 		// Fill form with latest contact info
 		// TODO move this to dbsqllite class and return array with key=>value
@@ -122,6 +136,7 @@ public class ContactActivity extends Activity {
 				cb.setChecked(false);
 			}
 		}
+		c.close();
 		db.close();
 
 	}

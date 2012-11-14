@@ -187,6 +187,7 @@ public class ConfirmActivity extends Activity {
 			Button b = new Button(this);
 		
 			Log.v("buttonID", Integer.toString(id));
+			b.setId(id);
 			b.setGravity(Gravity.LEFT);
 			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
 			b.setTextColor(Color.WHITE);

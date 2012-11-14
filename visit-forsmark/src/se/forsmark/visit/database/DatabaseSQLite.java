@@ -44,7 +44,9 @@ public class DatabaseSQLite {
 			Cursor c = database.rawQuery("SELECT MAX(" + DatabaseHelper.COLUMN_CONTACT_ID + ") AS id FROM "
 					+ DatabaseHelper.TABLE_CONTACT, null);
 			if (c.moveToFirst()) {
-				return c.getInt(c.getColumnIndex("id"));
+				int id = c.getInt(c.getColumnIndex("id"));
+				c.close();
+				return id;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,8 +62,10 @@ public class DatabaseSQLite {
 					+ DatabaseHelper.COLUMN_CONTACT_LASTNAME + " FROM " + DatabaseHelper.TABLE_CONTACT
 					+ " WHERE _id = ?", ids);
 			c.moveToFirst();
-			return String.format("%s %s", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)),
+			String s = String.format("%s %s", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)),
 					c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME)));
+			c.close();
+			return s;
 		} catch (SQLException ex) {
 			// TODO Handle exception
 			throw ex;
@@ -268,15 +272,16 @@ public class DatabaseSQLite {
 	}
 
 	public String getBookingDate(String bookingId) {
-
+		String s = "";
 		String[] ids = { bookingId };
 		try {
 			Cursor c = database.rawQuery("SELECT " + DatabaseHelper.COLUMN_BOOKING_DATE + " FROM "
 					+ DatabaseHelper.TABLE_BOOKING + " WHERE " + DatabaseHelper.COLUMN_BOOKING_ID + " = ?", ids);
 			if (c.moveToFirst()) {
-				return c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE));
+				s = c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE));
 			}
-			return "";
+			c.close();
+			return s;
 		} catch (SQLException ex) {
 			// TODO Handle exception
 			throw ex;
@@ -304,8 +309,10 @@ public class DatabaseSQLite {
 					+ DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME + " FROM " + DatabaseHelper.TABLE_ATTENDANTS
 					+ " WHERE _ID = ?", ids);
 			c.moveToFirst();
-			return String.format("%s %s", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)),
+			String s = String.format("%s %s", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)),
 					c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
+			c.close();
+			return s;
 		} catch (SQLException ex) {
 			// TODO Handle exception
 			throw ex;
@@ -314,19 +321,20 @@ public class DatabaseSQLite {
 
 	public ArrayList<Integer> getAttendantIdsFromBookingId(String bookingId) {
 		String[] ids = { bookingId };
-		Cursor c;
+		ArrayList<Integer> r = new ArrayList<Integer>();
+		Cursor c = null;
 		try {
 			c = database.rawQuery("SELECT _id FROM " + DatabaseHelper.TABLE_ATTENDANTS + " WHERE "
 					+ DatabaseHelper.COLUMN_ATTENDANTS_BOOKINGID + " = ?", ids);
+			c.moveToFirst();
+			while (!c.isAfterLast()) {
+				r.add(c.getInt(c.getColumnIndex("_id")));
+				c.moveToNext();
+			}
+			c.close();
 		} catch (SQLException ex) {
 			// TODO Handle exception
 			throw ex;
-		}
-		ArrayList<Integer> r = new ArrayList<Integer>();
-		c.moveToFirst();
-		while (!c.isAfterLast()) {
-			r.add(c.getInt(c.getColumnIndex("_id")));
-			c.moveToNext();
 		}
 		return r;
 	}
