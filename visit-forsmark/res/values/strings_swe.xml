@@ -4,8 +4,11 @@
     <string name="httpRequestUrl">http://83.249.138.5/backlog/application_switch.php</string>
     <string name="Today">Idag</string>
     <string name="Address">Adress</string>
+    <string name="date">Datum</string>
+    <string name="time">Tid</string>
     <string name="ContactInfo">Kontaktinformation</string>
-    <string name="Attendants">Deltagare</string>
+    <string name="Attendants">Övriga deltagare</string>
+    <string name="bookingNumber">Bookningsnummer</string>
     <string name="FrotnPage">Startsida</string>
     <string name="hello">hej klas</string>
     <string name="Confrim">Bekräfta</string>

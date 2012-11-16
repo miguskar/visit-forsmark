@@ -28,30 +28,48 @@
                 style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="DATUM" />
+                android:gravity="left"
+                android:text="@string/date" />
+
+            <TextView
+                android:id="@+id/dateTextView"
+                style="@style/contactInfoTextView"
+                android:text="3 December 2012" />
 
             <TextView
                 android:id="@+id/TextViewconfirmTime"
                 style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="TID" />
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="@string/time" />
 
             <TextView
-                android:id="@+id/TextViewconfirmOrderNr"
+                android:id="@+id/timeTextView"
+                style="@style/contactInfoTextView"
+                android:text="13:00 - 13:37" />
+
+            <TextView
+                android:id="@+id/TextViewconfirmBookingNr"
                 style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="ORDERNUMMER" />
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="@string/bookingNumber" />
+
+            <TextView
+                android:id="@+id/bookingNumberTextView"
+                style="@style/contactInfoTextView"
+                android:text="ordernummer" />
 
             <TextView
                 android:id="@+id/TextViewconfirmContactPerson"
                 style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="left"
                 android:text="@string/ContactActivityTitle" />
 
@@ -114,22 +132,21 @@
 
                 <TextView
                     android:id="@+id/attendantTextView"
-                    style="@style/contactInfoTextView"/>
+                    style="@style/contactInfoTextView" />
             </LinearLayout>
-
 
             <RelativeLayout
                 android:id="@+id/RelativeLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:gravity="center|bottom">
+                android:gravity="center|bottom" >
 
                 <Button
                     android:id="@+id/backButton"
-					style="@style/button"
+                    style="@style/button"
                     android:layout_alignParentLeft="true"
-                    android:text="@string/FrotnPage"
-                    android:onClick="backButtonClick" />
+                    android:onClick="backButtonClick"
+                    android:text="@string/FrotnPage" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
