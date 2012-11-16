@@ -27,6 +27,7 @@ public class AttendantsActivity extends Activity {
 	private String deltagare = "Deltagare ";
 	private int counter = 1;
 	private int nbrAttendants;
+	private int eventId;
 	private String bookingId;
 	private ArrayList<Integer> attendantIds;
 	private final int BOOKING = 10;
@@ -39,6 +40,7 @@ public class AttendantsActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		nbrAttendants = extras.getInt("attendantsCount");
 		bookingId = extras.getString("bookingId");
+		eventId = extras.getInt("eventId");
 		initialize();
 	}
 
@@ -213,7 +215,7 @@ public class AttendantsActivity extends Activity {
 		int id = db.getLatestContactId();
 		db.close();
 		Intent ip = new Intent(v.getContext(), ConfirmActivity.class);
-
+		ip.putExtra("eventId", eventId);
 		ip.putExtra("contactId", id);
 		ip.putExtra("bookingId", bookingId);
 		startActivityForResult(ip, BOOKING);

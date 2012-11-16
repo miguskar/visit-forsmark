@@ -24,7 +24,7 @@ import android.widget.Toast;
 public class ContactActivity extends Activity {
 	private String bookingId;
 	private int attendantsCount;
-	private static int BOOKING = 10;
+	private static int BOOKING = 10, eventId;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class ContactActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		bookingId = extras.getString("bookingId");
 		attendantsCount = extras.getInt("seats");
+		eventId = extras.getInt("eventId");
 		initialize(); // Initialize views
 	}
 
@@ -245,12 +246,14 @@ public class ContactActivity extends Activity {
 
 		if (attendantsCount == 1) {
 			Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
+			i.putExtra("eventId", eventId);
 			i.putExtra("contactId", id);
 			i.putExtra("bookingId", bookingId);
 			startActivityForResult(i, BOOKING);
 		} else {
 			Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
 			i.putExtra("attendantsCount", attendantsCount);
+			i.putExtra("eventId", eventId);
 			i.putExtra("bookingId", bookingId);
 			startActivityForResult(i, BOOKING);
 		}

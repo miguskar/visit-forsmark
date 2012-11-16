@@ -131,9 +131,9 @@ public class AttendantsDialogActivity extends Activity {
 		int seats;
 		if (!s.equals("") && (seats = Integer.parseInt(s)) > 0) {
 			if(seats <= maxSeats){
-				String id = preBook(seats);
-				Log.e("geh", id);
-				startContactActivity(id, seats);
+				String resKey = preBook(seats);
+				Log.e("reservationKey", resKey);
+				startContactActivity(resKey, seats);
 			}else{
 				Log.e("toManySeats",seats+"");
 				Toast.makeText(getApplicationContext(), getString(R.string.ToManySeats), Toast.LENGTH_SHORT).show();
@@ -151,6 +151,7 @@ public class AttendantsDialogActivity extends Activity {
 			db.addBooking(message, DATE);
 			db.close();
 			Intent terms = new Intent(getApplicationContext(), TermsActivity.class);
+			terms.putExtra("eventId", id);
 			terms.putExtra("bookingId", message);
 			terms.putExtra("seats", seats);
 			startActivityForResult(terms, TERMS_ACTIVITY);

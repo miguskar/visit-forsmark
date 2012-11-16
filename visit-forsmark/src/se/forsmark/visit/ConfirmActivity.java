@@ -46,8 +46,9 @@ public class ConfirmActivity extends Activity {
 	private String bookingId;
 	private int contactId;
 	private final int EDIT_CONTACT = 1, EDIT_ATTENDANT = 2;
-	private int seatsLeft;
-	private int preAttendants;  //Attendents that have been added but whose forms are still to be edited
+	private int seatsLeft, eventId;
+	private int preAttendants; // Attendents that have been added but whose
+								// forms are still to be edited
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,14 +57,13 @@ public class ConfirmActivity extends Activity {
 		setContentView(R.layout.confirmview);
 
 		initialize();
-	
-		
+
 	}
 
 	private void initialize() {
 		// Set Title
-		preAttendants=0;
-	
+		preAttendants = 0;
+
 		TextView tv = (TextView) findViewById(R.id.border_title);
 		tv.setText(R.string.ConfirmationTitle);
 
@@ -74,12 +74,14 @@ public class ConfirmActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		bookingId = extras.getString("bookingId");
 		contactId = extras.getInt("contactId");
-		
-		
-		seatsLeft=getSeatsLeft();
+		eventId = extras.getInt("eventId");
+
+		Log.v("eventId", eventId + "");
+
+		seatsLeft = getSeatsLeft();
 		Log.v("SeatsLeft", Integer.toString(seatsLeft));
 		Log.v("bid", bookingId);
-		
+
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
 		// Get contact name
@@ -87,19 +89,18 @@ public class ConfirmActivity extends Activity {
 
 		Button b = (Button) findViewById(R.id.ButtonConfirmContactPerson);
 		b.setText(contactName);
-		
-		
 
 		ArrayList<Integer> al = db.getAttendantIdsFromBookingId(bookingId);
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-		
+
 		if (seatsLeft > 0) {
-		
-		}else{
-			b = (Button) findViewById(R.id.AddAttendantButton);  //lägg till addAttendantknapp
+
+		} else {
+			b = (Button) findViewById(R.id.AddAttendantButton); // lägg till
+																// addAttendantknapp
 			b.setVisibility(View.GONE);
 		}
-		TextView tv2=(TextView)findViewById(R.id.SeatsLeft);
+		TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
 		tv2.setText("Det finns " + seatsLeft + " platser kvar.");
 		for (int id : al) {
 			b = new Button(this);
@@ -116,7 +117,7 @@ public class ConfirmActivity extends Activity {
 				}
 			});
 			l.addView(b, l.getChildCount() - 2);
-		
+
 		}
 		
 		//Date and time
@@ -126,8 +127,7 @@ public class ConfirmActivity extends Activity {
 		dateTv.setText(date.subSequence(0, 10));
 		timeTv.setText(String.format("%s - %s", date.substring(10,16), date.substring(17, date.length())));
 		db.close();
-	
-   
+
 	}
 
 	public void deleteAttendant(int id) {
@@ -161,7 +161,7 @@ public class ConfirmActivity extends Activity {
 	}
 
 	public void editButton(View v) {
-		Intent dialog = new Intent(v.getContext(), EditAttendantDialogActivity.class);
+		Intent dialog = new Intent(getApplicationContext(), EditAttendantDialogActivity.class);
 		dialog.putExtra("attendantId", v.getId());
 		startActivityForResult(dialog, EDIT_ATTENDANT);
 
@@ -176,45 +176,46 @@ public class ConfirmActivity extends Activity {
 	public void addAttendantButton(View v) {
 		// Kolla -finns det platser kvar
 		// update seatsleft
-		seatsLeft=getSeatsLeft();
-		
+		seatsLeft = getSeatsLeft();
+
 		if (seatsLeft > 0) {
-			Log.v("Att", "ny");
-			
 			preAttendants++;
-			
+
 			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 			db.open();
-			int id=db.addAttendant("", "", "", "", 0, bookingId);
+			int id = db.addAttendant("", "", "", "", 0, bookingId);
 			db.close();
-			
-			preBook(1, bookingId); //lägg till i prebook
-			
-			Button b = new Button(this);
-		
-			Log.v("buttonID", Integer.toString(id));
-			b.setId(id);
-			b.setGravity(Gravity.LEFT);
-			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
-			b.setTextColor(Color.WHITE);
-			b.setText("Fyll i information eller ta bort");
-			b.setBackgroundResource(R.drawable.editbutton);
-			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
-			b.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					editButton(v);
+
+			String result = addAttendantToBooking(bookingId); // lägg till i
+																// prebook
+			if (result.equals("true")) {
+
+				Button b = new Button(this);
+
+				Log.v("buttonID", Integer.toString(id));
+				b.setId(id);
+				b.setGravity(Gravity.LEFT);
+				b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
+				b.setTextColor(Color.WHITE);
+				b.setText("Fyll i information eller ta bort");
+				b.setBackgroundResource(R.drawable.editbutton);
+				b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
+				// TODO FIXA EN CLICKLISTENER ISTÄLLET FÖR EN FÖR VARJE KNAPP
+				b.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						editButton(v);
+					}
+				});
+				LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
+				l.addView(b, l.getChildCount() - 2);
+				seatsLeft = getSeatsLeft();
+				if (seatsLeft > 0) {
+					TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
+					tv2.setText("Det finns " + seatsLeft + " platser kvar.");
 				}
-			});
-			LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-			l.addView(b, l.getChildCount() - 2);
-			seatsLeft=getSeatsLeft();
-			if(seatsLeft>0){
-				TextView tv2=(TextView)findViewById(R.id.SeatsLeft);
-				tv2.setText("Det finns " + seatsLeft + " platser kvar.");
+
+				// Lägg till deltagare i databas och ta oss till den aktiviteten
 			}
-			
-			
-			// Lägg till deltagare i databas och ta oss till den aktiviteten
 		} else {
 			Button b = (Button) findViewById(R.id.AddAttendantButton);
 			b.setVisibility(View.GONE);
@@ -224,64 +225,114 @@ public class ConfirmActivity extends Activity {
 			t.setGravity(Gravity.TOP, 0, 0); // Position
 			t.show();
 		}
-		
 
 	}
-	
-	public String preBook(int seats, String id) { //id är bookingId
+
+	public String addAttendantToBooking(String reservationKey) { // id är
+																	// bookingId
 		String result = "";
 		InputStream is = null;
 		// http post
-		try {
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					this.getString(R.string.httpRequestUrl));
+		if (isNetworkConnected()) {
+			try {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
 
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			
-			pairs.add(new BasicNameValuePair("case", "preBook"));
-			pairs.add(new BasicNameValuePair("id", "" + id));
-			pairs.add(new BasicNameValuePair("seats", "" + seats));
-			
-			httppost.setEntity(new UrlEncodedFormEntity(pairs));
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			is = entity.getContent();
-		} catch (Exception e) {
-			Log.e("log_tag", "Error in http connection " + e.toString());
-		}
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					is, "iso-8859-1"), 8);
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
+				pairs.add(new BasicNameValuePair("case", "addAttendant"));
+				pairs.add(new BasicNameValuePair("resKey", "" + reservationKey));
+				pairs.add(new BasicNameValuePair("eventId", "" + eventId));
+
+				httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+				HttpResponse response = httpclient.execute(httppost);
+				HttpEntity entity = response.getEntity();
+				is = entity.getContent();
+			} catch (Exception e) {
+				Log.e("log_tag", "Error in http connection " + e.toString());
 			}
-			is.close();
+			try {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					sb.append(line);
+				}
+				is.close();
 
-			result = sb.toString();
+				result = sb.toString();
 
-		} catch (Exception e) {
-			Log.e("log_tag", "Error converting result " + e.toString());
+			} catch (Exception e) {
+				Log.e("log_tag", "Error converting result " + e.toString());
+			}
+
+			result = result.substring(1, result.length() - 1);
+			Log.v("addAttResult", result);
+		} else {
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
-		result = result.substring(1, result.length()-2);
 		return result;
 	}
-	
+
+	public String deleteAttendantFromBooking(String reservationKey) { // id är
+		// bookingId
+		String result = "";
+		InputStream is = null;
+		// http post
+		if (isNetworkConnected()) {
+			try {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
+
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+				pairs.add(new BasicNameValuePair("case", "deleteAttendant"));
+				pairs.add(new BasicNameValuePair("resKey", "" + reservationKey));
+				pairs.add(new BasicNameValuePair("eventId", "" + eventId));
+
+				httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+				HttpResponse response = httpclient.execute(httppost);
+				HttpEntity entity = response.getEntity();
+				is = entity.getContent();
+			} catch (Exception e) {
+				Log.e("log_tag", "Error in http connection " + e.toString());
+			}
+			try {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					sb.append(line);
+				}
+				is.close();
+
+				result = sb.toString();
+
+			} catch (Exception e) {
+				Log.e("log_tag", "Error converting result " + e.toString());
+			}
+
+			result = result.substring(1, result.length() - 1);
+			Log.v("addAttResult", result);
+		} else {
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+		}
+		return result;
+	}
 
 	public void bottomBackClick(View v) {
 		setResult(RESULT_OK);
 		finish();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		setResult(RESULT_OK);
 		finish();
 	}
-	
+
 	public void bottomCancelClick(View v) {
 		// Dialogruta AVBRYT BOKNING
 		// TODO hitta snyggare lösning och lägg in strängarna i strings xmlen
@@ -304,35 +355,30 @@ public class ConfirmActivity extends Activity {
 		});
 		builder.show(); // b
 	}
-	
-	
-	
+
 	public void bottomNextClick(View v) {
-		//TODO SKAPA BOKNINGEN OCH SKICKA MAIL
-		
+		// TODO SKAPA BOKNINGEN OCH SKICKA MAIL
+		createBooking();
 		Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
 		i.putExtra("bookingId", bookingId);
 		i.putExtra("state", 1);
 		startActivity(i);
-		
-		createBooking();
 	}
-	
-	public int getSeatsLeft(){
+
+	public int getSeatsLeft() {
 		String result = "";
 		InputStream is = null;
 		String[] tmp = { "NOCONNECTION" };
-		int tp=0;
+		int tp = 0;
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					this.getString(R.string.httpRequestUrl));  
+			HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
 
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			
+
 			pairs.add(new BasicNameValuePair("case", "getSeats"));
 			pairs.add(new BasicNameValuePair("id", "" + bookingId));
-			
+
 			httppost.setEntity(new UrlEncodedFormEntity(pairs));
 
 			HttpResponse response = httpclient.execute(httppost);
@@ -342,30 +388,28 @@ public class ConfirmActivity extends Activity {
 			Log.e("log_tag", "Error in http connection " + e.toString());
 		}
 		try {
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(is, "iso-8859-1"), 8);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
 			StringBuilder sb = new StringBuilder();
 			String line = null;
 			while ((line = reader.readLine()) != null) {
 				sb.append(line + "\n");
 			}
 			is.close();
-			
-			//sb.deleteCharAt(0);
-			//sb.deleteCharAt(sb.indexOf("'"));
+
+			// sb.deleteCharAt(0);
+			// sb.deleteCharAt(sb.indexOf("'"));
 			result = sb.toString();
-			result = result.substring(0, result.length()-1);
+			result = result.substring(0, result.length() - 1);
 		} catch (StringIndexOutOfBoundsException e) {
 			tmp[0] = "NORESULT";
-			
+
 		} catch (Exception e) {
 			Log.e("log_tag", "Error converting result " + e.toString());
 		}
-		
+
 		return Integer.parseInt(result);
-		
+
 	}
-	
 
 	private void createBooking() {
 		// Create array to contain visitors
@@ -449,7 +493,7 @@ public class ConfirmActivity extends Activity {
 			HttpConnectionParams.setConnectionTimeout(httpParams, 10000); // Timeout
 			HttpConnectionParams.setSoTimeout(httpParams, 10000);	// Limits
 			HttpClient client = new DefaultHttpClient(httpParams);
-			
+
 			HttpResponse response = null;
 			InputStream is = null;
 			try {

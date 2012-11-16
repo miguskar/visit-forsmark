@@ -28,7 +28,7 @@ public class TermsActivity extends Activity{
 	
 	private static int BOOKING = 10;
 	private String bookingId;
-	private int seats;
+	private int seats, eventId;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +39,7 @@ public class TermsActivity extends Activity{
 		Bundle extras = getIntent().getExtras();
 		bookingId =  extras.getString("bookingId");
 		seats = extras.getInt("seats");
+		eventId = extras.getInt("eventId");
 		
 	}
 	
@@ -57,6 +58,7 @@ public class TermsActivity extends Activity{
 		Intent terms = new Intent(getApplicationContext(), ContactActivity.class);
 		terms.putExtra("bookingId", bookingId);
 		terms.putExtra("seats", seats);
+		terms.putExtra("eventId", eventId);
 		startActivityForResult(terms, BOOKING);
 	}
 	
