@@ -15,6 +15,11 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -258,15 +263,18 @@ public class CalenderActivity extends Activity {
 			InputStream is = null;
 			// http post
 			try {
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(getResources().getString(R.string.httpRequestUrl));
-
+				HttpParams httpParams  =new BasicHttpParams();
+				HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+				HttpConnectionParams.setSoTimeout(httpParams, 10000);
+				HttpClient httpclient = new DefaultHttpClient(httpParams);
+				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
+				
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+				
 				pairs.add(new BasicNameValuePair("case", "getMonthInfo"));
 				pairs.add(new BasicNameValuePair("month", "" + (curMonth + 1)));
 				pairs.add(new BasicNameValuePair("year", "" + curYear));
 				httppost.setEntity(new UrlEncodedFormEntity(pairs));
-
 				HttpResponse response = httpclient.execute(httppost);
 				HttpEntity entity = response.getEntity();
 				is = entity.getContent();
@@ -286,8 +294,8 @@ public class CalenderActivity extends Activity {
 				result = sb.toString();
 				result = result.substring(1, result.length() - 2);
 				result = result.replace("\"", "");
-
 				tmp = result.split(",");
+				
 			} catch (StringIndexOutOfBoundsException e) {
 				tmp[0] = "NORESULT";
 			} catch (Exception e) {

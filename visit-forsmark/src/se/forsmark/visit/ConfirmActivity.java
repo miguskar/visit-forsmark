@@ -289,7 +289,6 @@ public class ConfirmActivity extends Activity {
 
 				pairs.add(new BasicNameValuePair("case", "deleteAttendant"));
 				pairs.add(new BasicNameValuePair("resKey", "" + reservationKey));
-				pairs.add(new BasicNameValuePair("eventId", "" + eventId));
 
 				httppost.setEntity(new UrlEncodedFormEntity(pairs));
 
@@ -315,7 +314,7 @@ public class ConfirmActivity extends Activity {
 			}
 
 			result = result.substring(1, result.length() - 1);
-			Log.v("addAttResult", result);
+			Log.v("deleteAttResult", result);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
