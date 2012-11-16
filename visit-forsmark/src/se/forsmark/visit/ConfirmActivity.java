@@ -12,11 +12,14 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -429,31 +432,33 @@ public class ConfirmActivity extends Activity {
 			c.close();
 		}
 		db.close();
-		JSONObject postParameter = new JSONObject();
+		JSONObject json = new JSONObject();
 		try {
-			postParameter.put("visitors", visitors);
-			postParameter.put("reservation_key", bookingId);
+			json.put("visitors", visitors);
+			json.put("reservation_key", bookingId);
 		} catch (JSONException ex) {
 			ex.printStackTrace();
 		}
 
 		if (isNetworkConnected()) {
 			// http post
-
 			HttpParams httpParams = new BasicHttpParams();
 			HttpConnectionParams.setConnectionTimeout(httpParams, 10000); // Timeout
-			HttpConnectionParams.setSoTimeout(httpParams, 10000);	// Limit
+			HttpConnectionParams.setSoTimeout(httpParams, 10000);	// Limits
 			HttpClient client = new DefaultHttpClient(httpParams);
 			
 			HttpResponse response = null;
 			InputStream is = null;
 			try {
-				// HttpPost post = new
-				// HttpPost(getResources().getString(R.string.httpRequestUrl));
-				HttpPost request = new HttpPost("http://83.249.138.5/backlog/test.php");
-				Log.v("req:", postParameter.toString());
-				//se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-				request.setEntity(new ByteArrayEntity(postParameter.toString().getBytes("UTF8")));
+				//Create request
+				HttpPost request = new HttpPost(this.getString(R.string.httpRequestUrl));
+				Log.v("req:", json.toString());
+				//add json & case
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>(2);
+				pairs.add(new BasicNameValuePair("json", json.toString()));
+				pairs.add(new BasicNameValuePair("case", "confirm"));
+				request.setEntity(new UrlEncodedFormEntity(pairs));
+				
 				response = client.execute(request); // execute
 				is = response.getEntity().getContent(); // get data
 
