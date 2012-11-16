@@ -122,6 +122,13 @@ public class ConfirmActivity extends Activity {
 			l.addView(b, l.getChildCount() - 2);
 		
 		}
+		
+		//Date and time
+		TextView dateTv = (TextView) findViewById(R.id.TextViewconfirmDate);
+		TextView timeTv = (TextView) findViewById(R.id.TextViewconfirmTime);
+		String date = db.getBookingDate(bookingId);
+		dateTv.setText(date.subSequence(0, 10));
+		timeTv.setText(String.format("%s - %s", date.substring(10,16), date.substring(17, date.length())));
 		db.close();
 	
    
