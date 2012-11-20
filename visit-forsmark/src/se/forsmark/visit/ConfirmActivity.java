@@ -362,7 +362,6 @@ public class ConfirmActivity extends Activity {
 	}
 
 	public void bottomNextClick(View v) {
-		// TODO SKAPA BOKNINGEN OCH SKICKA MAIL
 		if (createBooking()) {
 			sendEmailConfirmation();
 			Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);

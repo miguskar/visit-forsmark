@@ -110,7 +110,7 @@ public class EditContactActivity extends Activity {
 	}
 	
 	public void bottomCancelClick(View v) {
-		//TODO implement bottomCancelClick
+		finish();
 	}
 	
 	public void bottomNextClick(View v) {

@@ -67,7 +67,6 @@ public class DatabaseSQLite {
 			c.close();
 			return s;
 		} catch (SQLException ex) {
-			// TODO Handle exception
 			throw ex;
 		}
 	}
@@ -79,7 +78,6 @@ public class DatabaseSQLite {
 					.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_CONTACT + " ORDER BY _id DESC LIMIT 1;", null);
 			return c;
 		} catch (SQLException ex) {
-			// TODO Handle exception
 			throw ex;
 		}
 	}
@@ -101,7 +99,6 @@ public class DatabaseSQLite {
 					+ DatabaseHelper.COLUMN_CONTACT_ID + " = '" + id + "';", null);
 			return c;
 		} catch (SQLException ex) {
-			// TODO Handle exception
 			throw ex;
 		}
 	}
@@ -283,7 +280,6 @@ public class DatabaseSQLite {
 			c.close();
 			return s;
 		} catch (SQLException ex) {
-			// TODO Handle exception
 			throw ex;
 		}
 	}
@@ -296,7 +292,6 @@ public class DatabaseSQLite {
 					+ DatabaseHelper.COLUMN_ATTENDANTS_ID + " = ?", ids);
 			return c;
 		} catch (SQLException ex) {
-			// TODO Handle exception
 			throw ex;
 		}
 	}
@@ -314,7 +309,6 @@ public class DatabaseSQLite {
 			c.close();
 			return s;
 		} catch (SQLException ex) {
-			// TODO Handle exception
 			throw ex;
 		}
 	}
@@ -333,45 +327,8 @@ public class DatabaseSQLite {
 			}
 			c.close();
 		} catch (SQLException ex) {
-			// TODO Handle exception
 			throw ex;
 		}
 		return r;
 	}
-
-	/*
-	 * 
-	 * // Database table public static final String TABLE_CONTACT = "contact";
-	 * public static final String COLUMN_ID = "_id"; public static final String
-	 * COLUMN_FIRSTNAME = "firstname"; public static final String
-	 * COLUMN_LASTNAME = "lastname"; public static final String COLUMN_PNMBR =
-	 * "pnmbr"; public static final String COLUMN_SEX = "sex"; public static
-	 * final String COLUMN_ADRESS = "adress"; public static final String
-	 * COLUMN_POSTNMBR = "postnmbr"; public static final String
-	 * COLUMN_POSTADRESS = "postadress"; public static final String
-	 * COLUMN_COUNTRY = "country"; public static final String COLUMN_CELLPHONE =
-	 * "cellphone"; public static final String COLUMN_EMAIL = "email";
-	 * 
-	 * 
-	 * // Database creation SQL statement //TODO private static final String
-	 * DATABASE_CREATE = "create table " + TABLE_CONTACT + "(" + COLUMN_ID +
-	 * " integer primary key autoincrement, " + COLUMN_FIRSTNAME +
-	 * " text not null, " + COLUMN_LASTNAME + " text not null," + COLUMN_PNMBR +
-	 * "text not null," + COLUMN_SEX + "text not null," + COLUMN_ADRESS +
-	 * "text not null," + COLUMN_POSTNMBR + "text not null," + COLUMN_POSTADRESS
-	 * + "next not null, " + COLUMN_COUNTRY + "next not null," +
-	 * COLUMN_CELLPHONE + "next not null," + COLUMN_EMAIL + "next not null,"
-	 * 
-	 * + " text not null" + "); ";
-	 * 
-	 * public static void onCreate(SQLiteDatabase database) {
-	 * database.execSQL(DATABASE_CREATE); }
-	 * 
-	 * public static void onUpgrade(SQLiteDatabase database, int oldVersion, int
-	 * newVersion) { Log.w(ContactTable.class.getName(),
-	 * "Upgrading database from version " + oldVersion + " to " + newVersion +
-	 * ", which will destroy all old data");
-	 * database.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACT);
-	 * onCreate(database); }
-	 */
 }

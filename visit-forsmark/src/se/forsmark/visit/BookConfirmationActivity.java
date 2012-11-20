@@ -14,10 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class BookConfirmationActivity extends Activity {
-	
+
 	private int state;
 	public final static int STATE_CONFIRM = 2;
 	public final static int STATE_VIEW = 1;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,17 +29,16 @@ public class BookConfirmationActivity extends Activity {
 	}
 
 	public void Initialize(Bundle savedInstanceState) {
-		//TODO CHANGE BUTTONS FUNCTIONS
 		state = getIntent().getExtras().getInt("state");
 		Button b = (Button) findViewById(R.id.backButton);
-		if(state == STATE_VIEW){
+		if (state == STATE_CONFIRM) {
 			b.setText(getString(R.string.FrotnPage));
-		}else if(state == STATE_CONFIRM){
+		} else if (state == STATE_VIEW) {
 			b.setText(getString(R.string.Back));
 		}
 		String bookingId = getIntent().getExtras().getString("bookingId");
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-		TextView titleTv = (TextView)findViewById(R.id.border_title);
+		TextView titleTv = (TextView) findViewById(R.id.border_title);
 		TextView dateTv = (TextView) findViewById(R.id.dateTextView);
 		TextView timeTv = (TextView) findViewById(R.id.timeTextView);
 		TextView orderNbrTv = (TextView) findViewById(R.id.bookingNumberTextView);
@@ -49,19 +49,18 @@ public class BookConfirmationActivity extends Activity {
 		TextView phoneTv = (TextView) findViewById(R.id.phoneTextView);
 		TextView mailTv = (TextView) findViewById(R.id.emailTextView);
 		TextView attNameTv = (TextView) findViewById(R.id.attendantTextView);
-		
+
 		titleTv.setText(getString(R.string.ConfirmedTitle));
-		
+
 		db.open();
 		String date = db.getBookingDate(bookingId);
 		dateTv.setText(date.subSequence(0, 10));
-		timeTv.setText(String.format("%s - %s", date.substring(10,16), date.substring(17, date.length())));
+		timeTv.setText(String.format("%s - %s", date.substring(10, 16), date.substring(17, date.length())));
 		orderNbrTv.setText(bookingId.toUpperCase());
 
 		Cursor c = db.getContactInfo(bookingId);
 		c.moveToFirst();
-		nameTv.setText(String.format("%s %s", 
-				c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)),
+		nameTv.setText(String.format("%s %s", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)),
 				c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME))));
 
 		addTv.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS)));
@@ -84,18 +83,18 @@ public class BookConfirmationActivity extends Activity {
 		}
 		db.close();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		backButtonClick(null);
 	}
-	
-	public void backButtonClick(View v){
-		if(state == STATE_VIEW){
+
+	public void backButtonClick(View v) {
+		if (state == STATE_CONFIRM) {
 			Intent it = new Intent(getApplicationContext(), MainActivity.class);
 			it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(it);
-		}else{
+		} else {
 			finish();
 		}
 	}

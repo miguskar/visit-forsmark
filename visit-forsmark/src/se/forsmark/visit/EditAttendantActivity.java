@@ -121,8 +121,6 @@ public class EditAttendantActivity extends Activity {
 	}
 
 	public void bottomCancelClick(View v) {
-		// TODO ta bort bokningen!
-		// TODO CONFIRM popup
 		onBackPressed();
 	}
 

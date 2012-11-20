@@ -156,8 +156,6 @@ public class AttendantsActivity extends Activity {
 					.toString(), rbMan.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0, bookingId);
 			if (id != -1)
 				attendantIds.add(id);
-			// else
-			// TODO ERROR
 
 		} else { // Update attendant if already exists in db
 			db.updateAttendant(aid, firstname.getText().toString(), lastname.getText().toString(), pnmbr.getText()

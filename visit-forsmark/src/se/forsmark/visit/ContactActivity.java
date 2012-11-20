@@ -41,18 +41,6 @@ public class ContactActivity extends Activity {
 		initialize(); // Initialize views
 	}
 
-	@Override
-	public void onPause() {
-		// TODO SPARA I SHAREDPREFERENCES
-		super.onPause();
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		// TODO undersök om vi måste läsa in info till formuläret från databasen
-	}
-
 	/**
 	 * Unhides elements etc..
 	 */
@@ -150,10 +138,7 @@ public class ContactActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		// TODO ta bort bokningen!
-		// TODO CONFIRM popup
 		bottomCancelClick(null); // FULING
-		// finish();
 	}
 
 	public void bottomCancelClick(View v) {
@@ -230,10 +215,9 @@ public class ContactActivity extends Activity {
 						.getText().toString(), cb.isChecked() ? 1 : 0);
 		int id = db.getLatestContactId();
 		db.updateBookingContactId(bookingId, id);
-		// TODO Om bara 1 plats har bokats så skall vi komma till bekräfta
-		// direkt
 		db.close();
 		if (isNetworkConnected()) {
+			// Go to confirmation directly if there are no more attendants
 			if (attendantsCount == 1) {
 				Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
 				i.putExtra("eventId", eventId);
