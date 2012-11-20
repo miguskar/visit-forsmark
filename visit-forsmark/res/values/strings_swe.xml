@@ -63,7 +63,7 @@
     <string name="Next">Nästa</string>
     <string name="Cancel">Avbryt</string>
     <string name="termsTitle">Villkor</string>
-    <string name="dialogThe">Den</string>
+    <string name="dialogThe">Den </string>
     <string name="noSeats">Fullbokad</string>
     <string name="StartTime">Starttid</string>
     <string name="SeatsLeft">Platser Kvar</string>
@@ -80,4 +80,8 @@
     <string name="aboutVisitForsmark">Om VisitForsmark</string>
     <string name="aboutVisitForsmarkText">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
     <string name="couldNotCompleteBooking">Bokningen kunde inte slutföras. Försök igen senare.</string>
+    <string name="confirmDeleteAttendant">Är du säker på att du vill ta bort %s?</string>
+    <string name="dialogWarningTitle">Varning</string>
+    <string name="dialogYes">Ja</string>
+    <string name="dialogNo">Nej</string>
 </resources>

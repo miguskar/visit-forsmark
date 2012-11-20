@@ -25,7 +25,7 @@ public class EditAttendantDialogActivity extends Activity {
 
 		Bundle extras = (Bundle) getIntent().getExtras();
 		id = extras.getInt("attendantId");
-		
+
 		Initialize();
 	}
 
@@ -43,7 +43,7 @@ public class EditAttendantDialogActivity extends Activity {
 		setResult(RESULT_CANCELED);
 		finish();
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
@@ -53,8 +53,8 @@ public class EditAttendantDialogActivity extends Activity {
 			finish();
 		}
 	}
-	
-	public void bottomBackClick(View v){
+
+	public void bottomBackClick(View v) {
 		finish();
 	}
 
@@ -65,36 +65,29 @@ public class EditAttendantDialogActivity extends Activity {
 	}
 
 	public void deleteButton(View v) {
-		AlertDialog.Builder builder=new AlertDialog.Builder(this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.create();
-		builder.setTitle("Varning");
-		builder.setMessage("Är du säker på att du vill ta bort " + name + "?");
-		builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-			
-			
+		builder.setTitle(R.string.dialogWarningTitle);
+		builder.setMessage(String.format(getString(R.string.confirmDeleteAttendant), name));
+		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
+
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-			
+
 				Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
 				i.putExtra("attendantId", id);
 				i.putExtra("edit", false);
 				setResult(RESULT_OK, i);
 				finish();
-				
 			}
 		});
-		builder.setNegativeButton("Nej", new DialogInterface.OnClickListener() {
-			
+		builder.setNegativeButton(R.string.dialogNo, new DialogInterface.OnClickListener() {
+
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
 				finish();
-				
 			}
 		});
-		
-		builder.show();    //b
-		
+		builder.show();
+
 	}
-	
-	
+
 }
