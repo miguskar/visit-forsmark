@@ -121,7 +121,7 @@ public class ConfirmActivity extends Activity {
 					editButton(v);
 				}
 			});
-			l.addView(b, l.getChildCount() - 2);
+			l.addView(b, l.getChildCount() - 3);
 
 		}
 
@@ -212,7 +212,7 @@ public class ConfirmActivity extends Activity {
 					}
 				});
 				LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-				l.addView(b, l.getChildCount() - 2);
+				l.addView(b, l.getChildCount() - 3);
 				seatsLeft = getSeatsLeft();
 				if (seatsLeft > 0) {
 					TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
