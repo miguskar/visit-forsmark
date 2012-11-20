@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Visit-forsmark</string>
     <string name="httpRequestUrl">http://83.249.138.5/backlog/application_switch.php</string>
+    <string name="httpEmailRequestUrl">http://forsmark.westart.se/thanks?orderid=</string>
     <string name="Today">Idag</string>
     <string name="Address">Adress</string>
     <string name="date">Datum</string>
@@ -78,5 +79,5 @@
     <string name="ConfirmActivityNoSeatsToast">Det finns inga lediga platser kvar.</string>
     <string name="aboutVisitForsmark">Om VisitForsmark</string>
     <string name="aboutVisitForsmarkText">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
-
+    <string name="couldNotCompleteBooking">Bokningen kunde inte slutföras. Försök igen senare.</string>
 </resources>

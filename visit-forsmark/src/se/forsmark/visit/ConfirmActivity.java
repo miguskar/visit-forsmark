@@ -3,6 +3,8 @@ package se.forsmark.visit;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.HttpEntity;
@@ -49,6 +51,7 @@ public class ConfirmActivity extends Activity {
 	private int seatsLeft, eventId;
 	private int preAttendants; // Attendents that have been added but whose
 								// forms are still to be edited
+	private OnClickListener ocl;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,11 +64,18 @@ public class ConfirmActivity extends Activity {
 	}
 
 	private void initialize() {
-		// Set Title
 		preAttendants = 0;
 
+		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
 		tv.setText(R.string.ConfirmationTitle);
+
+		// Create ONE click listener
+		ocl = new OnClickListener() {
+			public void onClick(View v) {
+				editButton(v);
+			}
+		};
 
 		// Unhide progress and set background
 		View v = findViewById(R.id.border_progress);
@@ -102,6 +112,8 @@ public class ConfirmActivity extends Activity {
 		}
 		TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
 		tv2.setText("Det finns " + seatsLeft + " platser kvar.");
+
+		// Create buttons
 		for (int id : al) {
 			b = new Button(this);
 			b.setId(id);
@@ -116,11 +128,7 @@ public class ConfirmActivity extends Activity {
 			}
 			b.setBackgroundResource(R.drawable.editbutton);
 			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
-			b.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					editButton(v);
-				}
-			});
+			b.setOnClickListener(ocl);
 			l.addView(b, l.getChildCount() - 3);
 
 		}
@@ -191,9 +199,9 @@ public class ConfirmActivity extends Activity {
 			int id = db.addAttendant("", "", "", "", 0, bookingId);
 			db.close();
 
-			String result = addAttendantToBooking(bookingId); // lägg till i
-																// prebook
-			if (result.equals("true")) {
+			String result = addAttendantToBooking(bookingId); // add attendant
+																// to db
+			if (result.equals("true")) { // add button
 
 				Button b = new Button(this);
 
@@ -205,12 +213,7 @@ public class ConfirmActivity extends Activity {
 				b.setText(getString(R.string.attendantButtonText));
 				b.setBackgroundResource(R.drawable.editbutton);
 				b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
-				// TODO FIXA EN CLICKLISTENER ISTÄLLET FÖR EN FÖR VARJE KNAPP
-				b.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						editButton(v);
-					}
-				});
+				b.setOnClickListener(ocl);
 				LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 				l.addView(b, l.getChildCount() - 3);
 				seatsLeft = getSeatsLeft();
@@ -233,8 +236,7 @@ public class ConfirmActivity extends Activity {
 
 	}
 
-	public String addAttendantToBooking(String reservationKey) { // id är
-																	// bookingId
+	public String addAttendantToBooking(String reservationKey) {
 		String result = "";
 		InputStream is = null;
 		// http post
@@ -280,8 +282,7 @@ public class ConfirmActivity extends Activity {
 		return result;
 	}
 
-	public String deleteAttendantFromBooking(String reservationKey) { // id är
-		// bookingId
+	public String deleteAttendantFromBooking(String reservationKey) {
 		String result = "";
 		InputStream is = null;
 		// http post
@@ -362,11 +363,15 @@ public class ConfirmActivity extends Activity {
 
 	public void bottomNextClick(View v) {
 		// TODO SKAPA BOKNINGEN OCH SKICKA MAIL
-		createBooking();
-		Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
-		i.putExtra("bookingId", bookingId);
-		i.putExtra("state", 1);
-		startActivity(i);
+		if (createBooking()) {
+			sendEmailConfirmation();
+			Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
+			i.putExtra("bookingId", bookingId);
+			i.putExtra("state", 1);
+			startActivity(i);
+		}else {
+			Toast.makeText(this , R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
+		}
 	}
 
 	public int getSeatsLeft() {
@@ -414,7 +419,7 @@ public class ConfirmActivity extends Activity {
 
 	}
 
-	private void createBooking() {
+	private boolean createBooking() {
 		// Create array to contain visitors
 		JSONArray visitors = new JSONArray();
 
@@ -450,7 +455,6 @@ public class ConfirmActivity extends Activity {
 				visitor.put(SEX, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX)));
 				visitor.put(PNR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
 				visitor.put(NO_SFR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_NOSFR)));
-				// // FIXME Lägg till i kontakt-aktiviteten & db
 			} catch (JSONException ex) {
 				ex.printStackTrace();
 			}
@@ -529,7 +533,11 @@ public class ConfirmActivity extends Activity {
 				is.close();
 
 				result = sb.toString();
-				Log.i("result", result);
+				result = result.substring(0, 1);
+				// if affected rows is correct
+				if (Integer.parseInt(result) == attendantIds.size() + 1) {
+					return true;
+				}
 			} catch (Exception e) {
 				Log.e("log_tag", "Error converting result " + e.toString());
 			}
@@ -537,6 +545,8 @@ public class ConfirmActivity extends Activity {
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
+		// fail if this point is reached
+		return false;
 	}
 
 	private boolean isNetworkConnected() {
@@ -550,4 +560,20 @@ public class ConfirmActivity extends Activity {
 			return true;
 	}
 
+	private void sendEmailConfirmation() {
+		if (isNetworkConnected()) {
+			HttpURLConnection urlConnection = null;
+			try {
+				URL url = new URL(getString(R.string.httpEmailRequestUrl) + bookingId);
+				urlConnection = (HttpURLConnection) url.openConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				urlConnection.disconnect();
+			}
+		}else {
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+		}
+
+	}
 }
