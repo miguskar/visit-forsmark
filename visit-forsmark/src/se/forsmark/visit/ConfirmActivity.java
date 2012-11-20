@@ -49,8 +49,6 @@ public class ConfirmActivity extends Activity {
 	private int contactId;
 	private final int EDIT_CONTACT = 1, EDIT_ATTENDANT = 2;
 	private int seatsLeft, eventId;
-	private int preAttendants; // Attendents that have been added but whose
-								// forms are still to be edited
 	private OnClickListener ocl;
 
 	@Override
@@ -64,7 +62,6 @@ public class ConfirmActivity extends Activity {
 	}
 
 	private void initialize() {
-		preAttendants = 0;
 
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
@@ -102,16 +99,10 @@ public class ConfirmActivity extends Activity {
 
 		ArrayList<Integer> al = db.getAttendantIdsFromBookingId(bookingId);
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-
-		if (seatsLeft > 0) {
-
-		} else {
-			b = (Button) findViewById(R.id.AddAttendantButton); // lägg till
-																// addAttendantknapp
-			b.setVisibility(View.GONE);
+		if (seatsLeft < 0) {
+			TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
+			tv2.setText("Det finns " + seatsLeft + " platser kvar."); //TODO lägg in i xml
 		}
-		TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
-		tv2.setText("Det finns " + seatsLeft + " platser kvar.");
 
 		// Create buttons
 		for (int id : al) {
@@ -144,13 +135,18 @@ public class ConfirmActivity extends Activity {
 	}
 
 	public void deleteAttendant(int id) {
-		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-		db.open();
-		db.deleteAttendant(id);
-		db.close();
-		deleteAttendantFromBooking(bookingId);
-		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-		l.removeView(findViewById(id));
+		if (isNetworkConnected()) {
+			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+			db.open();
+			db.deleteAttendant(id);
+			db.close();
+
+			deleteAttendantFromBooking(bookingId);
+			LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
+			l.removeView(findViewById(id));
+		} else {
+			Toast.makeText(this, R.string.noInternet, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	@Override
@@ -193,8 +189,6 @@ public class ConfirmActivity extends Activity {
 		seatsLeft = getSeatsLeft();
 
 		if (seatsLeft > 0) {
-			preAttendants++;
-
 			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 			db.open();
 			int id = db.addAttendant("", "", "", "", 0, bookingId);
@@ -367,132 +361,136 @@ public class ConfirmActivity extends Activity {
 			i.putExtra("bookingId", bookingId);
 			i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
 			startActivity(i);
-		}else {
-			Toast.makeText(this , R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(this, R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
 		}
 	}
 
 	public int getSeatsLeft() {
-		String result = "";
-		InputStream is = null;
-		String[] tmp = { "NOCONNECTION" };
-		try {
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
+		if (isNetworkConnected()) {
 
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			String result = "";
+			InputStream is = null;
+			try {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
 
-			pairs.add(new BasicNameValuePair("case", "getSeats"));
-			pairs.add(new BasicNameValuePair("id", "" + bookingId));
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
-			httppost.setEntity(new UrlEncodedFormEntity(pairs));
+				pairs.add(new BasicNameValuePair("case", "getSeats"));
+				pairs.add(new BasicNameValuePair("id", "" + bookingId));
 
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			is = entity.getContent();
-		} catch (Exception e) {
-			Log.e("log_tag", "Error in http connection " + e.toString());
-		}
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
+				httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+				HttpResponse response = httpclient.execute(httppost);
+				HttpEntity entity = response.getEntity();
+				is = entity.getContent();
+			} catch (Exception e) {
+				Log.e("log_tag", "Error in http connection " + e.toString());
 			}
-			is.close();
+			try {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+				is.close();
 
-			// sb.deleteCharAt(0);
-			// sb.deleteCharAt(sb.indexOf("'"));
-			result = sb.toString();
-			result = result.substring(0, result.length() - 1);
-		} catch (StringIndexOutOfBoundsException e) {
-			tmp[0] = "NORESULT";
+				result = sb.toString();
+				result = result.substring(0, result.length() - 1);
+			} catch (StringIndexOutOfBoundsException e) {
 
-		} catch (Exception e) {
-			Log.e("log_tag", "Error converting result " + e.toString());
+			} catch (Exception e) {
+				Log.e("log_tag", "Error converting result " + e.toString());
+			}
+
+			return Integer.parseInt(result);
+		} else {
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
-
-		return Integer.parseInt(result);
+		return -1;
 
 	}
 
 	private boolean createBooking() {
-		// Create array to contain visitors
-		JSONArray visitors = new JSONArray();
+		if (isNetworkConnected()) {
+			// Create array to contain visitors
+			JSONArray visitors = new JSONArray();
 
-		final String FIRST_NAME = "first_name";
-		final String LAST_NAME = "last_name";
-		final String ADDRESS = "address";
-		final String ZIP = "zip";
-		final String POSTAREA = "postarea";
-		final String COUNTRY = "country";
-		final String PHONE = "phone";
-		final String MAIL = "mail";
-		final String SEX = "sex";
-		final String PNR = "pnr";
-		final String NO_SFR = "nossr";
+			final String FIRST_NAME = "first_name";
+			final String LAST_NAME = "last_name";
+			final String ADDRESS = "address";
+			final String ZIP = "zip";
+			final String POSTAREA = "postarea";
+			final String COUNTRY = "country";
+			final String PHONE = "phone";
+			final String MAIL = "mail";
+			final String SEX = "sex";
+			final String PNR = "pnr";
+			final String NO_SFR = "nossr";
 
-		// Get contact info
-		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-		db.open();
-		Cursor c = db.getLatestContactInfo();
+			// Get contact info
+			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+			db.open();
+			Cursor c = db.getLatestContactInfo();
 
-		// Create object to contain contact info
-		JSONObject visitor = new JSONObject();
-		if (c.moveToFirst()) {
-			try {
-				visitor.put(FIRST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)));
-				visitor.put(LAST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME)));
-				visitor.put(ADDRESS, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS)));
-				visitor.put(ZIP, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
-				visitor.put(POSTAREA, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTADRESS)));
-				visitor.put(COUNTRY, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_COUNTRY)));
-				visitor.put(PHONE, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE)));
-				visitor.put(MAIL, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_EMAIL)));
-				visitor.put(SEX, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX)));
-				visitor.put(PNR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
-				visitor.put(NO_SFR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_NOSFR)));
-			} catch (JSONException ex) {
-				ex.printStackTrace();
-			}
-		} else {
-			throw new CursorIndexOutOfBoundsException("Could not move to first index");
-		}
-		c.close();
-		visitors.put(visitor);
-		// Create json object for all relevant attendants and add them to the
-		// array
-		ArrayList<Integer> attendantIds = db.getAttendantIdsFromBookingId(bookingId);
-		for (int id : attendantIds) {
-			c = db.getAttendantContactInfo(id);
+			// Create object to contain contact info
+			JSONObject visitor = new JSONObject();
 			if (c.moveToFirst()) {
 				try {
-					visitor = new JSONObject();
-					visitor.put(FIRST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
-					visitor.put(LAST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
-					visitor.put(PNR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR)));
-					visitor.put(SEX, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SEX)));
-					visitor.put(NO_SFR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_NOSFR)));
+					visitor.put(FIRST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)));
+					visitor.put(LAST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME)));
+					visitor.put(ADDRESS, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS)));
+					visitor.put(ZIP, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
+					visitor.put(POSTAREA, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTADRESS)));
+					visitor.put(COUNTRY, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_COUNTRY)));
+					visitor.put(PHONE, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE)));
+					visitor.put(MAIL, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_EMAIL)));
+					visitor.put(SEX, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX)));
+					visitor.put(PNR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
+					visitor.put(NO_SFR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_NOSFR)));
 				} catch (JSONException ex) {
 					ex.printStackTrace();
 				}
 			} else {
 				throw new CursorIndexOutOfBoundsException("Could not move to first index");
 			}
-			visitors.put(visitor);
 			c.close();
-		}
-		db.close();
-		JSONObject json = new JSONObject();
-		try {
-			json.put("visitors", visitors);
-			json.put("reservation_key", bookingId);
-		} catch (JSONException ex) {
-			ex.printStackTrace();
-		}
+			visitors.put(visitor);
+			// Create json object for all relevant attendants and add them to
+			// the
+			// array
+			ArrayList<Integer> attendantIds = db.getAttendantIdsFromBookingId(bookingId);
+			for (int id : attendantIds) {
+				c = db.getAttendantContactInfo(id);
+				if (c.moveToFirst()) {
+					try {
+						visitor = new JSONObject();
+						visitor.put(FIRST_NAME,
+								c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
+						visitor.put(LAST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
+						visitor.put(PNR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR)));
+						visitor.put(SEX, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SEX)));
+						visitor.put(NO_SFR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_NOSFR)));
+					} catch (JSONException ex) {
+						ex.printStackTrace();
+					}
+				} else {
+					throw new CursorIndexOutOfBoundsException("Could not move to first index");
+				}
+				visitors.put(visitor);
+				c.close();
+			}
+			db.close();
+			JSONObject json = new JSONObject();
+			try {
+				json.put("visitors", visitors);
+				json.put("reservation_key", bookingId);
+			} catch (JSONException ex) {
+				ex.printStackTrace();
+			}
 
-		if (isNetworkConnected()) {
 			// http post
 			HttpParams httpParams = new BasicHttpParams();
 			HttpConnectionParams.setConnectionTimeout(httpParams, 10000); // Timeout
@@ -569,7 +567,7 @@ public class ConfirmActivity extends Activity {
 			} finally {
 				urlConnection.disconnect();
 			}
-		}else {
+		} else {
 			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
 

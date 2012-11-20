@@ -215,7 +215,6 @@ public class ContactActivity extends Activity {
 		int id = db.getLatestContactId();
 		db.updateBookingContactId(bookingId, id);
 		db.close();
-		if (isNetworkConnected()) {
 			// Go to confirmation directly if there are no more attendants
 			if (attendantsCount == 1) {
 				Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
@@ -230,9 +229,6 @@ public class ContactActivity extends Activity {
 				i.putExtra("bookingId", bookingId);
 				startActivityForResult(i, BOOKING);
 			}
-		}else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
-		}
 	}
 
 	private boolean isNetworkConnected() {
