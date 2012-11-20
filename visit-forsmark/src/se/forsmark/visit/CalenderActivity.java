@@ -129,6 +129,7 @@ public class CalenderActivity extends Activity {
 		
 		for (int k = 0; k < 8; k++) {
 			restCell = (TextView) row.getChildAt(k);
+			restCell.setTextColor(Color.rgb(19, 90, 165));
 			restCell.setText(days[k]);
 		}
 		String info;
@@ -160,7 +161,7 @@ public class CalenderActivity extends Activity {
 							info = dateInfo[c.get(Calendar.DATE) - 1];
 							if (info.equals("E")) {
 								dateCell.setBackgroundResource(R.drawable.cell_empty);
-								dateCell.setTextColor(Color.WHITE);
+								dateCell.setTextColor(Color.rgb(19, 90, 165));
 							} else if (info.equals("F")) {
 								dateCell.setBackgroundResource(R.drawable.cell_full);
 								dateCell.setTextColor(Color.BLACK);
@@ -189,6 +190,7 @@ public class CalenderActivity extends Activity {
 					}
 				} else {
 					restCell = (TextView) row.getChildAt(k);
+					restCell.setTextColor(Color.rgb(19, 90, 165));
 					restCell.setText(String.valueOf(c.get(Calendar.WEEK_OF_YEAR)));
 				}
 			}
