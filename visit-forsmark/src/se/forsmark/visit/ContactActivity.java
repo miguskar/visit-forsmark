@@ -143,19 +143,18 @@ public class ContactActivity extends Activity {
 
 	public void bottomCancelClick(View v) {
 		// Dialogruta AVBRYT BOKNING
-		// TODO hitta snyggare lösning och lägg in strängarna i strings xmlen
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.create();
-		builder.setTitle("Avbryt bokning");
-		builder.setMessage("Är du säker på att du vill avbryta din bokning?");
-		builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+		builder.setTitle(R.string.cancelBookingTitle);
+		builder.setMessage(R.string.cancelBookingMessage);
+		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {
 				setResult(RESULT_CANCELED);
 				finish();
 			}
 		});
-		builder.setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+		builder.setNegativeButton(R.string.dialogNo, new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {
 				// Do nothing
