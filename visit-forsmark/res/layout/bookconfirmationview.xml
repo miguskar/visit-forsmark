@@ -29,26 +29,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/date" />
+                android:text="@string/dateAndTime"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/dateTextView"
                 style="@style/contactInfoTextView"
                 android:text="3 December 2012" />
-
-            <TextView
-                android:id="@+id/TextViewconfirmTime"
-                style="@style/CodeFont"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="left"
-                android:text="@string/time" />
-
-            <TextView
-                android:id="@+id/timeTextView"
-                style="@style/contactInfoTextView"
-                android:text="13:00 - 13:37" />
 
             <TextView
                 android:id="@+id/TextViewconfirmBookingNr"
@@ -57,7 +44,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="left"
-                android:text="@string/bookingNumber" />
+                android:text="@string/bookingNumber"
+                android:textAppearance="?android:attr/textAppearance"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/bookingNumberTextView"
@@ -71,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="left"
-                android:text="@string/ContactActivityTitle" />
+                android:text="@string/ContactActivityTitle"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/nameTextView"
@@ -82,7 +72,9 @@
                 android:id="@+id/textView2"
                 style="@style/contactInfoTitleTextView"
                 android:layout_marginTop="10dp"
-                android:text="@string/Address" />
+                android:text="@string/Address"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/addressTextView"
@@ -103,7 +95,8 @@
                 android:id="@+id/textView"
                 style="@style/contactInfoTitleTextView"
                 android:layout_marginTop="10dp"
-                android:text="@string/ContactInfo" />
+                android:text="@string/ContactInfo"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/phoneTextView"
@@ -128,7 +121,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="left"
-                    android:text="@string/otherAttendants" />
+                    android:text="@string/otherAttendants"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/attendantTextView"

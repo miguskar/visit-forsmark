@@ -40,7 +40,6 @@ public class BookConfirmationActivity extends Activity {
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		TextView titleTv = (TextView) findViewById(R.id.border_title);
 		TextView dateTv = (TextView) findViewById(R.id.dateTextView);
-		TextView timeTv = (TextView) findViewById(R.id.timeTextView);
 		TextView orderNbrTv = (TextView) findViewById(R.id.bookingNumberTextView);
 		TextView nameTv = (TextView) findViewById(R.id.nameTextView);
 		TextView addTv = (TextView) findViewById(R.id.addressTextView);
@@ -54,8 +53,7 @@ public class BookConfirmationActivity extends Activity {
 
 		db.open();
 		String date = db.getBookingDate(bookingId);
-		dateTv.setText(date.subSequence(0, 10));
-		timeTv.setText(String.format("%s - %s", date.substring(10, 16), date.substring(17, date.length())));
+		dateTv.setText(String.format("%s %s - %s",date.subSequence(0, 10), date.substring(10, 16), date.substring(17, date.length())));
 		orderNbrTv.setText(bookingId.toUpperCase());
 
 		Cursor c = db.getContactInfo(bookingId);
@@ -66,8 +64,8 @@ public class BookConfirmationActivity extends Activity {
 		addTv.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS)));
 
 		postAddTv.setText(String.format("%s %s",
-				c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTADRESS)),
-				c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTNMBR))));
+				c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTNMBR)),
+				c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTADRESS))));
 
 		countryTv.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_COUNTRY)));
 		phoneTv.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE)));

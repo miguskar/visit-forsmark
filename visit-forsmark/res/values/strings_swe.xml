@@ -6,14 +6,13 @@
     <string name="httpEmailRequestUrl">http://forsmark.westart.se/thanks?orderid=</string>
     <string name="Today">Idag</string>
     <string name="Address">Adress</string>
-    <string name="date">Datum</string>
-    <string name="time">Tid</string>
+    <string name="dateAndTime">Datum och tid</string>
     <string name="Save">Spara</string>
     <string name="ContactInfo">Kontaktinformation</string>
-    <string name="bookingNumber">Bookningsnummer</string>
+    <string name="bookingNumber">Bokningsnummer</string>
     <string name="attendantButtonText">Fyll i information eller ta bort</string>
     <string name="otherAttendants">Övriga deltagare</string>
-    <string name="attendantsTitle">Övriga deltagare %1$s av %2$s </string>
+    <string name="attendantsTitle">Deltagare %1$s av %2$s </string>
     <string name="FrotnPage">Startsida</string>
     <string name="hello">hej klas</string>
     <string name="Confrim">Bekräfta</string>
@@ -65,7 +64,7 @@
     <string name="Next">Nästa</string>
     <string name="Cancel">Avbryt</string>
     <string name="termsTitle">Villkor</string>
-    <string name="dialogThe">Den</string>
+    <string name="dateFormat">Den %1$s %2$s</string>
     <string name="noSeats">Fullbokad</string>
     <string name="StartTime">Starttid</string>
     <string name="SeatsLeft">Platser Kvar</string>
@@ -86,5 +85,4 @@
     <string name="dialogWarningTitle">Varning</string>
     <string name="dialogYes">Ja</string>
     <string name="dialogNo">Nej</string>
-
 </resources>
