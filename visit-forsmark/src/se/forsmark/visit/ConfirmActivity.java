@@ -109,10 +109,10 @@ public class ConfirmActivity extends Activity {
 			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
 			b.setTextColor(Color.WHITE);
 			String name = db.getAttendantName(id);
-			if (!name.equals("")) {
+			if (!name.equals(" ") || name == null) {
 				b.setText(db.getAttendantName(id));
 			} else {
-				b.setText(contactName);
+				b.setText(getString(R.string.attendantButtonText));
 			}
 			b.setBackgroundResource(R.drawable.editbutton);
 			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
@@ -202,7 +202,7 @@ public class ConfirmActivity extends Activity {
 				b.setGravity(Gravity.LEFT);
 				b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
 				b.setTextColor(Color.WHITE);
-				b.setText("Fyll i information eller ta bort");
+				b.setText(getString(R.string.attendantButtonText));
 				b.setBackgroundResource(R.drawable.editbutton);
 				b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
 				// TODO FIXA EN CLICKLISTENER ISTÄLLET FÖR EN FÖR VARJE KNAPP

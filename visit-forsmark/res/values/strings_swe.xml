@@ -8,7 +8,8 @@
     <string name="time">Tid</string>
     <string name="ContactInfo">Kontaktinformation</string>
     <string name="Attendants">Övriga deltagare</string>
-    <string name="bookingNumber">Bookningsnummer</string>
+    <string name="bookingNumber">Bookningsnummer</string> 
+    <string name="attendantButtonText">Fyll i information eller ta bort</string>
     <string name="FrotnPage">Startsida</string>
     <string name="hello">hej klas</string>
     <string name="Confrim">Bekräfta</string>

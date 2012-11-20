@@ -4,9 +4,12 @@ import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -81,20 +84,20 @@ public class ContactActivity extends Activity {
 				t.show();
 			}
 		});
-		
-		// EJ SFR TOAST
-				b = (Button) findViewById(R.id.contact_button_hint_SFR);
-				b.setOnClickListener(new OnClickListener() { // Create Toast hint
 
-					public void onClick(View v) {
-						// Get message from resources
-						String text = getResources().getString(R.string.NoSFRToast);
-						Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Create
-																									// toast
-						t.setGravity(Gravity.TOP, 0, 0); // Position
-						t.show();
-					}
-				});
+		// EJ SFR TOAST
+		b = (Button) findViewById(R.id.contact_button_hint_SFR);
+		b.setOnClickListener(new OnClickListener() { // Create Toast hint
+
+			public void onClick(View v) {
+				// Get message from resources
+				String text = getResources().getString(R.string.NoSFRToast);
+				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Create
+																							// toast
+				t.setGravity(Gravity.TOP, 0, 0); // Position
+				t.show();
+			}
+		});
 
 		// Fill form with latest contact info
 		// TODO move this to dbsqllite class and return array with key=>value
@@ -154,8 +157,8 @@ public class ContactActivity extends Activity {
 	public void onBackPressed() {
 		// TODO ta bort bokningen!
 		// TODO CONFIRM popup
-		bottomCancelClick(null); // FULING 
-		//finish();
+		bottomCancelClick(null); // FULING
+		// finish();
 	}
 
 	public void bottomCancelClick(View v) {
@@ -191,12 +194,8 @@ public class ContactActivity extends Activity {
 				EditText ed = (EditText) vv;
 				if (ed.getText().toString().equals("")) {
 					// TODO I MÅN AV TID - fixa ordentlig validering!
-					String text = getResources().getString(R.string.errorMessageFieldEmpty); // Get
-																								// message
-																								// from
-																								// resources
-					Toast t2 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Creat
-																									// toast
+					Toast t2 = Toast.makeText(getApplicationContext(), getString(R.string.errorMessageFieldEmpty),
+							Toast.LENGTH_SHORT); // Create toast
 					t2.setGravity(Gravity.BOTTOM, 0, 0); // Position
 					t2.show();
 					return;
@@ -208,12 +207,8 @@ public class ContactActivity extends Activity {
 		RadioButton rbMan = (RadioButton) findViewById(R.id.radioButtonMan);
 		RadioButton rbWoman = (RadioButton) findViewById(R.id.radioButtonWoman);
 		if (!rbMan.isChecked() && !rbWoman.isChecked()) {
-			String text = getResources().getString(R.string.errorMessageGender); // Get
-																					// message
-																					// from
-																					// resources
-			Toast t3 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Create
-																							// toast
+			Toast t3 = Toast.makeText(getApplicationContext(), getString(R.string.errorMessageGender),
+					Toast.LENGTH_SHORT); // Create toast
 			t3.setGravity(Gravity.BOTTOM, 0, 0); // Position
 			t3.show();
 			return;
@@ -239,24 +234,38 @@ public class ContactActivity extends Activity {
 				postadress.getText().toString(), country.getText().toString(), cellphone.getText().toString(), email
 						.getText().toString(), cb.isChecked() ? 1 : 0);
 		int id = db.getLatestContactId();
-		db.updateBookingContactId(bookingId,id);
+		db.updateBookingContactId(bookingId, id);
 		// TODO Om bara 1 plats har bokats så skall vi komma till bekräfta
 		// direkt
 		db.close();
-
-		if (attendantsCount == 1) {
-			Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
-			i.putExtra("eventId", eventId);
-			i.putExtra("contactId", id);
-			i.putExtra("bookingId", bookingId);
-			startActivityForResult(i, BOOKING);
-		} else {
-			Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
-			i.putExtra("attendantsCount", attendantsCount);
-			i.putExtra("eventId", eventId);
-			i.putExtra("bookingId", bookingId);
-			startActivityForResult(i, BOOKING);
+		if (isNetworkConnected()) {
+			if (attendantsCount == 1) {
+				Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
+				i.putExtra("eventId", eventId);
+				i.putExtra("contactId", id);
+				i.putExtra("bookingId", bookingId);
+				startActivityForResult(i, BOOKING);
+			} else {
+				Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);
+				i.putExtra("attendantsCount", attendantsCount);
+				i.putExtra("eventId", eventId);
+				i.putExtra("bookingId", bookingId);
+				startActivityForResult(i, BOOKING);
+			}
+		}else {
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	private boolean isNetworkConnected() {
+		getApplicationContext();
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		if (ni == null) {
+			// There are no active networks.
+			return false;
+		} else
+			return true;
 	}
 
 }
