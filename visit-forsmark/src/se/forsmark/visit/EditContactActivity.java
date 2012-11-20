@@ -61,6 +61,10 @@ public class EditContactActivity extends Activity {
 					}
 				});
 				
+				//Change name of the button "next" to "save"
+				Button next = (Button) findViewById(R.id.bottomNextButton);
+				next.setText(getString(R.string.Save));
+				
 				//Fill form with latest contact info
 				//TODO move this to dbsqllite class and return array with key=>value pairs
 				DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());

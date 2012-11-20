@@ -28,8 +28,7 @@ public class EditAttendantActivity extends Activity {
 		setContentView(R.layout.attendantsview);
 		Bundle extras = getIntent().getExtras();
 		attendantId = extras.getInt("attendantId");
-		
-		
+
 		initialize();
 	}
 
@@ -54,8 +53,11 @@ public class EditAttendantActivity extends Activity {
 			}
 		});
 		
+		//Change name of the button "next" to "save"
+		Button next = (Button) findViewById(R.id.bottomNextButton);
+		next.setText(getString(R.string.Save));
 		// Fill form with attendant Information & set title
-			fillForm(attendantId);
+		fillForm(attendantId);
 	}
 
 	private boolean validate() {
@@ -108,7 +110,7 @@ public class EditAttendantActivity extends Activity {
 		db.open();
 		// Update attendant in db
 		db.updateAttendant(attendantId, firstname.getText().toString(), lastname.getText().toString(), pnmbr.getText()
-					.toString(), rbMan.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0);
+				.toString(), rbMan.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0);
 		db.close();
 	}
 
@@ -139,10 +141,10 @@ public class EditAttendantActivity extends Activity {
 		i.putExtra("displayName", firstname.getText().toString() + " " + lastname.getText().toString());
 		setResult(RESULT_OK, i);
 		finish();
-		}
+	}
 
 	private void fillForm(int id) {
-		//OBS SÄTTER ÄVEN TITEL I DENNA AKTIVITET
+		// OBS SÄTTER ÄVEN TITEL I DENNA AKTIVITET
 		TextView tv = (TextView) findViewById(R.id.border_title);
 		EditText firstname = (EditText) findViewById(R.id.attendantPersonFirstName);
 		EditText lastname = (EditText) findViewById(R.id.attendantPersonLastName);
