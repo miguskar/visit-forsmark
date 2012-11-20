@@ -373,7 +373,6 @@ public class ConfirmActivity extends Activity {
 		String result = "";
 		InputStream is = null;
 		String[] tmp = { "NOCONNECTION" };
-		int tp = 0;
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
