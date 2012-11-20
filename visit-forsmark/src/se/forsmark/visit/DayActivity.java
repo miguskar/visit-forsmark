@@ -103,15 +103,13 @@ public class DayActivity extends Activity {
 			Date todayDate = new Date();
 			int startHour = Integer.valueOf(day.getStart().substring(0, 2));
 			int startMin = Integer.valueOf(day.getStart().substring(3, 5));
-			Date theDate = new Date(curYear - 1900, curMonth, curDate,
-					startHour, startMin);
+			Date theDate = new Date(curYear - 1900, curMonth, curDate, startHour, startMin);
 			Log.v("ThedateDate", theDate.toString());
 			Log.v("TodayDate", todayDate.toString());
-			
-			//if (theDate.compareTo(todayDate) > 0) {
+
+			if (theDate.compareTo(todayDate) > 0) {
 				if (!day.getSeats().equals(getString(R.string.noSeats))) {
-					Intent dialog = new Intent(getApplicationContext(),
-							AttendantsDialogActivity.class);
+					Intent dialog = new Intent(getApplicationContext(), AttendantsDialogActivity.class);
 					dialog.putExtra("ID", day.getId());
 					dialog.putExtra("DATE", curDate);
 					dialog.putExtra("MONTH", curMonth);
@@ -121,9 +119,9 @@ public class DayActivity extends Activity {
 					dialog.putExtra("END", day.getEnd());
 					startActivity(dialog);
 				}
-			//}else{
-				//Toast.makeText(getApplicationContext(), R.string.backInTime, Toast.LENGTH_SHORT).show();
-			//}
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.backInTime, Toast.LENGTH_SHORT).show();
+			}
 		}
 	};
 
@@ -132,68 +130,58 @@ public class DayActivity extends Activity {
 		String temp;
 
 		array.clear();
-		if (events.length >= 5) {
-			if (events.length >= 5) {
-				for (int i = 0; i < events.length; i = i + 5) {
-					if (Integer.parseInt(events[i + 3]) < 1) {
-						temp = getResources().getString(R.string.noSeats);
-					} else {
-						temp = events[i + 3];
-					}
-					array.add(new DayListItem(Integer.valueOf(events[i]),
-							events[i + 2].substring(0, 5), temp, events[i + 4]
-									.substring(0, 5)));
-				}
-
-				adapter.notifyDataSetChanged();
-
-				String[] mon = getResources().getStringArray(
-						R.array.calMonthStringsSwe);
-				curYear = Integer.parseInt(events[1].substring(0, 4));
-				curMonth = Integer.parseInt(events[1].substring(5, 7)) - 1;
-				curDate = Integer.parseInt(events[1].substring(8, 10));
-				tvDate.setText(curDate + " " + mon[curMonth]);
-				tvYear.setText(String.valueOf(curYear));
-			} else {
-				Toast.makeText(getApplicationContext(),
-						getResources().getString(R.string.noticeNoDayEvents),
-						Toast.LENGTH_SHORT).show();
-				if (extra == 1) {
-					int date = new Date(curYear, curMonth + 1, 0).getDate();
-					++curDate;
-					if (curDate > date) {
-						++curMonth;
-						curDate = 1;
-						if (curMonth > 11) {
-							curMonth = 0;
-							++curYear;
+		if (!events[0].equals("NOCONNECTION")) {
+			if (!events[0].equals("NORESULT")) {
+				if (events.length >= 5) {
+					for (int i = 0; i < events.length; i = i + 5) {
+						if (Integer.parseInt(events[i + 3]) < 1) {
+							temp = getResources().getString(R.string.noSeats);
+						} else {
+							temp = events[i + 3];
 						}
+						array.add(new DayListItem(Integer.valueOf(events[i]), events[i + 2].substring(0, 5), temp,
+								events[i + 4].substring(0, 5)));
 					}
+
+					adapter.notifyDataSetChanged();
+
+					String[] mon = getResources().getStringArray(R.array.calMonthStringsSwe);
+					curYear = Integer.parseInt(events[1].substring(0, 4));
+					curMonth = Integer.parseInt(events[1].substring(5, 7)) - 1;
+					curDate = Integer.parseInt(events[1].substring(8, 10));
+					tvDate.setText(curDate + " " + mon[curMonth]);
+					tvYear.setText(String.valueOf(curYear));
 				} else {
-					--curDate;
-					if (curDate < 1) {
-						--curMonth;
-						if (curMonth < 0) {
-							curMonth = 11;
-							--curYear;
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.noticeNoDayEvents),
+							Toast.LENGTH_SHORT).show();
+					if (extra == 1) {
+						int date = new Date(curYear, curMonth + 1, 0).getDate();
+						++curDate;
+						if (curDate > date) {
+							++curMonth;
+							curDate = 1;
+							if (curMonth > 11) {
+								curMonth = 0;
+								++curYear;
+							}
 						}
-						curDate = new Date(curYear, curMonth + 1, 0).getDate();
+					} else {
+						--curDate;
+						if (curDate < 1) {
+							--curMonth;
+							if (curMonth < 0) {
+								curMonth = 11;
+								--curYear;
+							}
+							curDate = new Date(curYear, curMonth + 1, 0).getDate();
+						}
 					}
 				}
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			String[] mon = getResources().getStringArray(
-					R.array.calMonthStringsSwe);
-
-			tvDate.setText(curDate + " " + mon[curMonth]);
-			tvYear.setText(String.valueOf(curYear));
-			if (events[0].equals("NOCONNECTION")) {
-				Toast.makeText(getApplicationContext(), R.string.noInternet,
-						Toast.LENGTH_SHORT).show();
-			} else if (events[0].equals("NORESULT")) {
-				Toast.makeText(getApplicationContext(),
-						R.string.noResultDatabase, Toast.LENGTH_SHORT).show();
-			}
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -237,8 +225,7 @@ public class DayActivity extends Activity {
 			// http post
 			try {
 				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(getResources().getString(
-						R.string.httpRequestUrl));
+				HttpPost httppost = new HttpPost(getResources().getString(R.string.httpRequestUrl));
 
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair("case", "getDayInfo"));
@@ -256,8 +243,7 @@ public class DayActivity extends Activity {
 			}
 			// convert response to string
 			try {
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(is, "iso-8859-1"), 8);
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
 				StringBuilder sb = new StringBuilder();
 				String line = null;
 				while ((line = reader.readLine()) != null) {

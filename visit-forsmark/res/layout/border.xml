@@ -9,7 +9,7 @@
         android:id="@+id/border_background"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:background="@drawable/border_background" >
+        android:background="@drawable/border" >
 
         <RelativeLayout
             android:id="@+id/border_text_container"

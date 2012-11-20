@@ -3,20 +3,31 @@
     
 	 <!-- pressed -->
     <item android:state_pressed="true">
-        <shape android:shape="rectangle">
-            
-            <stroke android:width="0.5dp" android:color="#FFFFFF"></stroke>
-            <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp"></padding>
-            <solid android:color="#135aa5"/>
-        </shape>
+        <layer-list>
+            <item>
+                <nine-patch android:src="@drawable/cell_normalbg_pressed"/>
+            </item>
+            <item>
+                <shape>
+                    <corners android:radius="4dp" />
+                     <gradient android:angle="90" android:endColor="#803899ff" android:centerColor="#135aa5"  android:startColor="#3899ff" />
+                </shape>
+            </item>
+        </layer-list>
    </item>
    
-    <item>
-     	<shape android:shape="rectangle">
-	         <stroke android:width="0.5dp" android:color="#135aa5"></stroke>
-	         <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp"></padding>
-	         <solid android:color="#ffffff"/>
-     	</shape>
+    <item >
+     	<layer-list>
+            <item>
+                <nine-patch android:src="@drawable/cell_normalbg" />
+            </item>
+            <item>
+                <shape>
+                    <corners android:radius="4dp" />
+                     <gradient android:angle="90" android:endColor="#800066d2" android:centerColor="#135aa5"  android:startColor="#0066d2" />
+                </shape>
+            </item>
+        </layer-list>
     </item>
     
 </selector>

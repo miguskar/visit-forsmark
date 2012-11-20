@@ -22,7 +22,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -58,7 +57,6 @@ public class CalenderActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-
 		super.onResume();
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.YEAR, curYear);
@@ -106,9 +104,9 @@ public class CalenderActivity extends Activity {
 
 	public void setCalendar(Calendar c) {
 		String[] dateInfo = getDateInfo();
-		
+
 		Date today = new Date();
-		
+
 		if (dateInfo[0].equals("NOCONNECTION")) {
 			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 			dateInfo = null;
@@ -128,7 +126,7 @@ public class CalenderActivity extends Activity {
 		tvYear.setText(String.valueOf(curYear));
 
 		row = (LinearLayout) findViewById(R.id.weekDays);
-
+		
 		for (int k = 0; k < 8; k++) {
 			restCell = (TextView) row.getChildAt(k);
 			restCell.setText(days[k]);
@@ -142,7 +140,8 @@ public class CalenderActivity extends Activity {
 					dateCell = (Button) row.getChildAt(k);
 					dateCell.setBackgroundResource(0);
 					if (c.get(Calendar.MONTH) != curMonth) {
-						dateCell.setBackgroundResource(R.drawable.cell_next_month);
+						dateCell.setText("");
+						dateCell.setBackgroundResource(R.drawable.cell_empty);
 						dateCell.setTextColor(Color.GRAY);
 
 						if (c.get(Calendar.MONTH) < curMonth) {
@@ -156,28 +155,31 @@ public class CalenderActivity extends Activity {
 							else
 								dateCell.setTag("P");
 					} else {
-						dateCell.setTextColor(Color.BLACK);
+						dateCell.setTextColor(Color.WHITE);
 						if (dateInfo != null) {
 							info = dateInfo[c.get(Calendar.DATE) - 1];
 							if (info.equals("E")) {
 								dateCell.setBackgroundResource(R.drawable.cell_empty);
+								dateCell.setTextColor(Color.WHITE);
 							} else if (info.equals("F")) {
 								dateCell.setBackgroundResource(R.drawable.cell_full);
+								dateCell.setTextColor(Color.BLACK);
 							} else if (info.equals("S")) {
 								dateCell.setBackgroundResource(R.drawable.cell_normal);
 							}
 							dateCell.setTag(info);
 						} else {
-							dateCell.setBackgroundResource(R.drawable.cell_empty);
+							dateCell.setBackgroundResource(R.drawable.cell_empty); 
 							dateCell.setTag("E");
 						}
-						if(c.get(Calendar.YEAR) == (today.getYear()+1900) && c.get(Calendar.MONTH) == today.getMonth() && c.get(Calendar.DATE) == today.getDate()){
-							GradientDrawable bgShape = (GradientDrawable )dateCell.getBackground().getCurrent().mutate();
-							bgShape.setStroke(5, Color.rgb(19, 90, 165));
+						if (c.get(Calendar.YEAR) == (today.getYear() + 1900)
+								&& c.get(Calendar.MONTH) == today.getMonth() && c.get(Calendar.DATE) == today.getDate()) {
+							dateCell.setTextColor(Color.rgb(255, 179, 55));
 						}
+						dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
 					}
 
-					dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
+//					dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
 					if (c.get(Calendar.MONTH) == Calendar.FEBRUARY && curYear % 4 != 0 && c.get(Calendar.DATE) == 28) {
 						c.add(Calendar.DATE, +2);
 						if (c.get(Calendar.DATE) == 2)
@@ -206,9 +208,6 @@ public class CalenderActivity extends Activity {
 			dayView.putExtra("MONTH", curMonth);
 			dayView.putExtra("YEAR", curYear);
 			startActivity(dayView);
-		}
-		else if(tag.equals("E")){
-			Toast.makeText(getApplicationContext(), getString(R.string.noEvent), Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -261,14 +260,14 @@ public class CalenderActivity extends Activity {
 			InputStream is = null;
 			// http post
 			try {
-				HttpParams httpParams  =new BasicHttpParams();
+				HttpParams httpParams = new BasicHttpParams();
 				HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
 				HttpConnectionParams.setSoTimeout(httpParams, 10000);
 				HttpClient httpclient = new DefaultHttpClient(httpParams);
 				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
-				
+
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-				
+
 				pairs.add(new BasicNameValuePair("case", "getMonthInfo"));
 				pairs.add(new BasicNameValuePair("month", "" + (curMonth + 1)));
 				pairs.add(new BasicNameValuePair("year", "" + curYear));
@@ -293,7 +292,7 @@ public class CalenderActivity extends Activity {
 				result = result.substring(1, result.length() - 2);
 				result = result.replace("\"", "");
 				tmp = result.split(",");
-				
+
 			} catch (StringIndexOutOfBoundsException e) {
 				tmp[0] = "NORESULT";
 			} catch (Exception e) {

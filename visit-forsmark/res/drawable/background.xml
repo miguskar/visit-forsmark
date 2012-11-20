@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <gradient
+       android:angle="90"
+        android:startColor="#fed572"
+        android:endColor="#fc9f1b" />
+        
+       <!--  supergul Anna tycker denna är fin 
+        android:angle="90"
+        android:startColor="#fed572"
+        android:endColor="#fc9f1b" 
+        />
+        -->
+       <!-- 
+       mellan ljus blå Den tycker vi är ganska snygg 
+       android:angle="90"
+        android:startColor="#FFFFFF"
+        android:endColor="#d1e6fe" />
+       -->
+       
+       
+        <!-- ljust ljust blå mkt svag gradient
+        android:angle="90"
+        android:startColor="#EEF6FF"
+        android:endColor="#FFFFFF" />
+         -->
+        
+        
+        <!--
+        ljuablå gradient
+        android:startColor="#9acbff"
+        android:endColor="#7cbcff" />
+        -->
+        
+        
+
+</shape>

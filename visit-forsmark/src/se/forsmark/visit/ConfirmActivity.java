@@ -148,6 +148,7 @@ public class ConfirmActivity extends Activity {
 		db.open();
 		db.deleteAttendant(id);
 		db.close();
+		deleteAttendantFromBooking(bookingId);
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 		l.removeView(findViewById(id));
 	}
@@ -314,16 +315,15 @@ public class ConfirmActivity extends Activity {
 				is.close();
 
 				result = sb.toString();
-
+				Log.v("res", result);
 			} catch (Exception e) {
 				Log.e("log_tag", "Error converting result " + e.toString());
 			}
-
-			result = result.substring(1, result.length() - 1);
 			Log.v("deleteAttResult", result);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
+		Log.v("deleteAttResult", result);
 		return result;
 	}
 
