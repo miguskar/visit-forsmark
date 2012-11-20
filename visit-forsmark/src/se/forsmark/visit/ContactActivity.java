@@ -68,18 +68,13 @@ public class ContactActivity extends Activity {
 																// one
 		// Display hint button an
 		Button b = (Button) findViewById(R.id.button_hint_top);
-
+		
 		b.setVisibility(View.VISIBLE); // Unhide button
-
 		b.setOnClickListener(new OnClickListener() { // Create Toast hint
 
 			public void onClick(View v) {
-				String text = getResources().getString(R.string.ContactActivityToast); // Get
-																						// message
-																						// from
-																						// resources
-				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Creat
-																								// toast
+				// Create toast
+				Toast t = Toast.makeText(getApplicationContext(), R.string.ContactActivityToast, Toast.LENGTH_SHORT);
 				t.setGravity(Gravity.TOP, 0, 0); // Position
 				t.show();
 			}

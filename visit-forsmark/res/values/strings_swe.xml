@@ -63,7 +63,7 @@
     <string name="Next">Nästa</string>
     <string name="Cancel">Avbryt</string>
     <string name="termsTitle">Villkor</string>
-    <string name="dialogDate">Den %1$s %2$s </string>
+    <string name="dialogDate">Den %1$s %2$s</string>
     <string name="noSeats">Fullbokad</string>
     <string name="StartTime">Starttid</string>
     <string name="SeatsLeft">Platser Kvar</string>
