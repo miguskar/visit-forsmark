@@ -1,5 +1,5 @@
 package se.forsmark.visit;
- 
+
 import java.util.ArrayList;
 
 import se.forsmark.visit.database.DatabaseHelper;
@@ -49,7 +49,7 @@ public class AttendantsActivity extends Activity {
 		String text;
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
-		text = deltagare + (counter + 1) + " av " + nbrAttendants;
+		text = String.format(getString(R.string.attendantsTitle), (counter + 1), nbrAttendants);
 		tv.setText(text);
 
 		// Unhide next button
@@ -277,7 +277,7 @@ public class AttendantsActivity extends Activity {
 		}
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
-		tv.setText(deltagare + (counter + 1) + " av " + nbrAttendants);
+		tv.setText(String.format(getString(R.string.attendantsTitle), (counter + 1), nbrAttendants));
 	}
 
 	public void topBackButton(View v) {
@@ -301,7 +301,7 @@ public class AttendantsActivity extends Activity {
 		}
 		// Set Title
 		TextView tv2 = (TextView) findViewById(R.id.border_title);
-		tv2.setText(deltagare + (counter + 1) + " av " + nbrAttendants);
+		tv2.setText(String.format(getString(R.string.attendantsTitle), (counter + 1), nbrAttendants));
 	}
 
 	private void fillForm() {

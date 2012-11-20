@@ -9,9 +9,10 @@
     <string name="time">Tid</string>
     <string name="Save">Spara</string>
     <string name="ContactInfo">Kontaktinformation</string>
-    <string name="Attendants">Övriga deltagare</string>
     <string name="bookingNumber">Bookningsnummer</string> 
     <string name="attendantButtonText">Fyll i information eller ta bort</string>
+    <string name="otherAttendants">Övriga deltagare</string> 
+    <string name="attendantsTitle">Övriga deltagare %1$s av %2$s </string> 
     <string name="FrotnPage">Startsida</string>
     <string name="hello">hej klas</string>
     <string name="Confrim">Bekräfta</string>
@@ -63,7 +64,7 @@
     <string name="Next">Nästa</string>
     <string name="Cancel">Avbryt</string>
     <string name="termsTitle">Villkor</string>
-    <string name="dialogDate">Den %1$s %2$s</string>
+    <string name="dialogThe">Den</string>
     <string name="noSeats">Fullbokad</string>
     <string name="StartTime">Starttid</string>
     <string name="SeatsLeft">Platser Kvar</string>
@@ -80,8 +81,4 @@
     <string name="aboutVisitForsmark">Om VisitForsmark</string>
     <string name="aboutVisitForsmarkText">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
     <string name="couldNotCompleteBooking">Bokningen kunde inte slutföras. Försök igen senare.</string>
-    <string name="confirmDeleteAttendant">Är du säker på att du vill ta bort %s?</string>
-    <string name="dialogWarningTitle">Varning</string>
-    <string name="dialogYes">Ja</string>
-    <string name="dialogNo">Nej</string>
 </resources>

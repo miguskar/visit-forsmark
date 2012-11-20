@@ -59,20 +59,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:gravity="left"
-                android:text="@string/Attendants" />
+                android:text="@string/otherAttendants" />
 
             <Button
                 android:id="@+id/AddAttendantButton"
                 style="@style/addAttendantButtonStyle"
                 android:text="Lägg till deltagare +" />
-
+
             <TextView
                 android:id="@+id/SeatsLeft"
                 style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top" />
-
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -93,7 +93,6 @@
                     style="@style/bottomNextButton"
                     android:text="@string/Confrim" />
             </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
 

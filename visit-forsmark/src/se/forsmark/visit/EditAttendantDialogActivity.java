@@ -65,28 +65,28 @@ public class EditAttendantDialogActivity extends Activity {
 	}
 
 	public void deleteButton(View v) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.create();
-		builder.setTitle(R.string.dialogWarningTitle);
-		builder.setMessage(String.format(getString(R.string.confirmDeleteAttendant), name));
-		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
-
-			public void onClick(DialogInterface dialog, int which) {
-
-				Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
-				i.putExtra("attendantId", id);
-				i.putExtra("edit", false);
-				setResult(RESULT_OK, i);
-				finish();
-			}
-		});
-		builder.setNegativeButton(R.string.dialogNo, new DialogInterface.OnClickListener() {
-
-			public void onClick(DialogInterface dialog, int which) {
-				finish();
-			}
-		});
-		builder.show();
+//		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//		builder.create();
+//		builder.setTitle(R.string.dialogWarningTitle);
+//		builder.setMessage(String.format(getString(R.string.confirmDeleteAttendant), name));
+//		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
+//
+//			public void onClick(DialogInterface dialog, int which) {
+//
+//				Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
+//				i.putExtra("attendantId", id);
+//				i.putExtra("edit", false);
+//				setResult(RESULT_OK, i);
+//				finish();
+//			}
+//		});
+//		builder.setNegativeButton(R.string.dialogNo, new DialogInterface.OnClickListener() {
+//
+//			public void onClick(DialogInterface dialog, int which) {
+//				finish();
+//			}
+//		});
+//		builder.show();
 
 	}
 
