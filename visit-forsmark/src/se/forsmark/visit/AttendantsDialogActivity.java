@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AttendantsDialogActivity extends Activity {
-	private static int  TERMS_ACTIVITY = 1337;
+	private static int TERMS_ACTIVITY = 1337;
 	private int maxSeats, id;
 	private EditText ed;
 	private String DATE;
@@ -38,11 +38,25 @@ public class AttendantsDialogActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.attendatsdialog);
-
-		Initialize(getIntent().getExtras());
+		int curseats = 1;
+		if (savedInstanceState != null) {
+			curseats = savedInstanceState.getInt("CURSEATS");
+		}
+		Initialize(getIntent().getExtras(), curseats);
 	}
 
-	public void Initialize(Bundle extras) {
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		String s = ed.getText().toString();
+		int i = 1;
+		if (!s.equals("")) {
+			i = Integer.parseInt(s);
+		}
+		outState.putInt("CURSEATS", i);
+		super.onSaveInstanceState(outState);
+	}
+
+	public void Initialize(Bundle extras, int curseats) {
 		id = extras.getInt("ID");
 		int date = extras.getInt("DATE");
 		int month = extras.getInt("MONTH");
@@ -52,43 +66,41 @@ public class AttendantsDialogActivity extends Activity {
 		String end = extras.getString("END");
 
 		ed = (EditText) findViewById(R.id.numAtt);
-		ed.setFilters(new InputFilter[] {new InputFilterMinMax(0, maxSeats)});
+		ed.setFilters(new InputFilter[] { new InputFilterMinMax(0, maxSeats) });
 		TextView tvDate = (TextView) findViewById(R.id.border_title);
 		TextView tvTime = (TextView) findViewById(R.id.border_small);
 		tvTime.setVisibility(View.VISIBLE);
 
-		String[] mon = getResources().getStringArray(
-				R.array.calMonthStringsSwe);
-		tvDate.setText(getResources().getString(R.string.dialogThe) + " " + date + " "
-				+ mon[month]);
+		String[] mon = getResources().getStringArray(R.array.calMonthStringsSwe);
+		tvDate.setText(getResources().getString(R.string.dialogThe) + " " + date + " " + mon[month]);
 		tvTime.setText(start + " - " + end);
 
 		DATE = String.format("%s-%s-%s %s %s", year, month, date, start, end);
 	}
-	
-	protected void onActivityResult(int requestCode, int resultCode,
-            Intent data) {
-        if (requestCode == TERMS_ACTIVITY) {
-            if (resultCode == RESULT_CANCELED) {
-                finish();
-            }
-        }
-    }
-	
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == TERMS_ACTIVITY) {
+			if (resultCode == RESULT_CANCELED) {
+				finish();
+			}
+		}
+	}
+
 	public class InputFilterMinMax implements InputFilter {
-		 
+
 		private int min, max;
-	 
+
 		public InputFilterMinMax(int min, int max) {
 			this.min = min;
 			this.max = max;
 		}
-	 
+
 		public InputFilterMinMax(String min, String max) {
 			this.min = Integer.parseInt(min);
 			this.max = Integer.parseInt(max);
 		}
-		public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {	
+
+		public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 			try {
 				int input = Integer.parseInt(dest.toString() + source.toString());
 				if (isInRange(min, max, input))
@@ -96,11 +108,12 @@ public class AttendantsDialogActivity extends Activity {
 				input = Integer.parseInt(source.toString() + dest.toString());
 				if (isInRange(min, max, input))
 					return null;
-			} catch (NumberFormatException nfe) { }	
-			
+			} catch (NumberFormatException nfe) {
+			}
+
 			return "";
 		}
-	 
+
 		private boolean isInRange(int a, int b, int c) {
 			return b > a ? c >= a && c <= b : c >= b && c <= a;
 		}
@@ -117,7 +130,7 @@ public class AttendantsDialogActivity extends Activity {
 	public void increaseAtt(View v) {
 		String s = ed.getText().toString();
 		int i;
-		if (!s.equals("") && (i = Integer.parseInt(s))< maxSeats) {
+		if (!s.equals("") && (i = Integer.parseInt(s)) < maxSeats) {
 			ed.setText(String.valueOf(++i));
 		}
 	}
@@ -130,22 +143,29 @@ public class AttendantsDialogActivity extends Activity {
 		String s = ed.getText().toString();
 		int seats;
 		if (!s.equals("") && (seats = Integer.parseInt(s)) > 0) {
-			if(seats <= maxSeats){
+			if (seats <= maxSeats) {
 				String resKey = preBook(seats);
 				Log.e("reservationKey", resKey);
-				startContactActivity(resKey, seats);
-			}else{
-				Log.e("toManySeats",seats+"");
+				if (resKey.equals("NOCONNECTION")) {
+					Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+				} else if (resKey.equals("NORESULT")) {
+					Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_SHORT).show();
+				} else {
+					startContactActivity(resKey, seats);
+				}
+			} else {
+				Log.e("toManySeats", seats + "");
 				Toast.makeText(getApplicationContext(), getString(R.string.ToManySeats), Toast.LENGTH_SHORT).show();
 			}
-		}else{
-			Log.e("wrongValue",s+"");
+		} else {
+			Log.e("wrongValue", s + "");
 			Toast.makeText(getApplicationContext(), getString(R.string.WrongIntValue), Toast.LENGTH_SHORT).show();
 		}
 	}
-	//TODO TOASTA
-	public void startContactActivity(String message, int seats){
-		if(!message.contains("fail")){
+
+	// TODO TOASTA
+	public void startContactActivity(String message, int seats) {
+		if (!message.contains("fail")) {
 			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 			db.open();
 			db.addBooking(message, DATE);
@@ -155,26 +175,25 @@ public class AttendantsDialogActivity extends Activity {
 			terms.putExtra("bookingId", message);
 			terms.putExtra("seats", seats);
 			startActivityForResult(terms, TERMS_ACTIVITY);
-		}else{
+		} else {
 			Log.e("PHP-FAIL: ", message);
 		}
 	}
-	
+
 	public String preBook(int seats) {
-		String result = "";
+		String result = "NOCONNECTION";
 		InputStream is = null;
 		// http post
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					this.getString(R.string.httpRequestUrl));
+			HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
 
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-			
+
 			pairs.add(new BasicNameValuePair("case", "preBook"));
 			pairs.add(new BasicNameValuePair("id", "" + id));
 			pairs.add(new BasicNameValuePair("seats", "" + seats));
-			
+
 			httppost.setEntity(new UrlEncodedFormEntity(pairs));
 
 			HttpResponse response = httpclient.execute(httppost);
@@ -184,8 +203,7 @@ public class AttendantsDialogActivity extends Activity {
 			Log.e("log_tag", "Error in http connection " + e.toString());
 		}
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					is, "iso-8859-1"), 8);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
 			StringBuilder sb = new StringBuilder();
 			String line = null;
 			while ((line = reader.readLine()) != null) {
@@ -194,11 +212,12 @@ public class AttendantsDialogActivity extends Activity {
 			is.close();
 
 			result = sb.toString();
-
+			result = result.substring(1, result.length() - 2);
+		} catch (StringIndexOutOfBoundsException e) {
+			result = "NORESULT";
 		} catch (Exception e) {
 			Log.e("log_tag", "Error converting result " + e.toString());
 		}
-		result = result.substring(1, result.length()-2);
 		return result;
 	}
 }

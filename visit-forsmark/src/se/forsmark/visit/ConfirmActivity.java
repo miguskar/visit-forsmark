@@ -108,7 +108,12 @@ public class ConfirmActivity extends Activity {
 			b.setGravity(Gravity.LEFT);
 			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
 			b.setTextColor(Color.WHITE);
-			b.setText(db.getAttendantName(id));
+			String name = db.getAttendantName(id);
+			if (!name.equals("")) {
+				b.setText(db.getAttendantName(id));
+			} else {
+				b.setText(contactName);
+			}
 			b.setBackgroundResource(R.drawable.editbutton);
 			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
 			b.setOnClickListener(new OnClickListener() {
@@ -119,13 +124,13 @@ public class ConfirmActivity extends Activity {
 			l.addView(b, l.getChildCount() - 2);
 
 		}
-		
-		//Date and time
+
+		// Date and time
 		TextView dateTv = (TextView) findViewById(R.id.TextViewconfirmDate);
 		TextView timeTv = (TextView) findViewById(R.id.TextViewconfirmTime);
 		String date = db.getBookingDate(bookingId);
 		dateTv.setText(date.subSequence(0, 10));
-		timeTv.setText(String.format("%s - %s", date.substring(10,16), date.substring(17, date.length())));
+		timeTv.setText(String.format("%s - %s", date.substring(10, 16), date.substring(17, date.length())));
 		db.close();
 
 	}
@@ -490,21 +495,21 @@ public class ConfirmActivity extends Activity {
 			// http post
 			HttpParams httpParams = new BasicHttpParams();
 			HttpConnectionParams.setConnectionTimeout(httpParams, 10000); // Timeout
-			HttpConnectionParams.setSoTimeout(httpParams, 10000);	// Limits
+			HttpConnectionParams.setSoTimeout(httpParams, 10000); // Limits
 			HttpClient client = new DefaultHttpClient(httpParams);
 
 			HttpResponse response = null;
 			InputStream is = null;
 			try {
-				//Create request
+				// Create request
 				HttpPost request = new HttpPost(this.getString(R.string.httpRequestUrl));
 				Log.v("req:", json.toString());
-				//add json & case
+				// add json & case
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>(2);
 				pairs.add(new BasicNameValuePair("json", json.toString()));
 				pairs.add(new BasicNameValuePair("case", "confirm"));
 				request.setEntity(new UrlEncodedFormEntity(pairs));
-				
+
 				response = client.execute(request); // execute
 				is = response.getEntity().getContent(); // get data
 
