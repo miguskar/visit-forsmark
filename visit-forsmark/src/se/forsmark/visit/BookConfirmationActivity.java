@@ -3,7 +3,6 @@ package se.forsmark.visit;
 import java.util.ArrayList;
 import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,6 +16,8 @@ import android.widget.TextView;
 public class BookConfirmationActivity extends Activity {
 	
 	private int state;
+	public final static int STATE_CONFIRM = 2;
+	public final static int STATE_VIEW = 1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,9 +31,9 @@ public class BookConfirmationActivity extends Activity {
 		//TODO CHANGE BUTTONS FUNCTIONS
 		state = getIntent().getExtras().getInt("state");
 		Button b = (Button) findViewById(R.id.backButton);
-		if(state == 1){
+		if(state == STATE_VIEW){
 			b.setText(getString(R.string.FrotnPage));
-		}else if(state == 2){
+		}else if(state == STATE_CONFIRM){
 			b.setText(getString(R.string.Back));
 		}
 		String bookingId = getIntent().getExtras().getString("bookingId");
@@ -90,7 +91,7 @@ public class BookConfirmationActivity extends Activity {
 	}
 	
 	public void backButtonClick(View v){
-		if(state == 1){
+		if(state == STATE_VIEW){
 			Intent it = new Intent(getApplicationContext(), MainActivity.class);
 			it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(it);

@@ -367,7 +367,7 @@ public class ConfirmActivity extends Activity {
 			sendEmailConfirmation();
 			Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
 			i.putExtra("bookingId", bookingId);
-			i.putExtra("state", 1);
+			i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
 			startActivity(i);
 		}else {
 			Toast.makeText(this , R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
