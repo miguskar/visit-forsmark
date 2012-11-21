@@ -99,7 +99,7 @@ public class ConfirmActivity extends Activity {
 
 		ArrayList<Integer> al = db.getAttendantIdsFromBookingId(bookingId);
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-		if (seatsLeft < 0) {
+		if (seatsLeft > 0) {
 			TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
 			tv2.setText("Det finns " + seatsLeft + " platser kvar."); // TODO
 																		// lägg
