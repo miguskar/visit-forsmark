@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -63,7 +64,7 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-		setCalendar(c);
+		new CalendarSetter().execute(c);
 
 	}
 
@@ -99,21 +100,167 @@ public class CalenderActivity extends Activity {
 		bb.setVisibility(View.VISIBLE);
 
 		// Initialize calendar
-		setCalendar(c);
+		//setCalendar(c);
+		drawEmptyCalendar(c);
+		c = Calendar.getInstance();
+		c.set(Calendar.YEAR, curYear);
+		c.set(Calendar.MONTH, curMonth);
+		c.set(Calendar.WEEK_OF_MONTH, 1);
+		c.set(Calendar.DAY_OF_WEEK, 2);
+		new CalendarSetter().execute(c);
 	}
 
-	public void setCalendar(Calendar c) {
-		String[] dateInfo = getDateInfo();
+	private class CalendarSetter extends AsyncTask<Calendar, Void, String[]> {
+		Calendar c;
+		@Override
+		protected String[] doInBackground(Calendar... params) {
+			c = params[0];
+			String[] tmp = { "NOCONNECTION" };
+			if (isNetworkConnected()) {
+				String result = "";
+				InputStream is = null;
+				// http post
+				try {
+					HttpParams httpParams = new BasicHttpParams();
+					HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+					HttpConnectionParams.setSoTimeout(httpParams, 10000);
+					HttpClient httpclient = new DefaultHttpClient(httpParams);
+					HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
 
-		Date today = new Date();
+					List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
-		if (dateInfo[0].equals("NOCONNECTION")) {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
-			dateInfo = null;
-		} else if (dateInfo[0].equals("NORESULT")) {
-			Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_LONG).show();
-			dateInfo = null;
+					pairs.add(new BasicNameValuePair("case", "getMonthInfo"));
+					pairs.add(new BasicNameValuePair("month", "" + (curMonth + 1)));
+					pairs.add(new BasicNameValuePair("year", "" + curYear));
+					httppost.setEntity(new UrlEncodedFormEntity(pairs));
+					HttpResponse response = httpclient.execute(httppost);
+					HttpEntity entity = response.getEntity();
+					is = entity.getContent();
+				} catch (Exception e) {
+					Log.e("log_tag", "Error in http connection " + e.toString());
+				}
+				// convert response to string
+				try {
+					BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+					StringBuilder sb = new StringBuilder();
+					String line = null;
+					while ((line = reader.readLine()) != null) {
+						sb.append(line + "\n");
+					}
+					is.close();
+
+					result = sb.toString();
+					result = result.substring(1, result.length() - 2);
+					result = result.replace("\"", "");
+					tmp = result.split(",");
+
+				} catch (StringIndexOutOfBoundsException e) {
+					tmp[0] = "NORESULT";
+				} catch (Exception e) {
+					Log.e("log_tag", "Error converting result " + e.toString());
+				}
+			}
+			return tmp;
 		}
+		
+		@Override
+		protected void onPostExecute(String[] dateInfo) {
+			Date today = new Date();
+
+			if (dateInfo[0].equals("NOCONNECTION")) {
+				Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
+				dateInfo = null;
+			} else if (dateInfo[0].equals("NORESULT")) {
+				Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_LONG).show();
+				dateInfo = null;
+			}
+			LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
+			LinearLayout row;
+			Button dateCell;
+			TextView restCell;
+
+			String[] days = getResources().getStringArray(R.array.calDaysStringsSwe);
+			String[] month = getResources().getStringArray(R.array.calMonthStringsSwe);
+
+			tvMonth.setText(month[curMonth]);
+			tvYear.setText(String.valueOf(curYear));
+
+			row = (LinearLayout) findViewById(R.id.weekDays);
+			
+			for (int k = 0; k < 8; k++) {
+				restCell = (TextView) row.getChildAt(k);
+				restCell.setTextColor(Color.rgb(19, 90, 165));
+				restCell.setText(days[k]);
+			}
+			String info;
+			for (int i = 0; i < 6; i++) {
+				row = (LinearLayout) cal.getChildAt(i);
+
+				for (int k = 0; k < 8; k++) {
+					if (k > 0) {
+						dateCell = (Button) row.getChildAt(k);
+						dateCell.setTextColor(Color.rgb(19, 90, 165));
+						dateCell.setBackgroundResource(0);
+						if (c.get(Calendar.MONTH) != curMonth) {
+							dateCell.setText("");
+							dateCell.setBackgroundResource(R.drawable.cell_empty);
+							dateCell.setTextColor(Color.GRAY);
+
+							if (c.get(Calendar.MONTH) < curMonth) {
+								if (curYear == c.get(Calendar.YEAR))
+									dateCell.setTag("P");
+								else
+									dateCell.setTag("N");
+							} else if (c.get(Calendar.MONTH) > curMonth)
+								if (curYear == c.get(Calendar.YEAR))
+									dateCell.setTag("N");
+								else
+									dateCell.setTag("P");
+						} else {
+							if (dateInfo != null) {
+								info = dateInfo[c.get(Calendar.DATE) - 1];
+								if (info.equals("E")) {
+									dateCell.setBackgroundResource(R.drawable.cell_empty);
+								} else if (info.equals("F")) {
+									dateCell.setBackgroundResource(R.drawable.cell_full);
+									dateCell.setTextColor(Color.BLACK);
+								} else if (info.equals("S")) {
+									dateCell.setBackgroundResource(R.drawable.cell_normal);
+									dateCell.setTextColor(Color.WHITE);
+								}
+								dateCell.setTag(info);
+							} else {
+								dateCell.setBackgroundResource(R.drawable.cell_empty); 
+								dateCell.setTag("E");
+							}
+							if (c.get(Calendar.YEAR) == (today.getYear() + 1900)
+									&& c.get(Calendar.MONTH) == today.getMonth() && c.get(Calendar.DATE) == today.getDate()) {
+								dateCell.setTextColor(Color.rgb(255, 179, 55));
+							}
+							dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
+						}
+
+//						dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
+						if (c.get(Calendar.MONTH) == Calendar.FEBRUARY && curYear % 4 != 0 && c.get(Calendar.DATE) == 28) {
+							c.add(Calendar.DATE, +2);
+							if (c.get(Calendar.DATE) == 2)
+								c.add(Calendar.DATE, -1);
+						} else {
+							c.add(Calendar.DATE, +1);
+						}
+					} else {
+						restCell = (TextView) row.getChildAt(k);
+						restCell.setTextColor(Color.rgb(19, 90, 165));
+						restCell.setText(String.valueOf(c.get(Calendar.WEEK_OF_YEAR)));
+					}
+				}
+			}
+		}
+	}
+	
+	public void drawEmptyCalendar(Calendar c) {
+		Date today = new Date();
+		
 		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
 		LinearLayout row;
 		Button dateCell;
@@ -126,18 +273,18 @@ public class CalenderActivity extends Activity {
 		tvYear.setText(String.valueOf(curYear));
 
 		row = (LinearLayout) findViewById(R.id.weekDays);
-		
+		//WEEK DAYS
 		for (int k = 0; k < 8; k++) {
 			restCell = (TextView) row.getChildAt(k);
 			restCell.setTextColor(Color.rgb(19, 90, 165));
 			restCell.setText(days[k]);
 		}
-		String info;
+		//DAYS & WEEKS
 		for (int i = 0; i < 6; i++) {
 			row = (LinearLayout) cal.getChildAt(i);
 
 			for (int k = 0; k < 8; k++) {
-				if (k > 0) {
+				if (k > 0) { // DAYS
 					dateCell = (Button) row.getChildAt(k);
 					dateCell.setTextColor(Color.rgb(19, 90, 165));
 					dateCell.setBackgroundResource(0);
@@ -157,22 +304,7 @@ public class CalenderActivity extends Activity {
 							else
 								dateCell.setTag("P");
 					} else {
-						if (dateInfo != null) {
-							info = dateInfo[c.get(Calendar.DATE) - 1];
-							if (info.equals("E")) {
-								dateCell.setBackgroundResource(R.drawable.cell_empty);
-							} else if (info.equals("F")) {
-								dateCell.setBackgroundResource(R.drawable.cell_full);
-								dateCell.setTextColor(Color.BLACK);
-							} else if (info.equals("S")) {
-								dateCell.setBackgroundResource(R.drawable.cell_normal);
-								dateCell.setTextColor(Color.WHITE);
-							}
-							dateCell.setTag(info);
-						} else {
-							dateCell.setBackgroundResource(R.drawable.cell_empty); 
-							dateCell.setTag("E");
-						}
+					
 						if (c.get(Calendar.YEAR) == (today.getYear() + 1900)
 								&& c.get(Calendar.MONTH) == today.getMonth() && c.get(Calendar.DATE) == today.getDate()) {
 							dateCell.setTextColor(Color.rgb(255, 179, 55));
@@ -188,7 +320,7 @@ public class CalenderActivity extends Activity {
 					} else {
 						c.add(Calendar.DATE, +1);
 					}
-				} else {
+				} else { // WEEKS
 					restCell = (TextView) row.getChildAt(k);
 					restCell.setTextColor(Color.rgb(19, 90, 165));
 					restCell.setText(String.valueOf(c.get(Calendar.WEEK_OF_YEAR)));
@@ -224,7 +356,7 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-		setCalendar(c);
+		new CalendarSetter().execute(c);
 	}
 
 	public void topNextButton(View v) {
@@ -239,7 +371,7 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-		setCalendar(c);
+		new CalendarSetter().execute(c);
 	}
 
 	public void bottomBackClick(View v) {
@@ -252,57 +384,12 @@ public class CalenderActivity extends Activity {
 		curYear = c.get(Calendar.YEAR);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-		setCalendar(c);
+		new CalendarSetter().execute(c);
 	}
 
-	public String[] getDateInfo() {
-		String[] tmp = { "NOCONNECTION" };
-		if (isNetworkConnected()) {
-			String result = "";
-			InputStream is = null;
-			// http post
-			try {
-				HttpParams httpParams = new BasicHttpParams();
-				HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
-				HttpConnectionParams.setSoTimeout(httpParams, 10000);
-				HttpClient httpclient = new DefaultHttpClient(httpParams);
-				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
-
-				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-
-				pairs.add(new BasicNameValuePair("case", "getMonthInfo"));
-				pairs.add(new BasicNameValuePair("month", "" + (curMonth + 1)));
-				pairs.add(new BasicNameValuePair("year", "" + curYear));
-				httppost.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				is = entity.getContent();
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-			}
-			// convert response to string
-			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-				StringBuilder sb = new StringBuilder();
-				String line = null;
-				while ((line = reader.readLine()) != null) {
-					sb.append(line + "\n");
-				}
-				is.close();
-
-				result = sb.toString();
-				result = result.substring(1, result.length() - 2);
-				result = result.replace("\"", "");
-				tmp = result.split(",");
-
-			} catch (StringIndexOutOfBoundsException e) {
-				tmp[0] = "NORESULT";
-			} catch (Exception e) {
-				Log.e("log_tag", "Error converting result " + e.toString());
-			}
-		}
-		return tmp;
-	}
+//	public String[] getDateInfo() {
+//		
+//	}
 
 	private boolean isNetworkConnected() {
 		getApplicationContext();
