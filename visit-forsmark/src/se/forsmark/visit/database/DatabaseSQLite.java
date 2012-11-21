@@ -300,7 +300,7 @@ public class DatabaseSQLite {
 	
 	public Cursor getAllMyBookings(){
 		Cursor c = null;
-		String[] book = { "1" };
+		String[] book = {"1"};
 		try{
 			c=database.query(DatabaseHelper.TABLE_BOOKING, null, "booked=?", book, null, null, DatabaseHelper.COLUMN_BOOKING_DATE);
 			return c;

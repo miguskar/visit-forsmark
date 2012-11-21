@@ -46,7 +46,7 @@ import android.util.Log;
 		 
 		  
 		  private static final String DATABASE_NAME = "forsmarktable.db";
-		  public static final int DATABASE_VERSION = 10;
+		  public static final int DATABASE_VERSION = 12;
 		  
 		  
 		  public DatabaseHelper(Context context) {
@@ -87,8 +87,8 @@ import android.util.Log;
 			      + "(" 
 			      + COLUMN_BOOKING_ID + " text not null, " 
 			      + COLUMN_BOOKING_DATE + " text not null, "
-			      + COLUMN_BOOKING_CONTACT_ID + " integer"
-			      + COLUMN_BOOKING_BOOKED + "integer" // set as 0 as long as the booking has not been confirmed.
+			      + COLUMN_BOOKING_CONTACT_ID + " integer, "
+			      + COLUMN_BOOKING_BOOKED + " integer" // set as 0 as long as the booking has not been confirmed.
 			      +   "); ";
 		  
 		  @Override
