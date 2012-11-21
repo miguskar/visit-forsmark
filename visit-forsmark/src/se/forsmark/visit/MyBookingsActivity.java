@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
@@ -71,7 +72,7 @@ public class MyBookingsActivity extends Activity {
 		//Get a cursor of all my bookings that are finished:
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
-	//	Cursor c=db.getAllMyBookings();
+		Cursor c=db.getAllMyBookings();
 		db.close();
 		
 		//Get current date;
@@ -80,9 +81,15 @@ public class MyBookingsActivity extends Activity {
 		month=date.getMonth();
 		day=date.getDay();
 		hour=date.getHours();
-	//	if(c.moveToNext()){
+		
+		if(c.moveToNext()){
+			Log.v("date", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
 			//Check if booking is in the future
-	//		if(Integer.getInteger(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))>=day){
+	//c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE
+		
+			
+		
+		//	if(Integer.getInteger(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))>=day){
 		//		b = new Button(this);
 		//		b.setText(c.getString(c.getColumnIndex(DatabaseHelper)));
 		//	}
@@ -90,7 +97,7 @@ public class MyBookingsActivity extends Activity {
 			
 			
 	//	}
-		
+		}
 		
 	}
 	

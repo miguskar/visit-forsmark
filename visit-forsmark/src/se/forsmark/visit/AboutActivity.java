@@ -1,5 +1,5 @@
 package se.forsmark.visit;
-
+//http://stackoverflow.com/questions/11064244/json-parsing-works-on-android-4-0-but-not-on-android-4-0
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;

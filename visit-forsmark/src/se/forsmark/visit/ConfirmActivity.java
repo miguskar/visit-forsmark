@@ -541,6 +541,7 @@ public class ConfirmActivity extends Activity {
 				Log.e("Http Exception: ", e.toString());
 			}
 
+			
 			String result;
 			// convert response to string
 			try {
