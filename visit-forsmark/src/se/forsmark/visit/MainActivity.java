@@ -12,6 +12,8 @@ public class MainActivity extends Activity {
 
 	private Button calender;
 	private Button aboutvf;
+	private Button mybookings;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class MainActivity extends Activity {
 		calender.setOnClickListener(buttonHandler); // Set clickListener
 		aboutvf= (Button) findViewById(R.id.aboutVisitForsmarkbutton);
 		aboutvf.setOnClickListener(buttonHandler);
+		mybookings= (Button) findViewById(R.id.mybookingsbutton);
+		mybookings.setOnClickListener(buttonHandler);
 	}
 
 	View.OnClickListener buttonHandler = new View.OnClickListener() {
@@ -35,6 +39,10 @@ public class MainActivity extends Activity {
 				break;
 			case R.id.aboutVisitForsmarkbutton:
 				myIntent = new Intent(v.getContext(), AboutActivity.class);
+				startActivity(myIntent);
+				break;
+			case R.id.mybookingsbutton:
+				myIntent = new Intent(v.getContext(), MyBookingsActivity.class);
 				startActivity(myIntent);
 				break;
 				}

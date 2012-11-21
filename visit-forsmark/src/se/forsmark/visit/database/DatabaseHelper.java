@@ -39,6 +39,7 @@ import android.util.Log;
 		  public static final String COLUMN_BOOKING_ID = "_id";
 		  public static final String COLUMN_BOOKING_DATE = "date";
 		  public static final String COLUMN_BOOKING_CONTACT_ID = "bookingContactId";
+		  public static final String COLUMN_BOOKING_BOOKED= "booked";  // 1 if booking has pulled through. Else 0 
 		  
 		  //db2
 		 // public static final String TABLE_CONTACTS = "contacts";
@@ -87,6 +88,7 @@ import android.util.Log;
 			      + COLUMN_BOOKING_ID + " text not null, " 
 			      + COLUMN_BOOKING_DATE + " text not null, "
 			      + COLUMN_BOOKING_CONTACT_ID + " integer"
+			      + COLUMN_BOOKING_BOOKED + "integer" // set as 0 as long as the booking has not been confirmed.
 			      +   "); ";
 		  
 		  @Override

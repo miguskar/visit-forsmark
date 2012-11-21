@@ -5,9 +5,11 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="7" />
-    <uses-permission android:name="android.permission.INTERNET"/> 
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
@@ -19,16 +21,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <provider
-                android:name=".contentProvider.MyContactProvider"
-                android:authorities="se.forsmark.visit.database.contentprovider">
-            </provider>
+
         </activity>
         <activity
             android:name="CalenderActivity"
             android:enabled="true" >
         </activity>
-           <activity
+        <activity
             android:name="AboutActivity"
             android:enabled="true" >
         </activity>
@@ -42,12 +41,13 @@
         </activity>
         <activity
             android:name="ContactActivity"
-            android:enabled="true" 
-            android:windowSoftInputMode="stateUnchanged">
+            android:enabled="true"
+            android:windowSoftInputMode="stateUnchanged" >
         </activity>
         <activity
             android:name=".AttendantsActivity"
-            android:enabled="true" android:windowSoftInputMode="stateUnchanged">
+            android:enabled="true"
+            android:windowSoftInputMode="stateUnchanged" >
         </activity>
         <activity
             android:name="EditConfirmActivity"
@@ -58,27 +58,33 @@
             android:enabled="true" >
         </activity>
         <activity
-            android:theme="@android:style/Theme.Dialog"
             android:name="AttendantsDialogActivity"
-            android:enabled="true" >
+            android:enabled="true"
+            android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
             android:name="EditContactActivity"
             android:enabled="true"
-            android:windowSoftInputMode="stateUnchanged"> >
+            android:windowSoftInputMode="stateUnchanged" >
+ >
         </activity>
         <activity
             android:name="EditAttendantActivity"
             android:enabled="true"
-            android:windowSoftInputMode="stateUnchanged"> >
+            android:windowSoftInputMode="stateUnchanged" >
+ >
         </activity>
-          <activity
-            android:theme="@android:style/Theme.Dialog"
+        <activity
             android:name="EditAttendantDialogActivity"
-            android:enabled="true" >
+            android:enabled="true"
+            android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
             android:name="BookConfirmationActivity"
+            android:enabled="true" >
+        </activity>
+        <activity
+            android:name="MyBookingsActivity"
             android:enabled="true" >
         </activity>
     </application>

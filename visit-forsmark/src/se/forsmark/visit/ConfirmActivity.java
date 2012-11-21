@@ -374,6 +374,11 @@ public class ConfirmActivity extends Activity {
 		if (validateAttendants()) {
 			if (createBooking()) {
 				sendEmailConfirmation();
+				// save in local database to enable my bookings
+				DatabaseSQLite db=new DatabaseSQLite(getApplicationContext());
+				db.open();
+				db.setBookingBooked(bookingId);
+				db.close();	
 				Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
 				i.putExtra("bookingId", bookingId);
 				i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);

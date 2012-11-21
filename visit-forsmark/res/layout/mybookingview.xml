@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#EEF6FF"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/border"
+        layout="@layout/border" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/formLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+             
+           <RelativeLayout
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content" >
+              
+               <LinearLayout
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content">
+                            
+           <Button 
+                   android:id="@+id/Futurebookingsbutton"
+                   style="@style/editButtonStyle"
+                   android:text="@string/futureBookingsbutton"
+                   android:layout_width="0dp"
+                   android:layout_weight="0.7"
+                   />
+                
+            
+               	<Button 
+                   android:id="@+id/FuturebookingsbuttonHidden"
+                   style="@style/editButtonStyle"
+                  
+                   android:layout_width="0dp"
+                   android:layout_weight="0.3"
+                                />
+             
+               		</LinearLayout>
+               
+               </RelativeLayout>
+               
+             <RelativeLayout
+               	android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+               
+                  <LinearLayout
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content">
+                            
+               <Button 
+                   android:id="@+id/Oldbookingsbutton"
+                   style="@style/editButtonStyle"
+                   android:text="@string/oldBookingsbutton"
+                  
+                   android:layout_weight="0.7"
+                   android:layout_width="0dp"
+                   />
+               
+               <Button 
+                   android:id="@+id/OldbookingsbuttonHidden"
+                   style="@style/editButtonStyle"
+                  android:layout_width="0dp"
+                  
+                   android:layout_weight="0.3"
+                                />
+               
+               
+               		</LinearLayout>
+               
+               </RelativeLayout>
+            
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" 
+                android:gravity="bottom">
+
+                <Button
+                    android:id="@+id/bottomCancelButton"
+                    style="@style/bottomCancelButton"
+                    android:text="cancel" />
+
+                <Button
+                    android:id="@+id/bottomNextButton"
+                    style="@style/bottomNextButton"
+                    android:text="next" />
+                 <Button
+                    android:id="@+id/bottomBackButton"
+                    style="@style/bottomBackButton"
+                    android:text="back" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    
+
+    </ScrollView>
+
+</LinearLayout>

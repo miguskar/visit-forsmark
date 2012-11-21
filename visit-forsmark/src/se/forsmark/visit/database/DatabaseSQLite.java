@@ -109,8 +109,22 @@ public class DatabaseSQLite {
 			values.put(DatabaseHelper.COLUMN_BOOKING_ID, id);
 			values.put(DatabaseHelper.COLUMN_BOOKING_DATE, date);
 			values.put(DatabaseHelper.COLUMN_BOOKING_CONTACT_ID, 0);
-
+			values.put(DatabaseHelper.COLUMN_BOOKING_BOOKED, 0);
+			
 			database.insert(DatabaseHelper.TABLE_BOOKING, null, values);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void setBookingBooked(String bookingId){
+		try {
+			ContentValues values = new ContentValues();
+			values.put(DatabaseHelper.COLUMN_BOOKING_BOOKED, 1);
+			String[] id = {bookingId};
+
+			database.update(DatabaseHelper.TABLE_BOOKING, values, DatabaseHelper.COLUMN_BOOKING_ID + " = ?", id);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -283,6 +297,10 @@ public class DatabaseSQLite {
 			throw ex;
 		}
 	}
+	
+//	public Cursor getAllMyBookings(){
+//		
+//	}
 
 	public Cursor getAttendantContactInfo(int id) {
 		Cursor c = null;
