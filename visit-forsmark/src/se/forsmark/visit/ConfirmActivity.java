@@ -532,7 +532,9 @@ public class ConfirmActivity extends Activity {
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>(2);
 				pairs.add(new BasicNameValuePair("json", json.toString()));
 				pairs.add(new BasicNameValuePair("case", "confirm"));
-				request.setEntity(new UrlEncodedFormEntity(pairs));
+				UrlEncodedFormEntity u = new UrlEncodedFormEntity(pairs);
+				u.setContentEncoding("UTF-8");
+				request.setEntity(u);
 
 				response = client.execute(request); // execute
 				is = response.getEntity().getContent(); // get data
