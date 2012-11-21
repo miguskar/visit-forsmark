@@ -64,6 +64,11 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
+		drawEmptyCalendar(c);
+		c.set(Calendar.YEAR, curYear);
+		c.set(Calendar.MONTH, curMonth);
+		c.set(Calendar.WEEK_OF_MONTH, 1);
+		c.set(Calendar.DAY_OF_WEEK, 2);
 		new CalendarSetter().execute(c);
 
 	}
@@ -356,6 +361,11 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
+		drawEmptyCalendar(c);
+		c.set(Calendar.YEAR, curYear);
+		c.set(Calendar.MONTH, curMonth);
+		c.set(Calendar.WEEK_OF_MONTH, 1);
+		c.set(Calendar.DAY_OF_WEEK, 2);
 		new CalendarSetter().execute(c);
 	}
 
@@ -371,6 +381,11 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
+		drawEmptyCalendar(c);
+		c.set(Calendar.YEAR, curYear);
+		c.set(Calendar.MONTH, curMonth);
+		c.set(Calendar.WEEK_OF_MONTH, 1);
+		c.set(Calendar.DAY_OF_WEEK, 2);
 		new CalendarSetter().execute(c);
 	}
 
@@ -382,6 +397,11 @@ public class CalenderActivity extends Activity {
 		Calendar c = Calendar.getInstance();
 		curMonth = c.get(Calendar.MONTH);
 		curYear = c.get(Calendar.YEAR);
+		c.set(Calendar.WEEK_OF_MONTH, 1);
+		c.set(Calendar.DAY_OF_WEEK, 2);
+		drawEmptyCalendar(c);
+		c.set(Calendar.YEAR, curYear);
+		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
 		new CalendarSetter().execute(c);
