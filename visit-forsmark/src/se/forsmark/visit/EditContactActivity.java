@@ -55,7 +55,7 @@ public class EditContactActivity extends Activity {
 								R.string.ContactActivityToast); // Get message from
 																// resources
 						Toast t = Toast.makeText(getApplicationContext(), text,
-								Toast.LENGTH_SHORT); // Creat toast
+								Toast.LENGTH_LONG); // Creat toast
 						t.setGravity(Gravity.TOP, 0, 0); // Position
 						t.show();
 					}
@@ -127,7 +127,7 @@ public class EditContactActivity extends Activity {
 							R.string.errorMessageFieldEmpty); // Get message from
 															// resources
 					Toast t2 = Toast.makeText(getApplicationContext(), text,
-							Toast.LENGTH_SHORT); // Creat toast
+							Toast.LENGTH_LONG); // Creat toast
 					t2.setGravity(Gravity.BOTTOM, 0, 0); // Position
 					t2.show();
 					return;
@@ -143,7 +143,7 @@ public class EditContactActivity extends Activity {
 					R.string.errorMessageGender); // Get message from
 													// resources
 			Toast t3 = Toast.makeText(getApplicationContext(), text,
-					Toast.LENGTH_SHORT); // Create toast
+					Toast.LENGTH_LONG); // Create toast
 			t3.setGravity(Gravity.BOTTOM, 0, 0); // Position
 			t3.show();
 			return;

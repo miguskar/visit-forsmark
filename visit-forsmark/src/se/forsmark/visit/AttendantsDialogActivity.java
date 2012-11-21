@@ -157,19 +157,19 @@ public class AttendantsDialogActivity extends Activity {
 				String resKey = preBook(seats);
 				Log.e("reservationKey", resKey);
 				if (resKey.equals("NOCONNECTION")) {
-					Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
 				} else if (resKey.equals("NORESULT")) {
-					Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_LONG).show();
 				} else {
 					startContactActivity(resKey, seats);
 				}
 			} else {
 				Log.e("toManySeats", seats + "");
-				Toast.makeText(getApplicationContext(), getString(R.string.ToManySeats), Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.ToManySeats), Toast.LENGTH_LONG).show();
 			}
 		} else {
 			Log.e("wrongValue", s + "");
-			Toast.makeText(getApplicationContext(), getString(R.string.WrongIntValue), Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.WrongIntValue), Toast.LENGTH_LONG).show();
 		}
 	}
 

@@ -120,7 +120,7 @@ public class DayActivity extends Activity {
 					startActivity(dialog);
 				}
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.backInTime, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.backInTime, Toast.LENGTH_LONG).show();
 			}
 		}
 	};
@@ -153,7 +153,7 @@ public class DayActivity extends Activity {
 					tvYear.setText(String.valueOf(curYear));
 				} else {
 					Toast.makeText(getApplicationContext(), getResources().getString(R.string.noticeNoDayEvents),
-							Toast.LENGTH_SHORT).show();
+							Toast.LENGTH_LONG).show();
 					if (extra == 1) {
 						int date = new Date(curYear, curMonth + 1, 0).getDate();
 						++curDate;
@@ -178,10 +178,10 @@ public class DayActivity extends Activity {
 					}
 				}
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_LONG).show();
 			}
 		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
 		}
 	}
 

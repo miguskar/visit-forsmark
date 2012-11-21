@@ -150,7 +150,7 @@ public class ConfirmActivity extends Activity {
 			tv2.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
 
 		} else {
-			Toast.makeText(this, R.string.noInternet, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.noInternet, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -240,12 +240,12 @@ public class ConfirmActivity extends Activity {
 				b.setVisibility(View.GONE);
 				// TOAST NO SEATS
 				String text = getResources().getString(R.string.ConfirmActivityNoSeatsToast);
-				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
 				t.setGravity(Gravity.TOP, 0, 0); // Position
 				t.show();
 			}
 		} else {
-			Toast.makeText(this, R.string.noInternet, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.noInternet, Toast.LENGTH_LONG).show();
 		}
 
 	}
@@ -291,7 +291,7 @@ public class ConfirmActivity extends Activity {
 			result = result.substring(1, result.length() - 1);
 			Log.v("addAttResult", result);
 		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
 		}
 		return result;
 	}
@@ -331,7 +331,7 @@ public class ConfirmActivity extends Activity {
 				Log.e("log_tag", "Error converting result " + e.toString());
 			}
 		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
 		}
 		Log.v("deleteAttResult", result);
 		return result;
@@ -432,7 +432,7 @@ public class ConfirmActivity extends Activity {
 
 			return Integer.parseInt(result);
 		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
 		}
 		return -1;
 
@@ -564,7 +564,7 @@ public class ConfirmActivity extends Activity {
 			}
 
 		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
 		}
 		// fail if this point is reached
 		return false;
@@ -593,7 +593,7 @@ public class ConfirmActivity extends Activity {
 				urlConnection.disconnect();
 			}
 		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
 		}
 
 	}

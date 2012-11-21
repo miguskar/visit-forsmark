@@ -62,7 +62,7 @@ public class ContactActivity extends Activity {
 
 			public void onClick(View v) {
 				// Create toast
-				Toast t = Toast.makeText(getApplicationContext(), R.string.ContactActivityToast, Toast.LENGTH_SHORT);
+				Toast t = Toast.makeText(getApplicationContext(), R.string.ContactActivityToast, Toast.LENGTH_LONG);
 				t.setGravity(Gravity.TOP, 0, 0); // Position
 				t.show();
 			}
@@ -75,8 +75,7 @@ public class ContactActivity extends Activity {
 			public void onClick(View v) {
 				// Get message from resources
 				String text = getResources().getString(R.string.NoSFRToast);
-				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Create
-																							// toast
+				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Create toast
 				t.setGravity(Gravity.TOP, 0, 0); // Position
 				t.show();
 			}
@@ -174,7 +173,7 @@ public class ContactActivity extends Activity {
 				if (ed.getText().toString().equals("")) {
 					// TODO I MÅN AV TID - fixa ordentlig validering!
 					Toast t2 = Toast.makeText(getApplicationContext(), getString(R.string.errorMessageFieldEmpty),
-							Toast.LENGTH_SHORT); // Create toast
+							Toast.LENGTH_LONG); // Create toast
 					t2.setGravity(Gravity.BOTTOM, 0, 0); // Position
 					t2.show();
 					return;
@@ -187,7 +186,7 @@ public class ContactActivity extends Activity {
 		RadioButton rbWoman = (RadioButton) findViewById(R.id.radioButtonWoman);
 		if (!rbMan.isChecked() && !rbWoman.isChecked()) {
 			Toast t3 = Toast.makeText(getApplicationContext(), getString(R.string.errorMessageGender),
-					Toast.LENGTH_SHORT); // Create toast
+					Toast.LENGTH_LONG); // Create toast
 			t3.setGravity(Gravity.BOTTOM, 0, 0); // Position
 			t3.show();
 			return;

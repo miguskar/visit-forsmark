@@ -82,7 +82,7 @@ public class EditAttendantActivity extends Activity {
 																								// message
 																								// from
 																								// resources
-					Toast t2 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Creat
+					Toast t2 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Creat
 																									// toast
 					t2.setGravity(Gravity.BOTTOM, 0, 0); // Position
 					t2.show();
@@ -99,7 +99,7 @@ public class EditAttendantActivity extends Activity {
 																					// message
 																					// from
 																					// resources
-			Toast t3 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT); // Create
+			Toast t3 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Create
 																							// toast
 			t3.setGravity(Gravity.BOTTOM, 0, 0); // Position
 			t3.show();

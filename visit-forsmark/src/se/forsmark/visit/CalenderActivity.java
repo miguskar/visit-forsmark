@@ -108,10 +108,10 @@ public class CalenderActivity extends Activity {
 		Date today = new Date();
 
 		if (dateInfo[0].equals("NOCONNECTION")) {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
 			dateInfo = null;
 		} else if (dateInfo[0].equals("NORESULT")) {
-			Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_LONG).show();
 			dateInfo = null;
 		}
 		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
