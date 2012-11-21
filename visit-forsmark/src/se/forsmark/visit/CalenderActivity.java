@@ -139,6 +139,7 @@ public class CalenderActivity extends Activity {
 			for (int k = 0; k < 8; k++) {
 				if (k > 0) {
 					dateCell = (Button) row.getChildAt(k);
+					dateCell.setTextColor(Color.rgb(19, 90, 165));
 					dateCell.setBackgroundResource(0);
 					if (c.get(Calendar.MONTH) != curMonth) {
 						dateCell.setText("");
@@ -156,17 +157,16 @@ public class CalenderActivity extends Activity {
 							else
 								dateCell.setTag("P");
 					} else {
-						dateCell.setTextColor(Color.WHITE);
 						if (dateInfo != null) {
 							info = dateInfo[c.get(Calendar.DATE) - 1];
 							if (info.equals("E")) {
 								dateCell.setBackgroundResource(R.drawable.cell_empty);
-								dateCell.setTextColor(Color.rgb(19, 90, 165));
 							} else if (info.equals("F")) {
 								dateCell.setBackgroundResource(R.drawable.cell_full);
 								dateCell.setTextColor(Color.BLACK);
 							} else if (info.equals("S")) {
 								dateCell.setBackgroundResource(R.drawable.cell_normal);
+								dateCell.setTextColor(Color.WHITE);
 							}
 							dateCell.setTag(info);
 						} else {

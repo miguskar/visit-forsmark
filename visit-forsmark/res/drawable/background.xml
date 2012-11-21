@@ -2,10 +2,16 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <gradient
+        
+       
+       android:angle="90"
+        android:startColor="#FFFFFF"
+        android:endColor="#d1e6fe" />
+        <!--  
        android:angle="90"
         android:startColor="#fed572"
-        android:endColor="#fc9f1b" />
-        
+        android:endColor="#ffb44a" />
+        -->
        <!--  supergul Anna tycker denna är fin 
         android:angle="90"
         android:startColor="#fed572"

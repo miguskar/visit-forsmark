@@ -9,7 +9,7 @@
             </item>
             <item>
                 <shape>
-                    <corners android:radius="4dp" />
+                    
                      <gradient android:angle="90" android:endColor="#803899ff" android:centerColor="#135aa5"  android:startColor="#3899ff" />
                 </shape>
             </item>
@@ -23,7 +23,7 @@
             </item>
             <item>
                 <shape>
-                    <corners android:radius="4dp" />
+                    
                      <gradient android:angle="90" android:endColor="#800066d2" android:centerColor="#135aa5"  android:startColor="#0066d2" />
                 </shape>
             </item>

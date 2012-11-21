@@ -1,36 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
-    android:gravity="center_vertical">
+    android:orientation="vertical" >
 
-    <!-- NEED TO CHANGE -->
-
-    <Button
-        android:id="@+id/button1"
-        style="@style/editButtonStyle"
-        android:text="Kalender" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1.11"
-        android:orientation="vertical" >
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
 
-        <Button
-            android:id="@+id/aboutVisitForsmarkbutton"
+        <ImageView
+            android:id="@+id/mainButtonImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Om VisitForsmark" />
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/aboutVisitForsmark"
+            android:src="@drawable/frontpage_image" />
 
-        <Button
-            android:id="@+id/mybookingsbutton"
+        <ImageView
+            android:id="@+id/mainButtonColors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mina bokningar" />
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/aboutVisitForsmark"
+            android:src="@drawable/frontpage_colors_image" 
+           	android:visibility="invisible"/>
+        
+        <ImageView
+            android:id="@+id/bookingButtonPressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/aboutVisitForsmark"
+            android:src="@drawable/frontpage_image_book" 
+           	android:visibility="gone"/>
+        
+        <ImageView
+            android:id="@+id/myBookingsButtonPressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/aboutVisitForsmark"
+            android:src="@drawable/frontpage_image_mybookings" 
+           	android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/aboutButtonPressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/aboutVisitForsmark"
+            android:src="@drawable/frontpage_image_about" 
+           	android:visibility="gone"/>
+        
+        <ImageView
+            android:id="@+id/aboutFrosmarkButtonPressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/aboutVisitForsmark"
+            android:src="@drawable/frontpage_image_about_forsmark" 
+           	android:visibility="gone"/>
+        
+        <ImageView
+            android:id="@+id/findFrosmarkButtonPressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/aboutVisitForsmark"
+            android:src="@drawable/frontpage_image_find" 
+           	android:visibility="gone"/>
+        
+        <ImageView
+            android:id="@+id/contactButtonPressed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/aboutVisitForsmark"
+            android:src="@drawable/frontpage_image_contact" 
+           	android:visibility="gone"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="Button" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
