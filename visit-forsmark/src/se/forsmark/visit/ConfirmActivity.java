@@ -101,7 +101,10 @@ public class ConfirmActivity extends Activity {
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 		if (seatsLeft < 0) {
 			TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
-			tv2.setText("Det finns " + seatsLeft + " platser kvar."); //TODO lägg in i xml
+			tv2.setText("Det finns " + seatsLeft + " platser kvar."); // TODO
+																		// lägg
+																		// in i
+																		// xml
 		}
 
 		// Create buttons
@@ -355,14 +358,18 @@ public class ConfirmActivity extends Activity {
 	}
 
 	public void bottomNextClick(View v) {
-		if (createBooking()) {
-			sendEmailConfirmation();
-			Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
-			i.putExtra("bookingId", bookingId);
-			i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
-			startActivity(i);
-		} else {
-			Toast.makeText(this, R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
+		if (validateAttendants()) {
+			if (createBooking()) {
+				sendEmailConfirmation();
+				Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
+				i.putExtra("bookingId", bookingId);
+				i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
+				startActivity(i);
+			} else {
+				Toast.makeText(this, R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
+			}
+		}else {
+			Toast.makeText(this, R.string.invalidAttendantsInfo, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -572,4 +579,21 @@ public class ConfirmActivity extends Activity {
 		}
 
 	}
+
+	private boolean validateAttendants() {
+		DatabaseSQLite db = new DatabaseSQLite(this);
+		db.open();
+		ArrayList<Integer> ids = db.getAttendantIdsFromBookingId(bookingId);
+		String name;
+		for (int id : ids) {
+			name = db.getAttendantName(id);
+			if (name.equals(" ")) {
+				db.close();
+				return false;
+			}
+		}
+		db.close();
+		return true;
+	}
+
 }

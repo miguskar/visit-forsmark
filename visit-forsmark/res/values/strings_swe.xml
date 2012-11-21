@@ -81,6 +81,7 @@
     <string name="aboutVisitForsmark">Om VisitForsmark</string>
     <string name="aboutVisitForsmarkText">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
     <string name="couldNotCompleteBooking">Bokningen kunde inte slutföras. Försök igen senare.</string>
+    <string name="invalidAttendantsInfo">Alla deltagare måste vara ifyllda för att slutföra bokningen.</string>
     <string name="confirmDeleteAttendant">Är du säker på att du vill ta bort %s?</string>
     <string name="dialogWarningTitle">Varning</string>
     <string name="dialogYes">Ja</string>
