@@ -298,9 +298,19 @@ public class DatabaseSQLite {
 		}
 	}
 	
-//	public Cursor getAllMyBookings(){
-//		
-//	}
+	public Cursor getAllMyBookings(){
+		Cursor c = null;
+		String[] book = { "1" };
+		try{
+			c=database.query(DatabaseHelper.TABLE_BOOKING, null, "booked=?", book, null, null, DatabaseHelper.COLUMN_BOOKING_DATE);
+			return c;
+		}
+		catch(SQLException ex) {
+			throw ex;
+		}
+		
+		
+	}
 
 	public Cursor getAttendantContactInfo(int id) {
 		Cursor c = null;

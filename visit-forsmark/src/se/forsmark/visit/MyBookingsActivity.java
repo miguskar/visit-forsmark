@@ -1,9 +1,14 @@
 package se.forsmark.visit;
 
+
+
+import java.util.Date;
+
 import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -18,6 +23,11 @@ public class MyBookingsActivity extends Activity {
 	private Button hiddenmbf; //button used to get the right percentage when "moving" mbf
 	private Button mbo; // button "Gamla Bokningar" in the list
 	private Button hiddenmbo; //button used to get the right percentage when "moving" mbo
+	int year;
+	int month;
+	int day;
+	int hour;
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,10 +51,10 @@ public class MyBookingsActivity extends Activity {
 		mbo.setOnClickListener(buttonHandler);
 		
 		hiddenmbf = (Button) findViewById(R.id.FuturebookingsbuttonHidden);
-		hiddenmbf.setVisibility(View.GONE);
+		hiddenmbf.setVisibility(View.INVISIBLE);
 		
 		hiddenmbo = (Button) findViewById(R.id.OldbookingsbuttonHidden);
-		hiddenmbo.setVisibility(View.GONE);
+		hiddenmbo.setVisibility(View.INVISIBLE);
 		
 		
 		//Set Bottom Buttons
@@ -58,8 +68,28 @@ public class MyBookingsActivity extends Activity {
 		b.setVisibility(View.VISIBLE);
 		
 		
-		//Kolla vad jag har för bokningar:
+		//Get a cursor of all my bookings that are finished:
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+		db.open();
+		Cursor c=db.getAllMyBookings();
+		db.close();
+		
+		//Get current date;
+		Date date=new Date();
+		year=date.getYear();
+		month=date.getMonth();
+		day=date.getDay();
+		hour=date.getHours();
+		if(c.moveToNext()){
+			//Check if booking is in the future
+	//		if(Integer.getInteger(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))>=day){
+		//		b = new Button(this);
+		//		b.setText(c.getString(c.getColumnIndex(DatabaseHelper)));
+		//	}
+			
+			
+			
+		}
 		
 		
 	}
