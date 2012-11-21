@@ -25,14 +25,14 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ContactFirstName" />
+                android:text="@string/FirstName" />
 
             <EditText
                 android:id="@+id/editTextPname"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" >
+                android:inputType="textPersonName|textCapWords" >
 
                 <requestFocus />
             </EditText>
@@ -42,14 +42,14 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ContactLastName" />
+                android:text="@string/LastName" />
 
             <EditText
                 android:id="@+id/editTextLName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" >
+                android:inputType="textPersonName|textCapWords" >
             </EditText>
 
             <TextView
@@ -57,7 +57,7 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ContactSocialSecurity" />
+                android:text="@string/SocialSecurity" />
 
             <EditText
                 android:id="@+id/editTextPnmbr"
@@ -143,7 +143,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|textCapWords" />
 
             <TextView
                 android:id="@+id/textViewCell"

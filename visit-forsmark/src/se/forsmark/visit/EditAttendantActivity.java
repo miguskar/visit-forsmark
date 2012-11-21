@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 public class EditAttendantActivity extends Activity {
 	private int attendantId;
+	private boolean newAttendant;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class EditAttendantActivity extends Activity {
 		setContentView(R.layout.attendantsview);
 		Bundle extras = getIntent().getExtras();
 		attendantId = extras.getInt("attendantId");
+		newAttendant = extras.getBoolean("new");
 
 		initialize();
 	}
@@ -58,6 +60,13 @@ public class EditAttendantActivity extends Activity {
 		next.setText(getString(R.string.Save));
 		// Fill form with attendant Information & set title
 		fillForm(attendantId);
+		TextView v = (TextView) findViewById(R.id.border_title);
+		if (newAttendant) {
+			v.setText(R.string.newAttendant);
+		}else {
+			v.setText(R.string.editAttendant);
+		}
+		
 	}
 
 	private boolean validate() {
@@ -116,7 +125,14 @@ public class EditAttendantActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		setResult(RESULT_CANCELED);
+		if (newAttendant) {
+			Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
+			i.putExtra("attendantId", attendantId);
+			i.putExtra("new", newAttendant);
+			setResult(RESULT_CANCELED, i);
+		}else {
+			setResult(RESULT_CANCELED);
+		}
 		finish();
 	}
 
@@ -137,6 +153,7 @@ public class EditAttendantActivity extends Activity {
 		Intent i = new Intent(getApplicationContext(), ConfirmActivity.class);
 		i.putExtra("attendantId", attendantId);
 		i.putExtra("displayName", firstname.getText().toString() + " " + lastname.getText().toString());
+		i.putExtra("new", newAttendant);
 		setResult(RESULT_OK, i);
 		finish();
 	}

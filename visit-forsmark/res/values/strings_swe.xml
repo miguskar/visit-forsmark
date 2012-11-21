@@ -27,15 +27,15 @@
     <!-- CONTACT ACTIVITY -->
     <string name="ContactActivityTitle">Kontaktperson</string>
     <string name="ContactActivityToast">Kontaktpersonen är den deltagare som ansvarar för bokningen.</string>
-    <string name="ContactFirstName">Förnamn</string>
-	<string name="ContactLastName">Efternamn</string>
-    <string name="ContactSocialSecurity">Personnummer (10 siffror)</string>
     <string name="ContactZip">Postnummer</string>
     <string name="ContactPostalAddress">Postadress</string>
     <string name="ContactCountry">Land</string>
     <string name="ContactMobile">Mobil</string>
     <string name="ContactEmail">E-post</string>
     <!--  -->
+    <string name="FirstName">Förnamn</string>
+	<string name="LastName">Efternamn</string>
+    <string name="SocialSecurity">Personnummer (10 siffror)</string>
     <string name="Male">Man</string>
     <string name="Female">Kvinna</string>
     <string name="NoSFR">ej slutförvar(SFR)</string>
@@ -82,7 +82,7 @@
     <string name="SeatsLeft">Platser Kvar</string>
     <string name="EndTime">Sluttid</string>
     <!-- CONFIRM ACTIVITY -->
-    <string name="ConfirmNoSeatsLeft">Det finns %1$s platser kvar</string>
+    <string name="ConfirmSeatsLeft">Det finns %1$s platser kvar</string>
     <string name="ConfirmationTitle">Bekräfta bokning</string>
     <string name="ConfirmActivityNoSeatsToast">Det finns inga lediga platser kvar.</string>
     <string name="confirmDeleteAttendant">Är du säker på att du vill ta bort %s?</string>
@@ -101,4 +101,6 @@
     <string name="dialogWarningTitle">Varning</string>
     <string name="dialogYes">Ja</string>
     <string name="dialogNo">Nej</string>
+    <string name="newAttendant">Ny deltagare</string>
+    <string name="editAttendant">Redigera deltagare</string>
 </resources>

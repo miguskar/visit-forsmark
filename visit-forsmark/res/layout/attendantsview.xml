@@ -26,35 +26,35 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Förnamn" />
+                android:text="@string/FirstName" />
 
             <EditText
                 android:id="@+id/attendantPersonFirstName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|textCapWords" />
 
             <TextView
                 android:id="@+id/textView2"
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Efternamn" />
+                android:text="@string/LastName" />
 
             <EditText
                 android:id="@+id/attendantPersonLastName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|textCapWords" />
 
             <TextView
                 android:id="@+id/textView3"
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Personnummer" />
+                android:text="@string/SocialSecurity" />
 
             <EditText
                 android:id="@+id/attendantPersonNbr"
@@ -74,21 +74,17 @@
                     style="@style/RadioButtonFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
-                    android:text="Man" />
+                    android:text="@string/Male" />
 
                 <RadioButton
                     android:id="@+id/attendantradioButtonWoman"
                     style="@style/RadioButtonFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:text="Kvinna" />
+                    android:text="@string/Female" />
             </RadioGroup>
 
             

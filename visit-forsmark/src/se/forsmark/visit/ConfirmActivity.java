@@ -101,7 +101,7 @@ public class ConfirmActivity extends Activity {
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 		if (seatsLeft > 0) {
 			TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
-			tv2.setText(String.format(getString(R.string.ConfirmNoSeatsLeft), seatsLeft));
+			tv2.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
 		}
 
 		// Create buttons
@@ -144,6 +144,11 @@ public class ConfirmActivity extends Activity {
 			deleteAttendantFromBooking(bookingId);
 			LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 			l.removeView(findViewById(id));
+
+			seatsLeft = getSeatsLeft();
+			TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
+			tv2.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
+
 		} else {
 			Toast.makeText(this, R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
@@ -159,13 +164,18 @@ public class ConfirmActivity extends Activity {
 				b.setText(text);
 			} else if (requestCode == EDIT_ATTENDANT) {
 				int id = extras.getInt("attendantId");
-				if (extras.getBoolean("edit")) {
+				if (extras.getBoolean("edit") || extras.getBoolean("new")) {
 					Button b = (Button) findViewById(id);
 					b.setText(text);
 				} else {
 					deleteAttendant(id);
 				}
 
+			}
+		} else if (resultCode == RESULT_CANCELED && data != null){
+			Bundle extras = data.getExtras();
+			if (extras.getBoolean("new")) {
+				deleteAttendant(extras.getInt("attendantId"));
 			}
 		}
 	}
@@ -186,47 +196,56 @@ public class ConfirmActivity extends Activity {
 	public void addAttendantButton(View v) {
 		// Kolla -finns det platser kvar
 		// update seatsleft
-		seatsLeft = getSeatsLeft();
 
-		if (seatsLeft > 0) {
-			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-			db.open();
-			int id = db.addAttendant("", "", "", "", 0, bookingId);
-			db.close();
+		if (isNetworkConnected()) {
 
-			String result = addAttendantToBooking(bookingId); // add attendant
-																// to db
-			if (result.equals("true")) { // add button
+			seatsLeft = getSeatsLeft();
 
-				Button b = new Button(this);
+			if (seatsLeft > 0) {
+				// add attendant to db
+				String result = addAttendantToBooking(bookingId);
+				if (result.equals("true")) { // add button and add to local db
 
-				Log.v("buttonID", Integer.toString(id));
-				b.setId(id);
-				b.setGravity(Gravity.LEFT);
-				b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
-				b.setTextColor(Color.WHITE);
-				b.setText(getString(R.string.attendantButtonText));
-				b.setBackgroundResource(R.drawable.editbutton);
-				b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
-				b.setOnClickListener(ocl);
-				LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-				l.addView(b, l.getChildCount() - 3);
-				seatsLeft = getSeatsLeft();
-				if (seatsLeft > 0) {
-					TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
-					tv2.setText("Det finns " + seatsLeft + " platser kvar.");
+					DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+					db.open();
+					int id = db.addAttendant("", "", "", "", 0, bookingId);
+					db.close();
+
+					Button b = new Button(this);
+
+					Log.v("buttonID", Integer.toString(id));
+					b.setId(id);
+					b.setGravity(Gravity.LEFT);
+					b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
+					b.setTextColor(Color.WHITE);
+					b.setText(getString(R.string.attendantButtonText));
+					b.setBackgroundResource(R.drawable.editbutton);
+					b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
+					b.setOnClickListener(ocl);
+					LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
+					l.addView(b, l.getChildCount() - 3);
+					seatsLeft = getSeatsLeft();
+					if (seatsLeft > 0) {
+						TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
+						tv2.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
+					}
+
+					Intent i = new Intent(getApplicationContext(), EditAttendantActivity.class);
+					i.putExtra("attendantId", id);
+					i.putExtra("new", true);
+					startActivityForResult(i, EDIT_ATTENDANT);
 				}
-
-				// Lägg till deltagare i databas och ta oss till den aktiviteten
+			} else {
+				Button b = (Button) findViewById(R.id.AddAttendantButton);
+				b.setVisibility(View.GONE);
+				// TOAST NO SEATS
+				String text = getResources().getString(R.string.ConfirmActivityNoSeatsToast);
+				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+				t.setGravity(Gravity.TOP, 0, 0); // Position
+				t.show();
 			}
 		} else {
-			Button b = (Button) findViewById(R.id.AddAttendantButton);
-			b.setVisibility(View.GONE);
-			// TOAST NO SEATS
-			String text = getResources().getString(R.string.ConfirmActivityNoSeatsToast);
-			Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-			t.setGravity(Gravity.TOP, 0, 0); // Position
-			t.show();
+			Toast.makeText(this, R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
 
 	}
@@ -307,13 +326,10 @@ public class ConfirmActivity extends Activity {
 					sb.append(line);
 				}
 				is.close();
-
 				result = sb.toString();
-				Log.v("res", result);
 			} catch (Exception e) {
 				Log.e("log_tag", "Error converting result " + e.toString());
 			}
-			Log.v("deleteAttResult", result);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
 		}
@@ -365,7 +381,7 @@ public class ConfirmActivity extends Activity {
 			} else {
 				Toast.makeText(this, R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
 			}
-		}else {
+		} else {
 			Toast.makeText(this, R.string.invalidAttendantsInfo, Toast.LENGTH_LONG).show();
 		}
 	}
