@@ -554,6 +554,7 @@ public class ConfirmActivity extends Activity {
 				is.close();
 
 				result = sb.toString();
+				Log.e("res", result);
 				result = result.substring(0, 1);
 				// if affected rows is correct
 				if (Integer.parseInt(result) == attendantIds.size() + 1) {
