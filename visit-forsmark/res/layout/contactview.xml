@@ -25,7 +25,7 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Förnamn" />
+                android:text="@string/ContactFirstName" />
 
             <EditText
                 android:id="@+id/editTextPname"
@@ -42,7 +42,7 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Efternamn" />
+                android:text="@string/ContactLastName" />
 
             <EditText
                 android:id="@+id/editTextLName"
@@ -57,7 +57,7 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Personnummer" />
+                android:text="@string/ContactSocialSecurity" />
 
             <EditText
                 android:id="@+id/editTextPnmbr"
@@ -76,21 +76,17 @@
                     style="@style/RadioButtonFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
-                    android:text="Man" />
+                    android:text="@string/Male" />
 
                 <RadioButton
                     android:id="@+id/radioButtonWoman"
                     style="@style/RadioButtonFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:text="Kvinna" />
+                    android:text="@string/Female" />
             </RadioGroup>
 
             <TextView
@@ -98,7 +94,7 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adress" />
+                android:text="@string/Address" />
 
             <EditText
                 android:id="@+id/editTextAdress"
@@ -112,7 +108,7 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Postnummer" />
+                android:text="@string/ContactZip" />
 
             <EditText
                 android:id="@+id/editTextPostNmbr"
@@ -126,7 +122,7 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Postadress" />
+                android:text="@string/ContactPostalAddress" />
 
             <EditText
                 android:id="@+id/editTextPostAdress"
@@ -140,21 +136,21 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Land" />
+                android:text="@string/ContactCountry" />
 
             <EditText
                 android:id="@+id/editTextCountry"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/textViewCell"
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mobil" />
+                android:text="@string/ContactMobile" />
 
             <EditText
                 android:id="@+id/editTextCell"
@@ -168,7 +164,7 @@
                 style="@style/CodeFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="E-post" />
+                android:text="@string/ContactEmail" />
 
             <EditText
                 android:id="@+id/editTextEmail"

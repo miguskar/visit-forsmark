@@ -101,10 +101,7 @@ public class ConfirmActivity extends Activity {
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 		if (seatsLeft > 0) {
 			TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
-			tv2.setText("Det finns " + seatsLeft + " platser kvar."); // TODO
-																		// lägg
-																		// in i
-																		// xml
+			tv2.setText(String.format(getString(R.string.ConfirmNoSeatsLeft), seatsLeft));
 		}
 
 		// Create buttons

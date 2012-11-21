@@ -72,10 +72,20 @@ public class AttendantsDialogActivity extends Activity {
 		tvTime.setVisibility(View.VISIBLE);
 
 		String[] mon = getResources().getStringArray(R.array.calMonthStringsSwe);
-		//tvDate.setText(String.format(getString(R.string.dialogDate), date, mon[month]));
+		tvDate.setText(String.format(getString(R.string.dateFormat), date, mon[month]));
 		tvTime.setText(start + " - " + end);
-
-		DATE = String.format("%s-%s-%s %s %s", year, month, date, start, end);
+		
+		// fix date if less then 10, eg. 9 -> 09
+		String formatDate = "";
+		if (date < 10)
+			formatDate = "0";
+		
+		formatDate += date;
+		
+		// fix month
+		++month;
+		
+		DATE = String.format("%s-%s-%s %s %s", year, month, formatDate, start, end);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

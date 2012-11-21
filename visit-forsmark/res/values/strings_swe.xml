@@ -24,8 +24,20 @@
     <string name="calendarSaturday">Lör</string>
     <string name="calendarSunday">Sön</string>
     <string name="calendarWeek">V.</string>
+    <!-- CONTACT ACTIVITY -->
     <string name="ContactActivityTitle">Kontaktperson</string>
     <string name="ContactActivityToast">Kontaktpersonen är den deltagare som ansvarar för bokningen.</string>
+    <string name="ContactFirstName">Förnamn</string>
+	<string name="ContactLastName">Efternamn</string>
+    <string name="ContactSocialSecurity">Personnummer (10 siffror)</string>
+    <string name="ContactZip">Postnummer</string>
+    <string name="ContactPostalAddress">Postadress</string>
+    <string name="ContactCountry">Land</string>
+    <string name="ContactMobile">Mobil</string>
+    <string name="ContactEmail">E-post</string>
+    <!--  -->
+    <string name="Male">Man</string>
+    <string name="Female">Kvinna</string>
     <string name="NoSFR">ej slutförvar(SFR)</string>
     <string name="NoSFRToast">Deltagare under 7 år eller deltagare som ej kan gå obehindrat utan hjälpmedel kan tyvärr ej följa med ner i slutförvaret.</string>
     <string name="errorMessageFieldEmpty">Alla fält måste vara ifyllda för att gå vidare.</string>
@@ -69,20 +81,23 @@
     <string name="StartTime">Starttid</string>
     <string name="SeatsLeft">Platser Kvar</string>
     <string name="EndTime">Sluttid</string>
+    <!-- CONFIRM ACTIVITY -->
+    <string name="ConfirmNoSeatsLeft">Det finns %1$s platser kvar</string>
     <string name="ConfirmationTitle">Bekräfta bokning</string>
+    <string name="ConfirmActivityNoSeatsToast">Det finns inga lediga platser kvar.</string>
+    <string name="confirmDeleteAttendant">Är du säker på att du vill ta bort %s?</string>
     <string name="ConfirmedTitle">Bokning bekräftad</string>
+    <!--  -->
     <string name="HowManySeats">Hur många säten vill du boka?</string>
     <string name="EditAttendantDialogQ">Vill du ta bort eller ändra deltagarens uppgifter?</string>
     <string name="Edit">Ändra uppgifter</string>
     <string name="Delete">Ta bort från listan</string>
     <string name="ToManySeats">Så många platser finns det inte!</string>
     <string name="WrongIntValue">Felaktigt värde</string>
-    <string name="ConfirmActivityNoSeatsToast">Det finns inga lediga platser kvar.</string>
     <string name="aboutVisitForsmark">Om VisitForsmark</string>
     <string name="aboutVisitForsmarkText">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
     <string name="couldNotCompleteBooking">Bokningen kunde inte slutföras. Försök igen senare.</string>
     <string name="invalidAttendantsInfo">Alla deltagare måste vara ifyllda för att slutföra bokningen.</string>
-    <string name="confirmDeleteAttendant">Är du säker på att du vill ta bort %s?</string>
     <string name="dialogWarningTitle">Varning</string>
     <string name="dialogYes">Ja</string>
     <string name="dialogNo">Nej</string>
