@@ -78,9 +78,9 @@
     <string name="termsTitle">Villkor</string>
     <string name="dateFormat">Den %1$s %2$s</string>
     <string name="noSeats">Fullbokad</string>
-    <string name="StartTime">Starttid</string>
+    <string name="StartTime">Startar</string>
     <string name="SeatsLeft">Platser Kvar</string>
-    <string name="EndTime">Sluttid</string>
+    <string name="EndTime">Slutar</string>
     <!-- CONFIRM ACTIVITY -->
     <string name="ConfirmSeatsLeft">Det finns %1$s platser kvar</string>
     <string name="ConfirmationTitle">Bekräfta bokning</string>
