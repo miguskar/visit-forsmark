@@ -2,6 +2,7 @@ package se.forsmark.visit;
 
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import se.forsmark.visit.database.DatabaseHelper;
@@ -9,13 +10,16 @@ import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MyBookingsActivity extends Activity {
@@ -68,22 +72,50 @@ public class MyBookingsActivity extends Activity {
 		b = (Button) findViewById(R.id.bottomBackButton);
 		b.setVisibility(View.VISIBLE);
 		
+		//Get current date;
+		Date date=new Date();
+		year=date.getYear()+1900;
+		month=date.getMonth()+1;
+		day=date.getDate();
+		hour=date.getHours();
+		String datestring =""+year+"-"+month+"-"+day;
+	//	Log.v("stringdate", datestring);
 		
+		  //
 		//Get a cursor of all my bookings that are finished:
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
 		Cursor c=db.getAllMyBookings();
-		db.close();
-		
-		//Get current date;
-		Date date=new Date();
-		year=date.getYear();
-		month=date.getMonth();
-		day=date.getDay();
-		hour=date.getHours();
-		
-		if(c.moveToNext()){
+	
+		LinearLayout l = (LinearLayout) findViewById(R.id.rlayout1);
+		int count=0;
+		String rows=""+c.getColumnCount();
+		Log.v("ws",rows );
+	
+		toString();
+		while(c.moveToNext()){
 			Log.v("date", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
+			b = new Button(this);
+			b.setId(count);
+			count++;
+			b.setGravity(Gravity.LEFT);
+			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
+			b.setTextColor(Color.WHITE);
+			b.setBackgroundResource(R.drawable.editbutton);
+			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
+			b.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
+		
+			b.setVisibility(View.VISIBLE);
+			//If booking is in future:
+			if((datestring.compareTo(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))<=0)||(datestring.compareTo(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))==1)){
+				
+				l.addView(b, l.getChildCount());
+			//If its an old booking:
+			}else{
+				//LinearLayout l = (LinearLayout) findViewById(R.id.rlayout1);
+			}
+		//	}
+			
 			//Check if booking is in the future
 	//c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE
 		
@@ -98,6 +130,7 @@ public class MyBookingsActivity extends Activity {
 			
 	//	}
 		}
+		db.close();	
 		
 	}
 	
