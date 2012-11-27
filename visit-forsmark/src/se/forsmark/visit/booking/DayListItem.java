@@ -1,4 +1,4 @@
-package se.forsmark.visit.Booking;
+package se.forsmark.visit.booking;
 
 public class DayListItem {
 	private String start;

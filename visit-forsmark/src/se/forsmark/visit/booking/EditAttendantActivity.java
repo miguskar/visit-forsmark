@@ -1,4 +1,4 @@
-package se.forsmark.visit.Booking;
+package se.forsmark.visit.booking;
 
 import se.forsmark.visit.R;
 import se.forsmark.visit.R.id;

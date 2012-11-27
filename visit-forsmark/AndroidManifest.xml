@@ -31,53 +31,53 @@
             android:enabled="true" >
         </activity>
         <activity
-            android:name="DayActivity"
+            android:name=".booking.DayActivity"
             android:enabled="true" >
         </activity>
         <activity
-            android:name="TermsActivity"
+            android:name=".booking.TermsActivity"
             android:enabled="true" >
         </activity>
         <activity
-            android:name="ContactActivity"
+            android:name=".booking.ContactActivity"
             android:enabled="true"
             android:windowSoftInputMode="stateUnchanged" >
         </activity>
         <activity
-            android:name=".AttendantsActivity"
+            android:name=".booking.AttendantsActivity"
             android:enabled="true"
             android:windowSoftInputMode="stateUnchanged" >
         </activity>
         <activity
-            android:name="EditConfirmActivity"
+            android:name=".booking.EditConfirmActivity"
             android:enabled="true" >
         </activity>
         <activity
-            android:name="ConfirmActivity"
+            android:name=".booking.ConfirmActivity"
             android:enabled="true" >
         </activity>
         <activity
-            android:name="AttendantsDialogActivity"
+            android:name=".booking.AttendantsDialogActivity"
             android:enabled="true"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="EditContactActivity"
+            android:name=".booking.EditContactActivity"
             android:enabled="true"
             android:windowSoftInputMode="stateUnchanged" >
         </activity>
         <activity
-            android:name="EditAttendantActivity"
+            android:name=".booking.EditAttendantActivity"
             android:enabled="true"
             android:windowSoftInputMode="stateUnchanged" >
         </activity>
         <activity
-            android:name="EditAttendantDialogActivity"
+            android:name=".booking.EditAttendantDialogActivity"
             android:enabled="true"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="BookConfirmationActivity"
+            android:name=".booking.BookConfirmationActivity"
             android:enabled="true" >
         </activity>
         <activity

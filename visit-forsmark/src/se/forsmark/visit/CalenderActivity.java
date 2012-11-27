@@ -20,12 +20,12 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 import se.forsmark.visit.R;
-import se.forsmark.visit.Booking.DayActivity;
 import se.forsmark.visit.R.array;
 import se.forsmark.visit.R.drawable;
 import se.forsmark.visit.R.id;
 import se.forsmark.visit.R.layout;
 import se.forsmark.visit.R.string;
+import se.forsmark.visit.booking.DayActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

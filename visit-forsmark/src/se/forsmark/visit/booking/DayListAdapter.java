@@ -1,4 +1,4 @@
-package se.forsmark.visit.Booking;
+package se.forsmark.visit.booking;
 
 import java.util.ArrayList;
 
