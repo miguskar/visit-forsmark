@@ -57,8 +57,11 @@ public class ContactActivity extends Activity {
 		// Display progress
 		ImageView iv = (ImageView) findViewById(R.id.border_progress);
 		iv.setVisibility(View.VISIBLE); // Unhide progress
-		iv.setBackgroundResource(R.drawable.border_step_one); // Display step
-																// one
+		
+		if(attendantsCount > 1)
+			iv.setBackgroundResource(R.drawable.border_step_one); // Display step one
+		else
+			iv.setBackgroundResource(R.drawable.border_step_one_two); // Display step one
 		// Display hint button an
 		Button b = (Button) findViewById(R.id.button_hint_top);
 		
@@ -225,6 +228,7 @@ public class ContactActivity extends Activity {
 				i.putExtra("eventId", eventId);
 				i.putExtra("contactId", id);
 				i.putExtra("bookingId", bookingId);
+				i.putExtra("progressBar", 2);
 				startActivityForResult(i, BOOKING);
 			} else {
 				Intent i = new Intent(getApplicationContext(), AttendantsActivity.class);

@@ -167,6 +167,9 @@ public class CalenderActivity extends Activity {
 					Log.e("log_tag", "Error converting result " + e.toString());
 				}
 			}
+			if (isCancelled()) {
+				return null;
+			}
 			return tmp;
 		}
 		
@@ -195,15 +198,28 @@ public class CalenderActivity extends Activity {
 			row = (LinearLayout) findViewById(R.id.weekDays);
 			
 			for (int k = 0; k < 8; k++) {
+				if (isCancelled()) {
+					Log.e("CANCELLED", "1");
+					return;
+				}
 				restCell = (TextView) row.getChildAt(k);
 				restCell.setTextColor(Color.rgb(19, 90, 165));
 				restCell.setText(days[k]);
 			}
 			String info;
 			for (int i = 0; i < 6; i++) {
+				if (isCancelled()) {
+					Log.e("CANCELLED", "2");
+					return;
+				}
 				row = (LinearLayout) cal.getChildAt(i);
 
 				for (int k = 0; k < 8; k++) {
+					if (isCancelled()) {
+						Log.e("CANCELLED", "3");
+						return;
+					}
+						
 					if (k > 0) {
 						dateCell = (Button) row.getChildAt(k);
 						dateCell.setTextColor(Color.rgb(19, 90, 165));
@@ -224,7 +240,7 @@ public class CalenderActivity extends Activity {
 								else
 									dateCell.setTag("P");
 						} else {
-							if (dateInfo != null) {
+							if (dateInfo != null && !isCancelled()) {
 								info = dateInfo[c.get(Calendar.DATE) - 1];
 								if (info.equals("E")) {
 									dateCell.setBackgroundResource(R.drawable.cell_empty);

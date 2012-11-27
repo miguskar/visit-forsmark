@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#EEF6FF" >
+    android:background="@drawable/background">
 
     <include
         android:id="@+id/include1"
@@ -20,7 +20,7 @@
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
-
+    
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_marginTop="20dp"
@@ -33,7 +33,7 @@
 
         <Button
             android:id="@+id/decAtt"
-            style="@style/decreaceButtonStyle" />"
+            style="@style/decreaceButtonStyle" />
 
         <EditText
             android:id="@+id/numAtt"
@@ -52,7 +52,6 @@
             style="@style/increaseButtonStyle"
             />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,14 +66,16 @@
             style="@style/button"
             android:layout_marginRight="10dp"
             android:text="@string/Cancel"
-            android:onClick="cancelButton" />
+            android:onClick="cancelButton" 
+            android:layout_marginBottom="5dp"/>
 
         <Button
             android:id="@+id/button4"
             style="@style/button"            
             android:layout_marginLeft="10dp"
             android:text="@string/Next"
-            android:onClick="nextButton" />
+            android:onClick="nextButton" 
+            android:layout_marginBottom="5dp"/>
     </LinearLayout>
 
 </RelativeLayout>

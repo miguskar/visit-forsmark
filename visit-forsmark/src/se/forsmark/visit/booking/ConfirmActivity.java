@@ -54,6 +54,7 @@ import android.widget.Toast;
 public class ConfirmActivity extends Activity {
 	private String bookingId;
 	private int contactId;
+	private int progressBar;
 	private final int EDIT_CONTACT = 1, EDIT_ATTENDANT = 2;
 	private int seatsLeft, eventId;
 	private OnClickListener ocl;
@@ -81,16 +82,20 @@ public class ConfirmActivity extends Activity {
 			}
 		};
 
-		// Unhide progress and set background
-		View v = findViewById(R.id.border_progress);
-		v.setBackgroundResource(R.drawable.border_step_three);
-		v.setVisibility(View.VISIBLE);
 		Bundle extras = getIntent().getExtras();
 		bookingId = extras.getString("bookingId");
 		contactId = extras.getInt("contactId");
 		eventId = extras.getInt("eventId");
-
+		progressBar = extras.getInt("progressBar");
 		Log.v("eventId", eventId + "");
+
+		// Unhide progress and set background
+		View v = findViewById(R.id.border_progress);
+		if (progressBar == 3)
+			v.setBackgroundResource(R.drawable.border_step_three);
+		else
+			v.setBackgroundResource(R.drawable.border_step_two_two);
+		v.setVisibility(View.VISIBLE);
 
 		seatsLeft = getSeatsLeft();
 		Log.v("SeatsLeft", Integer.toString(seatsLeft));
@@ -179,7 +184,7 @@ public class ConfirmActivity extends Activity {
 				}
 
 			}
-		} else if (resultCode == RESULT_CANCELED && data != null){
+		} else if (resultCode == RESULT_CANCELED && data != null) {
 			Bundle extras = data.getExtras();
 			if (extras.getBoolean("new")) {
 				deleteAttendant(extras.getInt("attendantId"));
@@ -378,24 +383,41 @@ public class ConfirmActivity extends Activity {
 	}
 
 	public void bottomNextClick(View v) {
-		if (validateAttendants()) {
-			if (createBooking()) {
-				sendEmailConfirmation();
-				// save in local database to enable my bookings
-				DatabaseSQLite db=new DatabaseSQLite(getApplicationContext());
-				db.open();
-				db.setBookingBooked(bookingId);
-				db.close();	
-				Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
-				i.putExtra("bookingId", bookingId);
-				i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
-				startActivity(i);
-			} else {
-				Toast.makeText(this, R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
+		// Dialogruta AVBRYT BOKNING
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.create();
+		builder.setTitle(R.string.Confrim);
+		builder.setMessage(R.string.cancelBookingMessage);
+		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				if (validateAttendants()) {
+					if (createBooking()) {
+						sendEmailConfirmation();
+						// save in local database to enable my bookings
+						DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+						db.open();
+						db.setBookingBooked(bookingId);
+						db.close();
+						Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
+						i.putExtra("bookingId", bookingId);
+						i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
+						startActivity(i);
+					} else {
+						//Toast.makeText(this, R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
+					}
+				} else {
+					//Toast.makeText(this, R.string.invalidAttendantsInfo, Toast.LENGTH_LONG).show();
+				}
 			}
-		} else {
-			Toast.makeText(this, R.string.invalidAttendantsInfo, Toast.LENGTH_LONG).show();
-		}
+		});
+		builder.setNegativeButton(R.string.dialogNo, new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				// Do nothing
+			}
+		});
+		builder.show();
 	}
 
 	public int getSeatsLeft() {
@@ -528,7 +550,7 @@ public class ConfirmActivity extends Activity {
 			HttpConnectionParams.setConnectionTimeout(httpParams, 10000); // Timeout
 			HttpConnectionParams.setSoTimeout(httpParams, 10000); // Limits
 			HttpClient client = new DefaultHttpClient(httpParams);
-			
+
 			HttpResponse response = null;
 			InputStream is = null;
 			try {
@@ -542,7 +564,7 @@ public class ConfirmActivity extends Activity {
 				UrlEncodedFormEntity u = new UrlEncodedFormEntity(pairs);
 				u.setContentEncoding("UTF-8");
 				request.setEntity(u);
-				
+
 				response = client.execute(request); // execute
 				is = response.getEntity().getContent(); // get data
 
@@ -550,7 +572,6 @@ public class ConfirmActivity extends Activity {
 				Log.e("Http Exception: ", e.toString());
 			}
 
-			
 			String result;
 			// convert response to string
 			try {

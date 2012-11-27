@@ -43,11 +43,7 @@ public class EditContactActivity extends Activity {
 		// Set Title
 				TextView tv = (TextView) findViewById(R.id.border_title);
 				tv.setText(R.string.ContactActivityTitle);
-				// Display progress
-				ImageView iv = (ImageView) findViewById(R.id.border_progress);
-				iv.setVisibility(View.VISIBLE); // Unhide progress
-				iv.setBackgroundResource(R.drawable.border_step_one); // Display step
-																		// one
+				
 				// Display hint button an
 				Button b = (Button) findViewById(R.id.button_hint_top);
 

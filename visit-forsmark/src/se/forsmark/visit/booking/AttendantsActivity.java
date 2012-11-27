@@ -220,6 +220,7 @@ public class AttendantsActivity extends Activity {
 		ip.putExtra("eventId", eventId);
 		ip.putExtra("contactId", id);
 		ip.putExtra("bookingId", bookingId);
+		ip.putExtra("progressBar", 3);
 		startActivityForResult(ip, BOOKING);
 	}
 
