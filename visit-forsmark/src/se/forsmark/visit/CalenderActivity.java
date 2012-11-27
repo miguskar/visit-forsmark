@@ -40,6 +40,7 @@ public class CalenderActivity extends Activity {
 	private int curYear;
 	private TextView tvMonth;
 	private TextView tvYear;
+	private CalendarSetter cs;
 
 	// STATES
 	// N = next month
@@ -53,24 +54,20 @@ public class CalenderActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.calenderview);
-		Initialize(savedInstanceState);
+		Calendar c = Calendar.getInstance();
+		if (savedInstanceState == null) {
+			curMonth = c.get(Calendar.MONTH);
+			curYear = c.get(Calendar.YEAR);
+		} else {
+			curYear = savedInstanceState.getInt("YEAR");
+			curMonth = savedInstanceState.getInt("MONTH");
+		}
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.YEAR, curYear);
-		c.set(Calendar.MONTH, curMonth);
-		c.set(Calendar.WEEK_OF_MONTH, 1);
-		c.set(Calendar.DAY_OF_WEEK, 2);
-		drawEmptyCalendar(c);
-		c.set(Calendar.YEAR, curYear);
-		c.set(Calendar.MONTH, curMonth);
-		c.set(Calendar.WEEK_OF_MONTH, 1);
-		c.set(Calendar.DAY_OF_WEEK, 2);
-		new CalendarSetter().execute(c);
-
+		Initialize();
 	}
 
 	@Override
@@ -80,19 +77,12 @@ public class CalenderActivity extends Activity {
 		super.onSaveInstanceState(outState);
 	}
 
-	public void Initialize(Bundle savedInstanceState) {
+	public void Initialize() {
 
 		// Set init values of the Calendar
 		Calendar c = Calendar.getInstance();
-		if (savedInstanceState == null) {
-			curMonth = c.get(Calendar.MONTH);
-			curYear = c.get(Calendar.YEAR);
-		} else {
-			curYear = savedInstanceState.getInt("YEAR");
-			curMonth = savedInstanceState.getInt("MONTH");
-			c.set(Calendar.YEAR, curYear);
-			c.set(Calendar.MONTH, curMonth);
-		}
+		c.set(Calendar.YEAR, curYear);
+		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
 		// Set visibility and initialize textviews and buttons
@@ -112,7 +102,8 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-		new CalendarSetter().execute(c);
+		cs = new CalendarSetter();
+		cs.execute(c);
 	}
 
 	private class CalendarSetter extends AsyncTask<Calendar, Void, String[]> {
@@ -138,6 +129,9 @@ public class CalenderActivity extends Activity {
 					pairs.add(new BasicNameValuePair("month", "" + (curMonth + 1)));
 					pairs.add(new BasicNameValuePair("year", "" + curYear));
 					httppost.setEntity(new UrlEncodedFormEntity(pairs));
+					if (isCancelled()) {
+						return null;
+					}
 					HttpResponse response = httpclient.execute(httppost);
 					HttpEntity entity = response.getEntity();
 					is = entity.getContent();
@@ -261,6 +255,11 @@ public class CalenderActivity extends Activity {
 				}
 			}
 		}
+		
+		@Override
+		protected void onCancelled() {
+			super.onCancelled();
+		}
 	}
 	
 	public void drawEmptyCalendar(Calendar c) {
@@ -366,7 +365,10 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-		new CalendarSetter().execute(c);
+		if (cs != null && cs.getStatus() != AsyncTask.Status.FINISHED)
+			cs.cancel(true);
+		cs = new CalendarSetter();
+		cs.execute(c);
 	}
 
 	public void topNextButton(View v) {
@@ -386,7 +388,10 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-		new CalendarSetter().execute(c);
+		if (cs != null && cs.getStatus() != AsyncTask.Status.FINISHED)
+			cs.cancel(true);
+		cs = new CalendarSetter();
+		cs.execute(c);
 	}
 
 	public void bottomBackClick(View v) {
@@ -404,7 +409,10 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
-		new CalendarSetter().execute(c);
+		if (cs != null && cs.getStatus() != AsyncTask.Status.FINISHED)
+			cs.cancel(true);
+		cs = new CalendarSetter();
+		cs.execute(c);
 	}
 
 //	public String[] getDateInfo() {
