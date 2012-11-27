@@ -1,4 +1,4 @@
-package se.forsmark.visit;
+package se.forsmark.visit.Booking;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -14,6 +14,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import se.forsmark.visit.R;
+import se.forsmark.visit.R.array;
+import se.forsmark.visit.R.id;
+import se.forsmark.visit.R.layout;
+import se.forsmark.visit.R.string;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
 import android.content.Intent;

@@ -1,6 +1,12 @@
-package se.forsmark.visit;
+package se.forsmark.visit.Booking;
 
 import java.util.ArrayList;
+
+import se.forsmark.visit.R;
+import se.forsmark.visit.R.drawable;
+import se.forsmark.visit.R.id;
+import se.forsmark.visit.R.layout;
+import se.forsmark.visit.R.string;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
