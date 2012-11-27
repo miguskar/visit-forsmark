@@ -164,9 +164,6 @@ public class CalenderActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String[] dateInfo) {
-			if (isCancelled()) {
-				Log.e("CANCELLED", "CANCELLED");
-			}
 			Date today = new Date();
 
 			if (dateInfo[0].equals("NOCONNECTION")) {
@@ -262,7 +259,6 @@ public class CalenderActivity extends Activity {
 		@Override
 		protected void onCancelled() {
 			super.onCancelled();
-			Log.e("FOR REALS", "BAJSA");
 		}
 	}
 	
