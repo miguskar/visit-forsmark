@@ -112,7 +112,7 @@ public class MyBookingsActivity extends Activity {
 				l.addView(b, l.getChildCount());
 			//If its an old booking:
 			}else{
-				//LinearLayout l = (LinearLayout) findViewById(R.id.rlayout1);
+				LinearLayout l2 = (LinearLayout) findViewById(R.id.rlayout2);
 			}
 		//	}
 			
