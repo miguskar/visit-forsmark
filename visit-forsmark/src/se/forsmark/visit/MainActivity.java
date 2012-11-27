@@ -32,6 +32,8 @@ public class MainActivity extends Activity {
 			case -1: // om appen
 				pressed = (ImageView) findViewById(R.id.aboutButtonPressed);
 				pressed.setVisibility(View.VISIBLE);
+				myIntent = new Intent(v.getContext(), AboutApplicationActivity.class);
+				startActivity(myIntent);
 				break;
 			case -15925504: // mina bokningar
 				pressed = (ImageView) findViewById(R.id.myBookingsButtonPressed);
@@ -42,12 +44,14 @@ public class MainActivity extends Activity {
 			case -16777216: // hitta hit
 				pressed = (ImageView) findViewById(R.id.findFrosmarkButtonPressed);
 				pressed.setVisibility(View.VISIBLE);
-				myIntent = new Intent(v.getContext(), FindUsActivity.class);
+				myIntent = new Intent(v.getContext(), FindForsmarkActivity.class);
 				startActivity(myIntent);
 				break;
 			case -65536: // Kontakta oss
 				pressed = (ImageView) findViewById(R.id.contactButtonPressed);
 				pressed.setVisibility(View.VISIBLE);
+				myIntent = new Intent(v.getContext(), ContactForsmarkActivity.class);
+				startActivity(myIntent);
 				break;
 			case -16776961: // boka
 				pressed = (ImageView) findViewById(R.id.bookingButtonPressed);

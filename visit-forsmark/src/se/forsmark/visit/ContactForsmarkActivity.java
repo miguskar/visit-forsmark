@@ -5,19 +5,19 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.TextView;
 
-public class FindUsActivity extends Activity {
+public class ContactForsmarkActivity extends Activity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.bookconfirmationview);
+		setContentView(R.layout.contactforsmarkview);
 
 		Initialize(savedInstanceState);
 	}
 
 	private void Initialize(Bundle savedInstanceState) {
 		TextView title = (TextView) findViewById(R.id.border_title);
-		title.setText(getString(R.string.findForsmark));
+		title.setText(getString(R.string.contactForsmark));
 	}
 
 }

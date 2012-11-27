@@ -107,7 +107,7 @@
     <string name="newAttendant">Ny deltagare</string>
     <string name="editAttendant">Redigera deltagare</string>
     <!-- Strings for main.xml -->
-    <string name="contactForsmark">Kontakta oss</string>
+    <string name="contactForsmark">Kontakta Forsmark</string>
     <string name="aboutForsmark">Om \nForsmark</string>
     <string name="aboutUs">Om appen</string>
     <string name="findForsmark">Hitta hit</string>

@@ -85,7 +85,15 @@
             android:enabled="true" >
         </activity>
          <activity
-            android:name="FindUsActivity"
+            android:name="FindForsmarkActivity"
+            android:enabled="true" >
+        </activity>
+        <activity
+            android:name="ContactForsmarkActivity"
+            android:enabled="true" >
+        </activity>
+        <activity
+            android:name="AboutApplicationActivity"
             android:enabled="true" >
         </activity>
     </application>
