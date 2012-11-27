@@ -521,7 +521,7 @@ public class ConfirmActivity extends Activity {
 			HttpConnectionParams.setConnectionTimeout(httpParams, 10000); // Timeout
 			HttpConnectionParams.setSoTimeout(httpParams, 10000); // Limits
 			HttpClient client = new DefaultHttpClient(httpParams);
-
+			
 			HttpResponse response = null;
 			InputStream is = null;
 			try {
@@ -535,7 +535,7 @@ public class ConfirmActivity extends Activity {
 				UrlEncodedFormEntity u = new UrlEncodedFormEntity(pairs);
 				u.setContentEncoding("UTF-8");
 				request.setEntity(u);
-
+				
 				response = client.execute(request); // execute
 				is = response.getEntity().getContent(); // get data
 

@@ -29,9 +29,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/aboutVisitForsmark"
-            android:src="@drawable/frontpage_colors_image" 
-           	android:visibility="invisible"/>
-        
+            android:src="@drawable/frontpage_colors_image"
+            android:visibility="invisible" />
+
         <ImageView
             android:id="@+id/bookingButtonPressed"
             android:layout_width="wrap_content"
@@ -39,9 +39,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/aboutVisitForsmark"
-            android:src="@drawable/frontpage_image_book" 
-           	android:visibility="gone"/>
-        
+            android:src="@drawable/frontpage_image_book"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/myBookingsButtonPressed"
             android:layout_width="wrap_content"
@@ -49,8 +49,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/aboutVisitForsmark"
-            android:src="@drawable/frontpage_image_mybookings" 
-           	android:visibility="gone"/>
+            android:src="@drawable/frontpage_image_mybookings"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/aboutButtonPressed"
             android:layout_width="wrap_content"
@@ -58,9 +59,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/aboutVisitForsmark"
-            android:src="@drawable/frontpage_image_about" 
-           	android:visibility="gone"/>
-        
+            android:src="@drawable/frontpage_image_about"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/aboutFrosmarkButtonPressed"
             android:layout_width="wrap_content"
@@ -68,9 +69,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/aboutVisitForsmark"
-            android:src="@drawable/frontpage_image_about_forsmark" 
-           	android:visibility="gone"/>
-        
+            android:src="@drawable/frontpage_image_about_forsmark"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/findFrosmarkButtonPressed"
             android:layout_width="wrap_content"
@@ -78,9 +79,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/aboutVisitForsmark"
-            android:src="@drawable/frontpage_image_find" 
-           	android:visibility="gone"/>
-        
+            android:src="@drawable/frontpage_image_find"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/contactButtonPressed"
             android:layout_width="wrap_content"
@@ -88,48 +89,69 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/aboutVisitForsmark"
-            android:src="@drawable/frontpage_image_contact" 
-           	android:visibility="gone"/>
+            android:src="@drawable/frontpage_image_contact"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textViewMain"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="34dp"
             android:layout_marginTop="13dp"
-            android:text="Om appen"
-            style="@style/termTextView"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text="@string/aboutUs" />
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/textViewMain"
+            android:layout_alignBottom="@+id/mainButtonImage"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_marginBottom="38dp"
+            android:layout_marginLeft="45dp"
+            android:text="@string/findForsmark" />
+
+        <TextView
+            android:id="@+id/textView6"
+            style="@style/textViewMain"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="26dp"
+            android:text="@string/aboutForsmark" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView1"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="115dp"
             android:layout_toRightOf="@+id/textView1"
-            android:text="Boka"
+            android:text="@string/booking"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </RelativeLayout>
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/textViewMain"
+        android:layout_above="@+id/relativeLayout2"
+        android:layout_alignRight="@+id/relativeLayout2"
+        android:layout_marginRight="14dp"
+        android:text="@string/contactForsmark" />
+
+    <TextView
+        android:id="@+id/textView5"
+        style="@style/textViewMain"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_marginRight="21dp"
+        android:layout_toLeftOf="@+id/textView3"
+        android:text="@string/MyBookingsTitle" />
+
+    <ImageView
+        android:id="@+id/frontBorderBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" >
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="Button" />
-
-    </RelativeLayout>
+        android:adjustViewBounds="true"
+        android:src="@drawable/frontpage_border_bottom" />
 
 </RelativeLayout>

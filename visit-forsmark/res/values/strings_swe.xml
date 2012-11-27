@@ -34,7 +34,7 @@
     <string name="ContactEmail">E-post</string>
     <!--  -->
     <string name="FirstName">Förnamn</string>
-	<string name="LastName">Efternamn</string>
+    <string name="LastName">Efternamn</string>
     <string name="SocialSecurity">Personnummer (10 siffror)</string>
     <string name="Male">Man</string>
     <string name="Female">Kvinna</string>
@@ -106,4 +106,11 @@
     <string name="oldBookingsbutton">Gamla bokningar</string>
     <string name="newAttendant">Ny deltagare</string>
     <string name="editAttendant">Redigera deltagare</string>
+    <!-- Strings for main.xml -->
+    <string name="contactForsmark">Kontakta oss</string>
+    <string name="aboutForsmark">Om \nForsmark</string>
+    <string name="aboutUs">Om appen</string>
+    <string name="findForsmark">Hitta hit</string>
+    <string name="booking">Boka</string>
+
 </resources>

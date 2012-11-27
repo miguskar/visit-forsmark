@@ -11,27 +11,37 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
         android:textColor="#000000"
-        android:text="Start"
+        android:text="10:00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-	
+    
     <TextView
         android:id="@+id/itemSeats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Seats"
+        android:layout_marginLeft="62dp"
+        android:layout_toRightOf="@+id/itemEnd"
+        android:text="100"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000000" />
+        android:textColor="#000000" />
+
     <TextView
         android:id="@+id/itemEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
-        android:text="End"
+        android:layout_marginLeft="43dp"
+        android:layout_toRightOf="@+id/itemStart"
+        android:text="24:00"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/dayview_arrow" />
 
 </RelativeLayout>

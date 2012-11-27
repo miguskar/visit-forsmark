@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#EEF6FF"
+    android:background="@drawable/background"
     android:orientation="vertical" >
 
     <include layout="@layout/border" />
@@ -13,16 +13,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/orange_border"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/SeatsLeft"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textView2"
@@ -39,26 +29,37 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="24dp"
+            android:layout_toRightOf="@+id/textView2"
             android:text="@string/EndTime"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="32dp"
+            android:layout_toRightOf="@+id/textView3"
+            android:text="@string/SeatsLeft"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="266dp"
+        android:layout_height="0dp"
         android:layout_weight="0.80"
-        android:background="#EEF6FF"
         android:orientation="vertical" >
 
         <ListView
             android:id="@+id/dayItemList"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:cacheColorHint="#ffffff"
+            android:cacheColorHint="#EEF6FF"
             android:divider="@null"
             android:smoothScrollbar="true" >
         </ListView>
