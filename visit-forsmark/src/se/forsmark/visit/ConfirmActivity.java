@@ -218,8 +218,8 @@ public class ConfirmActivity extends Activity {
 					b.setGravity(Gravity.LEFT);
 					b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
 					b.setTextColor(Color.WHITE);
-					b.setText(getString(R.string.attendantButtonText));
 					b.setBackgroundResource(R.drawable.editbutton);
+					b.setText(getString(R.string.attendantButtonText));
 					b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
 					b.setOnClickListener(ocl);
 					LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);

@@ -102,7 +102,7 @@
     <string name="dialogYes">Ja</string>
     <string name="dialogNo">Nej</string>
     <string name="MyBookingsTitle">Mina bokningar</string>
-    <string name="futureBookingsbutton">kommande bokningar</string>
+    <string name="futureBookingsbutton">Kommande bokningar</string>
     <string name="oldBookingsbutton">Gamla bokningar</string>
     <string name="newAttendant">Ny deltagare</string>
     <string name="editAttendant">Redigera deltagare</string>
