@@ -21,7 +21,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name="CalenderActivity"
@@ -66,13 +65,11 @@
             android:name="EditContactActivity"
             android:enabled="true"
             android:windowSoftInputMode="stateUnchanged" >
- >
         </activity>
         <activity
             android:name="EditAttendantActivity"
             android:enabled="true"
             android:windowSoftInputMode="stateUnchanged" >
- >
         </activity>
         <activity
             android:name="EditAttendantDialogActivity"
@@ -85,6 +82,10 @@
         </activity>
         <activity
             android:name="MyBookingsActivity"
+            android:enabled="true" >
+        </activity>
+         <activity
+            android:name="FindUsActivity"
             android:enabled="true" >
         </activity>
     </application>

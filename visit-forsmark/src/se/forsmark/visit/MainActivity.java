@@ -42,6 +42,8 @@ public class MainActivity extends Activity {
 			case -16777216: // hitta hit
 				pressed = (ImageView) findViewById(R.id.findFrosmarkButtonPressed);
 				pressed.setVisibility(View.VISIBLE);
+				myIntent = new Intent(v.getContext(), FindUsActivity.class);
+				startActivity(myIntent);
 				break;
 			case -65536: // Kontakta oss
 				pressed = (ImageView) findViewById(R.id.contactButtonPressed);
