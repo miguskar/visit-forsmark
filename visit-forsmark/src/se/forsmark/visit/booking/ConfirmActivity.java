@@ -111,9 +111,11 @@ public class ConfirmActivity extends Activity {
 
 		ArrayList<Integer> al = db.getAttendantIdsFromBookingId(bookingId);
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
+		tv = (TextView) findViewById(R.id.SeatsLeft);
 		if (seatsLeft > 0) {
-			TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
-			tv2.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
+			tv.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
+		}else {
+			tv.setVisibility(View.GONE);
 		}
 
 		// Create buttons

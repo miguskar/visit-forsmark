@@ -101,7 +101,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPostalAddress" />
+                android:inputType="textPostalAddress|textCapWords" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -129,7 +129,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPostalAddress" />
+                android:inputType="textPostalAddress|textCapWords" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -143,6 +143,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:text="@string/defaultCountry"
                 android:inputType="textPersonName|textCapWords" />
 
             <TextView

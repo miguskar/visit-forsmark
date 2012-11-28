@@ -422,7 +422,6 @@ public class CalenderActivity extends Activity {
 		if (curMonth > 11) {
 			curMonth = 0;
 			++curYear;
-
 		}
 
 		if (curYear == (today.getYear() + 1900) && curMonth == today.getMonth()) {

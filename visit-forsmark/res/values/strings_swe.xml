@@ -32,6 +32,7 @@
     <string name="ContactCountry">Land</string>
     <string name="ContactMobile">Mobil</string>
     <string name="ContactEmail">E-post</string>
+    <string name="defaultCountry">Sverige</string>
     <!--  -->
     <string name="FirstName">Förnamn</string>
     <string name="LastName">Efternamn</string>
