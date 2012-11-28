@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#EEF6FF"
+    android:background="@drawable/background"
     android:orientation="vertical" >
 
     <include
@@ -12,12 +12,13 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
 
         <LinearLayout
             android:id="@+id/formLayout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -32,16 +33,11 @@
 
                     <Button
                         android:id="@+id/Futurebookingsbutton"
-                        style="@style/editButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.7"
-                        android:text="@string/futureBookingsbutton" />
-
-                    <Button
-                        android:id="@+id/FuturebookingsbuttonHidden"
-                        style="@style/editButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.3" />
+                        android:background="@drawable/dayview_orange_border"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/futureBookingsbutton" 
+                        />
 
                 </LinearLayout>
             </LinearLayout>
@@ -49,7 +45,7 @@
             <LinearLayout
                 android:id="@+id/rlayout1"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
             </LinearLayout>
@@ -58,7 +54,8 @@
                 android:id="@+id/rlay2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                android:layout_marginTop="1dp">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -67,16 +64,10 @@
 
                     <Button
                         android:id="@+id/Oldbookingsbutton"
-                        style="@style/editButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.7"
+                        android:background="@drawable/dayview_orange_border"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
                         android:text="@string/oldBookingsbutton" />
-
-                    <Button
-                        android:id="@+id/OldbookingsbuttonHidden"
-                        style="@style/editButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.3" />
                 </LinearLayout>
                 
                   <LinearLayout
@@ -87,26 +78,19 @@
                  android:paddingBottom="3dp" >
             </LinearLayout>
 			 </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="bottom" >
-
-                <Button
-                    android:id="@+id/bottomCancelButton"
-                    style="@style/bottomCancelButton"
-                    android:text="cancel" />
-
-                <Button
-                    android:id="@+id/bottomNextButton"
-                    style="@style/bottomNextButton"
-                    android:text="next" />
 
                 <Button
                     android:id="@+id/bottomBackButton"
                     style="@style/bottomBackButton"
-                    android:text="back" />
+                    android:text="@string/Back" 
+                    />
             </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 

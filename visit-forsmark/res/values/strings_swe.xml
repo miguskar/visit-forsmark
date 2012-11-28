@@ -19,7 +19,7 @@
     <string name="calendarTuesday">Tis</string>
     <string name="calendarWensday">Ons</string>
     <string name="calendarThursday">Tor</string>
-    <string name="calendarFriday">Fri</string>
+    <string name="calendarFriday">Fre</string>
     <string name="calendarSaturday">Lör</string>
     <string name="calendarSunday">Sön</string>
     <string name="calendarWeek">V.</string>
@@ -96,7 +96,7 @@
     <string name="ToManySeats">Så många platser finns det inte!</string>
     <string name="WrongIntValue">Felaktigt värde</string>
     <string name="aboutVisitForsmark">Om VisitForsmark</string>
-    <string name="aboutVisitForsmarkText">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
+    <string name="aboutVisitForsmarkLong">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
     <string name="couldNotCompleteBooking">Bokningen kunde inte slutföras. Försök igen senare.</string>
     <string name="invalidAttendantsInfo">Alla deltagare måste vara ifyllda för att slutföra bokningen.</string>
     <string name="dialogWarningTitle">Varning</string>
@@ -107,12 +107,25 @@
     <string name="oldBookingsbutton">Gamla bokningar</string>
     <string name="newAttendant">Ny deltagare</string>
     <string name="editAttendant">Redigera deltagare</string>
+    
+    
+    <string name="Monday">Måndag</string>
+    <string name="Tuesday">Tisdag</string>
+    <string name="Wensday">Onsdag</string>
+    <string name="Thursday">Tordag</string>
+    <string name="Friday">Fredag</string>
+    <string name="Saturday">Lördag</string>
+    <string name="Sunday">Söndag</string>
+    
     <!-- Strings for main.xml -->
+    <string name="aboutVisitForsmarkShort">Boka kostnadsfria rundturer på forsmark här!</string>
+    <string name="WelcomeToForsmark">Välkommen till Visit Forsmark!</string>
     <string name="contactForsmark">Kontakta Forsmark</string>
     <string name="aboutForsmark">Om \nForsmark</string>
     <string name="aboutUs">Om appen</string>
     <string name="findForsmark">Hitta hit</string>
     <string name="booking">Boka</string>
+    <string name="Vattenfall">Vattenfall</string>
     <!-- Strings for contactForsmark -->
     <string name="forsmarkContact">Ni är välkomna att kontakta oss vid eventuella frågor. Skriv lite saker här</string>
     <string name="forsmarkTel">0762133434</string>

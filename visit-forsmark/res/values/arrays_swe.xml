@@ -12,6 +12,16 @@
         <item>@string/calendarSunday</item>
     </string-array>
     
+    <string-array name="myBookingsDaysStringsSwe">
+        <item>@string/Monday</item>
+        <item>@string/Tuesday</item>
+        <item>@string/Wensday</item>
+        <item>@string/Thursday</item>
+        <item>@string/Friday</item>
+        <item>@string/Saturday</item>
+        <item>@string/Sunday</item>
+    </string-array>
+    
   	<string-array name="calMonthStringsSwe">
         <item>@string/Jan</item>
         <item>@string/Feb</item>

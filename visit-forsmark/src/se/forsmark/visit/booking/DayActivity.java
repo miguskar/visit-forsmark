@@ -61,7 +61,7 @@ public class DayActivity extends Activity {
 				Log.v("ThedateDate", theDate.toString());
 				Log.v("TodayDate", todayDate.toString());
 
-				if (theDate.compareTo(todayDate) > 0) { 
+				//if (theDate.compareTo(todayDate) > 0) { 
 					if (!day.getSeats().equals(getString(R.string.noSeats))) {
 						Intent dialog = new Intent(getApplicationContext(), AttendantsDialogActivity.class);
 						dialog.putExtra("ID", day.getId());
@@ -73,9 +73,9 @@ public class DayActivity extends Activity {
 						dialog.putExtra("END", day.getEnd());
 						startActivity(dialog);
 					}
-				} else {
-					Toast.makeText(getApplicationContext(), R.string.backInTime, Toast.LENGTH_LONG).show();
-				}
+				//} else {
+				//	Toast.makeText(getApplicationContext(), R.string.backInTime, Toast.LENGTH_LONG).show();
+				//}
 			}
 		};
 		Initialize(extras, savedInstanceState);

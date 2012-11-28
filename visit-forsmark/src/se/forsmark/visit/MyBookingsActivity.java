@@ -40,7 +40,9 @@ public class MyBookingsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.mybookingview);
-
+		
+		((Button) findViewById(R.id.Futurebookingsbutton)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_show_all_events, 0);
+		((Button) findViewById(R.id.Oldbookingsbutton)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_show_all_events, 0);
 		initialize(); // Initialize views
 	}
 
@@ -68,18 +70,7 @@ public class MyBookingsActivity extends Activity {
 		mbo = (Button) findViewById(R.id.Oldbookingsbutton);
 		mbo.setOnClickListener(buttonHandler);
 
-		hiddenmbf = (Button) findViewById(R.id.FuturebookingsbuttonHidden);
-		hiddenmbf.setVisibility(View.INVISIBLE);
-
-		hiddenmbo = (Button) findViewById(R.id.OldbookingsbuttonHidden);
-		hiddenmbo.setVisibility(View.INVISIBLE);
-
 		// Set Bottom Buttons
-		b = (Button) findViewById(R.id.bottomCancelButton);
-		b.setVisibility(View.GONE);
-
-		b = (Button) findViewById(R.id.bottomNextButton);
-		b.setVisibility(View.GONE);
 
 		b = (Button) findViewById(R.id.bottomBackButton);
 		b.setVisibility(View.VISIBLE);
@@ -99,17 +90,22 @@ public class MyBookingsActivity extends Activity {
 
 		l = (LinearLayout) findViewById(R.id.rlayout1);
 		l2 = (LinearLayout) findViewById(R.id.rlayout2);
-
+		String[] days = getResources().getStringArray(R.array.myBookingsDaysStringsSwe);
+		String[] months = getResources().getStringArray(R.array.calMonthStringsSwe);
 		while (c.moveToNext()) {
 			Log.v("date", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
 			b = new Button(this);
 			b.setTag(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_ID)));
 			b.setGravity(Gravity.LEFT);
 			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
-			b.setTextColor(Color.WHITE);
-			b.setBackgroundResource(R.drawable.editbutton);
-			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
-			b.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
+			b.setTextColor(Color.BLACK);
+			b.setBackgroundResource(R.drawable.daylistitem_normal);
+			
+			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.dayview_arrow, 0);
+			b.setGravity(Gravity.CENTER);
+			String[] datetimestr = c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)).split(" ");
+			String[] datestr = datetimestr[0].split("-");
+			b.setText(days[Integer.parseInt(datestr[1])%7] + " " + datestr[2] + " " + months[Integer.parseInt(datestr[1])-1] + "\n" + datetimestr[1] + "-" + datetimestr[2]);
 			b.setOnClickListener(ocl);
 			b.setVisibility(View.VISIBLE);
 			// If booking is in future:
@@ -121,6 +117,9 @@ public class MyBookingsActivity extends Activity {
 			}
 
 		}
+		Log.v("child count", l2.getChildCount()+"");
+		if(l2.getChildCount() == 0)
+			findViewById(R.id.rlay2).setVisibility(View.GONE);
 		db.close();
 	}
 
@@ -132,15 +131,19 @@ public class MyBookingsActivity extends Activity {
 
 				if (l.getVisibility() == View.VISIBLE) {
 					l.setVisibility(View.GONE);
+					((Button) findViewById(R.id.Futurebookingsbutton)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_show_no_events, 0);
 				} else {
 					l.setVisibility(View.VISIBLE);
+					((Button) findViewById(R.id.Futurebookingsbutton)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_show_all_events, 0);
 				}
 				break;
 			case R.id.Oldbookingsbutton:
 				if (l2.getVisibility() == View.VISIBLE) {
 					l2.setVisibility(View.GONE);
+					((Button) findViewById(R.id.Oldbookingsbutton)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_show_no_events, 0);
 				} else {
 					l2.setVisibility(View.VISIBLE);
+					((Button) findViewById(R.id.Oldbookingsbutton)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_show_all_events, 0);
 				}
 				break;
 			}

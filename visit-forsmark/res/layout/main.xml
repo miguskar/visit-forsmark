@@ -7,6 +7,36 @@
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@+id/mainBorder"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/border" 
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/WelcomeToForsmark"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView7"
+            android:layout_centerHorizontal="true"
+            android:text="@string/aboutVisitForsmarkShort"
+            android:textColor="@android:color/white"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+'
+        
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -130,28 +160,29 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/textView5"
+        style="@style/textViewMain"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_marginLeft="50dp"
+        android:text="@string/MyBookingsTitle" />
+
+    <TextView
         android:id="@+id/textView3"
         style="@style/textViewMain"
         android:layout_above="@+id/relativeLayout2"
-        android:layout_alignRight="@+id/relativeLayout2"
-        android:layout_marginRight="14dp"
+        android:layout_toRightOf="@+id/textView5"
         android:text="@string/contactForsmark" />
-
-    <TextView
-        android:id="@+id/textView5"
-        style="@style/textViewMain"
-        android:layout_below="@+id/relativeLayout2"
-        android:layout_marginRight="21dp"
-        android:layout_toLeftOf="@+id/textView3"
-        android:text="@string/MyBookingsTitle" />
 
     <ImageView
         android:id="@+id/frontBorderBottom"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:adjustViewBounds="true"
-        android:background="@drawable/frontpage_border_bottom" />
+        android:layout_alignParentRight="true"
+        android:background="@drawable/frontpage_border_bottom" 
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@string/Vattenfall"/>
 
 </RelativeLayout>

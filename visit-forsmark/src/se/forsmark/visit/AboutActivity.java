@@ -25,7 +25,7 @@ public class AboutActivity extends Activity {
 		t.setText(getString(R.string.aboutVisitForsmark));
 		//Set info
 		t = (TextView) findViewById(R.id.aboutVisitForsmarkTextView);
-		t.setText(R.string.aboutVisitForsmarkText);
+		t.setText(R.string.aboutVisitForsmarkLong);
 		
 		b = (Button) findViewById(R.id.bottomCancelButton);
 		b.setVisibility(View.GONE);
