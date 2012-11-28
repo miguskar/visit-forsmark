@@ -128,7 +128,7 @@ public class ConfirmActivity extends Activity {
 				b.setText(getString(R.string.attendantButtonText));
 			}
 			b.setBackgroundResource(R.drawable.editbutton);
-			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_edit, 0);
+			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.iconpencil1, 0);
 			b.setOnClickListener(ocl);
 			l.addView(b, l.getChildCount() - 3);
 
@@ -209,7 +209,7 @@ public class ConfirmActivity extends Activity {
 
 		if (isNetworkConnected()) {
 
-			seatsLeft = getSeatsLeft();
+			seatsLeft = getSeatsLeft();  
 
 			if (seatsLeft > 0) {
 				// add attendant to db
@@ -230,7 +230,7 @@ public class ConfirmActivity extends Activity {
 					b.setTextColor(Color.WHITE);
 					b.setBackgroundResource(R.drawable.editbutton);
 					b.setText(getString(R.string.attendantButtonText));
-					b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_edit, 0);
+					b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.iconpencil1, 0);
 					b.setOnClickListener(ocl);
 					LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 					l.addView(b, l.getChildCount() - 3);

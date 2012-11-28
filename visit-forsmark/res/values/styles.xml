@@ -54,7 +54,7 @@
         <item name="android:onClick">editButton</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:gravity">left</item>
-        <item name="android:drawableRight">@drawable/ico_edit</item>
+        <item name="android:drawableRight">@drawable/iconpencil1</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
       <!-- ADD ATTENDANT BUTTON -->
@@ -66,7 +66,7 @@
         <item name="android:onClick">addAttendantButton</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:gravity">center</item>
-        <item name="android:drawableRight">@drawable/iconaddcontact</item>
+        <item name="android:drawableRight">@drawable/iconaddguy</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
     
