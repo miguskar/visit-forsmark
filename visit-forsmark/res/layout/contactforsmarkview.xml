@@ -71,12 +71,12 @@
                 android:layout_marginTop="10dp"
                 android:gravity="left"
                 android:text="@string/Mail"
-                android:textStyle="bold"
-                android:autoLink="email" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/mailTextView"
-                style="@style/contactInfoTextView" />
+                style="@style/contactInfoTextView"
+                android:autoLink="email" />
 
             <TextView
                 android:id="@+id/webTitlePageTextView"
