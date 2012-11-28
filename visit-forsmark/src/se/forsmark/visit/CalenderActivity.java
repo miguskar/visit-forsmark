@@ -49,6 +49,7 @@ public class CalenderActivity extends Activity {
 	private TextView tvMonth;
 	private TextView tvYear;
 	private CalendarSetter cs;
+	private Date today;
 
 	// STATES
 	// N = next month
@@ -103,7 +104,16 @@ public class CalenderActivity extends Activity {
 		bb.setVisibility(View.VISIBLE);
 
 		// Initialize calendar
-		//setCalendar(c);
+		// setCalendar(c);
+
+		today = new Date();
+
+		if (curYear == (today.getYear() + 1900) && curMonth == today.getMonth()) {
+			findViewById(R.id.todayButton).setVisibility(View.GONE);
+		} else {
+			findViewById(R.id.todayButton).setVisibility(View.VISIBLE);
+		}
+
 		drawEmptyCalendar(c);
 		c = Calendar.getInstance();
 		c.set(Calendar.YEAR, curYear);
@@ -116,6 +126,7 @@ public class CalenderActivity extends Activity {
 
 	private class CalendarSetter extends AsyncTask<Calendar, Void, String[]> {
 		Calendar c;
+
 		@Override
 		protected String[] doInBackground(Calendar... params) {
 			c = params[0];
@@ -172,7 +183,7 @@ public class CalenderActivity extends Activity {
 			}
 			return tmp;
 		}
-		
+
 		@Override
 		protected void onPostExecute(String[] dateInfo) {
 			Date today = new Date();
@@ -196,7 +207,7 @@ public class CalenderActivity extends Activity {
 			tvYear.setText(String.valueOf(curYear));
 
 			row = (LinearLayout) findViewById(R.id.weekDays);
-			
+
 			for (int k = 0; k < 8; k++) {
 				if (isCancelled()) {
 					Log.e("CANCELLED", "1");
@@ -219,7 +230,7 @@ public class CalenderActivity extends Activity {
 						Log.e("CANCELLED", "3");
 						return;
 					}
-						
+
 					if (k > 0) {
 						dateCell = (Button) row.getChildAt(k);
 						dateCell.setTextColor(Color.rgb(19, 90, 165));
@@ -253,18 +264,20 @@ public class CalenderActivity extends Activity {
 								}
 								dateCell.setTag(info);
 							} else {
-								dateCell.setBackgroundResource(R.drawable.cell_empty); 
+								dateCell.setBackgroundResource(R.drawable.cell_empty);
 								dateCell.setTag("E");
 							}
 							if (c.get(Calendar.YEAR) == (today.getYear() + 1900)
-									&& c.get(Calendar.MONTH) == today.getMonth() && c.get(Calendar.DATE) == today.getDate()) {
+									&& c.get(Calendar.MONTH) == today.getMonth()
+									&& c.get(Calendar.DATE) == today.getDate()) {
 								dateCell.setTextColor(Color.rgb(255, 179, 55));
 							}
 							dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
 						}
 
-//						dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
-						if (c.get(Calendar.MONTH) == Calendar.FEBRUARY && curYear % 4 != 0 && c.get(Calendar.DATE) == 28) {
+						// dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
+						if (c.get(Calendar.MONTH) == Calendar.FEBRUARY && curYear % 4 != 0
+								&& c.get(Calendar.DATE) == 28) {
 							c.add(Calendar.DATE, +2);
 							if (c.get(Calendar.DATE) == 2)
 								c.add(Calendar.DATE, -1);
@@ -279,16 +292,15 @@ public class CalenderActivity extends Activity {
 				}
 			}
 		}
-		
+
 		@Override
 		protected void onCancelled() {
 			super.onCancelled();
 		}
 	}
-	
+
 	public void drawEmptyCalendar(Calendar c) {
-		Date today = new Date();
-		
+
 		LinearLayout cal = (LinearLayout) findViewById(R.id.calendarTable);
 		LinearLayout row;
 		Button dateCell;
@@ -301,13 +313,13 @@ public class CalenderActivity extends Activity {
 		tvYear.setText(String.valueOf(curYear));
 
 		row = (LinearLayout) findViewById(R.id.weekDays);
-		//WEEK DAYS
+		// WEEK DAYS
 		for (int k = 0; k < 8; k++) {
 			restCell = (TextView) row.getChildAt(k);
 			restCell.setTextColor(Color.rgb(19, 90, 165));
 			restCell.setText(days[k]);
 		}
-		//DAYS & WEEKS
+		// DAYS & WEEKS
 		for (int i = 0; i < 6; i++) {
 			row = (LinearLayout) cal.getChildAt(i);
 
@@ -332,7 +344,7 @@ public class CalenderActivity extends Activity {
 							else
 								dateCell.setTag("P");
 					} else {
-					
+
 						if (c.get(Calendar.YEAR) == (today.getYear() + 1900)
 								&& c.get(Calendar.MONTH) == today.getMonth() && c.get(Calendar.DATE) == today.getDate()) {
 							dateCell.setTextColor(Color.rgb(255, 179, 55));
@@ -340,7 +352,7 @@ public class CalenderActivity extends Activity {
 						dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
 					}
 
-//					dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
+					// dateCell.setText(String.valueOf(c.get(Calendar.DATE)));
 					if (c.get(Calendar.MONTH) == Calendar.FEBRUARY && curYear % 4 != 0 && c.get(Calendar.DATE) == 28) {
 						c.add(Calendar.DATE, +2);
 						if (c.get(Calendar.DATE) == 2)
@@ -359,17 +371,19 @@ public class CalenderActivity extends Activity {
 
 	public void onDateClick(View v) {
 		String tag = (String) v.getTag();
-		if (tag.equals("N")) {
-			topNextButton(null);
-		} else if (tag.equals("P")) {
-			topBackButton(null);
-		} else if (tag.equals("F") || tag.equals("S")) {
-			Intent dayView = new Intent(getApplicationContext(), DayActivity.class);
-			TextView tv = (TextView) v;
-			dayView.putExtra("DATE", Integer.parseInt(tv.getText().toString()));
-			dayView.putExtra("MONTH", curMonth);
-			dayView.putExtra("YEAR", curYear);
-			startActivity(dayView);
+		if(tag != null){
+			if (tag.equals("N")) {
+				topNextButton(null);
+			} else if (tag.equals("P")) {
+				topBackButton(null);
+			} else if (tag.equals("F") || tag.equals("S")) {
+				Intent dayView = new Intent(getApplicationContext(), DayActivity.class);
+				TextView tv = (TextView) v;
+				dayView.putExtra("DATE", Integer.parseInt(tv.getText().toString()));
+				dayView.putExtra("MONTH", curMonth);
+				dayView.putExtra("YEAR", curYear);
+				startActivity(dayView);
+			}
 		}
 	}
 
@@ -380,6 +394,13 @@ public class CalenderActivity extends Activity {
 			curMonth = 11;
 			--curYear;
 		}
+
+		if (curYear == (today.getYear() + 1900) && curMonth == today.getMonth()) {
+			findViewById(R.id.todayButton).setVisibility(View.GONE);
+		} else {
+			findViewById(R.id.todayButton).setVisibility(View.VISIBLE);
+		}
+
 		c.set(Calendar.YEAR, curYear);
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
@@ -403,6 +424,13 @@ public class CalenderActivity extends Activity {
 			++curYear;
 
 		}
+
+		if (curYear == (today.getYear() + 1900) && curMonth == today.getMonth()) {
+			findViewById(R.id.todayButton).setVisibility(View.GONE);
+		} else {
+			findViewById(R.id.todayButton).setVisibility(View.VISIBLE);
+		}
+
 		c.set(Calendar.YEAR, curYear);
 		c.set(Calendar.MONTH, curMonth);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
@@ -428,6 +456,7 @@ public class CalenderActivity extends Activity {
 		curYear = c.get(Calendar.YEAR);
 		c.set(Calendar.WEEK_OF_MONTH, 1);
 		c.set(Calendar.DAY_OF_WEEK, 2);
+		findViewById(R.id.todayButton).setVisibility(View.GONE);
 		drawEmptyCalendar(c);
 		c.set(Calendar.YEAR, curYear);
 		c.set(Calendar.MONTH, curMonth);
@@ -439,9 +468,9 @@ public class CalenderActivity extends Activity {
 		cs.execute(c);
 	}
 
-//	public String[] getDateInfo() {
-//		
-//	}
+	// public String[] getDateInfo() {
+	//
+	// }
 
 	private boolean isNetworkConnected() {
 		getApplicationContext();

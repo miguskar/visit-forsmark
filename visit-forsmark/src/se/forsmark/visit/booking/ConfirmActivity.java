@@ -387,7 +387,7 @@ public class ConfirmActivity extends Activity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.create();
 		builder.setTitle(R.string.Confrim);
-		builder.setMessage(R.string.cancelBookingMessage);
+		builder.setMessage(R.string.confirmBookingMessage);
 		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {

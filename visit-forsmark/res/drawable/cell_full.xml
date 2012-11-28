@@ -9,8 +9,7 @@
             </item>
             <item>
                 <shape>
-                    <corners android:radius="4dp" />
-                     <gradient android:angle="90" android:endColor="#80d4d4d4" android:centerColor="#a5a5a5"  android:startColor="#d4d4d4" />
+                     <gradient android:angle="90" android:endColor="#80dedede" android:centerColor="#a5a5a5"  android:startColor="#EEEEEE" />
                 </shape>
             </item>
         </layer-list>
@@ -23,7 +22,6 @@
             </item>
             <item>
                 <shape>
-                    <corners android:radius="4dp" />
                      <gradient android:angle="90" android:endColor="#80d4d4d4" android:centerColor="#a5a5a5"  android:startColor="#d4d4d4" />
                 </shape>
             </item>

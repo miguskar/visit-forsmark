@@ -87,6 +87,7 @@
     <string name="ConfirmActivityNoSeatsToast">Det finns inga lediga platser kvar.</string>
     <string name="confirmDeleteAttendant">Är du säker på att du vill ta bort %s?</string>
     <string name="ConfirmedTitle">Bokning bekräftad</string>
+    <string name="confirmBookingMessage">Tryck Ja för att bekräfta bokning</string>
     <!--  -->
     <string name="HowManySeats">Hur många säten vill du boka?</string>
     <string name="EditAttendantDialogQ">Vill du ta bort eller ändra deltagarens uppgifter?</string>
