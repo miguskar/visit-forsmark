@@ -109,6 +109,8 @@ public class MyBookingsActivity extends Activity {
 		String rows=""+c.getColumnCount();
 		Log.v("ws",rows );
 	
+	
+		
 		toString();
 		while(c.moveToNext()){
 			Log.v("date", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
@@ -130,7 +132,9 @@ public class MyBookingsActivity extends Activity {
 			//If its an old booking:
 			}else{
 				LinearLayout l2 = (LinearLayout) findViewById(R.id.rlayout2);
-				l2.addView(b,l.getChildCount());
+				l2.addView(b,l2.getChildCount());
+				Button testn=new Button(this);
+				l2.addView(testn, l2.getChildCount());
 			}
 		//	}
 			
