@@ -21,7 +21,7 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                android:id="@+id/rlayout1"
+                android:id="@+id/rlay"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -42,18 +42,28 @@
                         style="@style/editButtonStyle"
                         android:layout_width="0dp"
                         android:layout_weight="0.3" />
+
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/rlayout2"
+                android:id="@+id/rlayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rlay2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content" 
+                   >
 
                     <Button
                         android:id="@+id/Oldbookingsbutton"
@@ -68,8 +78,15 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.3" />
                 </LinearLayout>
+                
+                  <LinearLayout
+                android:id="@+id/rlayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                 android:paddingBottom="3dp" >
             </LinearLayout>
-
+			 </LinearLayout>
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

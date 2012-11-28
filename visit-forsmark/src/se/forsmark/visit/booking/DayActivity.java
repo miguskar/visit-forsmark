@@ -113,7 +113,7 @@ public class DayActivity extends Activity {
 			Log.v("ThedateDate", theDate.toString());
 			Log.v("TodayDate", todayDate.toString());
 
-			if (theDate.compareTo(todayDate) > 0) {
+			if (theDate.compareTo(todayDate) > 0) { 
 				if (!day.getSeats().equals(getString(R.string.noSeats))) {
 					Intent dialog = new Intent(getApplicationContext(), AttendantsDialogActivity.class);
 					dialog.putExtra("ID", day.getId());

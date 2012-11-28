@@ -35,7 +35,8 @@ public class MyBookingsActivity extends Activity {
 	int day;
 	int hour;
 	private OnClickListener ocl;
-	
+	LinearLayout l; //Layout with list of future bookings
+	LinearLayout l2; // Layout with list of old bookings
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,9 +48,7 @@ public class MyBookingsActivity extends Activity {
 	}
 	
 	public void initialize(){
-	//___________________________________________
-		// ANNA DENNA SKA DU GÖRA KLART!!
-	//___________________________________________
+
 		ocl = new OnClickListener() {
 			public void onClick(View v) {
 				Intent i =new Intent(getApplicationContext(), BookConfirmationActivity.class);
@@ -96,27 +95,21 @@ public class MyBookingsActivity extends Activity {
 		day=date.getDate();
 		hour=date.getHours();
 		String datestring =""+year+"-"+month+"-"+day;
-	//	Log.v("stringdate", datestring);
+	
 		
-		  //
+	
 		//Get a cursor of all my bookings that are finished:
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
 		Cursor c=db.getAllMyBookings();
 	
-		LinearLayout l = (LinearLayout) findViewById(R.id.rlayout1);
-		int count=0;
-		String rows=""+c.getColumnCount();
-		Log.v("ws",rows );
-	
-	
-		
-		toString();
+		l = (LinearLayout) findViewById(R.id.rlayout1);
+		l2 = (LinearLayout) findViewById(R.id.rlayout2);
+			
 		while(c.moveToNext()){
 			Log.v("date", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
 			b = new Button(this);
 			b.setTag(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_ID)));
-			count++;
 			b.setGravity(Gravity.LEFT);
 			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
 			b.setTextColor(Color.WHITE);
@@ -126,51 +119,50 @@ public class MyBookingsActivity extends Activity {
 			b.setOnClickListener(ocl);
 			b.setVisibility(View.VISIBLE);
 			//If booking is in future:
-			if((datestring.compareTo(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))<=0)||(datestring.compareTo(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))==1)){
-				
+			if((datestring.compareTo(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))<0)){
 				l.addView(b, l.getChildCount());
 			//If its an old booking:
 			}else{
-				LinearLayout l2 = (LinearLayout) findViewById(R.id.rlayout2);
 				l2.addView(b,l2.getChildCount());
-				Button testn=new Button(this);
-				l2.addView(testn, l2.getChildCount());
 			}
-		//	}
-			
-			//Check if booking is in the future
-	//c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE
 		
-			
-		
-		//	if(Integer.getInteger(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))>=day){
-		//		b = new Button(this);
-		//		b.setText(c.getString(c.getColumnIndex(DatabaseHelper)));
-		//	}
-			
-			
-			
-	//	}
 		}
 		db.close();	
-		
 	}
 	
+	
+	//Hides/unhides lists of future bookings or old bookings
 	View.OnClickListener buttonHandler = new View.OnClickListener() {
 		public void onClick(View v) {
-			Intent myIntent;
 			switch (v.getId()) {
 			case R.id.Futurebookingsbutton:
-				//TODO 
-				
-				
+			
+			
+				if(l.getVisibility()==View.VISIBLE){
+					LayoutParams params=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT, 1.0f);
+					LayoutParams params2=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT, 2.0f);
+					l.setVisibility(View.GONE);
+					mbf.setLayoutParams(params);
+					hiddenmbf.setLayoutParams(params2);
+				}else{
+					LayoutParams params=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT, 2.0f);
+					LayoutParams params2=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT, 1.0f);
+					l.setVisibility(View.VISIBLE);
+					mbf.setLayoutParams(params);
+					hiddenmbf.setLayoutParams(params2);
+					
+				}
 				break;
 			case R.id.Oldbookingsbutton:
-				//TODO
+				if(l2.getVisibility()==View.VISIBLE){
+					l2.setVisibility(View.GONE);
+				
+				}else{
+					l2.setVisibility(View.VISIBLE);
+				}
 				break;
 				}
-			
-		}
+			}
 	};
 	
 	
