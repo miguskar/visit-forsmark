@@ -1,7 +1,5 @@
 package se.forsmark.visit;
 
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;

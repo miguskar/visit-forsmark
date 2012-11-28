@@ -3,10 +3,6 @@ package se.forsmark.visit.booking;
 import java.util.ArrayList;
 
 import se.forsmark.visit.R;
-import se.forsmark.visit.R.drawable;
-import se.forsmark.visit.R.id;
-import se.forsmark.visit.R.layout;
-import se.forsmark.visit.R.string;
 import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
@@ -17,8 +13,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -29,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AttendantsActivity extends Activity {
-	private String deltagare = "Deltagare ";
 	private int counter = 1;
 	private int nbrAttendants;
 	private int eventId;

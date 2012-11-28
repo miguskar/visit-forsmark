@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -23,11 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import se.forsmark.visit.R;
-import se.forsmark.visit.R.drawable;
-import se.forsmark.visit.R.id;
-import se.forsmark.visit.R.layout;
-import se.forsmark.visit.R.string;
-import se.forsmark.visit.R.style;
 import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;

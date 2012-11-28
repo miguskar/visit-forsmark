@@ -1,7 +1,6 @@
 package se.forsmark.visit.booking;
 
 import se.forsmark.visit.R;
-import se.forsmark.visit.R.layout;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;

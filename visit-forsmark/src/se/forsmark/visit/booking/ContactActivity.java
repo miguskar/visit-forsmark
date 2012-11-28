@@ -1,20 +1,13 @@
 package se.forsmark.visit.booking;
 
 import se.forsmark.visit.R;
-import se.forsmark.visit.R.drawable;
-import se.forsmark.visit.R.id;
-import se.forsmark.visit.R.layout;
-import se.forsmark.visit.R.string;
 import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -238,16 +231,4 @@ public class ContactActivity extends Activity {
 				startActivityForResult(i, BOOKING);
 			}
 	}
-
-	private boolean isNetworkConnected() {
-		getApplicationContext();
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo ni = cm.getActiveNetworkInfo();
-		if (ni == null) {
-			// There are no active networks.
-			return false;
-		} else
-			return true;
-	}
-
 }

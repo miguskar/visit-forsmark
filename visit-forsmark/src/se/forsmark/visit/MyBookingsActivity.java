@@ -1,6 +1,5 @@
 package se.forsmark.visit;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import se.forsmark.visit.booking.BookConfirmationActivity;
@@ -15,11 +14,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MyBookingsActivity extends Activity {
