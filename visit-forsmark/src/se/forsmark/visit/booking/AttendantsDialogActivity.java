@@ -77,17 +77,19 @@ public class AttendantsDialogActivity extends Activity {
 		tvDate.setText(String.format(getString(R.string.dateFormat), date, mon[month]));
 		tvTime.setText(start + " - " + end);
 		
-		// fix date if less then 10, eg. 9 -> 09
 		String formatDate = "";
 		if (date < 10)
 			formatDate = "0";
 		
 		formatDate += date;
 		
-		// fix month
-		++month;
+		String formatMonth = "";
+		if (month < 10)
+			formatMonth= "0";
 		
-		DATE = String.format("%s-%s-%s %s %s", year, month, formatDate, start, end);
+		formatMonth += month;
+		
+		DATE = String.format("%s-%s-%s %s %s", year, formatMonth, formatDate, start, end);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
