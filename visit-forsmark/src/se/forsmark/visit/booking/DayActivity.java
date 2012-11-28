@@ -160,7 +160,7 @@ public class DayActivity extends Activity {
 			ep.cancel(true);
 		}
 		ep = new EventPrinter();
-		ep.execute(1);
+		ep.execute(2);
 	}
 
 	public void bottomBackClick(View v) {
