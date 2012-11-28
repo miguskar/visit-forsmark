@@ -64,7 +64,7 @@
             <Button
                 android:id="@+id/AddAttendantButton"
                 style="@style/addAttendantButtonStyle"
-                android:text="Lägg till deltagare +" />
+                android:text="Lägg till en deltagare" />
 
             <TextView
                 android:id="@+id/SeatsLeft"
