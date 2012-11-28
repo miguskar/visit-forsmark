@@ -5,6 +5,9 @@
     <string name="httpRequestUrl">http://83.249.138.5/backlog/application_switch.php</string>
     <string name="httpEmailRequestUrl">http://forsmark.westart.se/thanks?orderid=</string>
     <string name="Today">Idag</string>
+    <string name="bookingAlert">Ett mail har skickats till kontaktpersonens e-post!</string>
+    <string name="dontForget">Glöm inte att ta med legitimation och bokningsnummer!</string>
+    <string name="findThisBooking">Hitta denna bekräftelse och dina andra bokningar under \"mina bokningar\" på startsidan!</string>
     <string name="Address">Adress</string>
     <string name="dateAndTime">Datum och tid</string>
     <string name="Save">Spara</string>
@@ -38,7 +41,7 @@
     <string name="SocialSecurity">Personnummer (10 siffror)</string>
     <string name="Male">Man</string>
     <string name="Female">Kvinna</string>
-    <string name="NoSFR">ej slutförvar(SFR)</string>
+    <string name="NoSFR">ej slutförva</string>
     <string name="NoSFRToast">Deltagare under 7 år eller deltagare som ej kan gå obehindrat utan hjälpmedel kan tyvärr ej följa med ner i slutförvaret.</string>
     <string name="errorMessageFieldEmpty">Alla fält måste vara ifyllda för att gå vidare.</string>
     <string name="errorMessageGender">Du måste välja kön.</string>

@@ -23,6 +23,51 @@
             android:orientation="vertical"
             android:padding="5dp" >
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    style="@style/alertImageDot" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/termTextView"
+                    android:text="@string/bookingAlert"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    style="@style/alertImageDot" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/termTextView"
+                    android:text="@string/dontForget"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    style="@style/alertImageDot" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/termTextView"
+                    android:text="@string/findThisBooking"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/TextViewconfirmDate"
                 style="@style/CodeFont"
