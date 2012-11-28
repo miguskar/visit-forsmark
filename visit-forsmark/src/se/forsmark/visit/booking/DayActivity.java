@@ -98,7 +98,6 @@ public class DayActivity extends Activity {
 		list.setAdapter(adapter);
 
 		list.setOnItemClickListener(itemListener);
-
 		printEvents(0);
 
 	}
