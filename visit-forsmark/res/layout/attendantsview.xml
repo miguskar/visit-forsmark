@@ -135,6 +135,7 @@
                     style="@style/bottomNextButton"
                     android:text="@string/Next" />
             </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 

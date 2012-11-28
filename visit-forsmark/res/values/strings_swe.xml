@@ -14,7 +14,6 @@
     <string name="otherAttendants">Övriga deltagare</string>
     <string name="attendantsTitle">Deltagare %1$s av %2$s </string>
     <string name="FrotnPage">Startsida</string>
-    <string name="hello">hej klas</string>
     <string name="Confrim">Bekräfta</string>
     <string name="calendarMonday">Mån</string>
     <string name="calendarTuesday">Tis</string>
@@ -114,5 +113,16 @@
     <string name="aboutUs">Om appen</string>
     <string name="findForsmark">Hitta hit</string>
     <string name="booking">Boka</string>
+    <!-- Strings for contactForsmark -->
+    <string name="forsmarkContact">Ni är välkomna att kontakta oss vid eventuella frågor. Skriv lite saker här</string>
+    <string name="forsmarkTel">0762133434</string>
+    <string name="forsmarkMail">forsmark@blargh.ru</string>
+    <string name="forsmarkWebPage">visitforsmark.se</string>
+    <string name="forsmarkVisitWebPage">vattenfall.se</string>
+    <string name="forsmarkTelOpen">Mån - Fre. \nKlockan 01 - 00.</string>
+    <string name="Phone">Telefon:</string>
+    <string name="Mail">Epost:</string>
+    <string name="WebPage">Hemsida:</string>
+    <string name="openTime">Öppettider:</string>
 
 </resources>

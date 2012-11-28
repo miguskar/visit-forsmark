@@ -12,7 +12,8 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
 
         <LinearLayout
             android:id="@+id/formLayout"
@@ -20,7 +21,98 @@
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
-            
+            <TextView
+                android:id="@+id/contactTextTextView"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/forsmarkContact" />
+
+            <TextView
+                android:id="@+id/TextView"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="@string/Phone"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/telOpenTitleTextView"
+                style="@style/contactInfoTextView"
+                android:text="@string/openTime"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/telOpenTextView"
+                style="@style/contactInfoTextView"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/telTitleTextView"
+                style="@style/contactInfoTextView"
+                android:text="@string/Phone"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/telTextView"
+                style="@style/contactInfoTextView"
+                android:autoLink="phone" />
+
+            <TextView
+                android:id="@+id/mailTitleTextView"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="@string/Mail"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mailTextView"
+                style="@style/contactInfoTextView" />
+
+            <TextView
+                android:id="@+id/webTitlePageTextView"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="@string/WebPage"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/webPageTextView"
+                style="@style/contactInfoTextView"
+                android:autoLink="web"
+                android:clickable="true" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <Button
+                    android:id="@+id/bottomBackButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toLeftOf="@id/bottomCancelButton"
+                    android:background="@drawable/cancel_button"
+                    android:minHeight="45dp"
+                    android:minWidth="40dp"
+                    android:onClick="bottomBackClick"
+                    android:text="@string/Back"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFFFFF"
+                    android:typeface="sans" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
