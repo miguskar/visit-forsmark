@@ -5,6 +5,7 @@ package se.forsmark.visit;
 import java.util.ArrayList;
 import java.util.Date;
 
+import se.forsmark.visit.booking.BookConfirmationActivity;
 import se.forsmark.visit.database.DatabaseHelper;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.Button;
@@ -32,6 +34,7 @@ public class MyBookingsActivity extends Activity {
 	int month;
 	int day;
 	int hour;
+	private OnClickListener ocl;
 	
 	
 	@Override
@@ -44,6 +47,20 @@ public class MyBookingsActivity extends Activity {
 	}
 	
 	public void initialize(){
+	//___________________________________________
+		// ANNA DENNA SKA DU GÖRA KLART!!
+	//___________________________________________
+		ocl = new OnClickListener() {
+			public void onClick(View v) {
+				Intent i =new Intent(getApplicationContext(), BookConfirmationActivity.class);
+				
+				i.putExtra("bookingId", v.getTag().toString() ); 
+				i.putExtra("state", BookConfirmationActivity.STATE_VIEW);
+				startActivity(i);
+
+			}
+		};
+		
 		//Set title
 		TextView t = (TextView) findViewById(R.id.border_title);
 		t.setText(getString(R.string.MyBookingsTitle));
@@ -96,7 +113,7 @@ public class MyBookingsActivity extends Activity {
 		while(c.moveToNext()){
 			Log.v("date", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
 			b = new Button(this);
-			b.setId(count);
+			b.setTag(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_ID)));
 			count++;
 			b.setGravity(Gravity.LEFT);
 			b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
@@ -104,7 +121,7 @@ public class MyBookingsActivity extends Activity {
 			b.setBackgroundResource(R.drawable.editbutton);
 			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
 			b.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
-		
+			b.setOnClickListener(ocl);
 			b.setVisibility(View.VISIBLE);
 			//If booking is in future:
 			if((datestring.compareTo(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))<=0)||(datestring.compareTo(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)))==1)){
@@ -113,6 +130,7 @@ public class MyBookingsActivity extends Activity {
 			//If its an old booking:
 			}else{
 				LinearLayout l2 = (LinearLayout) findViewById(R.id.rlayout2);
+				l2.addView(b,l.getChildCount());
 			}
 		//	}
 			
