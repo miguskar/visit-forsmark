@@ -21,17 +21,23 @@
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
+                android:layout_height="wrap_content" >
 
                 <ImageView
                     android:id="@+id/imageViewMap"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:scaleType="fitStart"
+                    android:scaleType="center"
                     android:src="@drawable/forsmark_map" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
 
                 <Button
                     android:id="@+id/bottomBackButton"
@@ -42,16 +48,14 @@
 
                 <TextView
                     android:id="@+id/textView1"
-                
                     style="@style/termTextView"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="65dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
                     android:padding="10dp"
                     android:text="@string/findForsmarkLong" />
 
             </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 
