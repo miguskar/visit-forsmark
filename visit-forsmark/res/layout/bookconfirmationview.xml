@@ -24,21 +24,23 @@
             android:padding="5dp" >
 
             <LinearLayout
+                android:id="@+id/alertMail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/alertIcon1"
                     style="@style/alertImageDot" />
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/alertMailText"
                     style="@style/termTextView"
                     android:text="@string/bookingAlert"
                     android:textStyle="bold" />
             </LinearLayout>
             
             <LinearLayout
+                android:id="@+id/alertDontForget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -54,6 +56,7 @@
             </LinearLayout>
             
             <LinearLayout
+                android:id="@+id/alertFindThisBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 

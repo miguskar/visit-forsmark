@@ -11,7 +11,7 @@ public class AboutApplicationActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.contactforsmarkview);
+		setContentView(R.layout.aboutapplicationview);
 
 		Initialize(savedInstanceState);
 	}

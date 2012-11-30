@@ -22,6 +22,22 @@
             android:layout_height="fill_parent"
             android:orientation="vertical"
             android:padding="5dp" >
+            
+            <LinearLayout
+                android:id="@+id/alertMail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/alertIcon1"
+                    style="@style/alertImageDot" />
+
+                <TextView
+                    android:id="@+id/alertMailText"
+                    style="@style/termTextView"
+                    android:text="@string/alertEditAddAttendants"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/TextViewconfirmDate"
@@ -64,7 +80,7 @@
             <Button
                 android:id="@+id/AddAttendantButton"
                 style="@style/addAttendantButtonStyle"
-                android:text="Lägg till en deltagare" />
+                android:text="@string/addNewAttendant" />
 
             <TextView
                 android:id="@+id/SeatsLeft"

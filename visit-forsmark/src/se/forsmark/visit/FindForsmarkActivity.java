@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 public class FindForsmarkActivity extends Activity{// implements OnClickListener {
 	
@@ -12,13 +13,13 @@ public class FindForsmarkActivity extends Activity{// implements OnClickListener
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.findforsmarkview);
 
-//		Initialize(savedInstanceState);
+		Initialize(savedInstanceState);
 	}
 //
-//	private void Initialize(Bundle savedInstanceState) {
-//		TextView title = (TextView) findViewById(R.id.border_title);
-//		title.setText(getString(R.string.findForsmark));
-//		
+	private void Initialize(Bundle savedInstanceState) {
+		TextView title = (TextView) findViewById(R.id.border_title);
+		title.setText(getString(R.string.findForsmark));
+	}	
 //		Button map = (Button)findViewById(R.id.mapButton);  
 //		map.setOnClickListener(new OnClickListener() {  
 //		    @Override  

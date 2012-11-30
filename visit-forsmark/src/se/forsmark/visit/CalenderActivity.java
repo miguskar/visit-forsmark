@@ -32,6 +32,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -128,6 +130,8 @@ public class CalenderActivity extends Activity {
 			c = params[0];
 			String[] tmp = { "NOCONNECTION" };
 			if (isNetworkConnected()) {
+				
+				
 				String result = "";
 				InputStream is = null;
 				// http post

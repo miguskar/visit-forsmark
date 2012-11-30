@@ -38,6 +38,8 @@ public class BookConfirmationActivity extends Activity {
 			b.setText(getString(R.string.FrotnPage));
 		} else if (state == STATE_VIEW) {
 			b.setText(getString(R.string.Back));
+			findViewById(R.id.alertMail).setVisibility(View.GONE);
+			findViewById(R.id.alertFindThisBooking).setVisibility(View.GONE);
 		}
 		String bookingId = getIntent().getExtras().getString("bookingId");
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());

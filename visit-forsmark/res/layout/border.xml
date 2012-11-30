@@ -75,6 +75,15 @@
         <Button
             android:id="@+id/button_next_top"
             style="@style/nextTopButtonStyle"/>
+
+        <ImageView
+            android:id="@+id/loadingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+			android:layout_alignParentLeft="true"
+            android:src="@drawable/loading_dart" />
+
     </RelativeLayout>
 
 </LinearLayout>
