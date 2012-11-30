@@ -86,9 +86,10 @@ public class AttendantsDialogActivity extends Activity {
 		String formatDate = "";
 		if (date < 10)
 			formatDate = "0";
-
+		
 		formatDate += date;
-
+		
+		month++;
 		String formatMonth = "";
 		if (month < 10)
 			formatMonth= "0";
