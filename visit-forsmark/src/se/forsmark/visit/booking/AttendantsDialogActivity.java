@@ -237,7 +237,7 @@ public class AttendantsDialogActivity extends Activity {
 				loadingBar.setVisibility(View.VISIBLE);
 				Animation mAnimation = new TranslateAnimation(
 						TranslateAnimation.ABSOLUTE, 0, 
-						TranslateAnimation.ABSOLUTE, (int)(rl.getWidth()-loadingBar.getWidth()), 
+						TranslateAnimation.ABSOLUTE, (int)(rl.getWidth()-loadingBar.getMeasuredWidth()), 
 						TranslateAnimation.ABSOLUTE, 0f, 
 						TranslateAnimation.ABSOLUTE, 0f);
 				mAnimation.setDuration(1000);
