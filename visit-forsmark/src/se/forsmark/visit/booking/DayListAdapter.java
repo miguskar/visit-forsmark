@@ -15,8 +15,7 @@ public class DayListAdapter extends ArrayAdapter<DayListItem> {
 	private ArrayList<DayListItem> entries;
 	private Activity activity;;
 
-	public DayListAdapter(Activity a, int textViewResourceId,
-			ArrayList<DayListItem> entries) {
+	public DayListAdapter(Activity a, int textViewResourceId, ArrayList<DayListItem> entries) {
 		super(a, textViewResourceId, entries);
 		this.entries = entries;
 		this.activity = a;
@@ -30,8 +29,7 @@ public class DayListAdapter extends ArrayAdapter<DayListItem> {
 		DayListItem day = entries.get(position);
 
 		if (v == null) {
-			LayoutInflater inflater = (LayoutInflater) activity
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = inflater.inflate(R.layout.daylistitem, null);
 			holder = new ViewHolder();
 			holder.item1 = (TextView) v.findViewById(R.id.itemStart);
@@ -43,9 +41,11 @@ public class DayListAdapter extends ArrayAdapter<DayListItem> {
 		}
 
 		if (day != null) {
-			if(day.getSeats().equals(activity.getString(R.string.noSeats))){
+			if (day.getSeats().equals(activity.getString(R.string.noSeats))) {
 				v.setBackgroundResource(R.drawable.daylistitem_full);
-			}else{
+			} else if (day.getSeats().equals(activity.getString(R.string.OldEvent))) {
+				v.setBackgroundResource(R.drawable.daylistitem_full);
+			} else {
 				v.setBackgroundResource(R.drawable.daylistitem_normal);
 			}
 			holder.item1.setText(day.getStart());

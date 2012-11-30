@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class DayActivity extends Activity {
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.dayview);
 		Bundle extras = getIntent().getExtras();
+		
 		itemListener = new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
 				DayListItem day = array.get(pos);
@@ -246,15 +248,25 @@ public class DayActivity extends Activity {
 		@Override
 		protected void onPostExecute(String[] events) {
 			String temp;
-
+			int startHour;
+			int startMin;
+			Date todayDate = new Date();
+			Date theDate;
 			array.clear();
 			if (!events[0].equals("NOCONNECTION")) {
 				if (!events[0].equals("NORESULT")) {
 					if (events.length >= 5) {
 						for (int i = 0; i < events.length; i = i + 5) {
-							if (Integer.parseInt(events[i + 3]) < 1) {
-								temp = getResources().getString(R.string.noSeats);
-							} else {
+							
+							startHour = Integer.valueOf(events[i+2].substring(0,2));
+							startMin = Integer.valueOf(events[i+2].substring(3,5));
+							theDate = new Date(curYear - 1900, curMonth, curDate, startHour, startMin);
+							
+							if(theDate.compareTo(todayDate) < 0){
+								temp = getString(R.string.OldEvent);
+							}else if (Integer.parseInt(events[i + 3]) < 1) {
+								temp = getString(R.string.noSeats);
+							}else {
 								temp = events[i + 3];
 							}
 							array.add(new DayListItem(Integer.valueOf(events[i]), events[i + 2].substring(0, 5), temp,

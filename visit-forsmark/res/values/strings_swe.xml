@@ -80,6 +80,7 @@
     <string name="Cancel">Avbryt</string>
     <string name="termsTitle">Villkor</string>
     <string name="dateFormat">Den %1$s %2$s</string>
+    <string name="OldEvent">Starttiden passerad</string>
     <string name="noSeats">Fullbokad</string>
     <string name="StartTime">Startar</string>
     <string name="SeatsLeft">Platser Kvar</string>
