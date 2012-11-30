@@ -18,7 +18,11 @@ import org.apache.http.message.BasicNameValuePair;
 import se.forsmark.visit.R;
 import se.forsmark.visit.database.DatabaseSQLite;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -73,23 +77,26 @@ public class AttendantsDialogActivity extends Activity {
 		TextView tvTime = (TextView) findViewById(R.id.border_small);
 		tvTime.setVisibility(View.VISIBLE);
 
-		String[] mon = getResources().getStringArray(R.array.calMonthStringsSwe);
-		tvDate.setText(String.format(getString(R.string.dateFormat), date, mon[month]));
+		String[] mon = getResources()
+				.getStringArray(R.array.calMonthStringsSwe);
+		tvDate.setText(String.format(getString(R.string.dateFormat), date,
+				mon[month]));
 		tvTime.setText(start + " - " + end);
-		
+
 		String formatDate = "";
 		if (date < 10)
 			formatDate = "0";
-		
+
 		formatDate += date;
-		
+
 		String formatMonth = "";
 		if (month < 10)
 			formatMonth= "0";
 		
 		formatMonth += month;
-		
-		DATE = String.format("%s-%s-%s %s %s", year, formatMonth, formatDate, start, end);
+
+		DATE = String.format("%s-%s-%s %s %s", year, formatMonth, formatDate, start,
+				end);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,9 +121,11 @@ public class AttendantsDialogActivity extends Activity {
 			this.max = Integer.parseInt(max);
 		}
 
-		public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+		public CharSequence filter(CharSequence source, int start, int end,
+				Spanned dest, int dstart, int dend) {
 			try {
-				int input = Integer.parseInt(dest.toString() + source.toString());
+				int input = Integer.parseInt(dest.toString()
+						+ source.toString());
 				if (isInRange(min, max, input))
 					return null;
 				input = Integer.parseInt(source.toString() + dest.toString());
@@ -158,22 +167,19 @@ public class AttendantsDialogActivity extends Activity {
 		int seats;
 		if (!s.equals("") && (seats = Integer.parseInt(s)) > 0) {
 			if (seats <= maxSeats) {
-				String resKey = preBook(seats);
-				Log.e("reservationKey", resKey);
-				if (resKey.equals("NOCONNECTION")) {
-					Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
-				} else if (resKey.equals("NORESULT")) {
-					Toast.makeText(getApplicationContext(), R.string.noResultDatabase, Toast.LENGTH_LONG).show();
-				} else {
-					startContactActivity(resKey, seats);
-				}
+				PreBooker pb = new PreBooker();
+				pb.execute(seats);
 			} else {
 				Log.e("toManySeats", seats + "");
-				Toast.makeText(getApplicationContext(), getString(R.string.ToManySeats), Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(),
+						getString(R.string.ToManySeats), Toast.LENGTH_LONG)
+						.show();
 			}
 		} else {
 			Log.e("wrongValue", s + "");
-			Toast.makeText(getApplicationContext(), getString(R.string.WrongIntValue), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(),
+					getString(R.string.WrongIntValue), Toast.LENGTH_LONG)
+					.show();
 		}
 	}
 
@@ -184,7 +190,8 @@ public class AttendantsDialogActivity extends Activity {
 			db.open();
 			db.addBooking(message, DATE);
 			db.close();
-			Intent terms = new Intent(getApplicationContext(), TermsActivity.class);
+			Intent terms = new Intent(getApplicationContext(),
+					TermsActivity.class);
 			terms.putExtra("eventId", id);
 			terms.putExtra("bookingId", message);
 			terms.putExtra("seats", seats);
@@ -194,44 +201,90 @@ public class AttendantsDialogActivity extends Activity {
 		}
 	}
 
-	public String preBook(int seats) {
-		String result = "NOCONNECTION";
-		InputStream is = null;
-		// http post
-		try {
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
+	private boolean isNetworkConnected() {
+		getApplicationContext();
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		if (ni == null) {
+			// There are no active networks.
+			return false;
+		} else
+			return true;
+	}
 
-			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
-			pairs.add(new BasicNameValuePair("case", "preBook"));
-			pairs.add(new BasicNameValuePair("id", "" + id));
-			pairs.add(new BasicNameValuePair("seats", "" + seats));
-
-			httppost.setEntity(new UrlEncodedFormEntity(pairs));
-
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			is = entity.getContent();
-		} catch (Exception e) {
-			Log.e("log_tag", "Error in http connection " + e.toString());
+	private class PreBooker extends AsyncTask<Integer, Void, String> {
+		private int seats;
+		
+		@Override
+		protected void onPreExecute() {
+			findViewById(R.id.attDialogNext).setEnabled(false);
 		}
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
+		
+		@Override
+		protected String doInBackground(Integer... params) {
+			seats = params[0];
+			String result = "NOCONNECTION";
+			InputStream is = null;
+
+			if (isNetworkConnected()) {
+
+				// http post
+				try {
+					HttpClient httpclient = new DefaultHttpClient();
+					HttpPost httppost = new HttpPost(
+							getString(R.string.httpRequestUrl));
+
+					List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+					pairs.add(new BasicNameValuePair("case", "preBook"));
+					pairs.add(new BasicNameValuePair("id", "" + id));
+					pairs.add(new BasicNameValuePair("seats", "" + seats));
+
+					httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+					HttpResponse response = httpclient.execute(httppost);
+					HttpEntity entity = response.getEntity();
+					is = entity.getContent();
+				} catch (Exception e) {
+					Log.e("log_tag", "Error in http connection " + e.toString());
+				}
+				try {
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(is, "iso-8859-1"), 8);
+					StringBuilder sb = new StringBuilder();
+					String line = null;
+					while ((line = reader.readLine()) != null) {
+						sb.append(line + "\n");
+					}
+					is.close();
+
+					result = sb.toString();
+					result = result.substring(1, result.length() - 2);
+				} catch (StringIndexOutOfBoundsException e) {
+					result = "NORESULT";
+				} catch (Exception e) {
+					Log.e("log_tag", "Error converting result " + e.toString());
+				}
 			}
-			is.close();
-
-			result = sb.toString();
-			result = result.substring(1, result.length() - 2);
-		} catch (StringIndexOutOfBoundsException e) {
-			result = "NORESULT";
-		} catch (Exception e) {
-			Log.e("log_tag", "Error converting result " + e.toString());
+			return result;
 		}
-		return result;
+		
+		@Override
+		protected void onPostExecute(String resKey) {
+			findViewById(R.id.attDialogNext).setEnabled(true);
+			Log.e("reservationKey", resKey);
+			if (resKey.equals("NOCONNECTION")) {
+				Toast.makeText(getApplicationContext(),
+						R.string.noInternet, Toast.LENGTH_LONG).show();
+			} else if (resKey.equals("NORESULT")) {
+				Toast.makeText(getApplicationContext(),
+						R.string.noResultDatabase, Toast.LENGTH_LONG)
+						.show();
+			} else {
+				startContactActivity(resKey, seats);
+			}
+		}
+
 	}
 }

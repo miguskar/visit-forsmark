@@ -88,6 +88,11 @@ public class DayActivity extends Activity {
 		outState.putInt("DATE", curDate);
 		super.onSaveInstanceState(outState);
 	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		Initialize(null, savedInstanceState);
+	}
 
 	@Override
 	protected void onResume() {
@@ -166,7 +171,6 @@ public class DayActivity extends Activity {
 	public void bottomBackClick(View v) {
 		finish();
 	}
-
 
 	private boolean isNetworkConnected() {
 		getApplicationContext();

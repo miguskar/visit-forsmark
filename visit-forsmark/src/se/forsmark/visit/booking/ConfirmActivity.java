@@ -36,6 +36,7 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -54,6 +55,7 @@ public class ConfirmActivity extends Activity {
 	private final int EDIT_CONTACT = 1, EDIT_ATTENDANT = 2;
 	private int seatsLeft, eventId;
 	private OnClickListener ocl;
+	private AttendantHandler ah;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -93,9 +95,9 @@ public class ConfirmActivity extends Activity {
 			v.setBackgroundResource(R.drawable.border_step_two_two);
 		v.setVisibility(View.VISIBLE);
 
-		seatsLeft = getSeatsLeft();
-		Log.v("SeatsLeft", Integer.toString(seatsLeft));
-		Log.v("bid", bookingId);
+		// GET SEATS
+		ah = new AttendantHandler();
+		ah.execute(AttendantHandler.GET_SEATS);
 
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
@@ -107,12 +109,6 @@ public class ConfirmActivity extends Activity {
 
 		ArrayList<Integer> al = db.getAttendantIdsFromBookingId(bookingId);
 		LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-		tv = (TextView) findViewById(R.id.SeatsLeft);
-		if (seatsLeft > 0) {
-			tv.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
-		}else {
-			tv.setVisibility(View.GONE);
-		}
 
 		// Create buttons
 		for (int id : al) {
@@ -128,7 +124,7 @@ public class ConfirmActivity extends Activity {
 				b.setText(getString(R.string.attendantButtonText));
 			}
 			b.setBackgroundResource(R.drawable.editbutton);
-			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.iconpencil1, 0);
+			b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
 			b.setOnClickListener(ocl);
 			l.addView(b, l.getChildCount() - 3);
 
@@ -144,28 +140,9 @@ public class ConfirmActivity extends Activity {
 
 	}
 
-	public void deleteAttendant(int id) {
-		if (isNetworkConnected()) {
-			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-			db.open();
-			db.deleteAttendant(id);
-			db.close();
-
-			deleteAttendantFromBooking(bookingId);
-			LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-			l.removeView(findViewById(id));
-
-			seatsLeft = getSeatsLeft();
-			TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
-			tv2.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
-
-		} else {
-			Toast.makeText(this, R.string.noInternet, Toast.LENGTH_LONG).show();
-		}
-	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		findViewById(R.id.AddAttendantButton).setEnabled(true);
 		if (resultCode == RESULT_OK) {
 			Bundle extras = data.getExtras();
 			String text = extras.getString("displayName");
@@ -178,14 +155,16 @@ public class ConfirmActivity extends Activity {
 					Button b = (Button) findViewById(id);
 					b.setText(text);
 				} else {
-					deleteAttendant(id);
+					ah = new AttendantHandler();
+					ah.execute(AttendantHandler.DELETE_ATTENDANT, id);
 				}
 
 			}
 		} else if (resultCode == RESULT_CANCELED && data != null) {
 			Bundle extras = data.getExtras();
 			if (extras.getBoolean("new")) {
-				deleteAttendant(extras.getInt("attendantId"));
+				ah = new AttendantHandler();
+				ah.execute(AttendantHandler.DELETE_ATTENDANT, extras.getInt("attendantId"));
 			}
 		}
 	}
@@ -204,147 +183,12 @@ public class ConfirmActivity extends Activity {
 	}
 
 	public void addAttendantButton(View v) {
-		// Kolla -finns det platser kvar
-		// update seatsleft
+		v.setEnabled(false);
+		if (ah != null && ah.getStatus() != AsyncTask.Status.FINISHED)
+			ah.cancel(true);
+		ah = new AttendantHandler();
+		ah.execute(AttendantHandler.ADD_ATTENDANT);
 
-		if (isNetworkConnected()) {
-
-			seatsLeft = getSeatsLeft();  
-
-			if (seatsLeft > 0) {
-				// add attendant to db
-				String result = addAttendantToBooking(bookingId);
-				if (result.equals("true")) { // add button and add to local db
-
-					DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-					db.open();
-					int id = db.addAttendant("", "", "", "", 0, bookingId);
-					db.close();
-
-					Button b = new Button(this);
-
-					Log.v("buttonID", Integer.toString(id));
-					b.setId(id);
-					b.setGravity(Gravity.LEFT);
-					b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
-					b.setTextColor(Color.WHITE);
-					b.setBackgroundResource(R.drawable.editbutton);
-					b.setText(getString(R.string.attendantButtonText));
-					b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.iconpencil1, 0);
-					b.setOnClickListener(ocl);
-					LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
-					l.addView(b, l.getChildCount() - 3);
-					seatsLeft = getSeatsLeft();
-					if (seatsLeft > 0) {
-						TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
-						tv2.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
-					}
-
-					Intent i = new Intent(getApplicationContext(), EditAttendantActivity.class);
-					i.putExtra("attendantId", id);
-					i.putExtra("new", true);
-					startActivityForResult(i, EDIT_ATTENDANT);
-				}
-			} else {
-				Button b = (Button) findViewById(R.id.AddAttendantButton);
-				b.setVisibility(View.GONE);
-				// TOAST NO SEATS
-				String text = getResources().getString(R.string.ConfirmActivityNoSeatsToast);
-				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
-				t.setGravity(Gravity.TOP, 0, 0); // Position
-				t.show();
-			}
-		} else {
-			Toast.makeText(this, R.string.noInternet, Toast.LENGTH_LONG).show();
-		}
-
-	}
-
-	public String addAttendantToBooking(String reservationKey) {
-		String result = "";
-		InputStream is = null;
-		// http post
-		if (isNetworkConnected()) {
-			try {
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
-
-				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-
-				pairs.add(new BasicNameValuePair("case", "addAttendant"));
-				pairs.add(new BasicNameValuePair("resKey", "" + reservationKey));
-				pairs.add(new BasicNameValuePair("eventId", "" + eventId));
-
-				httppost.setEntity(new UrlEncodedFormEntity(pairs));
-
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				is = entity.getContent();
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-			}
-			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-				StringBuilder sb = new StringBuilder();
-				String line = null;
-				while ((line = reader.readLine()) != null) {
-					sb.append(line);
-				}
-				is.close();
-
-				result = sb.toString();
-
-			} catch (Exception e) {
-				Log.e("log_tag", "Error converting result " + e.toString());
-			}
-
-			result = result.substring(1, result.length() - 1);
-			Log.v("addAttResult", result);
-		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
-		}
-		return result;
-	}
-
-	public String deleteAttendantFromBooking(String reservationKey) {
-		String result = "";
-		InputStream is = null;
-		// http post
-		if (isNetworkConnected()) {
-			try {
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
-
-				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-
-				pairs.add(new BasicNameValuePair("case", "deleteAttendant"));
-				pairs.add(new BasicNameValuePair("resKey", "" + reservationKey));
-
-				httppost.setEntity(new UrlEncodedFormEntity(pairs));
-
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				is = entity.getContent();
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-			}
-			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-				StringBuilder sb = new StringBuilder();
-				String line = null;
-				while ((line = reader.readLine()) != null) {
-					sb.append(line);
-				}
-				is.close();
-				result = sb.toString();
-			} catch (Exception e) {
-				Log.e("log_tag", "Error converting result " + e.toString());
-			}
-		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
-		}
-		Log.v("deleteAttResult", result);
-		return result;
 	}
 
 	public void bottomBackClick(View v) {
@@ -389,24 +233,8 @@ public class ConfirmActivity extends Activity {
 		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {
-				if (validateAttendants()) {
-					if (createBooking()) {
-						sendEmailConfirmation();
-						// save in local database to enable my bookings
-						DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-						db.open();
-						db.setBookingBooked(bookingId);
-						db.close();
-						Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
-						i.putExtra("bookingId", bookingId);
-						i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
-						startActivity(i);
-					} else {
-						//Toast.makeText(this, R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
-					}
-				} else {
-					//Toast.makeText(this, R.string.invalidAttendantsInfo, Toast.LENGTH_LONG).show();
-				}
+				ah = new AttendantHandler();
+				ah.execute(AttendantHandler.CREATE_BOOKING);
 			}
 		});
 		builder.setNegativeButton(R.string.dialogNo, new DialogInterface.OnClickListener() {
@@ -418,19 +246,192 @@ public class ConfirmActivity extends Activity {
 		builder.show();
 	}
 
-	public int getSeatsLeft() {
-		if (isNetworkConnected()) {
+	private boolean isNetworkConnected() {
+		getApplicationContext();
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		if (ni == null) {
+			// There are no active networks.
+			return false;
+		} else
+			return true;
+	}
 
+	private class AttendantHandler extends AsyncTask<Integer, Void, String> {
+		private int mode;
+		public static final int GET_SEATS = 0;
+		public static final int ADD_ATTENDANT = 1;
+		public static final int DELETE_ATTENDANT = 2;
+		public static final int CREATE_BOOKING = 3;
+
+		@Override
+		protected String doInBackground(Integer... params) {
+			mode = params[0];
+			String s = "-1";
+
+			if (isNetworkConnected()) {
+				switch (mode) {
+				case GET_SEATS:
+					s = getSeatsLeft().toString();
+					break;
+				case ADD_ATTENDANT:
+					getSeatsLeft();
+					if (seatsLeft > 0) {
+						s = addAttendantToBooking(bookingId);
+					} else
+						s = "false";
+					getSeatsLeft();
+					break;
+				case DELETE_ATTENDANT:
+					if (deleteAttendantFromBooking(bookingId).equals("1")) {
+						getSeatsLeft();
+						s = params[1].toString(); // ATTENDANT ID
+					} else
+						s = "FAIL";
+					break;
+				case CREATE_BOOKING:
+					if (validateAttendants()) {
+						if (createBooking().equals("true")) {
+							sendEmailConfirmation();
+							return "true";
+						}
+						return "false";
+					} else {
+						Toast.makeText(getApplicationContext(), R.string.invalidAttendantsInfo, Toast.LENGTH_LONG).show();
+						return null;
+					}
+				}
+			}
+			return s;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+
+			switch (mode) {
+			case GET_SEATS:
+				updateSeats();
+				break;
+			case ADD_ATTENDANT:
+				updateSeats();
+				attendantAdded(result);
+				break;
+			case DELETE_ATTENDANT:
+				updateSeats();
+				attendantDeleted(result);
+				break;
+			case CREATE_BOOKING:
+				bookingCreated(result);
+				break;
+			}
+		}
+
+		private Integer getSeatsLeft() {
 			String result = "";
 			InputStream is = null;
 			try {
 				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
+				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
 
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
 				pairs.add(new BasicNameValuePair("case", "getSeats"));
 				pairs.add(new BasicNameValuePair("id", "" + bookingId));
+
+				httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+				if (isCancelled())
+					return null;
+				HttpResponse response = httpclient.execute(httppost);
+				HttpEntity entity = response.getEntity();
+				is = entity.getContent();
+			} catch (Exception e) {
+				Log.e("log_tag", "Error in http connection " + e.toString());
+			}
+			try {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					if (isCancelled())
+						return null;
+					sb.append(line + "\n");
+				}
+				is.close();
+
+				result = sb.toString();
+				result = result.substring(0, result.length() - 1);
+			} catch (StringIndexOutOfBoundsException e) {
+
+			} catch (Exception e) {
+				Log.e("log_tag", "Error converting result " + e.toString());
+			}
+			if (isCancelled())
+				return null;
+			seatsLeft = Integer.parseInt(result);
+			return 0;
+		}
+
+		private void updateSeats() {
+			TextView tv = (TextView) findViewById(R.id.SeatsLeft);
+			if (seatsLeft > 0) {
+				findViewById(R.id.AddAttendantButton).setVisibility(View.VISIBLE);
+				tv.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
+			} else {
+				findViewById(R.id.AddAttendantButton).setVisibility(View.GONE);
+				tv.setVisibility(View.GONE);
+			}
+			Log.e("SEATS UPDATED", "BAJS");
+		}
+
+		private void attendantAdded(String result) {
+			if (result.equals("true")) { // add button and add to local db
+
+				DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+				db.open();
+				int id = db.addAttendant("", "", "", "", 0, bookingId);
+				db.close();
+
+				Button b = new Button(getApplicationContext());
+
+				Log.v("buttonID", Integer.toString(id));
+				b.setId(id);
+				b.setGravity(Gravity.LEFT);
+				b.setTextAppearance(getApplicationContext(), R.style.CodeFont);
+				b.setTextColor(Color.WHITE);
+				b.setBackgroundResource(R.drawable.editbutton);
+				b.setText(getString(R.string.attendantButtonText));
+				b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.editbutton_arr, 0);
+				b.setOnClickListener(ocl);
+				LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
+				l.addView(b, l.getChildCount() - 3);
+				seatsLeft = getSeatsLeft();
+				if (seatsLeft > 0) {
+					TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
+					tv2.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
+				}
+				Intent i = new Intent(getApplicationContext(), EditAttendantActivity.class);
+				i.putExtra("attendantId", id);
+				i.putExtra("new", true);
+				startActivityForResult(i, EDIT_ATTENDANT);
+			} else {
+				Toast.makeText(getApplicationContext(), "JÄVLA DRIT DET SKET SIG HELT", Toast.LENGTH_LONG).show();
+			}
+		}
+
+		private String addAttendantToBooking(String reservationKey) {
+			String result = "";
+			InputStream is = null;
+			// http post
+			try {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
+
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+				pairs.add(new BasicNameValuePair("case", "addAttendant"));
+				pairs.add(new BasicNameValuePair("resKey", "" + reservationKey));
+				pairs.add(new BasicNameValuePair("eventId", "" + eventId));
 
 				httppost.setEntity(new UrlEncodedFormEntity(pairs));
 
@@ -445,28 +446,93 @@ public class ConfirmActivity extends Activity {
 				StringBuilder sb = new StringBuilder();
 				String line = null;
 				while ((line = reader.readLine()) != null) {
-					sb.append(line + "\n");
+					sb.append(line);
 				}
 				is.close();
 
-				result = sb.toString();
-				result = result.substring(0, result.length() - 1);
-			} catch (StringIndexOutOfBoundsException e) {
+				result = sb.toString().trim();
 
 			} catch (Exception e) {
 				Log.e("log_tag", "Error converting result " + e.toString());
 			}
 
-			return Integer.parseInt(result);
-		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
+			result = result.substring(1, result.length() - 1);
+			Log.v("addAttResult", result);
+			return result;
 		}
-		return -1;
 
-	}
+		private String deleteAttendantFromBooking(String reservationKey) {
+			String result = "";
+			InputStream is = null;
+			try {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
 
-	private boolean createBooking() {
-		if (isNetworkConnected()) {
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+				pairs.add(new BasicNameValuePair("case", "deleteAttendant"));
+				pairs.add(new BasicNameValuePair("resKey", "" + reservationKey));
+
+				httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+				HttpResponse response = httpclient.execute(httppost);
+				HttpEntity entity = response.getEntity();
+				is = entity.getContent();
+			} catch (Exception e) {
+				Log.e("log_tag", "Error in http connection " + e.toString());
+			}
+			try {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					sb.append(line);
+				}
+				is.close();
+				result = sb.toString();
+			} catch (Exception e) {
+				Log.e("log_tag", "Error converting result " + e.toString());
+			}
+			Log.v("deleteAttResult", result);
+			return result;
+		}
+
+		private void attendantDeleted(String attendantId) {
+			if (!attendantId.equals("FAIL")) {
+				int id = Integer.parseInt(attendantId);
+
+				DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+				db.open();
+				db.deleteAttendant(id);
+				db.close();
+
+				deleteAttendantFromBooking(bookingId);
+				LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
+				l.removeView(findViewById(id));
+
+			} else {
+				Toast.makeText(getApplicationContext(), "SKIT OCKSÅ DET FUNKADE INTE :C", Toast.LENGTH_LONG).show();
+			}
+
+		}
+
+		private boolean validateAttendants() {
+			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+			db.open();
+			ArrayList<Integer> ids = db.getAttendantIdsFromBookingId(bookingId);
+			String name;
+			for (int id : ids) {
+				name = db.getAttendantName(id);
+				if (name.equals(" ")) {
+					db.close();
+					return false;
+				}
+			}
+			db.close();
+			return true;
+		}
+
+		private String createBooking() {
 			// Create array to contain visitors
 			JSONArray visitors = new JSONArray();
 
@@ -510,7 +576,8 @@ public class ConfirmActivity extends Activity {
 			}
 			c.close();
 			visitors.put(visitor);
-			// Create json object for all relevant attendants and add them to
+			// Create json object for all relevant attendants and add them
+			// to
 			// the
 			// array
 			ArrayList<Integer> attendantIds = db.getAttendantIdsFromBookingId(bookingId);
@@ -519,8 +586,7 @@ public class ConfirmActivity extends Activity {
 				if (c.moveToFirst()) {
 					try {
 						visitor = new JSONObject();
-						visitor.put(FIRST_NAME,
-								c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
+						visitor.put(FIRST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
 						visitor.put(LAST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
 						visitor.put(PNR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR)));
 						visitor.put(SEX, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SEX)));
@@ -553,7 +619,7 @@ public class ConfirmActivity extends Activity {
 			InputStream is = null;
 			try {
 				// Create request
-				HttpPost request = new HttpPost(this.getString(R.string.httpRequestUrl));
+				HttpPost request = new HttpPost(getString(R.string.httpRequestUrl));
 				Log.v("req:", json.toString());
 				// add json & case
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>(2);
@@ -587,32 +653,32 @@ public class ConfirmActivity extends Activity {
 				result = result.substring(0, 1);
 				// if affected rows is correct
 				if (Integer.parseInt(result) == attendantIds.size() + 1) {
-					return true;
+					return "true";
 				}
 			} catch (Exception e) {
 				Log.e("log_tag", "Error converting result " + e.toString());
 			}
-
-		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
+			// fail if this point is reached
+			return "false";
 		}
-		// fail if this point is reached
-		return false;
-	}
 
-	private boolean isNetworkConnected() {
-		getApplicationContext();
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo ni = cm.getActiveNetworkInfo();
-		if (ni == null) {
-			// There are no active networks.
-			return false;
-		} else
-			return true;
-	}
+		private void bookingCreated(String result) {
+			if (result.equals("true")) {
+				// save in local database to enable my bookings
+				DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+				db.open();
+				db.setBookingBooked(bookingId);
+				db.close();
+				Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
+				i.putExtra("bookingId", bookingId);
+				i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
+				startActivity(i);
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
+			}
+		}
 
-	private void sendEmailConfirmation() {
-		if (isNetworkConnected()) {
+		private void sendEmailConfirmation() {
 			HttpURLConnection urlConnection = null;
 			try {
 				URL url = new URL(getString(R.string.httpEmailRequestUrl) + bookingId);
@@ -622,26 +688,8 @@ public class ConfirmActivity extends Activity {
 			} finally {
 				urlConnection.disconnect();
 			}
-		} else {
-			Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_LONG).show();
 		}
 
-	}
-
-	private boolean validateAttendants() {
-		DatabaseSQLite db = new DatabaseSQLite(this);
-		db.open();
-		ArrayList<Integer> ids = db.getAttendantIdsFromBookingId(bookingId);
-		String name;
-		for (int id : ids) {
-			name = db.getAttendantName(id);
-			if (name.equals(" ")) {
-				db.close();
-				return false;
-			}
-		}
-		db.close();
-		return true;
 	}
 
 }

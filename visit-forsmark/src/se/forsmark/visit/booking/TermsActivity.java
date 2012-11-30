@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,9 +52,7 @@ public class TermsActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == BOOKING) {
 			if (resultCode == RESULT_CANCELED) {
-				deleteBooking();
-				setResult(RESULT_CANCELED);
-				finish();
+				onBackPressed();
 			}
 		}
 	}
@@ -67,62 +66,68 @@ public class TermsActivity extends Activity {
 	}
 
 	public void bottomCancelClick(View v) {
-		deleteBooking();
-		setResult(RESULT_CANCELED);
-		finish();
+		onBackPressed();
 	}
 
 	@Override
 	public void onBackPressed() {
-		deleteBooking();
+		BookingDeleter bd = new BookingDeleter();
+		bd.execute();
+		setResult(RESULT_CANCELED);
 		finish();
 	}
 
-	private void deleteBooking() {
-		String result = "";
-		InputStream is = null;
-		// http post
-		if (isNetworkConnected()) {
-			try {
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(this.getString(R.string.httpRequestUrl));
+	private class BookingDeleter extends AsyncTask<Void, Void, Void> {
 
-				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		@Override
+		protected Void doInBackground(Void... params) {
+			String result = "";
+			InputStream is = null;
+			// http post
+			if (isNetworkConnected()) {
+				try {
+					HttpClient httpclient = new DefaultHttpClient();
+					HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
 
-				pairs.add(new BasicNameValuePair("case", "delete"));
-				pairs.add(new BasicNameValuePair("id", "" + bookingId));
+					List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
-				httppost.setEntity(new UrlEncodedFormEntity(pairs));
+					pairs.add(new BasicNameValuePair("case", "delete"));
+					pairs.add(new BasicNameValuePair("id", "" + bookingId));
 
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				is = entity.getContent();
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-			}
-			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-				StringBuilder sb = new StringBuilder();
-				String line = null;
-				while ((line = reader.readLine()) != null) {
-					sb.append(line + "\n");
+					httppost.setEntity(new UrlEncodedFormEntity(pairs));
+
+					HttpResponse response = httpclient.execute(httppost);
+					HttpEntity entity = response.getEntity();
+					is = entity.getContent();
+				} catch (Exception e) {
+					Log.e("log_tag", "Error in http connection " + e.toString());
 				}
-				is.close();
+				try {
+					BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+					StringBuilder sb = new StringBuilder();
+					String line = null;
+					while ((line = reader.readLine()) != null) {
+						sb.append(line + "\n");
+					}
+					is.close();
 
-				result = sb.toString();
+					result = sb.toString();
 
-			} catch (Exception e) {
-				Log.e("log_tag", "Error converting result " + e.toString());
+				} catch (Exception e) {
+					Log.e("log_tag", "Error converting result " + e.toString());
+				}
+				Log.e("result", result);
 			}
-			Log.e("result", result);
+			DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+			db.open();
+			int cId = db.getLatestContactId();
+			db.deleteBooking(bookingId, cId);
+			db.close();
+			
+			return null;
 		}
-		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-		db.open();
-		int cId = db.getLatestContactId();
-		db.deleteBooking(bookingId, cId);
-		db.close();
 	}
-
+	
 	private boolean isNetworkConnected() {
 		getApplicationContext();
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
