@@ -21,7 +21,7 @@ public class FindForsmarkActivity extends Activity{// implements OnClickListener
 		TextView title = (TextView) findViewById(R.id.border_title);
 		title.setText(getString(R.string.findForsmark));
 		//set map image
-		ImageView im= (ImageView) findViewById(R.id.imageViewMap);
+		//ImageView im= (ImageView) findViewById(R.id.imageViewMap);
 	
 		
 	}	

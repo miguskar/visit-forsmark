@@ -15,40 +15,50 @@
         android:layout_height="fill_parent"
         android:fillViewport="true" >
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/formLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
-            
-            <ImageView 
-                android:id="@+id/imageViewforsm"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                />
 
-            <TextView
-                android:id="@+id/aboutVisitForsmarkTextView"
-                style="@style/termTextView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp" />
-            
-            
+            <Button
+                android:id="@+id/bottomBackButton"
+                style="@style/singleBottomBackButton"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:text="@string/Back" />
 
             <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/bottomBackButton"
+                android:layout_alignParentTop="true" >
 
-                    <Button
-                    android:id="@+id/bottomBackButton"
-                    style="@style/singleBottomBackButton"
+                <ImageView
+                    android:id="@+id/imageViewforsm"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:text="@string/Back" />
+                    android:adjustViewBounds="true"
+                    android:baselineAlignBottom="false"
+                    android:cropToPadding="false"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/forsmark" />
+
+                <TextView
+                    android:id="@+id/aboutVisitForsmarkTextView"
+                    style="@style/termTextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="90dp"
+                    android:padding="10dp"
+                    android:text="@string/aboutVisitForsmarkLong" />
 
             </RelativeLayout>
-        </LinearLayout>
+
+        </RelativeLayout>
     </ScrollView>
 
 </LinearLayout>

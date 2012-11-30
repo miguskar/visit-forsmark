@@ -175,7 +175,7 @@ public class ContactActivity extends Activity {
 					// TODO I MÅN AV TID - fixa ordentlig validering!
 					Toast t2 = Toast.makeText(getApplicationContext(), getString(R.string.errorMessageFieldEmpty),
 							Toast.LENGTH_LONG); // Create toast
-					t2.setGravity(Gravity.BOTTOM, 0, 0); // Position
+					t2.setGravity(Gravity.TOP, 0, 0); // Position
 					t2.show();
 					return;
 				}
@@ -188,7 +188,7 @@ public class ContactActivity extends Activity {
 		if (!rbMan.isChecked() && !rbWoman.isChecked()) {
 			Toast t3 = Toast.makeText(getApplicationContext(), getString(R.string.errorMessageGender),
 					Toast.LENGTH_LONG); // Create toast
-			t3.setGravity(Gravity.BOTTOM, 0, 0); // Position
+			t3.setGravity(Gravity.TOP, 0, 0); // Position
 			t3.show();
 			return;
 		}

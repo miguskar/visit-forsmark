@@ -50,10 +50,6 @@
             android:windowSoftInputMode="stateUnchanged" >
         </activity>
         <activity
-            android:name=".booking.EditConfirmActivity"
-            android:enabled="true" >
-        </activity>
-        <activity
             android:name=".booking.ConfirmActivity"
             android:enabled="true" >
         </activity>

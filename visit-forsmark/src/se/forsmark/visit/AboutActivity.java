@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AboutActivity extends Activity {
@@ -25,8 +24,8 @@ public class AboutActivity extends Activity {
 		TextView t = (TextView) findViewById(R.id.border_title);
 		t.setText(getString(R.string.aboutVisitForsmark));
 		//set forsmarkbild
-		ImageView im=(ImageView) findViewById(R.id.imageViewforsm);
-		im.setBackgroundResource(R.drawable.forsmark);
+		//ImageView im=(ImageView) findViewById(R.id.imageViewforsm);
+		//im.setBackgroundResource(R.drawable.forsmark);
 		
 		//Set info
 		t = (TextView) findViewById(R.id.aboutVisitForsmarkTextView);

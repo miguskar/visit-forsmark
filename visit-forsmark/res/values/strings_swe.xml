@@ -104,6 +104,7 @@
     <string name="WrongIntValue">Felaktigt värde</string>
     <string name="aboutVisitForsmark">Om VisitForsmark</string>
     <string name="aboutVisitForsmarkLong">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
+     <string name="findForsmarkLong">Här finns en länk till google maps!</string>
     <string name="couldNotCompleteBooking">Bokningen kunde inte slutföras. Försök igen senare.</string>
     <string name="invalidAttendantsInfo">Alla deltagare måste vara ifyllda för att slutföra bokningen.</string>
     <string name="dialogWarningTitle">Varning</string>
@@ -131,7 +132,7 @@
     <string name="findForsmark">Hitta hit</string>
     <string name="booking">Boka</string>
     <string name="Vattenfall">Vattenfall</string>
-    <!-- Strings for contactForsmark -->
+    <!-- Strings for contactForsmark -->  
     <string name="forsmarkContact">Ni är välkomna att kontakta oss vid eventuella frågor. Skriv lite saker här</string>
     <string name="forsmarkTel">0762133434</string>
     <string name="forsmarkMail">forsmark@blargh.ru</string>

@@ -271,6 +271,7 @@ public class ConfirmActivity extends Activity {
 					public void onClick(DialogInterface dialog, int which) {
 						ah = new AttendantHandler();
 						ah.execute(AttendantHandler.CREATE_BOOKING);
+						disable(true);
 					}
 				});
 		builder.setNegativeButton(R.string.dialogNo,

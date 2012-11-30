@@ -29,7 +29,6 @@
                     android:id="@+id/imageViewMap"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_alignParentBottom="true"
                     android:adjustViewBounds="true"
                     android:scaleType="fitStart"
                     android:src="@drawable/forsmark_map" />
@@ -40,6 +39,18 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:text="@string/Back" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                
+                    style="@style/termTextView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="65dp"
+                    android:padding="10dp"
+                    android:text="@string/findForsmarkLong" />
+
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
