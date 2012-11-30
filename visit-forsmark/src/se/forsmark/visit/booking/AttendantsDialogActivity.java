@@ -283,14 +283,14 @@ public class AttendantsDialogActivity extends Activity {
 				findViewById(R.id.attDialogBack).setEnabled(true);
 				Toast.makeText(getApplicationContext(),
 						R.string.noInternet, Toast.LENGTH_LONG).show();
-			} else if (resKey.equals("NORESULT")) {
+			} else if (resKey.equals("NORESULT") || resKey.length() != 13) { // uniqueid is always 13 digits long :)
 				findViewById(R.id.attDialogNext).setEnabled(true);
 				findViewById(R.id.attDialogBack).setEnabled(true);
 				Toast.makeText(getApplicationContext(),
 						R.string.noResultDatabase, Toast.LENGTH_LONG)
 						.show();
 			} else {
-				startContactActivity(resKey, seats);
+					startContactActivity(resKey, seats);
 			}
 		}
 
