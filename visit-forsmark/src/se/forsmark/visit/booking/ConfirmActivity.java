@@ -184,11 +184,8 @@ public class ConfirmActivity extends Activity {
 
 	public void addAttendantButton(View v) {
 		v.setEnabled(false);
-		if (ah != null && ah.getStatus() != AsyncTask.Status.FINISHED)
-			ah.cancel(true);
 		ah = new AttendantHandler();
 		ah.execute(AttendantHandler.ADD_ATTENDANT);
-
 	}
 
 	public void bottomBackClick(View v) {
