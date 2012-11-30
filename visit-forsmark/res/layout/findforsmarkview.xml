@@ -29,25 +29,18 @@
                     android:id="@+id/imageViewMap"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitStart"
                     android:src="@drawable/forsmark_map" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="bottom" >
 
                 <Button
                     android:id="@+id/bottomBackButton"
                     style="@style/singleBottomBackButton"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:gravity="bottom|left"
                     android:text="@string/Back" />
-
             </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
 
