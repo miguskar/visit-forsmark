@@ -82,7 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
 			android:layout_alignParentLeft="true"
-            android:src="@drawable/loading_dart" />
+            android:src="@drawable/loading_dart" 
+            android:visibility="gone"/>
 
     </RelativeLayout>
 
