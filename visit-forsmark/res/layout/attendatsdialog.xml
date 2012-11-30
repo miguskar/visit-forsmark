@@ -62,12 +62,12 @@
         android:gravity="center" >
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/attDialogBack"
             style="@style/button"
+            android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
-            android:text="@string/Cancel"
-            android:onClick="cancelButton" 
-            android:layout_marginBottom="5dp"/>
+            android:onClick="cancelButton"
+            android:text="@string/Cancel" />
 
         <Button
             android:id="@+id/attDialogNext"

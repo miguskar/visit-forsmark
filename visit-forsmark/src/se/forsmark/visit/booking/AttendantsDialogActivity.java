@@ -171,6 +171,8 @@ public class AttendantsDialogActivity extends Activity {
 		int seats;
 		if (!s.equals("") && (seats = Integer.parseInt(s)) > 0) {
 			if (seats <= maxSeats) {
+				findViewById(R.id.attDialogNext).setEnabled(false);
+				findViewById(R.id.attDialogBack).setEnabled(false);
 				PreBooker pb = new PreBooker();
 				pb.execute(seats);
 			} else {
@@ -219,11 +221,6 @@ public class AttendantsDialogActivity extends Activity {
 
 	private class PreBooker extends AsyncTask<Integer, Void, String> {
 		private int seats;
-		
-		@Override
-		protected void onPreExecute() {
-			findViewById(R.id.attDialogNext).setEnabled(false);
-		}
 		
 		@Override
 		protected String doInBackground(Integer... params) {
@@ -280,12 +277,15 @@ public class AttendantsDialogActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String resKey) {
-			findViewById(R.id.attDialogNext).setEnabled(true);
 			Log.e("reservationKey", resKey);
 			if (resKey.equals("NOCONNECTION")) {
+				findViewById(R.id.attDialogNext).setEnabled(true);
+				findViewById(R.id.attDialogBack).setEnabled(true);
 				Toast.makeText(getApplicationContext(),
 						R.string.noInternet, Toast.LENGTH_LONG).show();
 			} else if (resKey.equals("NORESULT")) {
+				findViewById(R.id.attDialogNext).setEnabled(true);
+				findViewById(R.id.attDialogBack).setEnabled(true);
 				Toast.makeText(getApplicationContext(),
 						R.string.noResultDatabase, Toast.LENGTH_LONG)
 						.show();
