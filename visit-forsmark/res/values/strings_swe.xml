@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Visit-forsmark</string>
-    <string name="httpRequestUrl">http://83.249.138.5/backlog/application_switch.php</string>
+    <string name="httpRequestUrl">http://83.249.138.5/backlog/test.php</string>
     <string name="httpEmailRequestUrl">http://forsmark.westart.se/thanks?orderid=</string>
     <string name="Today">Idag</string>
     <string name="bookingAlert">Ett mail har skickats till kontaktpersonens e-post!</string>
