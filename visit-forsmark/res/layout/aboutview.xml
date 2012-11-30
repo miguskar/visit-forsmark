@@ -31,7 +31,10 @@
                 android:id="@+id/aboutVisitForsmarkTextView"
                 style="@style/termTextView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
+            
+            
 
             <RelativeLayout
                 android:layout_width="fill_parent"
