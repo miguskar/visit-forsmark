@@ -227,6 +227,7 @@ public class ConfirmActivity extends Activity {
 	}
 
 	public void bottomCancelClick(View v) {
+		disable(true);
 		// Dialogruta AVBRYT BOKNING
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.create();
@@ -244,7 +245,7 @@ public class ConfirmActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int which) {
-						// Do nothing
+						disable(false);
 					}
 				});
 		builder.show(); // b

@@ -5,6 +5,7 @@
     <string name="httpRequestUrl">http://83.249.138.5/backlog/test.php</string>
     <string name="httpEmailRequestUrl">http://forsmark.westart.se/thanks?orderid=</string>
     <string name="Today">Idag</string>
+     <string name="Loading">Laddar&#8230;&#8230;&#8230;</string>
     <string name="bookingAlert">Ett mail har skickats till kontaktpersonens e-post!</string>
     <string name="dontForget">Glöm inte att ta med legitimation och bokningsnummer!</string>
     <string name="findThisBooking">Hitta denna bekräftelse och dina andra bokningar under \"mina bokningar\" på startsidan!</string>
@@ -113,8 +114,6 @@
     <string name="oldBookingsbutton">Gamla bokningar</string>
     <string name="newAttendant">Ny deltagare</string>
     <string name="editAttendant">Redigera deltagare</string>
-    
-    
     <string name="Monday">Måndag</string>
     <string name="Tuesday">Tisdag</string>
     <string name="Wensday">Onsdag</string>
@@ -122,7 +121,7 @@
     <string name="Friday">Fredag</string>
     <string name="Saturday">Lördag</string>
     <string name="Sunday">Söndag</string>
-    
+
     <!-- Strings for main.xml -->
     <string name="aboutVisitForsmarkShort">Boka kostnadsfria rundturer på forsmark här!</string>
     <string name="WelcomeToForsmark">Välkommen till Visit Forsmark!</string>
