@@ -52,6 +52,7 @@ public class ConfirmActivity extends Activity {
 	private String bookingId;
 	private int contactId;
 	private int progressBar;
+	private boolean disable = false;
 	private final int EDIT_CONTACT = 1, EDIT_ATTENDANT = 2;
 	private int seatsLeft, eventId;
 	private OnClickListener ocl;
@@ -76,7 +77,9 @@ public class ConfirmActivity extends Activity {
 		// Create ONE click listener
 		ocl = new OnClickListener() {
 			public void onClick(View v) {
-				editButton(v);
+				if(!disable){
+					editButton(v);
+				}
 			}
 		};
 
@@ -135,14 +138,15 @@ public class ConfirmActivity extends Activity {
 		TextView timeTv = (TextView) findViewById(R.id.TextViewconfirmTime);
 		String date = db.getBookingDate(bookingId);
 		dateTv.setText(date.subSequence(0, 10));
-		timeTv.setText(String.format("%s - %s", date.substring(10, 16), date.substring(17, date.length())));
+		timeTv.setText(String.format("%s - %s", date.substring(10, 16),
+				date.substring(17, date.length())));
 		db.close();
 
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		findViewById(R.id.AddAttendantButton).setEnabled(true);
+		disable(false);
 		if (resultCode == RESULT_OK) {
 			Bundle extras = data.getExtras();
 			String text = extras.getString("displayName");
@@ -164,26 +168,31 @@ public class ConfirmActivity extends Activity {
 			Bundle extras = data.getExtras();
 			if (extras.getBoolean("new")) {
 				ah = new AttendantHandler();
-				ah.execute(AttendantHandler.DELETE_ATTENDANT, extras.getInt("attendantId"));
+				ah.execute(AttendantHandler.DELETE_ATTENDANT,
+						extras.getInt("attendantId"));
 			}
 		}
 	}
 
 	public void editButton(View v) {
-		Intent dialog = new Intent(getApplicationContext(), EditAttendantDialogActivity.class);
+		disable(true);
+		Intent dialog = new Intent(getApplicationContext(),
+				EditAttendantDialogActivity.class);
 		dialog.putExtra("attendantId", v.getId());
 		startActivityForResult(dialog, EDIT_ATTENDANT);
 
 	}
 
 	public void editContact(View v) {
-		Intent i = new Intent(getApplicationContext(), EditContactActivity.class);
+		disable(true);
+		Intent i = new Intent(getApplicationContext(),
+				EditContactActivity.class);
 		i.putExtra("contactId", contactId);
 		startActivityForResult(i, EDIT_CONTACT);
 	}
 
 	public void addAttendantButton(View v) {
-		v.setEnabled(false);
+		disable(true);
 		ah = new AttendantHandler();
 		ah.execute(AttendantHandler.ADD_ATTENDANT);
 	}
@@ -199,47 +208,70 @@ public class ConfirmActivity extends Activity {
 		finish();
 	}
 
+	public void disable(boolean dis) {
+		if (dis) {
+			disable = dis;
+			findViewById(R.id.ButtonConfirmContactPerson).setEnabled(false);
+			findViewById(R.id.AddAttendantButton).setEnabled(false);
+			findViewById(R.id.bottomBackButton).setEnabled(false);
+			findViewById(R.id.bottomCancelButton).setEnabled(false);
+			findViewById(R.id.bottomNextButton).setEnabled(false);
+		} else {
+			disable = dis;
+			findViewById(R.id.ButtonConfirmContactPerson).setEnabled(true);
+			findViewById(R.id.AddAttendantButton).setEnabled(true);
+			findViewById(R.id.bottomBackButton).setEnabled(true);
+			findViewById(R.id.bottomCancelButton).setEnabled(true);
+			findViewById(R.id.bottomNextButton).setEnabled(true);
+		}
+	}
+
 	public void bottomCancelClick(View v) {
 		// Dialogruta AVBRYT BOKNING
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.create();
 		builder.setTitle(R.string.cancelBookingTitle);
 		builder.setMessage(R.string.cancelBookingMessage);
-		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(R.string.dialogYes,
+				new DialogInterface.OnClickListener() {
 
-			public void onClick(DialogInterface dialog, int which) {
-				setResult(RESULT_CANCELED);
-				finish();
-			}
-		});
-		builder.setNegativeButton(R.string.dialogNo, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						setResult(RESULT_CANCELED);
+						finish();
+					}
+				});
+		builder.setNegativeButton(R.string.dialogNo,
+				new DialogInterface.OnClickListener() {
 
-			public void onClick(DialogInterface dialog, int which) {
-				// Do nothing
-			}
-		});
+					public void onClick(DialogInterface dialog, int which) {
+						// Do nothing
+					}
+				});
 		builder.show(); // b
 	}
 
 	public void bottomNextClick(View v) {
+		disable(true);
 		// Dialogruta AVBRYT BOKNING
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.create();
 		builder.setTitle(R.string.Confrim);
 		builder.setMessage(R.string.confirmBookingMessage);
-		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(R.string.dialogYes,
+				new DialogInterface.OnClickListener() {
 
-			public void onClick(DialogInterface dialog, int which) {
-				ah = new AttendantHandler();
-				ah.execute(AttendantHandler.CREATE_BOOKING);
-			}
-		});
-		builder.setNegativeButton(R.string.dialogNo, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						ah = new AttendantHandler();
+						ah.execute(AttendantHandler.CREATE_BOOKING);
+					}
+				});
+		builder.setNegativeButton(R.string.dialogNo,
+				new DialogInterface.OnClickListener() {
 
-			public void onClick(DialogInterface dialog, int which) {
-				// Do nothing
-			}
-		});
+					public void onClick(DialogInterface dialog, int which) {
+						disable(false);
+					}
+				});
 		builder.show();
 	}
 
@@ -294,7 +326,9 @@ public class ConfirmActivity extends Activity {
 						}
 						return "false";
 					} else {
-						Toast.makeText(getApplicationContext(), R.string.invalidAttendantsInfo, Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(),
+								R.string.invalidAttendantsInfo,
+								Toast.LENGTH_LONG).show();
 						return null;
 					}
 				}
@@ -331,7 +365,8 @@ public class ConfirmActivity extends Activity {
 				HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
 				HttpConnectionParams.setSoTimeout(httpParams, 10000);
 				HttpClient httpclient = new DefaultHttpClient(httpParams);
-				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
+				HttpPost httppost = new HttpPost(
+						getString(R.string.httpRequestUrl));
 
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
@@ -349,7 +384,8 @@ public class ConfirmActivity extends Activity {
 				Log.e("log_tag", "Error in http connection " + e.toString());
 			}
 			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(is, "iso-8859-1"), 8);
 				StringBuilder sb = new StringBuilder();
 				String line = null;
 				while ((line = reader.readLine()) != null) {
@@ -375,8 +411,10 @@ public class ConfirmActivity extends Activity {
 		private void updateSeats() {
 			TextView tv = (TextView) findViewById(R.id.SeatsLeft);
 			if (seatsLeft > 0) {
-				findViewById(R.id.AddAttendantButton).setVisibility(View.VISIBLE);
-				tv.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
+				findViewById(R.id.AddAttendantButton).setVisibility(
+						View.VISIBLE);
+				tv.setText(String.format(getString(R.string.ConfirmSeatsLeft),
+						seatsLeft));
 			} else {
 				findViewById(R.id.AddAttendantButton).setVisibility(View.GONE);
 				tv.setVisibility(View.GONE);
@@ -408,9 +446,11 @@ public class ConfirmActivity extends Activity {
 				seatsLeft = getSeatsLeft();
 				if (seatsLeft > 0) {
 					TextView tv2 = (TextView) findViewById(R.id.SeatsLeft);
-					tv2.setText(String.format(getString(R.string.ConfirmSeatsLeft), seatsLeft));
+					tv2.setText(String.format(
+							getString(R.string.ConfirmSeatsLeft), seatsLeft));
 				}
-				Intent i = new Intent(getApplicationContext(), EditAttendantActivity.class);
+				Intent i = new Intent(getApplicationContext(),
+						EditAttendantActivity.class);
 				i.putExtra("attendantId", id);
 				i.putExtra("new", true);
 				startActivityForResult(i, EDIT_ATTENDANT);
@@ -428,7 +468,8 @@ public class ConfirmActivity extends Activity {
 				HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
 				HttpConnectionParams.setSoTimeout(httpParams, 10000);
 				HttpClient httpclient = new DefaultHttpClient(httpParams);
-				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
+				HttpPost httppost = new HttpPost(
+						getString(R.string.httpRequestUrl));
 
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
@@ -445,7 +486,8 @@ public class ConfirmActivity extends Activity {
 				Log.e("log_tag", "Error in http connection " + e.toString());
 			}
 			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(is, "iso-8859-1"), 8);
 				StringBuilder sb = new StringBuilder();
 				String line = null;
 				while ((line = reader.readLine()) != null) {
@@ -472,7 +514,8 @@ public class ConfirmActivity extends Activity {
 				HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
 				HttpConnectionParams.setSoTimeout(httpParams, 10000);
 				HttpClient httpclient = new DefaultHttpClient(httpParams);
-				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
+				HttpPost httppost = new HttpPost(
+						getString(R.string.httpRequestUrl));
 
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
@@ -488,7 +531,8 @@ public class ConfirmActivity extends Activity {
 				Log.e("log_tag", "Error in http connection " + e.toString());
 			}
 			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(is, "iso-8859-1"), 8);
 				StringBuilder sb = new StringBuilder();
 				String line = null;
 				while ((line = reader.readLine()) != null) {
@@ -561,22 +605,23 @@ public class ConfirmActivity extends Activity {
 			JSONObject visitor = new JSONObject();
 			if (c.moveToFirst()) {
 				try {
-					visitor.put(FIRST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)));
-					visitor.put(LAST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME)));
-					visitor.put(ADDRESS, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS)));
-					visitor.put(ZIP, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
-					visitor.put(POSTAREA, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTADRESS)));
-					visitor.put(COUNTRY, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_COUNTRY)));
-					visitor.put(PHONE, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE)));
-					visitor.put(MAIL, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_EMAIL)));
+					visitor.put(FIRST_NAME,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_FIRSTNAME)));
+					visitor.put(LAST_NAME,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_LASTNAME)));
+					visitor.put(ADDRESS,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_ADRESS)));
+					visitor.put(ZIP,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
+					visitor.put(POSTAREA,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_POSTADRESS)));
+					visitor.put(COUNTRY,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_COUNTRY)));
+					visitor.put(PHONE,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE)));
+					visitor.put(MAIL,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_EMAIL)));
 					visitor.put(SEX, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_SEX)));
-					visitor.put(PNR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
-					visitor.put(NO_SFR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_NOSFR)));
+					visitor.put(PNR,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_PNMBR)));
+					visitor.put(NO_SFR,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_NOSFR)));
 				} catch (JSONException ex) {
 					ex.printStackTrace();
 				}
 			} else {
-				throw new CursorIndexOutOfBoundsException("Could not move to first index");
+				throw new CursorIndexOutOfBoundsException(
+						"Could not move to first index");
 			}
 			c.close();
 			visitors.put(visitor);
@@ -584,22 +629,24 @@ public class ConfirmActivity extends Activity {
 			// to
 			// the
 			// array
-			ArrayList<Integer> attendantIds = db.getAttendantIdsFromBookingId(bookingId);
+			ArrayList<Integer> attendantIds = db
+					.getAttendantIdsFromBookingId(bookingId);
 			for (int id : attendantIds) {
 				c = db.getAttendantContactInfo(id);
 				if (c.moveToFirst()) {
 					try {
 						visitor = new JSONObject();
-						visitor.put(FIRST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
-						visitor.put(LAST_NAME, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
-						visitor.put(PNR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR)));
-						visitor.put(SEX, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SEX)));
-						visitor.put(NO_SFR, c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_NOSFR)));
+						visitor.put(FIRST_NAME,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
+						visitor.put(LAST_NAME,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
+						visitor.put(PNR,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR)));
+						visitor.put(SEX,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SEX)));
+						visitor.put(NO_SFR,c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_NOSFR)));
 					} catch (JSONException ex) {
 						ex.printStackTrace();
 					}
 				} else {
-					throw new CursorIndexOutOfBoundsException("Could not move to first index");
+					throw new CursorIndexOutOfBoundsException(
+							"Could not move to first index");
 				}
 				visitors.put(visitor);
 				c.close();
@@ -623,7 +670,8 @@ public class ConfirmActivity extends Activity {
 			InputStream is = null;
 			try {
 				// Create request
-				HttpPost request = new HttpPost(getString(R.string.httpRequestUrl));
+				HttpPost request = new HttpPost(
+						getString(R.string.httpRequestUrl));
 				Log.v("req:", json.toString());
 				// add json & case
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>(2);
@@ -644,7 +692,8 @@ public class ConfirmActivity extends Activity {
 			// convert response to string
 			try {
 
-				BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(is, "iso-8859-1"), 8);
 				StringBuilder sb = new StringBuilder();
 				String line = null;
 				while ((line = reader.readLine()) != null) {
@@ -673,19 +722,23 @@ public class ConfirmActivity extends Activity {
 				db.open();
 				db.setBookingBooked(bookingId);
 				db.close();
-				Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
+				Intent i = new Intent(getApplicationContext(),
+						BookConfirmationActivity.class);
 				i.putExtra("bookingId", bookingId);
 				i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
 				startActivity(i);
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.couldNotCompleteBooking, Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(),
+						R.string.couldNotCompleteBooking, Toast.LENGTH_LONG)
+						.show();
 			}
 		}
 
 		private void sendEmailConfirmation() {
 			HttpURLConnection urlConnection = null;
 			try {
-				URL url = new URL(getString(R.string.httpEmailRequestUrl) + bookingId);
+				URL url = new URL(getString(R.string.httpEmailRequestUrl)
+						+ bookingId);
 				urlConnection = (HttpURLConnection) url.openConnection();
 			} catch (Exception e) {
 				e.printStackTrace();
