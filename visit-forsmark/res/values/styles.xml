@@ -199,6 +199,21 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 	
+   	<!-- Single Fotter backbutton -->
+   	
+        <style name="singleBottomBackButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:background">@drawable/cancel_button</item>
+        <item name="android:minWidth">40dp</item>
+        <item name="android:minHeight">45dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:onClick">bottomBackClick</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+    
     <style name="textViewMain">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

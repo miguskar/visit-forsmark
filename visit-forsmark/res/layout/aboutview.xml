@@ -31,23 +31,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" >
 
-                <Button
-                    android:id="@+id/bottomCancelButton"
-                    style="@style/bottomCancelButton"
-                    android:layout_alignParentBottom="true"
-                    android:text="cancel" />
-
-                <Button
-                    android:id="@+id/bottomNextButton"
-                    style="@style/bottomNextButton"
-                    android:layout_alignParentBottom="true"
-                    android:text="next" />
-
-                <Button
+                    <Button
                     android:id="@+id/bottomBackButton"
-                    style="@style/bottomBackButton"
+                    style="@style/singleBottomBackButton"
                     android:layout_alignParentBottom="true"
-                    android:text="back" />
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/Back" />
 
             </RelativeLayout>
         </LinearLayout>

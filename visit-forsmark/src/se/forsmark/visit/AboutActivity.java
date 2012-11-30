@@ -26,16 +26,6 @@ public class AboutActivity extends Activity {
 		//Set info
 		t = (TextView) findViewById(R.id.aboutVisitForsmarkTextView);
 		t.setText(R.string.aboutVisitForsmarkLong);
-		
-		b = (Button) findViewById(R.id.bottomCancelButton);
-		b.setVisibility(View.GONE);
-		
-		b = (Button) findViewById(R.id.bottomNextButton);
-		b.setVisibility(View.GONE);
-		
-		b = (Button) findViewById(R.id.bottomBackButton);
-		b.setText(getString(R.string.Back));
-		b.setVisibility(View.VISIBLE);
 	}
 	
 	public void bottomBackClick(View v) {

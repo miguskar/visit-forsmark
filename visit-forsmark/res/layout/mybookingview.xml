@@ -33,12 +33,10 @@
 
                     <Button
                         android:id="@+id/Futurebookingsbutton"
-                        android:background="@drawable/dayview_orange_border"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/futureBookingsbutton" 
-                        />
-
+                        android:background="@drawable/dayview_orange_border"
+                        android:text="@string/futureBookingsbutton" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -47,50 +45,48 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/rlay2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" 
-                android:layout_marginTop="1dp">
+                android:layout_marginTop="1dp"
+                android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" 
-                   >
+                    android:layout_height="wrap_content" >
 
                     <Button
                         android:id="@+id/Oldbookingsbutton"
-                        android:background="@drawable/dayview_orange_border"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/dayview_orange_border"
                         android:text="@string/oldBookingsbutton" />
                 </LinearLayout>
-                
-                  <LinearLayout
-                android:id="@+id/rlayout2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                 android:paddingBottom="3dp" >
+
+                <LinearLayout
+                    android:id="@+id/rlayout2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="3dp" >
+                </LinearLayout>
             </LinearLayout>
-			 </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="bottom" >
 
-                <Button
+                   <Button
                     android:id="@+id/bottomBackButton"
-                    style="@style/bottomBackButton"
-                    android:text="@string/Back" 
-                    />
+                    style="@style/singleBottomBackButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/Back" />
             </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
 

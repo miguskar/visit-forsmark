@@ -106,19 +106,11 @@
 
                 <Button
                     android:id="@+id/bottomBackButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/singleBottomBackButton"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_toLeftOf="@id/bottomCancelButton"
-                    android:background="@drawable/cancel_button"
-                    android:minHeight="45dp"
-                    android:minWidth="40dp"
-                    android:onClick="bottomBackClick"
-                    android:text="@string/Back"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#FFFFFF"
-                    android:typeface="sans" />
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/Back" />
+
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

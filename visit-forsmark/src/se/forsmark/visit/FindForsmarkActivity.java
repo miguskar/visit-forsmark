@@ -2,6 +2,7 @@ package se.forsmark.visit;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 
 public class FindForsmarkActivity extends Activity{// implements OnClickListener {
@@ -32,6 +33,8 @@ public class FindForsmarkActivity extends Activity{// implements OnClickListener
 //		
 //	}
 	
-	
+	public void bottomBackClick(View v) {
+		this.finish();
+	}
 
 }
