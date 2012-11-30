@@ -29,11 +29,16 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,10 +53,13 @@ public class DayActivity extends Activity {
 	private DayListAdapter adapter;
 	OnItemClickListener itemListener;
 	private EventPrinter ep;
+	private int screenWidth;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Display display = getWindowManager().getDefaultDisplay();
+		screenWidth = display.getWidth();
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.dayview);
 		Bundle extras = getIntent().getExtras();
@@ -192,6 +200,27 @@ public class DayActivity extends Activity {
 		private int extra;
 		
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			ImageView loadingBar = (ImageView) findViewById(R.id.loadingBar);
+			if(loadingBar.getVisibility() != View.VISIBLE){
+				loadingBar.setVisibility(View.VISIBLE);
+				Animation mAnimation = new TranslateAnimation(
+						TranslateAnimation.ABSOLUTE, 0, 
+						TranslateAnimation.ABSOLUTE, (int)(screenWidth-loadingBar.getWidth()), 
+						TranslateAnimation.ABSOLUTE, 0f, 
+						TranslateAnimation.ABSOLUTE, 0f);
+				mAnimation.setDuration(1000);
+				mAnimation.setRepeatCount(-1);
+				mAnimation.setRepeatMode(Animation.REVERSE);
+				
+				mAnimation.setInterpolator(new LinearInterpolator());
+				loadingBar.setAnimation(mAnimation);
+			}
+	
+		}
+		
+		@Override
 		protected String[] doInBackground(Integer... extra) {
 			this.extra = extra[0];
 			String[] tmp = { "NOCONNECTION" };
@@ -253,6 +282,9 @@ public class DayActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String[] events) {
+			ImageView loadingBar = (ImageView) findViewById(R.id.loadingBar);
+			loadingBar.clearAnimation();
+			loadingBar.setVisibility(View.GONE);
 			String temp;
 			int startHour;
 			int startMin;

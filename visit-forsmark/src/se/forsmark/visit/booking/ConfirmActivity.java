@@ -39,11 +39,16 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,13 +59,15 @@ public class ConfirmActivity extends Activity {
 	private int progressBar;
 	private boolean disable = false;
 	private final int EDIT_CONTACT = 1, EDIT_ATTENDANT = 2;
-	private int seatsLeft, eventId;
+	private int seatsLeft, eventId, screenWidth;
 	private OnClickListener ocl;
 	private AttendantHandler ah;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Display display = getWindowManager().getDefaultDisplay();
+		screenWidth = display.getWidth();
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.confirmview);
 
@@ -295,6 +302,26 @@ public class ConfirmActivity extends Activity {
 		public static final int CREATE_BOOKING = 3;
 
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			ImageView loadingBar = (ImageView) findViewById(R.id.loadingBar);
+			if(loadingBar.getVisibility() != View.VISIBLE){
+				loadingBar.setVisibility(View.VISIBLE);
+				Animation mAnimation = new TranslateAnimation(
+						TranslateAnimation.ABSOLUTE, 0, 
+						TranslateAnimation.ABSOLUTE, (int)(screenWidth-loadingBar.getWidth()), 
+						TranslateAnimation.ABSOLUTE, 0f, 
+						TranslateAnimation.ABSOLUTE, 0f);
+				mAnimation.setDuration(1000);
+				mAnimation.setRepeatCount(-1);
+				mAnimation.setRepeatMode(Animation.REVERSE);
+				
+				mAnimation.setInterpolator(new LinearInterpolator());
+				loadingBar.setAnimation(mAnimation);
+			}
+		}
+		
+		@Override
 		protected String doInBackground(Integer... params) {
 			mode = params[0];
 			String s = "-1";
@@ -339,7 +366,9 @@ public class ConfirmActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String result) {
-
+			ImageView loadingBar = (ImageView) findViewById(R.id.loadingBar);
+			loadingBar.clearAnimation();
+			loadingBar.setVisibility(View.GONE);
 			switch (mode) {
 			case GET_SEATS:
 				updateSeats();

@@ -30,21 +30,28 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class AttendantsDialogActivity extends Activity {
 	private static int TERMS_ACTIVITY = 1337;
-	private int maxSeats, id;
+	private int maxSeats, id, screenWidth;
 	private EditText ed;
 	private String DATE;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Display display = getWindowManager().getDefaultDisplay();
+		screenWidth = display.getWidth();
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.attendatsdialog);
 		int curseats = 1;
@@ -223,6 +230,27 @@ public class AttendantsDialogActivity extends Activity {
 		private int seats;
 		
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			ImageView loadingBar = (ImageView) findViewById(R.id.loadingBar);
+			if(loadingBar.getVisibility() != View.VISIBLE){
+				loadingBar.setVisibility(View.VISIBLE);
+				Animation mAnimation = new TranslateAnimation(
+						TranslateAnimation.ABSOLUTE, 0, 
+						TranslateAnimation.ABSOLUTE, (int)(screenWidth-loadingBar.getWidth()), 
+						TranslateAnimation.ABSOLUTE, 0f, 
+						TranslateAnimation.ABSOLUTE, 0f);
+				mAnimation.setDuration(1000);
+				mAnimation.setRepeatCount(-1);
+				mAnimation.setRepeatMode(Animation.REVERSE);
+				
+				mAnimation.setInterpolator(new LinearInterpolator());
+				loadingBar.setAnimation(mAnimation);
+			}
+	
+		}
+		
+		@Override
 		protected String doInBackground(Integer... params) {
 			seats = params[0];
 			String result = "NOCONNECTION";
@@ -277,6 +305,9 @@ public class AttendantsDialogActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String resKey) {
+			ImageView loadingBar = (ImageView) findViewById(R.id.loadingBar);
+			loadingBar.clearAnimation();
+			loadingBar.setVisibility(View.GONE);
 			Log.e("reservationKey", resKey);
 			if (resKey.equals("NOCONNECTION")) {
 				findViewById(R.id.attDialogNext).setEnabled(true);
