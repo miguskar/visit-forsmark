@@ -12,7 +12,8 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
 
         <LinearLayout
             android:id="@+id/formLayout"
@@ -22,28 +23,32 @@
 
             <TextView
                 android:id="@+id/aboutVisitForsmarkTextView"
-                 style="@style/termTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
+                style="@style/termTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="fill_parent" >
 
                 <Button
                     android:id="@+id/bottomCancelButton"
                     style="@style/bottomCancelButton"
+                    android:layout_alignParentBottom="true"
                     android:text="cancel" />
 
                 <Button
                     android:id="@+id/bottomNextButton"
                     style="@style/bottomNextButton"
+                    android:layout_alignParentBottom="true"
                     android:text="next" />
-                 <Button
+
+                <Button
                     android:id="@+id/bottomBackButton"
                     style="@style/bottomBackButton"
+                    android:layout_alignParentBottom="true"
                     android:text="back" />
+
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

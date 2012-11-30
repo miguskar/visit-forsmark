@@ -67,7 +67,7 @@ public class CalenderActivity extends Activity {
 			curMonth = savedInstanceState.getInt("MONTH");
 		}
 	}
-
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -117,6 +117,7 @@ public class CalenderActivity extends Activity {
 		c.set(Calendar.DAY_OF_WEEK, 2);
 		cs = new CalendarSetter();
 		cs.execute(c);
+
 	}
 
 	private class CalendarSetter extends AsyncTask<Calendar, Void, String[]> {
@@ -287,7 +288,7 @@ public class CalenderActivity extends Activity {
 				}
 			}
 		}
-
+		
 		@Override
 		protected void onCancelled() {
 			super.onCancelled();
@@ -461,10 +462,6 @@ public class CalenderActivity extends Activity {
 		cs = new CalendarSetter();
 		cs.execute(c);
 	}
-
-	// public String[] getDateInfo() {
-	//
-	// }
 
 	private boolean isNetworkConnected() {
 		getApplicationContext();

@@ -133,8 +133,8 @@
     <string name="forsmarkContact">Ni är välkomna att kontakta oss vid eventuella frågor. Skriv lite saker här</string>
     <string name="forsmarkTel">0762133434</string>
     <string name="forsmarkMail">forsmark@blargh.ru</string>
-    <string name="forsmarkWebPage">visitforsmark.se</string>
-    <string name="forsmarkVisitWebPage">vattenfall.se</string>
+    <string name="forsmarkWebPage">www.vattenfall.se</string>
+    <string name="forsmarkVisitWebPage">www.visitforsmark.se</string>
     <string name="forsmarkTelOpen">Mån - Fre. \nKlockan 01 - 00.</string>
     <string name="Phone">Telefon:</string>
     <string name="Mail">Epost:</string>

@@ -89,7 +89,13 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/webPageTextView"
+                android:id="@+id/webPageOneTextView"
+                style="@style/contactInfoTextView"
+                android:autoLink="web"
+                android:clickable="true" />
+
+            <TextView
+                android:id="@+id/webPageTwoTextView"
                 style="@style/contactInfoTextView"
                 android:autoLink="web"
                 android:clickable="true" />

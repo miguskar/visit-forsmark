@@ -14,6 +14,7 @@ import android.widget.ImageView;
 public class MainActivity extends Activity {
 	private Intent myIntent;
 	private ImageView img, pressed;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,14 +26,15 @@ public class MainActivity extends Activity {
 
 	OnTouchListener on = new OnTouchListener() {
 		public boolean onTouch(View v, MotionEvent event) {
-			int col = getColour((int)event.getX(),(int)event.getY());
-			Log.v("color", col+"");
+			int col = getColour((int) event.getX(), (int) event.getY());
+			Log.v("color", col + "");
 			switch (col) {
-			
+
 			case -1: // om appen
 				pressed = (ImageView) findViewById(R.id.aboutButtonPressed);
 				pressed.setVisibility(View.VISIBLE);
-				myIntent = new Intent(v.getContext(), AboutApplicationActivity.class);
+				myIntent = new Intent(v.getContext(),
+						AboutApplicationActivity.class);
 				startActivity(myIntent);
 				break;
 			case -15925504: // mina bokningar
@@ -44,15 +46,17 @@ public class MainActivity extends Activity {
 			case -16777216: // hitta hit
 				pressed = (ImageView) findViewById(R.id.findFrosmarkButtonPressed);
 				pressed.setVisibility(View.VISIBLE);
-				myIntent = new Intent(v.getContext(), FindForsmarkActivity.class);
+				myIntent = new Intent(v.getContext(),
+						FindForsmarkActivity.class);
 				startActivity(myIntent);
 				break;
 			case -65536: // Kontakta oss
 				pressed = (ImageView) findViewById(R.id.contactButtonPressed);
 				pressed.setVisibility(View.VISIBLE);
-				myIntent = new Intent(v.getContext(), ContactForsmarkActivity.class);
+				myIntent = new Intent(v.getContext(),
+						ContactForsmarkActivity.class);
 				startActivity(myIntent);
-				break;
+				break;	
 			case -16776961: // boka
 				pressed = (ImageView) findViewById(R.id.bookingButtonPressed);
 				pressed.setVisibility(View.VISIBLE);
@@ -77,11 +81,11 @@ public class MainActivity extends Activity {
 		img.setDrawingCacheEnabled(false);
 		return hotspots.getPixel(x, y);
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(pressed != null)
+		if (pressed != null)
 			pressed.setVisibility(View.GONE);
 	}
 }

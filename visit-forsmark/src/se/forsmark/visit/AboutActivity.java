@@ -34,9 +34,8 @@ public class AboutActivity extends Activity {
 		b.setVisibility(View.GONE);
 		
 		b = (Button) findViewById(R.id.bottomBackButton);
+		b.setText(getString(R.string.Back));
 		b.setVisibility(View.VISIBLE);
-		
-		
 	}
 	
 	public void bottomBackClick(View v) {

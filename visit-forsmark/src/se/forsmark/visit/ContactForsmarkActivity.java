@@ -25,8 +25,8 @@ public class ContactForsmarkActivity extends Activity {
 		TextView telOpenTv = (TextView) findViewById(R.id.telOpenTextView);
 		TextView telTv = (TextView) findViewById(R.id.telTextView);
 		TextView mailTv = (TextView) findViewById(R.id.mailTextView);
-		TextView webTv = (TextView) findViewById(R.id.webPageTextView);
-		
+		TextView webOneTv = (TextView) findViewById(R.id.webPageOneTextView);
+		TextView webTwoTv = (TextView) findViewById(R.id.webPageTwoTextView);
 		
 		telTitleOpenTv.setVisibility(View.VISIBLE);
 		telTitleTv.setVisibility(View.VISIBLE);
@@ -35,8 +35,8 @@ public class ContactForsmarkActivity extends Activity {
 		telOpenTv.setText(getString(R.string.forsmarkTelOpen));
 		telTv.setText(getString(R.string.forsmarkTel));
 		mailTv.setText(getString(R.string.forsmarkMail));
-		webTv.setText(getString(R.string.forsmarkVisitWebPage));
-		
+		webOneTv.setText(getString(R.string.forsmarkVisitWebPage));
+		webTwoTv.setText(getString(R.string.forsmarkWebPage));
 	}
 
 	public void bottomBackClick(View v) {
