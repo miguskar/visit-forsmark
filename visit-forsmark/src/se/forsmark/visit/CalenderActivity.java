@@ -304,18 +304,21 @@ public class CalenderActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			ImageView loading = (ImageView) findViewById(R.id.loadingBar);
-	
-			loading.setVisibility(View.VISIBLE);
-			Animation mAnimation = new TranslateAnimation(
-					TranslateAnimation.ABSOLUTE, 0f, 
-					TranslateAnimation.ABSOLUTE, screenWidth, 
-					TranslateAnimation.ABSOLUTE, 0f, 
-					TranslateAnimation.ABSOLUTE, 0f);
-			mAnimation.setDuration(1000);
-			mAnimation.setRepeatCount(-1);
-			mAnimation.setRepeatMode(Animation.REVERSE);
-			mAnimation.setInterpolator(new LinearInterpolator());
-			loading.setAnimation(mAnimation);
+			if(loading.getVisibility() != View.VISIBLE){
+				loading.setVisibility(View.VISIBLE);
+				
+				Animation mAnimation = new TranslateAnimation(
+						TranslateAnimation.ABSOLUTE, 0, 
+						TranslateAnimation.ABSOLUTE, (int)(screenWidth-loading.getWidth()), 
+						TranslateAnimation.ABSOLUTE, 0f, 
+						TranslateAnimation.ABSOLUTE, 0f);
+				mAnimation.setDuration(1000);
+				mAnimation.setRepeatCount(-1);
+				mAnimation.setRepeatMode(Animation.REVERSE);
+				
+				mAnimation.setInterpolator(new LinearInterpolator());
+				loading.setAnimation(mAnimation);
+			}
 	
 		}
 	
