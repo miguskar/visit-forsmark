@@ -192,6 +192,7 @@ public class EditAttendantActivity extends Activity {
 			}
 
 		}
+		c.close();
 		db.close();
 	}
 

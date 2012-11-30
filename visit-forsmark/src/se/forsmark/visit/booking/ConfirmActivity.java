@@ -505,8 +505,6 @@ public class ConfirmActivity extends Activity {
 				db.open();
 				db.deleteAttendant(id);
 				db.close();
-
-				deleteAttendantFromBooking(bookingId);
 				LinearLayout l = (LinearLayout) findViewById(R.id.confirmformLayout);
 				l.removeView(findViewById(id));
 

@@ -41,7 +41,7 @@
     <string name="SocialSecurity">Personnummer (10 siffror)</string>
     <string name="Male">Man</string>
     <string name="Female">Kvinna</string>
-    <string name="NoSFR">ej slutförva</string>
+    <string name="NoSFR">ej slutförvar</string>
     <string name="NoSFRToast">Deltagare under 7 år eller deltagare som ej kan gå obehindrat utan hjälpmedel kan tyvärr ej följa med ner i slutförvaret.</string>
     <string name="errorMessageFieldEmpty">Alla fält måste vara ifyllda för att gå vidare.</string>
     <string name="errorMessageGender">Du måste välja kön.</string>
