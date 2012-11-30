@@ -14,6 +14,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import se.forsmark.visit.R;
 import se.forsmark.visit.database.DatabaseSQLite;
@@ -86,7 +89,10 @@ public class TermsActivity extends Activity {
 			// http post
 			if (isNetworkConnected()) {
 				try {
-					HttpClient httpclient = new DefaultHttpClient();
+					HttpParams httpParams = new BasicHttpParams();
+					HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+					HttpConnectionParams.setSoTimeout(httpParams, 10000);
+					HttpClient httpclient = new DefaultHttpClient(httpParams);
 					HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
 
 					List<NameValuePair> pairs = new ArrayList<NameValuePair>();

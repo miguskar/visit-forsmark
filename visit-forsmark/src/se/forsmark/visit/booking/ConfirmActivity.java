@@ -330,7 +330,10 @@ public class ConfirmActivity extends Activity {
 			String result = "";
 			InputStream is = null;
 			try {
-				HttpClient httpclient = new DefaultHttpClient();
+				HttpParams httpParams = new BasicHttpParams();
+				HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+				HttpConnectionParams.setSoTimeout(httpParams, 10000);
+				HttpClient httpclient = new DefaultHttpClient(httpParams);
 				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
 
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -424,7 +427,10 @@ public class ConfirmActivity extends Activity {
 			InputStream is = null;
 			// http post
 			try {
-				HttpClient httpclient = new DefaultHttpClient();
+				HttpParams httpParams = new BasicHttpParams();
+				HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+				HttpConnectionParams.setSoTimeout(httpParams, 10000);
+				HttpClient httpclient = new DefaultHttpClient(httpParams);
 				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
 
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -465,7 +471,10 @@ public class ConfirmActivity extends Activity {
 			String result = "";
 			InputStream is = null;
 			try {
-				HttpClient httpclient = new DefaultHttpClient();
+				HttpParams httpParams = new BasicHttpParams();
+				HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+				HttpConnectionParams.setSoTimeout(httpParams, 10000);
+				HttpClient httpclient = new DefaultHttpClient(httpParams);
 				HttpPost httppost = new HttpPost(getString(R.string.httpRequestUrl));
 
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
