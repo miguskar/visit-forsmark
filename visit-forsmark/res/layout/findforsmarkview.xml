@@ -21,41 +21,44 @@
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/RelativeLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
-
+				<!-- TODO fult som fan texten hamnar långt ner -->
                 <ImageView
                     android:id="@+id/imageViewMap"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="center"
-                    android:src="@drawable/forsmark_map" />
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
-
-                <Button
-                    android:id="@+id/bottomBackButton"
-                    style="@style/singleBottomBackButton"
+                    android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:text="@string/Back" />
-
-                <TextView
-                    android:id="@+id/textView1"
-                    style="@style/termTextView"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:padding="10dp"
-                    android:text="@string/findForsmarkLong" />
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/forsmark_map" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <Button
+                        android:id="@+id/bottomBackButton"
+                        style="@style/singleBottomBackButton"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="@string/Back" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        style="@style/termTextView"
+                        android:layout_above="@+id/bottomBackButton"
+                        android:layout_alignParentLeft="true"
+                        android:padding="10dp"
+                        android:text="@string/findForsmarkLong" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
 

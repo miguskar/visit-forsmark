@@ -181,14 +181,16 @@
                 android:id="@+id/RelativeLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:gravity="center|bottom" >
+                android:gravity="bottom" >
 
                 <Button
                     android:id="@+id/backButton"
                     style="@style/button"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dp"
                     android:onClick="backButtonClick"
                     android:text="@string/FrotnPage" />
+
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

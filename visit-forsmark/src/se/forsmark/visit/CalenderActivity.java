@@ -361,7 +361,8 @@ public class CalenderActivity extends Activity {
 						sb.append(line + "\n");
 					}
 					is.close();
-	
+
+					Log.v("asd", result = sb.toString());
 					result = sb.toString();
 					result = result.substring(1, result.length() - 2);
 					result = result.replace("\"", "");

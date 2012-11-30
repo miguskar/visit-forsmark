@@ -290,10 +290,10 @@ public class DayActivity extends Activity {
 			int startMin;
 			Date todayDate = new Date();
 			Date theDate;
-			array.clear();
 			if (!events[0].equals("NOCONNECTION")) {
 				if (!events[0].equals("NORESULT")) {
 					if (events.length >= 5) {
+						array.clear();
 						for (int i = 0; i < events.length; i = i + 5) {
 							
 							startHour = Integer.valueOf(events[i+2].substring(0,2));
