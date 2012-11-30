@@ -41,40 +41,44 @@ public class MyBookingsActivity extends Activity {
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.mybookingview);
 		
+		//Create yellow Menu-buttons "Framtida bokningar/Gamla bokningar" add the arrow image to button"  
 		((Button) findViewById(R.id.Futurebookingsbutton)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_show_all_events, 0);
 		((Button) findViewById(R.id.Oldbookingsbutton)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_show_all_events, 0);
+		//-------------------------------------------------------------
 		initialize(); // Initialize views
 	}
 
 	public void initialize() {
 
+		// onClickListener for each booking. -> Get to bookingConfirmation 
 		ocl = new OnClickListener() {
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(), BookConfirmationActivity.class);
-
 				i.putExtra("bookingId", v.getTag().toString());
 				i.putExtra("state", BookConfirmationActivity.STATE_VIEW);
 				startActivity(i);
-
 			}
 		};
-
+		//---------------------------------------------------------------
+		
 		// Set title
 		TextView t = (TextView) findViewById(R.id.border_title);
 		t.setText(getString(R.string.MyBookingsTitle));
+		//---------------------------------------------------------------
+		
 		// Set List title buttons
-
 		mbf = (Button) findViewById(R.id.Futurebookingsbutton);
 		mbf.setOnClickListener(buttonHandler);
 
 		mbo = (Button) findViewById(R.id.Oldbookingsbutton);
 		mbo.setOnClickListener(buttonHandler);
-
+		//---------------------------------------------------------------
+		
 		// Set Bottom Buttons
-
 		b = (Button) findViewById(R.id.bottomBackButton);
 		b.setVisibility(View.VISIBLE);
-
+		//----------------------------------------------------------------
+		
 		// Get current date;
 		Date date = new Date();
 		year = date.getYear() + 1900;
@@ -82,7 +86,8 @@ public class MyBookingsActivity extends Activity {
 		day = date.getDate();
 		hour = date.getHours();
 		String datestring = "" + year + "-" + month + "-" + day;
-
+		//----------------------------------------------------------------
+		
 		// Get a cursor of all my bookings that are finished:
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
@@ -92,6 +97,8 @@ public class MyBookingsActivity extends Activity {
 		l2 = (LinearLayout) findViewById(R.id.rlayout2);
 		String[] days = getResources().getStringArray(R.array.myBookingsDaysStringsSwe);
 		String[] months = getResources().getStringArray(R.array.calMonthStringsSwe);
+		
+		//create all bookings buttons
 		while (c.moveToNext()) {
 			Log.v("date", c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)));
 			b = new Button(this);
