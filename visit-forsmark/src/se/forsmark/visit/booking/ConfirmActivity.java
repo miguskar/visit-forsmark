@@ -381,7 +381,7 @@ public class ConfirmActivity extends Activity {
 				findViewById(R.id.AddAttendantButton).setVisibility(View.GONE);
 				tv.setVisibility(View.GONE);
 			}
-			Log.e("SEATS UPDATED", "BAJS");
+			Log.e("SEATS UPDATED", "B...");
 		}
 
 		private void attendantAdded(String result) {
@@ -415,7 +415,7 @@ public class ConfirmActivity extends Activity {
 				i.putExtra("new", true);
 				startActivityForResult(i, EDIT_ATTENDANT);
 			} else {
-				Toast.makeText(getApplicationContext(), "JÄVLA DRIT DET SKET SIG HELT", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Försök att lägga till deltagare misslyckades", Toast.LENGTH_LONG).show(); 
 			}
 		}
 
@@ -515,7 +515,7 @@ public class ConfirmActivity extends Activity {
 				l.removeView(findViewById(id));
 
 			} else {
-				Toast.makeText(getApplicationContext(), "SKIT OCKSÅ DET FUNKADE INTE :C", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Försök att ta bort deltagare misslyckades", Toast.LENGTH_LONG).show();
 			}
 
 		}
