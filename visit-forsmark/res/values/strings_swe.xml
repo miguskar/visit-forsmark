@@ -95,6 +95,34 @@
     <string name="confirmDeleteAttendant">Är du säker på att du vill ta bort %s?</string>
     <string name="ConfirmedTitle">Bokning bekräftad</string>
     <string name="confirmBookingMessage">Tryck Ja för att bekräfta bokning</string>
+    <!-- ABOUT APPLICATION -->
+    <string name="theCalendar">Kalendern</string>
+    <string name="theDayview">Dagsvyn</string>
+    <string name="FAQ">Frågor och svar</string>
+    
+    <string name="aboutCalendar">På kalendersidan väljer du vilken dag du vill åka på din tur. \n\nDagarna kan ha följande utseende:</string>
+    <string name="aboutNormalCell">En eller flera lediga bussturer</string>
+    <string name="aboutFullCell">Alla turer är fullbokade</string>
+    <string name="aboutEmptyCell">Inga bussturer</string>
+    <string name="aboutTodayCell">Dagen med orange text är dagens datum</string>
+    
+    <string name="aboutDayview">På dagsvyn ser du alla dagens bussturer \n\nBussturerna kan ha följande utseende:</string>
+    <string name="aboutNormalDay">Turen kan du åka med</string>
+    <string name="aboutFullDay">Turen är fullbokad eller ligger bakåt i tiden</string>
+    
+    <string name="question1">Vad kostar en tur?</string>
+    <string name="answer1">Alla turer är gratis.</string>
+    <string name="question2">Varför måste jag ange mitt kön?</string>
+    <string name="answer2">Ditt kön används för statistik.</string>
+    <string name="question3">Kan jag avboka/ändra min resa?</string>
+    <string name="answer3">För att avboka eller ändra måste du kontakta forsmark på telefon. Du hittar kontaktuppgifter under "Kontakta Forsmark".</string>
+    <string name="question4">Kan jag äta på plats?</string>
+    <string name="answer4">Det går bra att köpa fika eller mat före eller efter turen.</string>
+    <string name="question5">Vad är slutförvar, och varför undrar ni om jag vill dit?</string>
+    <string name="answer5">Det är där vi förvarar restprodukterna och sista delen i rundturen. Här krävs det att du kan röra dig obehindrat utan hjälpmedel och är äldre än 7 år.</string>
+    
+    <string name="question6">Applikation fungerar inte på min iPhone, varför?</string>
+    <string name="answer6">...</string>
     <!--  -->
     <string name="HowManySeats">Hur många säten vill du boka?</string>
     <string name="EditAttendantDialogQ">Vill du ta bort eller ändra deltagarens uppgifter?</string>
@@ -127,7 +155,7 @@
     <string name="WelcomeToForsmark">Välkommen till Visit Forsmark!</string>
     <string name="contactForsmark">Kontakta Forsmark</string>
     <string name="aboutForsmark">Om \nForsmark</string>
-    <string name="aboutUs">Om appen</string>
+    <string name="aboutApplication">Om appen</string>
     <string name="findForsmark">Hitta hit</string>
     <string name="booking">Boka</string>
     <string name="Vattenfall">Vattenfall</string>
