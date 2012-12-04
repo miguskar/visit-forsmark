@@ -302,7 +302,7 @@ public class AttendantsActivity extends Activity {
 			pnmbr.setText("");
 			rg.clearCheck();
 			cb.setChecked(false);		
-			v.setFocusableInTouchMode(true);
+			firstname.setFocusableInTouchMode(true);
 			firstname.requestFocus();
 		}
 		// Set Title
