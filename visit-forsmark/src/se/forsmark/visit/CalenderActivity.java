@@ -203,9 +203,9 @@ public class CalenderActivity extends Activity {
 		String tag = (String) v.getTag();
 		if (tag != null && !loading) {
 			if (tag.equals("N")) {
-				topNextButton(null);
+				//topNextButton(null);
 			} else if (tag.equals("P")) {
-				topBackButton(null);
+				//topBackButton(null);
 			} else if (tag.equals("F") || tag.equals("S")) {
 				Intent dayView = new Intent(getApplicationContext(), DayActivity.class);
 				TextView tv = (TextView) v;

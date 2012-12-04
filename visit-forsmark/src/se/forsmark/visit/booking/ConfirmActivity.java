@@ -215,7 +215,7 @@ public class ConfirmActivity extends Activity {
 		finish();
 	}
 
-	public void disable(boolean dis) {
+	public void disable(boolean dis) { // disables all buttons
 		if (dis) {
 			disable = dis;
 			findViewById(R.id.ButtonConfirmContactPerson).setEnabled(false);
@@ -386,7 +386,6 @@ public class ConfirmActivity extends Activity {
 				bookingCreated(result);
 				break;
 			}
-			disable(false);
 		}
 
 		private Integer getSeatsLeft() {
@@ -760,6 +759,8 @@ public class ConfirmActivity extends Activity {
 				i.putExtra("state", BookConfirmationActivity.STATE_CONFIRM);
 				startActivity(i);
 			} else {
+
+				disable(false);
 				Toast.makeText(getApplicationContext(),
 						R.string.couldNotCompleteBooking, Toast.LENGTH_LONG)
 						.show();

@@ -41,6 +41,11 @@ public class AttendantsActivity extends Activity {
 		nbrAttendants = extras.getInt("attendantsCount");
 		bookingId = extras.getString("bookingId");
 		eventId = extras.getInt("eventId");
+
+		if (savedInstanceState != null) {
+			counter = savedInstanceState.getInt("counter");
+		}
+
 		initialize();
 	}
 
@@ -51,12 +56,12 @@ public class AttendantsActivity extends Activity {
 		TextView tv = (TextView) findViewById(R.id.border_title);
 		text = String.format(getString(R.string.attendantsTitle),
 				(counter + 1), nbrAttendants);
+
 		tv.setText(text);
 
-		
 		Button b;
-		
-		// Unhide next button  - bort kommenterat pga ändring av layoutflow
+
+		// Unhide next button - bort kommenterat pga ändring av layoutflow
 		// if (nbrAttendants > 2) {
 		// b = (Button) findViewById(R.id.button_next_top);
 		// b.setVisibility(View.VISIBLE);
@@ -88,9 +93,15 @@ public class AttendantsActivity extends Activity {
 		db.open();
 		attendantIds = db.getAttendantIdsFromBookingId(bookingId);
 		db.close();
-		if (attendantIds.size() > 0) {
+		if (attendantIds.size() > 0 && attendantIds.size() - 1 > counter) {
 			fillForm();
 		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt("counter", counter);
+		super.onSaveInstanceState(outState);
 	}
 
 	@Override
@@ -248,8 +259,8 @@ public class AttendantsActivity extends Activity {
 		 * deltagaren, dölj next-knappen.
 		 */
 		++counter;
-		
-		// Modified stuff:  - bort kommenterat pga ändring av layoutflow
+
+		// Modified stuff: - bort kommenterat pga ändring av layoutflow
 		// if (counter == 2) {
 		// Button b = (Button) findViewById(R.id.button_back_top);
 		// b.setVisibility(View.VISIBLE);
@@ -317,7 +328,7 @@ public class AttendantsActivity extends Activity {
 		// Button backb = (Button) findViewById(R.id.button_back_top);
 		// backb.setVisibility(View.GONE);
 		// }
-		
+
 		// Set Title
 		TextView tv2 = (TextView) findViewById(R.id.border_title);
 		tv2.setText(String.format(getString(R.string.attendantsTitle),
