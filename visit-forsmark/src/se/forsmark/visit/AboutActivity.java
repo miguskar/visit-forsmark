@@ -31,7 +31,7 @@ public class AboutActivity extends Activity {
 		t = (TextView) findViewById(R.id.aboutVisitForsmarkTextView);
 		t.setText(R.string.aboutVisitForsmarkLong);
 	}
-	
+	    
 	public void bottomBackClick(View v) {
 		this.finish();
 	}

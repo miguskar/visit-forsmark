@@ -85,7 +85,22 @@ public class MyBookingsActivity extends Activity {
 		month = date.getMonth() + 1;
 		day = date.getDate();
 		hour = date.getHours();
-		String datestring = "" + year + "-" + month + "-" + day;
+		String datestring;
+	
+		if(month<10){
+			datestring = "" + year + "-0" + month;
+		}
+		else{
+			datestring = "" + year + "-" + month;
+		}
+		
+		if(day<10){
+			datestring+="-0" + day;
+		}
+		else{
+			datestring+="-" + day;
+		}
+		//
 		//----------------------------------------------------------------
 		
 		// Get a cursor of all my bookings that are finished:
@@ -121,6 +136,8 @@ public class MyBookingsActivity extends Activity {
 				// If its an old booking:
 			} else {
 				l2.addView(b, l2.getChildCount());
+				Log.v("col_bo_date",c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)) );
+				Log.v("datestring", datestring);
 			}
 
 		}
