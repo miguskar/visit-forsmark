@@ -4,142 +4,131 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ScrollView
-        android:id="@+id/ScrollView1"
+    <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+        <ImageView
+            android:id="@+id/imageView1"
+            style="@style/termImageDot" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/q1"
+            style="@style/termTextView"
+            android:text="@string/question1"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    style="@style/termImageDot" />
+    <TextView
+        android:id="@+id/a1"
+        style="@style/termTextView"
+        android:layout_marginLeft="20dp"
+        android:text="@string/answer1" />
 
-                <TextView
-                    android:id="@+id/q1"
-                    style="@style/termTextView"
-                    android:text="@string/question1"
-                    android:textStyle="bold" />
-            </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/a1"
-                style="@style/termTextView"
-                android:layout_marginLeft="20dp"
-                android:text="@string/answer1" />
+        <ImageView
+            android:id="@+id/imageView2"
+            style="@style/termImageDot" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/q2"
+            style="@style/termTextView"
+            android:text="@string/question2"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    style="@style/termImageDot" />
+    <TextView
+        android:id="@+id/a2"
+        style="@style/termTextView"
+        android:layout_marginLeft="20dp"
+        android:text="@string/answer2" />
 
-                <TextView
-                    android:id="@+id/q2"
-                    style="@style/termTextView"
-                    android:text="@string/question2"
-                    android:textStyle="bold" />
-            </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/a2"
-                style="@style/termTextView"
-                android:layout_marginLeft="20dp"
-                android:text="@string/answer2" />
+        <ImageView
+            android:id="@+id/imageView3"
+            style="@style/termImageDot" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/q3"
+            style="@style/termTextView"
+            android:text="@string/question3"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    style="@style/termImageDot" />
+    <TextView
+        android:id="@+id/a3"
+        style="@style/termTextView"
+        android:layout_marginLeft="20dp"
+        android:text="@string/answer3" />
 
-                <TextView
-                    android:id="@+id/q3"
-                    style="@style/termTextView"
-                    android:text="@string/question3"
-                    android:textStyle="bold" />
-            </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/a3"
-                style="@style/termTextView"
-                android:layout_marginLeft="20dp"
-                android:text="@string/answer3" />
+        <ImageView
+            android:id="@+id/imageView4"
+            style="@style/termImageDot" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/q4"
+            style="@style/termTextView"
+            android:text="@string/question4"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    style="@style/termImageDot" />
+    <TextView
+        android:id="@+id/a4"
+        style="@style/termTextView"
+        android:layout_marginLeft="20dp"
+        android:text="@string/answer4" />
 
-                <TextView
-                    android:id="@+id/q4"
-                    style="@style/termTextView"
-                    android:text="@string/question4"
-                    android:textStyle="bold" />
-            </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/a4"
-                style="@style/termTextView"
-                android:layout_marginLeft="20dp"
-                android:text="@string/answer4" />
+        <ImageView
+            android:id="@+id/imageView5"
+            style="@style/termImageDot" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/q5"
+            style="@style/termTextView"
+            android:text="@string/question5"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    style="@style/termImageDot" />
+    <TextView
+        android:id="@+id/a5"
+        style="@style/termTextView"
+        android:layout_marginLeft="20dp"
+        android:text="@string/answer5" />
 
-                <TextView
-                    android:id="@+id/q5"
-                    style="@style/termTextView"
-                    android:text="@string/question5"
-                    android:textStyle="bold" />
-            </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/a5"
-                style="@style/termTextView"
-                android:layout_marginLeft="20dp"
-                android:text="@string/answer5" />
+        <ImageView
+            android:id="@+id/imageView6"
+            style="@style/termImageDot" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/q6"
+            style="@style/termTextView"
+            android:text="@string/question6"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    style="@style/termImageDot" />
-
-                <TextView
-                    android:id="@+id/q6"
-                    style="@style/termTextView"
-                    android:text="@string/question6"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/a6"
-                style="@style/termTextView"
-                android:layout_marginLeft="20dp"
-                android:text="@string/answer6" />
-        </LinearLayout>
-    </ScrollView>
+    <TextView
+        android:id="@+id/a6"
+        style="@style/termTextView"
+        android:layout_marginLeft="20dp"
+        android:text="@string/answer6" />
 
 </LinearLayout>

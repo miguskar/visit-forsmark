@@ -301,7 +301,8 @@ public class AttendantsActivity extends Activity {
 			lastname.setText("");
 			pnmbr.setText("");
 			rg.clearCheck();
-			cb.setChecked(false);
+			cb.setChecked(false);		
+			v.setFocusableInTouchMode(true);
 			firstname.requestFocus();
 		}
 		// Set Title

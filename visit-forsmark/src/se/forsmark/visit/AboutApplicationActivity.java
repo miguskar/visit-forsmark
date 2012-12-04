@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ScrollView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
@@ -55,6 +56,7 @@ public class AboutApplicationActivity extends TabActivity {
 		title.setText(getString(R.string.aboutApplication));
 		tabHost.setOnTabChangedListener(new OnTabChangeListener() {
 			public void onTabChanged(String tabId) {
+
 				setTabColor(tabHost);
 			}
 		});
