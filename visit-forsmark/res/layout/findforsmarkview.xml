@@ -22,44 +22,44 @@
             android:orientation="vertical" >
 
             <RelativeLayout
-                android:id="@+id/RelativeLayout1"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-				<!-- TODO fult som fan texten hamnar långt ner -->
+                android:layout_height="fill_parent" >
+
+                <Button
+                    android:id="@+id/bottomBackButton"
+                    style="@style/singleBottomBackButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/Back" />
+
                 <ImageView
                     android:id="@+id/imageViewMap"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:adjustViewBounds="true"
                     android:scaleType="fitStart"
                     android:src="@drawable/forsmark_map" />
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" >
+                <TextView
+                    android:id="@+id/mapsLink"
+                    style="@style/termTextView"
+                    android:layout_above="@+id/bottomBackButton"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/findForsmarkLink"
+                    android:autoLink="web" />
 
-                    <Button
-                        android:id="@+id/bottomBackButton"
-                        style="@style/singleBottomBackButton"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:text="@string/Back" />
-
-                    <TextView
-                        android:id="@+id/textView1"
-                        style="@style/termTextView"
-                        android:layout_above="@+id/bottomBackButton"
-                        android:layout_alignParentLeft="true"
-                        android:padding="10dp"
-                        android:text="@string/findForsmarkLong" />
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/mapsText"
+                    style="@style/termTextView"
+                    android:layout_above="@+id/mapsLink"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/findForsmarkText" />
 
             </RelativeLayout>
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

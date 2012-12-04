@@ -386,6 +386,7 @@ public class ConfirmActivity extends Activity {
 				bookingCreated(result);
 				break;
 			}
+			disable(false);
 		}
 
 		private Integer getSeatsLeft() {

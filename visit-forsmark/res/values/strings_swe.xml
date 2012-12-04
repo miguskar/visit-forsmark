@@ -5,7 +5,7 @@
     <string name="httpRequestUrl">http://83.249.138.5/backlog/application_switch.php</string>
     <string name="httpEmailRequestUrl">http://forsmark.westart.se/application_switch.php=</string>
     <string name="Today">Idag</string>
-     <string name="Loading">Laddar&#8230;</string>
+    <string name="Loading">Laddar&#8230;</string>
     <string name="bookingAlert">Ett mail har skickats till kontaktpersonens e-post.</string>
     <string name="dontForget">Glöm inte att ta med legitimation och bokningsnummer!</string>
     <string name="findThisBooking">Hitta denna bekräftelse och dina andra bokningar under \"mina bokningar\" på startsidan.</string>
@@ -104,7 +104,6 @@
     <string name="WrongIntValue">Felaktigt värde</string>
     <string name="aboutVisitForsmark">Om VisitForsmark</string>
     <string name="aboutVisitForsmarkLong">Här kommer en trevlig text med information om Forsmark och alla äventyr man kan vara med om där!</string>
-     <string name="findForsmarkLong">Här finns en länk till google maps!</string>
     <string name="couldNotCompleteBooking">Bokningen kunde inte slutföras. Försök igen senare.</string>
     <string name="invalidAttendantsInfo">Alla deltagare måste vara ifyllda för att slutföra bokningen.</string>
     <string name="dialogWarningTitle">Varning</string>
@@ -132,7 +131,7 @@
     <string name="findForsmark">Hitta hit</string>
     <string name="booking">Boka</string>
     <string name="Vattenfall">Vattenfall</string>
-    <!-- Strings for contactForsmark -->  
+    <!-- Strings for contactForsmark -->
     <string name="forsmarkContact">Ni är välkomna att kontakta oss vid eventuella frågor. Skriv lite saker här</string>
     <string name="forsmarkTel">0762133434</string>
     <string name="forsmarkMail">forsmark@blargh.ru</string>
@@ -143,5 +142,7 @@
     <string name="Mail">Epost:</string>
     <string name="WebPage">Hemsida:</string>
     <string name="openTime">Öppettider:</string>
+    <string name="findForsmarkLink">maps.google.se</string>
+    <string name="findForsmarkText">Länk till GoogleMaps</string>
 
 </resources>
