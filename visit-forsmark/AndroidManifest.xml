@@ -32,18 +32,6 @@
             android:enabled="true" >
         </activity>
         <activity
-            android:name="AboutApplicationFAQ"
-            android:enabled="true" >
-        </activity>
-        <activity
-            android:name="AboutApplicationCalActivity"
-            android:enabled="true" >
-        </activity>
-        <activity
-            android:name="AboutApplicationDayActivity"
-            android:enabled="true" >
-        </activity>
-        <activity
             android:name=".booking.DayActivity"
             android:enabled="true" >
         </activity>
@@ -103,6 +91,18 @@
         </activity>
         <activity
             android:name="AboutApplicationActivity"
+            android:enabled="true" >
+        </activity>
+        <activity
+            android:name="AboutApplicationFAQ"
+            android:enabled="true" >
+        </activity>
+        <activity
+            android:name="AboutApplicationCalActivity"
+            android:enabled="true" >
+        </activity>
+        <activity
+            android:name="AboutApplicationDayActivity"
             android:enabled="true" >
         </activity>
     </application>

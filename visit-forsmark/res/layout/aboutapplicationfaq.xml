@@ -28,12 +28,13 @@
                     android:text="@string/question1"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
-                    android:id="@+id/a1"
-                    style="@style/termTextView"
-                    android:text="@string/answer1"
-                    android:layout_marginLeft="20dp"/>
-            
+                android:id="@+id/a1"
+                style="@style/termTextView"
+                android:layout_marginLeft="20dp"
+                android:text="@string/answer1" />
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
@@ -48,12 +49,13 @@
                     android:text="@string/question2"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
-                    android:id="@+id/a2"
-                    style="@style/termTextView"
-                    android:text="@string/answer2"
-                    android:layout_marginLeft="20dp"/>
-            
+                android:id="@+id/a2"
+                style="@style/termTextView"
+                android:layout_marginLeft="20dp"
+                android:text="@string/answer2" />
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
@@ -68,12 +70,13 @@
                     android:text="@string/question3"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
-                    android:id="@+id/a3"
-                    style="@style/termTextView"
-                    android:text="@string/answer3"
-                    android:layout_marginLeft="20dp"/>
-            
+                android:id="@+id/a3"
+                style="@style/termTextView"
+                android:layout_marginLeft="20dp"
+                android:text="@string/answer3" />
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
@@ -88,12 +91,13 @@
                     android:text="@string/question4"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
-                    android:id="@+id/a4"
-                    style="@style/termTextView"
-                    android:text="@string/answer4"
-                    android:layout_marginLeft="20dp"/>
-            
+                android:id="@+id/a4"
+                style="@style/termTextView"
+                android:layout_marginLeft="20dp"
+                android:text="@string/answer4" />
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
@@ -108,12 +112,13 @@
                     android:text="@string/question5"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
-                    android:id="@+id/a5"
-                    style="@style/termTextView"
-                    android:text="@string/answer5"
-                    android:layout_marginLeft="20dp"/>
-            
+                android:id="@+id/a5"
+                style="@style/termTextView"
+                android:layout_marginLeft="20dp"
+                android:text="@string/answer5" />
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" >
@@ -128,11 +133,12 @@
                     android:text="@string/question6"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
-                    android:id="@+id/a6"
-                    style="@style/termTextView"
-                    android:text="@string/answer6"
-                    android:layout_marginLeft="20dp"/>
+                android:id="@+id/a6"
+                style="@style/termTextView"
+                android:layout_marginLeft="20dp"
+                android:text="@string/answer6" />
         </LinearLayout>
     </ScrollView>
 

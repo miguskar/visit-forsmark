@@ -8,4 +8,5 @@ public class AboutApplicationFAQ extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.aboutapplicationfaq);
 	}
+	
 }
