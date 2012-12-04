@@ -135,6 +135,7 @@ public class AttendantsActivity extends Activity {
 				}
 			}
 			// Validates radiobuttons: man & woman
+			
 		}
 		RadioButton rbMan = (RadioButton) findViewById(R.id.attendantradioButtonMan);
 		RadioButton rbWoman = (RadioButton) findViewById(R.id.attendantradioButtonWoman);
