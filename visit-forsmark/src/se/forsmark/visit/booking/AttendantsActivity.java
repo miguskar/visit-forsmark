@@ -49,17 +49,20 @@ public class AttendantsActivity extends Activity {
 		String text;
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
-		text = String.format(getString(R.string.attendantsTitle), (counter + 1), nbrAttendants);
+		text = String.format(getString(R.string.attendantsTitle),
+				(counter + 1), nbrAttendants);
 		tv.setText(text);
 
-		// Unhide next button
+		
 		Button b;
-		if (nbrAttendants > 2) {
-			b = (Button) findViewById(R.id.button_next_top);
-			b.setVisibility(View.VISIBLE);
-			b = (Button) findViewById(R.id.bottomNextButton);
-			b.setVisibility(View.GONE);
-		}
+		
+		// Unhide next button  - bort kommenterat pga ändring av layoutflow
+		// if (nbrAttendants > 2) {
+		// b = (Button) findViewById(R.id.button_next_top);
+		// b.setVisibility(View.VISIBLE);
+		// b = (Button) findViewById(R.id.bottomNextButton);
+		// b.setVisibility(View.GONE);
+		// }
 
 		// Unhide progress and set background
 		View v = findViewById(R.id.border_progress);
@@ -73,8 +76,9 @@ public class AttendantsActivity extends Activity {
 			public void onClick(View v) {
 				// Get message from resources
 				String text = getResources().getString(R.string.NoSFRToast);
-				Toast t = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Create
-																							// toast
+				Toast t = Toast.makeText(getApplicationContext(), text,
+						Toast.LENGTH_LONG); // Create
+											// toast
 				t.setGravity(Gravity.TOP, 0, 0); // Position
 				t.show();
 			}
@@ -106,12 +110,14 @@ public class AttendantsActivity extends Activity {
 				EditText ed = (EditText) vv;
 				if (ed.getText().toString().equals("")) {
 					// TODO I MÅN AV TID - fixa ordentlig validering!
-					String text = getResources().getString(R.string.errorMessageFieldEmpty); // Get
-																								// message
-																								// from
-																								// resources
-					Toast t2 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Creat
-																									// toast
+					String text = getResources().getString(
+							R.string.errorMessageFieldEmpty); // Get
+																// message
+																// from
+																// resources
+					Toast t2 = Toast.makeText(getApplicationContext(), text,
+							Toast.LENGTH_LONG); // Creat
+												// toast
 					t2.setGravity(Gravity.TOP, 0, 0); // Position
 					t2.show();
 					return false;
@@ -127,8 +133,9 @@ public class AttendantsActivity extends Activity {
 																					// message
 																					// from
 																					// resources
-			Toast t3 = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG); // Create
-																							// toast
+			Toast t3 = Toast.makeText(getApplicationContext(), text,
+					Toast.LENGTH_LONG); // Create
+										// toast
 			t3.setGravity(Gravity.TOP, 0, 0); // Position
 			t3.show();
 			return false;
@@ -152,14 +159,17 @@ public class AttendantsActivity extends Activity {
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
 		if (aid == 0) { // If attendant hasn't been added to the db
-			int id = db.addAttendant(firstname.getText().toString(), lastname.getText().toString(), pnmbr.getText()
-					.toString(), rbMan.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0, bookingId);
+			int id = db.addAttendant(firstname.getText().toString(), lastname
+					.getText().toString(), pnmbr.getText().toString(), rbMan
+					.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0,
+					bookingId);
 			if (id != -1)
 				attendantIds.add(id);
 
 		} else { // Update attendant if already exists in db
-			db.updateAttendant(aid, firstname.getText().toString(), lastname.getText().toString(), pnmbr.getText()
-					.toString(), rbMan.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0);
+			db.updateAttendant(aid, firstname.getText().toString(), lastname
+					.getText().toString(), pnmbr.getText().toString(), rbMan
+					.isChecked() ? "male" : "female", cb.isChecked() ? 1 : 0);
 		}
 		db.close();
 	}
@@ -178,45 +188,52 @@ public class AttendantsActivity extends Activity {
 		builder.create();
 		builder.setTitle(R.string.cancelBookingTitle);
 		builder.setMessage(R.string.cancelBookingMessage);
-		builder.setPositiveButton(R.string.dialogYes, new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(R.string.dialogYes,
+				new DialogInterface.OnClickListener() {
 
-			public void onClick(DialogInterface dialog, int which) {
-				setResult(RESULT_CANCELED);
-				finish();
-			}
-		});
-		builder.setNegativeButton(R.string.dialogNo, new DialogInterface.OnClickListener() {
-			
-			public void onClick(DialogInterface dialog, int which) {
-				// Do nothing
-			}
-		});
+					public void onClick(DialogInterface dialog, int which) {
+						setResult(RESULT_CANCELED);
+						finish();
+					}
+				});
+		builder.setNegativeButton(R.string.dialogNo,
+				new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface dialog, int which) {
+						// Do nothing
+					}
+				});
 		builder.show(); // b
 	}
 
 	public void bottomBackClick(View v) {
-		onBackPressed();
-
+		if (counter == 1) {
+			onBackPressed();
+		} else {
+			topBackButton(null);
+		}
 	}
 
 	public void bottomNextClick(View v) {
-
-		if (validate()) {
-			addOrUpdateAttendant();
+		if (counter >= nbrAttendants - 1) {
+			if (validate()) {
+				addOrUpdateAttendant();
+				DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
+				db.open();
+				int id = db.getLatestContactId();
+				db.close();
+				Intent ip = new Intent(v.getContext(), ConfirmActivity.class);
+				ip.putExtra("eventId", eventId);
+				ip.putExtra("contactId", id);
+				ip.putExtra("bookingId", bookingId);
+				ip.putExtra("progressBar", 3);
+				startActivityForResult(ip, BOOKING);
+			} else {
+				return;
+			}
 		} else {
-			return;
+			topNextButton(null);
 		}
-
-		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
-		db.open();
-		int id = db.getLatestContactId();
-		db.close();
-		Intent ip = new Intent(v.getContext(), ConfirmActivity.class);
-		ip.putExtra("eventId", eventId);
-		ip.putExtra("contactId", id);
-		ip.putExtra("bookingId", bookingId);
-		ip.putExtra("progressBar", 3);
-		startActivityForResult(ip, BOOKING);
 	}
 
 	public void topNextButton(View v) {
@@ -231,17 +248,18 @@ public class AttendantsActivity extends Activity {
 		 * deltagaren, dölj next-knappen.
 		 */
 		++counter;
-		// Modified stuff:
-		if (counter == 2) {
-			Button b = (Button) findViewById(R.id.button_back_top);
-			b.setVisibility(View.VISIBLE);
-		}
-		if (counter >= nbrAttendants - 1) {
-			Button b = (Button) findViewById(R.id.button_next_top);
-			b.setVisibility(View.GONE);
-			b = (Button) findViewById(R.id.bottomNextButton);
-			b.setVisibility(View.VISIBLE);
-		}
+		
+		// Modified stuff:  - bort kommenterat pga ändring av layoutflow
+		// if (counter == 2) {
+		// Button b = (Button) findViewById(R.id.button_back_top);
+		// b.setVisibility(View.VISIBLE);
+		// }
+		// if (counter >= nbrAttendants - 1) {
+		// Button b = (Button) findViewById(R.id.button_next_top);
+		// b.setVisibility(View.GONE);
+		// b = (Button) findViewById(R.id.bottomNextButton);
+		// b.setVisibility(View.VISIBLE);
+		// }
 		/*
 		 * RESET FIELDS
 		 */
@@ -262,7 +280,7 @@ public class AttendantsActivity extends Activity {
 		// Check if this attendant already exists in the attendantArrays. If so
 		// the correct information is gathered from the database and distributed
 		// over the fields accordingly.
-		if (attendantIds.size() > counter) {
+		if (attendantIds.size() > counter - 1) {
 			fillForm();
 		}
 		// Else clear all fields
@@ -272,10 +290,12 @@ public class AttendantsActivity extends Activity {
 			pnmbr.setText("");
 			rg.clearCheck();
 			cb.setChecked(false);
+			firstname.requestFocus();
 		}
 		// Set Title
 		TextView tv = (TextView) findViewById(R.id.border_title);
-		tv.setText(String.format(getString(R.string.attendantsTitle), (counter + 1), nbrAttendants));
+		tv.setText(String.format(getString(R.string.attendantsTitle),
+				(counter + 1), nbrAttendants));
 	}
 
 	public void topBackButton(View v) {
@@ -286,20 +306,22 @@ public class AttendantsActivity extends Activity {
 		--counter;
 		fillForm();
 
-		// dölj / visa navigation
-		if (counter == nbrAttendants - 2) {
-			Button b = (Button) findViewById(R.id.button_next_top);
-			b.setVisibility(View.VISIBLE);
-			b = (Button) findViewById(R.id.bottomNextButton);
-			b.setVisibility(View.GONE);
-		}
-		if (counter <= 1) {
-			Button backb = (Button) findViewById(R.id.button_back_top);
-			backb.setVisibility(View.GONE);
-		}
+		// dölj / visa navigation - bort kommenterat pga ändring av layoutflow
+		// if (counter == nbrAttendants - 2) {
+		// Button b = (Button) findViewById(R.id.button_next_top);
+		// b.setVisibility(View.VISIBLE);
+		// b = (Button) findViewById(R.id.bottomNextButton);
+		// b.setVisibility(View.GONE);
+		// }
+		// if (counter <= 1) {
+		// Button backb = (Button) findViewById(R.id.button_back_top);
+		// backb.setVisibility(View.GONE);
+		// }
+		
 		// Set Title
 		TextView tv2 = (TextView) findViewById(R.id.border_title);
-		tv2.setText(String.format(getString(R.string.attendantsTitle), (counter + 1), nbrAttendants));
+		tv2.setText(String.format(getString(R.string.attendantsTitle),
+				(counter + 1), nbrAttendants));
 	}
 
 	private void fillForm() {
@@ -310,11 +332,17 @@ public class AttendantsActivity extends Activity {
 		db.open();
 		Cursor c = db.getAttendantContactInfo(attendantIds.get(counter - 1));
 		if (c.moveToFirst()) {
-			firstname.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
-			lastname.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
-			pnmbr.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR)));
+			firstname
+					.setText(c.getString(c
+							.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_FIRSTNAME)));
+			lastname.setText(c.getString(c
+					.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_LASTNAME)));
+			pnmbr.setText(c.getString(c
+					.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_PNMBR)));
 
-			if (c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SEX)).equals("male")) {
+			if (c.getString(
+					c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_SEX))
+					.equals("male")) {
 				RadioButton rb = (RadioButton) findViewById(R.id.attendantradioButtonMan);
 				rb.setChecked(true);
 			} else {
@@ -322,7 +350,8 @@ public class AttendantsActivity extends Activity {
 				rb.setChecked(true);
 			}
 			CheckBox cb = (CheckBox) findViewById(R.id.attendantcheckboxSFR);
-			if (c.getInt(c.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_NOSFR)) == 1) {
+			if (c.getInt(c
+					.getColumnIndex(DatabaseHelper.COLUMN_ATTENDANTS_NOSFR)) == 1) {
 				cb.setChecked(true);
 			} else {
 				cb.setChecked(false);
