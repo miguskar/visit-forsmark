@@ -32,6 +32,22 @@
                     android:layout_alignParentLeft="true"
                     android:text="@string/Back" />
 
+                  <android.widget.NumberPicker
+                      android:id="@+id/numberPicker1"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentTop="true"
+                      android:layout_marginLeft="62dp"
+                      android:layout_marginTop="65dp"
+                      android:layout_toRightOf="@+id/bottomBackButton" />
+
+                  <android.widget.NumberPicker
+                      android:id="@+id/numberPicker1"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentTop="true"
+                      android:layout_centerHorizontal="true" />
+
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

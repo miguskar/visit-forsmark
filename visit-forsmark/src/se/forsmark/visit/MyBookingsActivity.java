@@ -107,7 +107,7 @@ public class MyBookingsActivity extends Activity {
 		DatabaseSQLite db = new DatabaseSQLite(getApplicationContext());
 		db.open();
 		Cursor c = db.getAllMyBookings();
-
+		
 		l = (LinearLayout) findViewById(R.id.rlayout1);
 		l2 = (LinearLayout) findViewById(R.id.rlayout2);
 		String[] days = getResources().getStringArray(R.array.myBookingsDaysStringsSwe);
@@ -127,7 +127,9 @@ public class MyBookingsActivity extends Activity {
 			b.setGravity(Gravity.CENTER);
 			String[] datetimestr = c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)).split(" ");
 			String[] datestr = datetimestr[0].split("-");
-			b.setText(days[Integer.parseInt(datestr[1])%7] + " " + datestr[2] + " " + months[Integer.parseInt(datestr[1])-1] + "\n" + datetimestr[1] + "-" + datetimestr[2]);
+			Date weekDay = new Date(Integer.parseInt(datestr[0]), Integer.parseInt(datestr[1]),Integer.parseInt(datestr[2]));
+			Log.v("sadas", datestr[2]);
+			b.setText(days[weekDay.getDay()+2] + " " + datestr[2] + " " + months[Integer.parseInt(datestr[1])-1] + "\n" + datetimestr[1] + "-" + datetimestr[2]);
 			b.setOnClickListener(ocl);
 			b.setVisibility(View.VISIBLE);
 			// If booking is in future:
