@@ -57,12 +57,12 @@
     <!-- String for terms -->
     <string name="declineTerm">Avböj</string>
     <string name="acceptTerm">Godkänn</string>
-    <string name="idTerm">Vid incheckningen behövs giltig fotolegitimation uppvisas. Om barn under 18 år saknar egen legitimation kan målsman gå i god för barnet.</string>
-    <string name="sfrTerm">För att få följa med ner i slutförvaret (SFR) måste varje deltagare kunna gå obehindrat, utan hjälpmedel. Anläggningen är inte handikappanpassad.</string>
-    <string name="childrenTerm">Barn 7–15 år får åka turen med vuxet sällskap. Max 2 barn per vuxen. Barn yngre än 7 år får tyvärr inte följa med ner i SFR men kan i vuxens sällskap vänta ovan jord.</string>
+    <string name="idTerm">Fotolegitimation krävs vid incheckning. Barn utan legitimation kan följa med i målsmans sällskap.</string>
+    <string name="sfrTerm">Väskor kan låsas in i skåp under turen. VisitForsmark ansvarar ej för inventarier i dessa skåp.</string>
+    <string name="childrenTerm">Barn 7–15 år får åka turen med vuxet sällskap. Max 2 barn per vuxen.</string>
     <string name="bookTerm">Ev. Avbokning/ombokning anmäles så snart som möjligt. Någon annan kan få platsen, vi har ofta en väntelista på personer som vill följa med.</string>
-    <string name="checkTerm">Incheckning ska ske vid Turistinformationen i Forsmarks Bruk senast 15 minuter innan avfärd. Vid senare ankomst upphör reservationen.</string>
-    <string name="cancelTerm">Vattenfall har rätt att ställa in turen om driftläget så kräver, men Vattenfall ska då snarast möjligen informera redan reserverade gäster.</string>
+    <string name="checkTerm">Incheckning ska ske vid VisitForsmarks informationsstation senast 15 minuter innan avfärd. Vid senare ankomst upphör reservationen.</string>
+    <string name="cancelTerm">VisitForsmark har rätt att ställa in turen vid dåligt väder, men VisitForsmark ska då snarast möjligen informera redan reserverade kontaktpersoner.</string>
     <!--  -->
     <string name="Jan">Januari</string>
     <string name="Feb">Februari</string>
@@ -121,7 +121,7 @@
     <string name="question5">Vad är slutförvar, och varför undrar ni om jag vill dit?</string>
     <string name="answer5">Det är där vi förvarar restprodukterna och sista delen i rundturen. Här krävs det att du kan röra dig obehindrat utan hjälpmedel och är äldre än 7 år.</string>
     
-    <string name="question6">Applikation fungerar inte på min iPhone, varför?</string>
+    <string name="question6">Ze applikation fungerar inte på min iPhone, varför?</string>
     <string name="answer6">...</string>
     <!--  -->
     <string name="HowManySeats">Hur många säten vill du boka?</string>
@@ -158,13 +158,13 @@
     <string name="aboutApplication">Om appen</string>
     <string name="findForsmark">Hitta hit</string>
     <string name="booking">Boka</string>
-    <string name="Vattenfall">Vattenfall</string>
+    <string name="Vattenfall">VisitForsmark</string>
     <!-- Strings for contactForsmark -->
     <string name="forsmarkContact">Ni är välkomna att kontakta oss vid eventuella frågor. Skriv lite saker här</string>
     <string name="forsmarkTel">0762133434</string>
-    <string name="forsmarkMail">forsmark@blargh.ru</string>
-    <string name="forsmarkWebPage">www.vattenfall.se</string>
-    <string name="forsmarkVisitWebPage">www.visitforsmark.se</string>
+    <string name="forsmarkMail">forsmark@epost.test</string>
+    <string name="forsmarkWebPage">www.visitforsmark1.se</string>
+    <string name="forsmarkVisitWebPage">www.visitforsmark2.se</string>
     <string name="forsmarkTelOpen">Mån  &#8211; Fre. \nKlockan 01  &#8211; 00.</string>
     <string name="Phone">Telefon:</string>
     <string name="Mail">Epost:</string>
