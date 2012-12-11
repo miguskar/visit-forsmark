@@ -60,7 +60,7 @@ public class AboutApplicationActivity extends TabActivity {
 			}
 		});
 	}
-	// FIXME: 
+	// FIXME: kod för att sätta design på tabbarna, används inte alls just nu
 	public static void setTabColor(TabHost tabhost) {
 	    for(int i=0;i<tabhost.getTabWidget().getChildCount();i++)
 	    {
