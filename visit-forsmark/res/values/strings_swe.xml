@@ -42,8 +42,8 @@
     <string name="SocialSecurity">Personnummer (10 siffror)</string>
     <string name="Male">Man</string>
     <string name="Female">Kvinna</string>
-    <string name="NoSFR">ej slutförvar</string>
-    <string name="NoSFRToast">Deltagare under 7 år eller deltagare som ej kan gå obehindrat utan hjälpmedel kan tyvärr ej följa med ner i slutförvaret.</string>
+    <string name="NoSFR">ej lunch</string>
+    <string name="NoSFRToast">Deltagare under 7 år eller deltagare som ej kan gå obehindrat utan hjälpmedel kan tyvärr ej bjudas på lunch.</string>
     <string name="errorMessageFieldEmpty">Alla fält måste vara ifyllda för att gå vidare.</string>
     <string name="errorMessageGender">Du måste välja kön.</string>
     <string name="noticeNoDayEvents">Det finns inga fler bussturer.</string>
@@ -118,8 +118,8 @@
     <string name="answer3">För att avboka eller ändra måste du kontakta forsmark på telefon. Du hittar kontaktuppgifter under "Kontakta Forsmark".</string>
     <string name="question4">Kan jag äta på plats?</string>
     <string name="answer4">Det går bra att köpa fika eller mat före eller efter turen.</string>
-    <string name="question5">Vad är slutförvar, och varför undrar ni om jag vill dit?</string>
-    <string name="answer5">Det är där vi förvarar restprodukterna och sista delen i rundturen. Här krävs det att du kan röra dig obehindrat utan hjälpmedel och är äldre än 7 år.</string>
+    <string name="question5">Vad är lunch, och varför undrar ni om jag vill äta?</string>
+    <string name="answer5">Det är där vi serverar restprodukterna och sista delen i rundturen. Här krävs det att du kan röra dig obehindrat utan hjälpmedel och är äldre än 7 år.</string>
     
     <string name="question6">Ze applikation fungerar inte på min iPhone, varför?</string>
     <string name="answer6">...</string>
