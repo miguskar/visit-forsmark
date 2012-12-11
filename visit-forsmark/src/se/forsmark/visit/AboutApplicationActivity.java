@@ -44,7 +44,7 @@ public class AboutApplicationActivity extends TabActivity {
 		tabHost.addTab(daySpec);
 		tabHost.addTab(faqSpec);
 		
-		setTabColor(tabHost);
+		//setTabColor(tabHost);
 		
 		Initialize(savedInstanceState);
 		
@@ -56,17 +56,17 @@ public class AboutApplicationActivity extends TabActivity {
 		tabHost.setOnTabChangedListener(new OnTabChangeListener() {
 			public void onTabChanged(String tabId) {
 
-				setTabColor(tabHost);
+				//setTabColor(tabHost);
 			}
 		});
 	}
-	
+	// FIXME: 
 	public static void setTabColor(TabHost tabhost) {
 	    for(int i=0;i<tabhost.getTabWidget().getChildCount();i++)
 	    {
 	    	tabhost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.border);//unselected
 	    }
-	    tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundResource(R.drawable.orange_border); // selected
+	    tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundResource(R.drawable.dayview_orange_border); // selected
 	}
 
 	public void bottomBackClick(View v) {
