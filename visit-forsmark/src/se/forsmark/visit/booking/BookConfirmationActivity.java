@@ -84,6 +84,7 @@ public class BookConfirmationActivity extends Activity {
 				attNameTv.append(db.getAttendantName(id) + "\n");
 			}
 		}
+		c.close();
 		db.close();
 	}
 
