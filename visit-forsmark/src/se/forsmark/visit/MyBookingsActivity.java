@@ -146,6 +146,7 @@ public class MyBookingsActivity extends Activity {
 		Log.v("child count", l2.getChildCount()+"");
 		if(l2.getChildCount() == 0)
 			findViewById(R.id.rlay2).setVisibility(View.GONE);
+		c.close();
 		db.close();
 	}
 
