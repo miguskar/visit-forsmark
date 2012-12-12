@@ -75,6 +75,7 @@ public class BookConfirmationActivity extends Activity {
 		countryTv.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_COUNTRY)));
 		phoneTv.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_CELLPHONE)));
 		mailTv.setText(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_CONTACT_EMAIL)));
+		c.close();
 		ArrayList<Integer> att = db.getAttendantIdsFromBookingId(bookingId);
 		if (att.size() <= 0) {
 			LinearLayout li = (LinearLayout) findViewById(R.id.attendantsLayout);
@@ -84,7 +85,6 @@ public class BookConfirmationActivity extends Activity {
 				attNameTv.append(db.getAttendantName(id) + "\n");
 			}
 		}
-		c.close();
 		db.close();
 	}
 
