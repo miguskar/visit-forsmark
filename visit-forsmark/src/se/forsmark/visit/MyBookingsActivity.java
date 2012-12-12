@@ -128,8 +128,8 @@ public class MyBookingsActivity extends Activity {
 			String[] datetimestr = c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_BOOKING_DATE)).split(" ");
 			String[] datestr = datetimestr[0].split("-");
 			Date weekDay = new Date(Integer.parseInt(datestr[0]), Integer.parseInt(datestr[1]),Integer.parseInt(datestr[2]));
-			Log.v("sadas", datestr[2]);
-			b.setText(days[weekDay.getDay()+2] + " " + datestr[2] + " " + months[Integer.parseInt(datestr[1])-1] + "\n" + datetimestr[1] + "-" + datetimestr[2]);
+			Log.v("sadas", weekDay.getDay() + " " + datestr[1] + datestr.length );
+			b.setText(days[(weekDay.getDay()+2)%7] + " " + datestr[2] + " " + months[Integer.parseInt(datestr[1])-1] + "\n" + datetimestr[1] + "-" + datetimestr[2]);
 			b.setOnClickListener(ocl);
 			b.setVisibility(View.VISIBLE);
 			// If booking is in future:
